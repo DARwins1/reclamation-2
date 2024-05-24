@@ -115,7 +115,7 @@
         "weight": 300
     },
     "V-Tol": {
-        "acceleration": 200,
+        "acceleration": 250,
         "buildPoints": 125,
         "buildPower": 150,
         "deceleration": 200,
@@ -124,6 +124,7 @@
         "id": "V-Tol",
         "model": "DPVTOL.PIE",
         "name": "VTOL",
+        "skidDeceleration": 900,
         "speed": 700,
         "spinSpeed": 200,
         "turnSpeed": 100,
@@ -255,7 +256,7 @@
         "model": "prlwhl1.PIE",
         "name": "Wheels",
         "skidDeceleration": 350,
-        "speed": 175,
+        "speed": 225,
         "type": "Wheeled",
         "weight": 300
     },
@@ -268,7 +269,7 @@
         "model": "prlwhl1.PIE",
         "name": "Wheels II",
         "skidDeceleration": 350,
-        "speed": 175,
+        "speed": 225,
         "type": "Wheeled",
         "weight": 250
     },
@@ -281,7 +282,7 @@
         "model": "prlwhl1.PIE",
         "name": "Wheels III",
         "skidDeceleration": 350,
-        "speed": 175,
+        "speed": 225,
         "type": "Wheeled",
         "weight": 200
     },
@@ -295,9 +296,10 @@
         "id": "Helicopter",
         "model": "PRLHELI1.PIE",
         "name": "Helicopter",
-        "speed": 350,
-        "spinSpeed": 100,
-        "turnSpeed": 100,
+        "speed": 250,
+        "spinAngle": 45,
+        "spinSpeed": 10,
+        "turnSpeed": 5,
         "type": "Lift",
         "weight": 50
     }
