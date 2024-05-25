@@ -238,7 +238,7 @@
         "thermal": 10,
         "type": "DEFENSE",
         "weapons": [
-            "RustRocket-LtA-T"
+            "RustRocket-LtA-TMk1"
         ],
         "width": 1
     },
@@ -455,7 +455,7 @@
         "thermal": 10,
         "type": "DEFENSE",
         "weapons": [
-            "Mortar1Mk1"
+            "BabaMortar"
         ],
         "width": 1
     },
@@ -523,7 +523,76 @@
         "thermal": 10,
         "type": "DEFENSE",
         "weapons": [
+            "RustRocket-LtA-TMk1"
+        ],
+        "width": 1
+    },
+    "A0BaBaRocketPitAT-2": {
+        "armour": 10,
+        "breadth": 1,
+        "buildPoints": 1,
+        "buildPower": 10,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 250,
+        "id": "A0BaBaRocketPitAT-2",
+        "name": "Scavenger AT-Rocket Pit 2",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "EXROCKET.PIE"
+        ],
+        "thermal": 10,
+        "type": "DEFENSE",
+        "weapons": [
             "RustRocket-LtA-T"
+        ],
+        "width": 1
+    },
+    "A0BaBaCannonPit": {
+        "armour": 10,
+        "breadth": 1,
+        "buildPoints": 1,
+        "buildPower": 10,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 250,
+        "id": "A0BaBaCannonPit",
+        "name": "Scavenger Cannon Pit",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "EXROCKET.PIE"
+        ],
+        "thermal": 10,
+        "type": "DEFENSE",
+        "weapons": [
+            "RustCannon2A-TMk1"
+        ],
+        "width": 1
+    },
+    "A0BaBaMRAPit": {
+        "armour": 10,
+        "breadth": 1,
+        "buildPoints": 1,
+        "buildPower": 10,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 250,
+        "id": "A0BaBaMRAPit",
+        "name": "Scavenger MRA Pit",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "BLBRMRTP.PIE"
+        ],
+        "thermal": 10,
+        "type": "DEFENSE",
+        "weapons": [
+            "RustRocket-MRL"
         ],
         "width": 1
     },
@@ -2667,22 +2736,22 @@
         "width": 1
     },
     "Sys-VTOL-RadarTower01": {
-        "armour": 15,
+        "armour": 10,
         "breadth": 1,
-        "buildPoints": 400,
-        "buildPower": 100,
+        "buildPoints": 300,
+        "buildPower": 60,
         "ecmID": "ZNULLECM",
         "height": 3,
-        "hitpoints": 600,
+        "hitpoints": 450,
         "id": "Sys-VTOL-RadarTower01",
         "name": "VTOL Radar Tower",
         "resistance": 150,
         "sensorID": "Sys-VTOLRadarTower01",
-        "strength": "HARD",
+        "strength": "MEDIUM",
         "structureModel": [
-            "BLGUARDR.pie"
+            "BLGUARDM.pie"
         ],
-        "thermal": 15,
+        "thermal": 10,
         "type": "DEFENSE",
         "width": 1
     },
@@ -2694,13 +2763,33 @@
         "ecmID": "ZNULLECM",
         "height": 3,
         "hitpoints": 450,
-        "id": "Sys-VTOL-RadarTower01",
+        "id": "Sys-VTOL-RustyRadarTower01",
         "name": "Rusty VTOL Radar Tower",
         "resistance": 150,
         "sensorID": "Sys-RustyVTOLRadarTower01",
         "strength": "MEDIUM",
         "structureModel": [
             "BLGUARDM.pie"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "width": 1
+    },
+    "Sys-VTOL-RadarTower02": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 100,
+        "ecmID": "ZNULLECM",
+        "height": 3,
+        "hitpoints": 600,
+        "id": "Sys-VTOL-RadarTower02",
+        "name": "Hardened VTOL Radar Tower",
+        "resistance": 150,
+        "sensorID": "Sys-VTOLRadarTower01",
+        "strength": "HARD",
+        "structureModel": [
+            "BLGUARDR.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",

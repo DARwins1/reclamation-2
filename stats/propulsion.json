@@ -13,6 +13,7 @@
     },
     "BaBaProp": {
         "buildPoints": 15,
+        "designable": 1,
         "id": "BaBaProp",
         "name": "BaBaProp",
         "speed": 200,

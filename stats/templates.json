@@ -245,6 +245,16 @@
             "BabaRocket"
         ]
     },
+    "BabaGrenJeep": {
+        "body": "B2RKJeepBody",
+        "id": "BabaGrenJeep",
+        "name": "Grenade Jeep",
+        "propulsion": "BaBaProp",
+        "type": "DROID",
+        "weapons": [
+            "BabaMiniMortar"
+        ]
+    },
     "BarbarianBuggy": {
         "body": "B3body-sml-buggy01",
         "id": "BarbarianBuggy",
@@ -273,6 +283,68 @@
         "type": "DROID",
         "weapons": [
             "BabaTrikeMG"
+        ]
+    },
+    "Baba-HBus-LCan": {
+        "body": "MonsterBus",
+        "id": "Baba-HBus-LCan",
+        "name": "Light Cannon Monster Bus",
+        "propulsion": "tracked01",
+        "type": "DROID",
+        "weapons": [
+            "RustCannon1Mk1"
+        ]
+    },
+    "Baba-HBus-HMG": {
+        "body": "MonsterBus",
+        "id": "Baba-HBus-HMG",
+        "name": "Heavy Machinegun Monster Bus",
+        "propulsion": "tracked01",
+        "type": "DROID",
+        "weapons": [
+            "RustMG3Mk1"
+        ]
+    },
+    "Baba-HBus-Sarissa": {
+        "body": "MonsterBus",
+        "id": "Baba-HBus-Sarissa",
+        "name": "Sarissa Monster Bus",
+        "propulsion": "tracked01",
+        "type": "DROID",
+        "weapons": [
+            "RustRocket-LtA-TMk1"
+        ]
+    },
+    "Baba-HBus-MRA": {
+        "body": "MonsterBus",
+        "id": "Baba-HBus-MRA",
+        "name": "MRA Monster Bus",
+        "propulsion": "tracked01",
+        "type": "DROID",
+        "weapons": [
+            "RustRocket-MRL"
+        ]
+    },
+    "Baba-HTruck-MRA": {
+        "body": "ScavTruckBody",
+        "id": "Baba-HTruck-MRA",
+        "name": "MRA Flatbed",
+        "propulsion": "BaBaProp",
+        "type": "DROID",
+        "weapons": [
+            "RustRocket-Pod",
+            "RustRocket-MRL"
+        ]
+    },
+    "Baba-HTruck-Lancer": {
+        "body": "ScavTruckBody",
+        "id": "Baba-HTruck-Lancer",
+        "name": "Lancer Flatbed",
+        "propulsion": "BaBaProp",
+        "type": "DROID",
+        "weapons": [
+            "RustRocket-Pod",
+            "RustRocket-LtA-T"
         ]
     },
     "CO-H-COM-H": {

@@ -12,11 +12,11 @@ helhmg: { body: "ScavengerChopper", prop: "Helicopter", weap: "RustMG3-VTOL" }, 
 moncan: { body: "MonsterBus", prop: "tracked01", weap: "RustCannon1Mk1" }, // Light Cannon Monster Bus Tank
 monhmg: { body: "MonsterBus", prop: "tracked01", weap: "RustMG3Mk1" }, // HMG Monster Bus Tank
 monmrl: { body: "MonsterBus", prop: "tracked01", weap: "RustRocket-MRL" }, // MRA Monster Bus Tank
-monsar: { body: "MonsterBus", prop: "tracked01", weap: "RustRocket-LtA-T" }, // Sarissa Monster Bus Tank
+monsar: { body: "MonsterBus", prop: "tracked01", weap: "RustRocket-LtA-TMk1" }, // Sarissa Monster Bus Tank
 buscan: { body: "BusBody", prop: "BaBaProp", weap: "RustCannon1Mk1" }, // Light Cannon school bus
 firetruck: { body: "FireBody", prop: "BaBaProp", weap: "RustFlame1Mk1" }, // Flamer firetruck
 minitruck: { body: "FireBody", prop: "BaBaProp", weap: "RustRocket-Pod" }, // Mini-Rocket Pod firetruck
-sartruck: { body: "FireBody", prop: "BaBaProp", weap: "RustRocket-LtA-T" }, // Sarissa firetruck
+sartruck: { body: "FireBody", prop: "BaBaProp", weap: "RustRocket-LtA-TMk1" }, // Sarissa firetruck
 lance: { body: "BaBaLanceBody", prop: "BaBaLegs", weap: "BabaLance" }, // Rocket scav
 
 // Infested Units:
@@ -28,11 +28,11 @@ infhelhmg: { body: "InfestedScavengerChopper", prop: "Helicopter", weap: "RustMG
 infmoncan: { body: "InfestedMonsterBus", prop: "tracked01", weap: "RustCannon1Mk1" }, // Infested Light Cannon Monster Bus Tank
 infmonhmg: { body: "InfestedMonsterBus", prop: "tracked01", weap: "RustMG3Mk1" }, // Infested HMG Monster Bus Tank
 infmonmrl: { body: "InfestedMonsterBus", prop: "tracked01", weap: "RustRocket-MRL" }, // Infested MRL Monster Bus Tank
-infmonsar: { body: "InfestedMonsterBus", prop: "tracked01", weap: "RustRocket-LtA-T" }, // Infested Sarissa Monster Bus Tank
+infmonsar: { body: "InfestedMonsterBus", prop: "tracked01", weap: "RustRocket-LtA-TMk1" }, // Infested Sarissa Monster Bus Tank
 infbuscan: { body: "InfestedBusBody", prop: "BaBaProp", weap: "RustCannon1Mk1" }, // Infested Light Cannon school bus
 inffiretruck: { body: "InfestedFireBody", prop: "BaBaProp", weap: "RustFlame1Mk1" }, // Infested Flamer firetruck
 infminitruck: { body: "InfestedFireBody", prop: "BaBaProp", weap: "RustRocket-Pod" }, // Infested Mini-Rocket Pod firetruck
-infsartruck: { body: "InfestedFireBody", prop: "BaBaProp", weap: "RustRocket-LtA-T" }, // Infested Sarissa firetruck
+infsartruck: { body: "InfestedFireBody", prop: "BaBaProp", weap: "RustRocket-LtA-TMk1" }, // Infested Sarissa firetruck
 inftrike: { body: "Infestedtrike01", prop: "BaBaProp", weap: "BabaTrikeMG" }, // Infested Trike
 infbuggy: { body: "Infestedsml-buggy01", prop: "BaBaProp", weap: "BabaBuggyMG" }, // Infested Buggy
 infrbuggy: { body: "InfestedRKbuggy01", prop: "BaBaProp", weap: "BabaRocket" }, // Infested Rocket Buggy
