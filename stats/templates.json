@@ -218,6 +218,26 @@
             "RustFlame1Mk1"
         ]
     },
+    "BabaFirePod": {
+        "body": "FireBody",
+        "id": "BabaFirePod",
+        "name": "Mini-Rocket Fire Truck",
+        "propulsion": "BaBaProp",
+        "type": "DROID",
+        "weapons": [
+            "RustRocket-Pod"
+        ]
+    },
+    "BabaFireSar": {
+        "body": "FireBody",
+        "id": "BabaFireSar",
+        "name": "Sarissa Fire Truck",
+        "propulsion": "BaBaProp",
+        "type": "DROID",
+        "weapons": [
+            "RustRocket-LtA-TMk1"
+        ]
+    },
     "BabaJeep": {
         "body": "B2JeepBody",
         "id": "BabaJeep",
