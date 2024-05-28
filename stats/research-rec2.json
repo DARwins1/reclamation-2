@@ -567,9 +567,6 @@
         "imdName": "icmolql.pie",
         "msgName": "RES_V_MET1",
         "name": "Composite Alloys",
-        "requiredResearch": [
-            "R-Struc-Research-Module"
-        ],
         "researchPoints": 1800,
         "researchPower": 56,
         "results": [
@@ -1100,6 +1097,7 @@
     "R-Cyborg-Wpn-LtRocket": {
         "iconID": "IMAGE_RES_CYBORGTECH",
         "id": "R-Cyborg-Wpn-LtRocket",
+        "keyTopic": 1,
         "msgName": "RES_CYW_LTRK1",
         "name": "Sarissa Cyborg",
         "requiredResearch": [
@@ -2234,8 +2232,7 @@
         "msgName": "RES_TRACK1",
         "name": "Tracked Propulsion",
         "requiredResearch": [
-            "R-Sys-Engineering01",
-            "R-Vehicle-Prop-Halftracks"
+            "R-Sys-Engineering01"
         ],
         "researchPoints": 1200,
         "researchPower": 37,
@@ -2262,6 +2259,7 @@
     "R-Wpn-Cannon-Accuracy01": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Cannon-Accuracy01",
+        "keyTopic": 1,
         "msgName": "RES_W_CNAC1",
         "name": "Cannon Laser Rangefinder",
         "requiredResearch": [
@@ -2323,7 +2321,7 @@
         "name": "HEAT Cannon Shells Mk2",
         "requiredResearch": [
             "R-Wpn-Cannon-Damage01",
-            "R-Struc-Research-Module"
+            "R-Wpn-Rocket-Damage02"
         ],
         "researchPoints": 2400,
         "researchPower": 75,
@@ -2461,10 +2459,10 @@
     "R-Wpn-Flamer-Damage02": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Flamer-Damage02",
+        "keyTopic": 1,
         "name": "High Temperature Flamer Gel Mk2",
         "requiredResearch": [
-            "R-Wpn-Flamer-Damage01",
-            "R-Wpn-Flamer-ROF02"
+            "R-Wpn-Flamer-Damage01"
         ],
         "researchPoints": 2200,
         "researchPower": 87,
@@ -2667,7 +2665,7 @@
         "requiredResearch": [
             "R-Wpn-MG-Damage02"
         ],
-        "researchPoints": 2400,
+        "researchPoints": 1100,
         "researchPower": 112,
         "results": [
             {
@@ -2930,10 +2928,6 @@
         "keyTopic": 1,
         "msgName": "RES_MORTA1",
         "name": "Mortar",
-        "requiredResearch": [
-            "R-Struc-Factory-Module",
-            "R-Wpn-Cannon-Damage01"
-        ],
         "researchPoints": 2400,
         "researchPower": 75,
         "resultComponents": [
@@ -2962,6 +2956,7 @@
     "R-Wpn-Rocket-Accuracy01": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Rocket-Accuracy01",
+        "keyTopic": 1,
         "msgName": "RES_W_RK_AC1",
         "name": "Stabilized Rockets",
         "requiredResearch": [
@@ -3053,7 +3048,7 @@
         "name": "HE Rockets Mk2",
         "requiredResearch": [
             "R-Wpn-Rocket-Damage01",
-            "R-Struc-Research-Module"
+            "R-Wpn-Rocket02-MRL"
         ],
         "researchPoints": 2400,
         "researchPower": 75,
@@ -3080,10 +3075,10 @@
     "R-Wpn-Rocket-Damage03": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Rocket-Damage03",
+        "keyTopic": 1,
         "name": "HE Rockets Mk3",
         "requiredResearch": [
-            "R-Wpn-Rocket-Damage02",
-            "R-Wpn-Rocket-LtA-TMk1"
+            "R-Wpn-Rocket-Damage02"
         ],
         "researchPoints": 3600,
         "researchPower": 112,
@@ -3116,7 +3111,7 @@
             "R-Wpn-Cannon-ROF01",
             "R-Wpn-Rocket-Damage01"
         ],
-        "researchPoints": 2400,
+        "researchPoints": 1400,
         "researchPower": 75,
         "results": [
             {
@@ -3140,10 +3135,10 @@
     "R-Wpn-Rocket-ROF02": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Rocket-ROF02",
+        "keyTopic": 1,
         "name": "Rocket Autoloader Mk2",
         "requiredResearch": [
-            "R-Wpn-Rocket-ROF01",
-            "R-Wpn-Rocket02-MRL"
+            "R-Wpn-Rocket-ROF01"
         ],
         "researchPoints": 3600,
         "researchPower": 112,
@@ -3222,10 +3217,6 @@
         "keyTopic": 1,
         "msgName": "RES_W_RK_LTAT1MK1",
         "name": "Sarissa AT Rocket",
-        "requiredResearch": [
-            "R-Wpn-Rocket-Damage02",
-            "R-Struc-Research-Module"
-        ],
         "researchPoints": 3600,
         "researchPower": 112,
         "resultComponents": [
@@ -5001,7 +4992,7 @@
             "R-Wpn-Cannon1Mk1",
             "R-Wpn-MG-ROF01"
         ],
-        "researchPoints": 2400,
+        "researchPoints": 1200,
         "researchPower": 125,
         "results": [
             {

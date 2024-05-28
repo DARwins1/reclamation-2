@@ -7,14 +7,6 @@
 /******************************************************/
 /*     reclamation campaign dataset and levels        */
 
-campaign	CAM_2
-data		"wrf/vidmem2.wrf"
-data		"wrf/basic.wrf"
-data		"wrf/cam2.wrf"
-data		"wrf/audio.wrf"
-data		"wrf/stats.wrf"
-data		"wrf/camres.wrf"
-
 campaign	CAM_3
 data		"wrf/vidmem3.wrf"
 data		"wrf/basic.wrf"
@@ -23,60 +15,70 @@ data		"wrf/audio.wrf"
 data		"wrf/stats.wrf"
 data		"wrf/camres.wrf"
 
-camstart	L1
-dataset		CAM_3
-game		"wrf/cam3/L1.gam"
-data		"wrf/cam3/L1.wrf"
+campaign	REC_1
+data		"wrf/vidmem3.wrf"
+data		"wrf/basic.wrf"
+data		"wrf/cam3.wrf"
+data		"wrf/audio.wrf"
+data		"wrf/stats.wrf"
+data		"wrf/camres.wrf"
 
-camchange	L1
-dataset		CAM_2
-data		"wrf/cam3/cam3change.wrf"
+campaign	REC_2
+data		"wrf/vidmem2.wrf"
+data		"wrf/basic.wrf"
+data		"wrf/cam3.wrf"
+data		"wrf/audio.wrf"
+data		"wrf/stats.wrf"
+data		"wrf/camres2.wrf"
+
+camstart	L1
+dataset		REC_1
 game		"wrf/cam3/L1.gam"
 data		"wrf/cam3/L1.wrf"
 
 between		L2S
-dataset		CAM_3
+dataset		REC_1
 data		"wrf/cam3/L2s.wrf"
 
 miss_keep	L2
-dataset		CAM_3
+dataset		REC_1
 game		"wrf/cam3/L2.gam"
 data		"wrf/cam3/L2.wrf"
 
 expand		L3
-dataset		CAM_3
+dataset		REC_1
 game		"wrf/cam3/L3.gam"
 data		"wrf/cam3/L3.wrf"
 
 between		L4S
-dataset		CAM_3
+dataset		REC_1
 data		"wrf/cam3/L4s.wrf"
 
 miss_keep	L4
-dataset		CAM_3
+dataset		REC_1
 game		"wrf/cam3/L4.gam"
 data		"wrf/cam3/L4.wrf"
 
 between		L5S
-dataset		CAM_3
+dataset		REC_1
 data		"wrf/cam3/L5s.wrf"
 
 miss_keep	L5
-dataset		CAM_3
+dataset		REC_1
 game		"wrf/cam3/L5.gam"
 data		"wrf/cam3/L5.wrf"
 
 between		L6S
-dataset		CAM_3
+dataset		REC_1
 data		"wrf/cam3/L6s.wrf"
 
 miss_keep	L6
-dataset		CAM_3
+dataset		REC_1
 game		"wrf/cam3/L6.gam"
 data		"wrf/cam3/L6.wrf"
 
 expand		L7
-dataset		CAM_3
+dataset		REC_1
 game		"wrf/cam3/L7.gam"
 data		"wrf/cam3/L7.wrf"
 
@@ -85,18 +87,13 @@ data		"wrf/cam3/L7.wrf"
 /* act 1 */
 
 camstart	A1L1
-dataset		CAM_3
-game		"wrf/cam3/L1.gam"
-data		"wrf/cam3/L1.wrf"
+dataset		REC_2
+game		"wrf/act1/A1L1.gam"
+data		"wrf/act1/A1L1.wrf"
 
 camchange	A1L1
-dataset		CAM_2
-data		"wrf/cam3/cam3change.wrf"
-game		"wrf/cam3/L1.gam"
-data		"wrf/cam3/L1.wrf"
-
-miss_keep	CAM_3_4
-dataset		CAM_3
-game		"wrf/cam3/cam3-4.gam"
-data		"wrf/cam3/sub3-4.wrf"
+dataset		REC_2
+data		"wrf/act1/cam3change.wrf"
+game		"wrf/act1/A1L1.gam"
+data		"wrf/act1/A1L1.wrf"
 

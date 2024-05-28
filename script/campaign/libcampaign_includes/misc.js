@@ -664,8 +664,15 @@ function camSetOnMapEnemyUnitExp()
 	});
 }
 
-// Returns a nice name for the passed in template
-// Takes in either a template object or a turret + body + propulsion
+//;; ## camNameTemplate(weapon, body, propulsion)
+//;; Returns a nice name for the passed in template
+//;; Takes in either a template object or a turret + body + propulsion
+//;;
+//;; @param {string | Object} weapon
+//;; @param {string} body
+//;; @param {string} propulsion
+//;; @returns {string}
+//;;
 function camNameTemplate(weapon, body, propulsion)
 {
 	if (!camDef(body))
@@ -675,6 +682,10 @@ function camNameTemplate(weapon, body, propulsion)
 		body = weapon.body;
 		weapon = weapon.weap;
 	}
+
+	const __MULTI_TURRET = (typeof weapon === "object" && camDef(weapon[1]));
+	// If `weapon` is an array of weapons, we only care about the first one.
+	weapon = __MULTI_TURRET ? weapon[0] : weapon;
 
 	let name;
 	let weapName = camGetCompNameFromId(weapon, "Weapon");
@@ -698,6 +709,7 @@ function camNameTemplate(weapon, body, propulsion)
 			}
 		}
 	}
+
 	if (body === "CyborgLightBody" || body === "CyborgHeavyBody")
 	{
 		// Just use the weapon name for cyborgs
@@ -707,7 +719,9 @@ function camNameTemplate(weapon, body, propulsion)
 	{
 		const __BODY_NAME = camGetCompNameFromId(body, "Body");
 		const __PROP_NAME = camGetCompNameFromId(propulsion, "Propulsion");
-		name = [ weapName, __BODY_NAME, __PROP_NAME ].join(" ");
+		name = (__MULTI_TURRET) 
+			? [ weapName, _("Hydra"), __BODY_NAME, __PROP_NAME ].join(" ") // Add "Hydra" if multiple turrets
+			: [ weapName, __BODY_NAME, __PROP_NAME ].join(" ");
 	}
 	return name;
 }

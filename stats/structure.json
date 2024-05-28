@@ -800,7 +800,7 @@
         "sensorID": "ZNULLSENSOR",
         "strength": "HARD",
         "structureModel": [
-            "BLWALLC1.pie"
+            "BLWALLC2.pie"
         ],
         "thermal": 15,
         "type": "CORNER WALL",
@@ -839,13 +839,51 @@
         "sensorID": "ZNULLSENSOR",
         "strength": "HARD",
         "structureModel": [
-            "blwallh.pie",
-            "blwallc1.pie",
-            "blwallh_t.pie",
-            "blwallh_l.pie"
+            "BLWALL2.pie",
+            "BLWALLC2.pie",
+            "BLWALLH_T_COL.pie",
+            "BLWALLH_l_COL.pie"
         ],
         "thermal": 15,
         "type": "WALL",
+        "width": 1
+    },
+    "OldHardcreteWall": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 125,
+        "buildPower": 25,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 700,
+        "id": "OldHardcreteWall",
+        "name": "Old Hardcrete Wall",
+        "sensorID": "ZNULLSENSOR",
+        "strength": "HARD",
+        "structureModel": [
+            "blwallhold.pie"
+        ],
+        "thermal": 15,
+        "type": "WALL",
+        "width": 1
+    },
+    "OldHardcreteCWall": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 125,
+        "buildPower": 25,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 700,
+        "id": "OldHardcreteCWall",
+        "name": "Old Hardcrete Corner Wall",
+        "sensorID": "ZNULLSENSOR",
+        "strength": "HARD",
+        "structureModel": [
+            "BLWALLCOLD.pie"
+        ],
+        "thermal": 15,
+        "type": "CORNER WALL",
         "width": 1
     },
     "A0LightFactory": {
@@ -1143,251 +1181,6 @@
         ],
         "width": 1
     },
-    "CO-Tower-HVCan": {
-        "armour": 12,
-        "breadth": 1,
-        "buildPoints": 500,
-        "buildPower": 100,
-        "ecmID": "ZNULLECM",
-        "height": 2,
-        "hitpoints": 600,
-        "id": "CO-Tower-HVCan",
-        "name": "*CO-Tower-HVCan*",
-        "resistance": 150,
-        "sensorID": "DefaultSensor1Mk1",
-        "strength": "HARD",
-        "structureModel": [
-            "BLGUARD2.pie"
-        ],
-        "thermal": 12,
-        "type": "DEFENSE",
-        "weapons": [
-            "Cannon4AUTOMk1"
-        ],
-        "width": 1
-    },
-    "CO-Tower-HvATRkt": {
-        "armour": 12,
-        "breadth": 1,
-        "buildPoints": 500,
-        "buildPower": 100,
-        "ecmID": "ZNULLECM",
-        "height": 2,
-        "hitpoints": 600,
-        "id": "CO-Tower-HvATRkt",
-        "name": "*CO-Tower-HvATRkt*",
-        "resistance": 150,
-        "sensorID": "DefaultSensor1Mk1",
-        "strength": "HARD",
-        "structureModel": [
-            "BLGUARD2.pie"
-        ],
-        "thermal": 12,
-        "type": "DEFENSE",
-        "weapons": [
-            "Rocket-HvyA-T"
-        ],
-        "width": 1
-    },
-    "CO-Tower-HvFlame": {
-        "armour": 12,
-        "breadth": 1,
-        "buildPoints": 500,
-        "buildPower": 100,
-        "ecmID": "ZNULLECM",
-        "height": 1,
-        "hitpoints": 600,
-        "id": "CO-Tower-HvFlame",
-        "name": "*CO-Tower-HvFlame*",
-        "resistance": 150,
-        "sensorID": "DefaultSensor1Mk1",
-        "strength": "MEDIUM",
-        "structureModel": [
-            "BLHARDPT.pie"
-        ],
-        "thermal": 12,
-        "type": "DEFENSE",
-        "weapons": [
-            "Flame2"
-        ],
-        "width": 1
-    },
-    "CO-Tower-LtATRkt": {
-        "armour": 12,
-        "breadth": 1,
-        "buildPoints": 500,
-        "buildPower": 100,
-        "ecmID": "ZNULLECM",
-        "height": 2,
-        "hitpoints": 600,
-        "id": "CO-Tower-LtATRkt",
-        "name": "*CO-Tower-LtATRkt*",
-        "resistance": 150,
-        "sensorID": "DefaultSensor1Mk1",
-        "strength": "MEDIUM",
-        "structureModel": [
-            "blguardn.pie"
-        ],
-        "thermal": 12,
-        "type": "DEFENSE",
-        "weapons": [
-            "Rocket-LtA-T"
-        ],
-        "width": 1
-    },
-    "CO-Tower-MG3": {
-        "armour": 12,
-        "breadth": 1,
-        "buildPoints": 500,
-        "buildPower": 100,
-        "ecmID": "ZNULLECM",
-        "height": 2,
-        "hitpoints": 600,
-        "id": "CO-Tower-MG3",
-        "name": "*CO-Tower-MG3*",
-        "resistance": 150,
-        "sensorID": "DefaultSensor1Mk1",
-        "strength": "MEDIUM",
-        "structureModel": [
-            "blguardn.PIE"
-        ],
-        "thermal": 12,
-        "type": "DEFENSE",
-        "weapons": [
-            "MG3Mk1"
-        ],
-        "width": 1
-    },
-    "CO-Tower-MdCan": {
-        "armour": 12,
-        "breadth": 1,
-        "buildPoints": 500,
-        "buildPower": 100,
-        "ecmID": "ZNULLECM",
-        "height": 2,
-        "hitpoints": 600,
-        "id": "CO-Tower-MdCan",
-        "name": "*CO-Tower-MdCan*",
-        "resistance": 150,
-        "sensorID": "DefaultSensor1Mk1",
-        "strength": "HARD",
-        "structureModel": [
-            "BLGUARD2.pie"
-        ],
-        "thermal": 12,
-        "type": "DEFENSE",
-        "weapons": [
-            "Cannon2A-TMk1"
-        ],
-        "width": 1
-    },
-    "CO-Tower-RotMG": {
-        "armour": 12,
-        "breadth": 1,
-        "buildPoints": 500,
-        "buildPower": 100,
-        "ecmID": "ZNULLECM",
-        "height": 2,
-        "hitpoints": 600,
-        "id": "CO-Tower-RotMG",
-        "name": "*CO-Tower-RotMG*",
-        "resistance": 150,
-        "sensorID": "DefaultSensor1Mk1",
-        "strength": "MEDIUM",
-        "structureModel": [
-            "blguardn.PIE"
-        ],
-        "thermal": 12,
-        "type": "DEFENSE",
-        "weapons": [
-            "MG4ROTARYMk1"
-        ],
-        "width": 1
-    },
-    "CO-WallTower-HvCan": {
-        "armour": 12,
-        "breadth": 1,
-        "buildPoints": 500,
-        "buildPower": 100,
-        "ecmID": "ZNULLECM",
-        "height": 2,
-        "hitpoints": 800,
-        "id": "CO-WallTower-HvCan",
-        "name": "*CO-WallTower-HvCan*",
-        "resistance": 150,
-        "sensorID": "DefaultSensor1Mk1",
-        "strength": "HARD",
-        "structureModel": [
-            "BLGUARD2.pie"
-        ],
-        "thermal": 12,
-        "type": "DEFENSE",
-        "weapons": [
-            "Cannon375mmMk1"
-        ],
-        "width": 1
-    },
-    "CO-WallTower-RotCan": {
-        "armour": 12,
-        "breadth": 1,
-        "buildPoints": 500,
-        "buildPower": 100,
-        "ecmID": "ZNULLECM",
-        "height": 2,
-        "hitpoints": 800,
-        "id": "CO-WallTower-RotCan",
-        "name": "*CO-WallTower-RotCan*",
-        "resistance": 150,
-        "sensorID": "DefaultSensor1Mk1",
-        "strength": "HARD",
-        "structureModel": [
-            "BLGUARD2.pie"
-        ],
-        "thermal": 12,
-        "type": "DEFENSE",
-        "weapons": [
-            "Cannon5VulcanMk1"
-        ],
-        "width": 1
-    },
-    "CollectiveCWall": {
-        "armour": 12,
-        "breadth": 1,
-        "buildPoints": 125,
-        "buildPower": 25,
-        "ecmID": "ZNULLECM",
-        "height": 2,
-        "hitpoints": 700,
-        "id": "CollectiveCWall",
-        "name": "Collective CWall",
-        "sensorID": "ZNULLSENSOR",
-        "strength": "HARD",
-        "structureModel": [
-            "BLWALLC2.pie"
-        ],
-        "thermal": 12,
-        "type": "CORNER WALL",
-        "width": 1
-    },
-    "CollectiveWall": {
-        "armour": 12,
-        "breadth": 1,
-        "buildPoints": 125,
-        "buildPower": 25,
-        "ecmID": "ZNULLECM",
-        "height": 2,
-        "hitpoints": 700,
-        "id": "CollectiveWall",
-        "name": "Collective Wall",
-        "sensorID": "ZNULLSENSOR",
-        "strength": "HARD",
-        "structureModel": [
-            "BLWALL2.pie"
-        ],
-        "thermal": 12,
-        "type": "WALL",
-        "width": 1
-    },
     "CoolingTower": {
         "armour": 20,
         "breadth": 1,
@@ -1582,7 +1375,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
-            "BLMRTPIT.PIE"
+            "BLMRTPIT_COL.PIE"
         ],
         "thermal": 10,
         "type": "DEFENSE",
@@ -1605,7 +1398,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
-            "BLMRTPIT.PIE"
+            "BLMRTPIT_COL.PIE"
         ],
         "thermal": 10,
         "type": "DEFENSE",
@@ -1766,7 +1559,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
-            "BLMRTPIT.PIE"
+            "BLMRTPIT_COL.PIE"
         ],
         "thermal": 10,
         "type": "DEFENSE",
@@ -1789,7 +1582,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
-            "BLGUARDR.pie"
+            "BLGUARDN.pie"
         ],
         "thermal": 10,
         "type": "DEFENSE",
@@ -1812,7 +1605,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
-            "BLGUARDR.pie"
+            "BLGUARDN.pie"
         ],
         "thermal": 10,
         "type": "DEFENSE",
@@ -1835,7 +1628,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
-            "BLGUARDR.pie"
+            "BLGUARDN.pie"
         ],
         "thermal": 10,
         "type": "DEFENSE",
@@ -1858,7 +1651,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
-            "blguardr.pie"
+            "BLGUARDN.pie"
         ],
         "thermal": 20,
         "type": "DEFENSE",
@@ -1927,12 +1720,35 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
-            "BLGUARDR.pie"
+            "BLGUARDN.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
         "weapons": [
             "MG3Mk1"
+        ],
+        "width": 1
+    },
+    "RustGuardTower3": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 100,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 600,
+        "id": "RustGuardTower3",
+        "name": "Rusty Heavy Machinegun Tower",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "BLGUARDR.pie"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "RustMG3Mk1"
         ],
         "width": 1
     },
@@ -1950,7 +1766,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
-            "BLGUARDR.pie"
+            "BLGUARDN.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -1973,7 +1789,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
-            "BLGUARDR.pie"
+            "BLGUARDN.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -2002,6 +1818,29 @@
         "type": "DEFENSE",
         "weapons": [
             "Rocket-Pod"
+        ],
+        "width": 1
+    },
+    "RustGuardTower6": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 350,
+        "buildPower": 125,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 60,
+        "id": "RustGuardTower6",
+        "name": "Rusty Mini-Rocket Tower",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "BLGUARDR.pie"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "RustRocket-Pod"
         ],
         "width": 1
     },
@@ -2386,6 +2225,29 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
+            "blpilbox_col.pie"
+        ],
+        "thermal": 20,
+        "type": "DEFENSE",
+        "weapons": [
+            "MG3-Pillbox"
+        ],
+        "width": 1
+    },
+    "OldPillBox1": {
+        "armour": 20,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 100,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 700,
+        "id": "OldPillBox1",
+        "name": "Old Heavy Machinegun Bunker",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "BUNKER",
+        "structureModel": [
             "blpilbox.pie"
         ],
         "thermal": 20,
@@ -2409,7 +2271,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
-            "blpilbox.pie"
+            "blpilbox_col.pie"
         ],
         "thermal": 20,
         "type": "DEFENSE",
@@ -2432,7 +2294,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
-            "blpilbox.pie"
+            "blpilbox_col.pie"
         ],
         "thermal": 20,
         "type": "DEFENSE",
@@ -2455,7 +2317,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
-            "Blcanpil.pie"
+            "Blcanpil_col.pie"
         ],
         "thermal": 20,
         "type": "DEFENSE",
@@ -2478,7 +2340,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
-            "Blcanpil.pie"
+            "Blcanpil_col.pie"
         ],
         "thermal": 20,
         "type": "DEFENSE",
@@ -2501,7 +2363,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
-            "Blcanpil.pie"
+            "Blcanpil_col.pie"
         ],
         "thermal": 20,
         "type": "DEFENSE",
@@ -2524,7 +2386,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
-            "blpilbox.pie"
+            "blpilbox_col.pie"
         ],
         "thermal": 20,
         "type": "DEFENSE",
@@ -2547,7 +2409,7 @@
         "sensorID": "Sys-CBTower01",
         "strength": "HARD",
         "structureModel": [
-            "BLGUARDR.pie"
+            "BLGUARDN.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -2709,7 +2571,7 @@
         "sensorID": "SensorTower1Mk1",
         "strength": "HARD",
         "structureModel": [
-            "BLGUARDR.pie"
+            "BLGUARDN.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -2729,7 +2591,7 @@
         "sensorID": "Sys-VTOLCBTower01",
         "strength": "HARD",
         "structureModel": [
-            "BLGUARDR.pie"
+            "BLGUARDN.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -2789,7 +2651,7 @@
         "sensorID": "Sys-VTOLRadarTower01",
         "strength": "HARD",
         "structureModel": [
-            "BLGUARDR.pie"
+            "BLGUARDN.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -2828,7 +2690,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
-            "Blcanpil.PIE"
+            "Blcanpil_col.PIE"
         ],
         "thermal": 20,
         "type": "DEFENSE",
@@ -2851,7 +2713,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
-            "blcanpil.PIE"
+            "Blcanpil_col.PIE"
         ],
         "thermal": 20,
         "type": "DEFENSE",
@@ -2874,7 +2736,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
-            "BLGUARDR.PIE"
+            "BLGUARDN.PIE"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -2917,7 +2779,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
-            "BLGUARD1.pie"
+            "BLGUARD2.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -2941,7 +2803,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
-            "BLGUARD1.pie"
+            "BLGUARD2.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -2965,7 +2827,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
-            "BLGUARD1.pie"
+            "BLGUARD2.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -2989,7 +2851,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
-            "BLGUARD1.pie"
+            "BLGUARD2.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -3013,7 +2875,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
-            "BLGUARD1.pie"
+            "BLGUARD2.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -3060,7 +2922,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
-            "BLGUARD1.pie"
+            "BLGUARD2.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -3084,7 +2946,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
-            "BLGUARD1.pie"
+            "BLGUARD2.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -3108,7 +2970,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
-            "BLGUARD1.pie"
+            "BLGUARD2.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -3132,7 +2994,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
-            "BLGUARD1.pie"
+            "BLGUARD2.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -3156,7 +3018,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
-            "BLGUARD1.pie"
+            "BLGUARD2.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -3180,12 +3042,36 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
-            "BLGUARD1.pie"
+            "BLGUARD2.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
         "weapons": [
             "Cannon2A-TMk1"
+        ],
+        "width": 1
+    },
+    "RustWallTower03": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 200,
+        "combinesWithWall": true,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 800,
+        "id": "RustWallTower03",
+        "name": "Rusty Medium Cannon Hardpoint",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLGUARD1.pie"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "RustCannon2A-TMk1"
         ],
         "width": 1
     },
@@ -3204,7 +3090,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
-            "BLGUARD1.pie"
+            "BLGUARD2.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -3228,7 +3114,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
-            "BLGUARD1.pie"
+            "BLGUARD2.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -3252,7 +3138,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
-            "BLGUARD1.pie"
+            "BLGUARD2.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",

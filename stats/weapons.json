@@ -3496,7 +3496,7 @@
         "buildPower": 80,
         "damage": 60,
         "effectSize": 75,
-        "explosionWav": "lrgexpl.ogg",
+        "explosionWav": "smlexpl.ogg",
         "facePlayer": 1,
         "fireOnMove": 0,
         "firePause": 60,

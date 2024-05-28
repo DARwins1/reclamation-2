@@ -6,6 +6,12 @@ var cTempl = {
 truck: { body: "Body1REC", prop: "wheeled01", weap: "Spade1Mk1" }, // Truck Viper Wheels
 
 // Scavenger Units:
+bloke: { body: "B1BaBaPerson01", prop: "BaBaLegs", weap: "BabaMG" }, // Bloke
+trike: { body: "B4body-sml-trike01", prop: "BaBaProp", weap: "BabaTrikeMG" }, // Trike
+buggy: { body: "B3body-sml-buggy01", prop: "BaBaProp", weap: "BabaBuggyMG" }, // Buggy
+bjeep: { body: "B2JeepBody", prop: "BaBaProp", weap: "BabaJeepMG" }, // Jeep
+rbjeep: { body: "B2RKJeepBody", prop: "BaBaProp", weap: "BabaRocket" }, // Rocket Jeep
+rbuggy: { body: "B3bodyRKbuggy01", prop: "BaBaProp", weap: "BabaRocket" }, // Rocket Buggy
 civ: { body: "CivilianBody", prop: "BaBaLegs", weap: "BabaMG" }, // Civilian
 helcan: { body: "ScavengerChopper", prop: "Helicopter", weap: "RustCannon1-VTOL" }, // Light Cannon Helicopter
 helhmg: { body: "ScavengerChopper", prop: "Helicopter", weap: "RustMG3-VTOL" }, // HMG Helicopter
@@ -42,52 +48,53 @@ stinger: { body: "CrawlerBody", prop: "CyborgLegs", weap: "StingerTail" }, // St
 vilestinger: { body: "CrawlerBody", prop: "CyborgLegs", weap: "VileStingerTail" }, // Vile Stinger Crawler
 boomtick: { body: "CrawlerBody", prop: "BoomTickLegs", weap: "BoomTickSac" }, // Boom Tick Crawler
 
-// CAM_1A
-bloke: { body: "B1BaBaPerson01", prop: "BaBaLegs", weap: "BabaMG" },
-trike: { body: "B4body-sml-trike01", prop: "BaBaProp", weap: "BabaTrikeMG" },
-buggy: { body: "B3body-sml-buggy01", prop: "BaBaProp", weap: "BabaBuggyMG" },
-bjeep: { body: "B2JeepBody", prop: "BaBaProp", weap: "BabaJeepMG" },
 
-// SUB_1_2
-rbjeep: { body: "B2RKJeepBody", prop: "BaBaProp", weap: "BabaRocket" },
-rbuggy: { body: "B3bodyRKbuggy01", prop: "BaBaProp", weap: "BabaRocket" },
+// Reclamation 2 Campaign
+// Player/Allied Units:
+pllcanw: { body: "Body1REC", prop: "wheeled01", weap: "Cannon1Mk1" }, // Light Cannon Viper Wheels
+pllmortw: { body: "Body1REC", prop: "wheeled01", weap: "Mortar1Mk1" }, // Mortar Viper Wheels
+pllrepw: { body: "Body1REC", prop: "wheeled01", weap: "LightRepair1" }, // Repair Turret Viper Wheels
+plltmgt: { body: "Body1REC", prop: "tracked01", weap: "MG2Mk1" }, // Twin Machinegun Viper Tracks
+pllpodt: { body: "Body1REC", prop: "tracked01", weap: "Rocket-Pod" }, // Mini-Rocket Pod Viper Tracks
+pllsart: { body: "Body1REC", prop: "tracked01", weap: "Rocket-LtA-TMk1" }, // Sarissa Viper Tracks
+pllsenst: { body: "Body1REC", prop: "tracked01", weap: "SensorTurret1Mk1" }, // Sensor Viper Tracks
+plmtruckht: { body: "Body5REC", prop: "tracked01", weap: "Spade1Mk1" }, // Truck Cobra Tracks
+plhhct: { body: "Body11ABT", prop: "tracked01", weap: "Cannon375mmMk1" }, // Heavy Cannon Python Tracks
+plmatt: { body: "Body5REC", prop: "tracked01", weap: "Rocket-LtA-T" }, // Lancer Cobra Tracks
+plmrept: { body: "Body5REC", prop: "tracked01", weap: "LightRepair1" }, // Repair Turret Cobra Tracks
+plhasgnt: { body: "Body11ABT", prop: "tracked01", weap: "MG4ROTARYMk1" }, // Assault Gun Python Tracks
+plhhpvt: { body: "Body11ABT", prop: "tracked01", weap: "Cannon4AUTOMk1" }, // Hyper Velocity Cannon Python Tracks
+plhaacnt: { body: "Body11ABT", prop: "tracked01", weap: "AAGun2Mk1" }, // Whirlwind Python Tracks
 
-// SUB_1_3
-nppod: { body: "Body4ABT", prop: "wheeled01", weap: "Rocket-Pod" },
-nphmg: { body: "Body4ABT", prop: "HalfTrack", weap: "MG3Mk1" },
-npsmc: { body: "Body8MBT", prop: "HalfTrack", weap: "Cannon2A-TMk1" },
+// Cyborgs:
+cybrp: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "CyborgRepair" }, // Mechanic Cyborg
+cyben: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "CyborgSpade" }, // Combat Engineer Cyborg
+cybmg: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "CyborgChaingun" }, // Machinegunner Cyborg
+cybca: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "CyborgCannon" }, // Heavy Gunner Cyborg
+cybfl: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "CyborgFlamer01" }, // Flamer Cyborg
+cybla: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "CyborgRocket" }, // Lancer Cyborg
+cybgr: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "Cyb-Wpn-Grenade" }, // Grenadier Cyborg
+cybth: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "Cyb-Wpn-Thermite" }, // Thermite Flamer Cyborg
+cybag: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "CyborgRotMG" }, // Assault Gunner Cyborg
+scymc: { body: "CyborgHeavyBody", prop: "CyborgLegs", weap: "Cyb-Hvywpn-Mcannon" }, // Super Heavy-Gunner Cyborg
+scyhc: { body: "CyborgHeavyBody", prop: "CyborgLegs", weap: "Cyb-Hvywpn-HPV" }, // Super HPC Cyborg
+scyac: { body: "CyborgHeavyBody", prop: "CyborgLegs", weap: "Cyb-Hvywpn-Acannon" }, // Super Auto-Cannon Cyborg
+scytk: { body: "CyborgHeavyBody", prop: "CyborgLegs", weap: "Cyb-Hvywpn-TK" }, // Super Tank-Killer Cyborg
+cybls: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "Cyb-Wpn-Laser" }, // Flashlight Gunner Cyborg
+nxcyrail: { body: "CybNXRail1Jmp", prop: "CyborgLegs02", weap: "NX-Cyb-Rail1" }, // NEXUS Needle Cyborg
+nxcyscou: { body: "CybNXMissJmp", prop: "CyborgLegs02", weap: "NX-CyborgMiss" }, // NEXUS Scourge Cyborg
+nxcylas: { body: "CybNXPulseLasJmp", prop: "CyborgLegs02", weap: "NX-CyborgPulseLas" }, // NEXUS Flashlight Cyborg
 
-// CAM_1C
-npsens: { body: "Body4ABT", prop: "wheeled01", weap: "SensorTurret1Mk1" },
-//buscan: { body: "BusBody", prop: "BaBaProp", weap: "BabaBusCannon" },
-//firecan: { body: "FireBody", prop: "BaBaProp", weap: "BabaBusCannon" },
-npslc: { body: "Body8MBT", prop: "HalfTrack", weap: "Cannon1Mk1" },
-npmor: { body: "Body8MBT", prop: "HalfTrack", weap: "Mortar1Mk1" },
-npsmct: { body: "Body8MBT", prop: "tracked01", weap: "Cannon2A-TMk1" },
-nptruck: { body: "Body8MBT", prop: "HalfTrack", weap: "Spade1Mk1" },
+// Scavenger Units:
+flatmrl: { body: "ScavTruckBody", prop: "BaBaProp", weap: ["RustRocket-Pod", "RustRocket-MRL"] }, // MRA Flatbed Truck
+flatat: { body: "ScavTruckBody", prop: "BaBaProp", weap: ["RustRocket-Pod", "RustRocket-LtA-T"] }, // Lancer Flatbed Truck
+gbjeep: { body: "B2RKJeepBody", prop: "BaBaProp", weap: "BabaMiniMortar" }, // Grenade Jeep
+helpod: { body: "ScavengerHvyChopper", prop: "Helicopter", weap: "RustRocket-Pod-VTOL" }, // MRP Helicopter
 
-// CAM_1CA
-npmrl: { body: "Body4ABT", prop: "HalfTrack", weap: "Rocket-MRL" },
-npmmct: { body: "Body12SUP", prop: "tracked01", weap: "Cannon2A-TMk1" },
-npsbb: { body: "Body8MBT", prop: "HalfTrack", weap: "Rocket-BB" },
+// Infested Units:
 
-// CAM_1_5
-npcybc: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "CyborgCannon" },
-npcybf: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "CyborgFlamer01" },
-npcybm: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "CyborgChaingun" },
 
-// CAM_1AC
-nphct: { body: "Body12SUP", prop: "tracked01", weap: "Cannon375mmMk1" },
-npmorb: { body: "Body8MBT", prop: "HalfTrack", weap: "Mortar2Mk1" },
-npmsens: { body: "Body8MBT", prop: "HalfTrack", weap: "SensorTurret1Mk1" },
-
-// CAM_1_D
-npcybr: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "CyborgRocket" },
-npltat: { body: "Body4ABT", prop: "HalfTrack", weap: "Rocket-LtA-T" },
-nphmgh: { body: "Body8MBT", prop: "hover01", weap: "MG3Mk1" },
-npltath: { body: "Body8MBT", prop: "hover01", weap: "Rocket-LtA-T" },
-nphch: { body: "Body12SUP", prop: "hover01", weap: "Cannon375mmMk1" },
-
+// Collective Units:
 // CAM_2_A
 commgt: { body: "Body6SUPP", prop: "tracked01", weap: "MG3Mk1" },
 comsens: { body: "Body6SUPP", prop: "tracked01", weap: "SensorTurret1Mk1" },
@@ -96,10 +103,6 @@ comct: { body: "Body6SUPP", prop: "tracked01", weap: "Cannon2A-TMk1" },
 comorb: { body: "Body6SUPP", prop: "HalfTrack", weap: "Mortar2Mk1" },
 colcbv: { body: "Body2SUP", prop: "V-Tol", weap: "Bomb1-VTOL-LtHE" },
 colatv: { body: "Body2SUP", prop: "V-Tol", weap: "Rocket-VTOL-LtA-T" },
-prtruck: { body: "Body5REC", prop: "tracked01", weap: "Spade1Mk1" },
-prhct: { body: "Body11ABT", prop: "tracked01", weap: "Cannon375mmMk1" },
-prltat: { body: "Body5REC", prop: "tracked01", weap: "Rocket-LtA-T" },
-prrept: { body: "Body5REC", prop: "tracked01", weap: "LightRepair1" },
 
 // CAM_2_B
 cotruck: { body: "Body6SUPP", prop: "tracked01", weap: "Spade1Mk1" },
@@ -123,7 +126,6 @@ cohhot: { body: "Body9REC", prop: "tracked01", weap: "Howitzer105Mk1" },
 // CAM_2_5
 cohhpv: { body: "Body9REC", prop: "tracked01", weap: "Cannon4AUTOMk1" },
 comagt: { body: "Body6SUPP", prop: "tracked01", weap: "MG4ROTARYMk1" },
-cocybag: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "CyborgRotMG" },
 cohaaq: { body: "Body9REC", prop: "tracked01", weap: "QuadRotAAGun" },
 
 // CAM_2_D
@@ -141,6 +143,10 @@ comrotmh: { body: "Body6SUPP", prop: "tracked01", weap: "Mortar3ROTARYMk1" },
 // CAM_2_8
 comhvat: { body: "Body6SUPP", prop: "V-Tol", weap: "Rocket-VTOL-HvyA-T" },
 
+
+// CAM_1A
+
+
 // CAM_3_A
 nxtruckh: { body: "Body7ABT", prop: "hover02", weap: "Spade1Mk1" },
 nxmserh: { body: "Body7ABT", prop: "hover02", weap: "Missile-MdArt" },
@@ -148,18 +154,15 @@ nxmreph: { body: "Body7ABT", prop: "hover02", weap: "LightRepair1" },
 nxlsensh: { body: "Body3MBT", prop: "hover02", weap: "SensorTurret1Mk1" },
 nxmrailh: { body: "Body7ABT", prop: "hover02", weap: "RailGun2Mk1" },
 nxmscouh: { body: "Body7ABT", prop: "hover02", weap: "Missile-A-T" },
-nxcyrail: { body: "CybNXRail1Jmp", prop: "CyborgLegs02", weap: "NX-Cyb-Rail1" },
-nxcyscou: { body: "CybNXMissJmp", prop: "CyborgLegs02", weap: "NX-CyborgMiss" },
+
 nxlneedv: { body: "Body3MBT", prop: "V-Tol02", weap: "RailGun1-VTOL" },
 nxlscouv: { body: "Body3MBT", prop: "V-Tol02", weap: "Missile-VTOL-AT" },
 nxmtherv: { body: "Body7ABT", prop: "V-Tol02", weap: "Bomb4-VTOL-HvyINC" },
-prhasgnt: { body: "Body11ABT", prop: "tracked01", weap: "MG4ROTARYMk1" },
-prhhpvt: { body: "Body11ABT", prop: "tracked01", weap: "Cannon4AUTOMk1" },
-prhaacnt: { body: "Body11ABT", prop: "tracked01", weap: "AAGun2Mk1" },
+
 
 // CAM_3_1
 nxmcommh: { body: "Body7ABT", prop: "hover02", weap: "CommandTurret1" },
-nxcylas: { body: "CybNXPulseLasJmp", prop: "CyborgLegs02", weap: "NX-CyborgPulseLas" },
+
 
 // CAM_3_B
 nxmlinkh: { body: "Body7ABT", prop: "hover02", weap: "NEXUSlink" },
@@ -187,7 +190,6 @@ nxmpulsev: { body: "Body7ABT", prop: "V-Tol02", weap: "Laser2PULSE-VTOL" },
 
 ////////////////////////////////////////////////////////////////////////////////
 
-cybtf: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "Cyb-Wpn-Thermite" },
 bubut: { body: "Body2SUP", prop: "tracked01", weap: "Rocket-BB" },
 sart: { body: "Body2SUP", prop: "tracked01", weap: "Rocket-LtA-TMk1" },
 

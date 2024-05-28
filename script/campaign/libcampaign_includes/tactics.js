@@ -838,6 +838,7 @@ function __camCheckGroupMorale(group)
 			const temp = gi.data.pos;
 			gi.data.pos = [ camMakePos(gi.data.fallback) ];
 			gi.data.fallback = temp;
+			gi.target = undefined;
 			// apply orders instantly
 			queue("__camTacticsTickForGroup", __CAM_TICKS_PER_FRAME, group);
 			break;
@@ -854,6 +855,7 @@ function __camCheckGroupMorale(group)
 			const temp = gi.data.pos;
 			gi.data.pos = gi.data.fallback;
 			gi.data.fallback = temp[0];
+			gi.target = undefined;
 			// apply orders instantly
 			queue("__camTacticsTickForGroup", __CAM_TICKS_PER_FRAME, group);
 			break;

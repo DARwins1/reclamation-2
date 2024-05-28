@@ -241,34 +241,54 @@ function camUpgradeOnMapTemplates(template1, template2, playerId, excluded)
 				}
 			}
 
+			//Check if this object has a label and/or group assigned to it
+			// FIXME: O(n) lookup here
+			const __DROID_LABEL = getLabel(dr);
+			const __DROID_GROUP = dr.group;
+
 			//Replace it
 			const droidInfo = {x: dr.x, y: dr.y, name: dr.name};
 			camSafeRemoveObject(dr, false);
-			const droid = addDroid(playerId, droidInfo.x, droidInfo.y, droidInfo.name, template2.body,
+			const newDroid = addDroid(playerId, droidInfo.x, droidInfo.y, droidInfo.name, template2.body,
 				__camChangePropulsion(template2.prop, playerId), "", "", template2.weap);
-			camSetDroidExperience(droid);
+
+			if (camDef(__DROID_LABEL)) 
+			{
+				addLabel(newDroid, __DROID_LABEL);
+			}
+			if (__DROID_GROUP !== null)
+			{
+				groupAdd(__DROID_GROUP, newDroid);
+			}
+			camSetDroidExperience(newDroid);
 		}
 	}
 }
 
-//;; ## camUpgradeOnMapStructures(struct1, struct2, player, [excluded object IDs])
+//;; ## camUpgradeOnMapStructures(struct1, struct2, playerId[, excluded])
 //;;
 //;; Search for struct1, save its coordinates, remove it, and then replace with it
 //;; with struct2. A fourth parameter can be specified to ignore specific object
 //;; IDs. Useful if a structure is assigned to an object label. It can be either an array
-//;; or a single ID number. Unfortunatly, structure rotation is not preserved.
+//;; or a single ID number. Unortunatly, structure rotation is not preserved.
 //;; If a structure has a label or group, it will be transferred to the replacement, but if the
 //;; structure has multiple labels, then only one label will be transferred.
 //;;
-function camUpgradeOnMapStructures(struct1, struct2, player, excluded)
+//;; @param {Object} struct1
+//;; @param {Object} struct2
+//;; @param {number} playerId
+//;; @param {number|number[]} [excluded]
+//;; @returns {void}
+//;;
+function camUpgradeOnMapStructures(struct1, struct2, playerId, excluded)
 {
-	if (!camDef(struct1) || !camDef(struct2) || !camDef(player))
+	if (!camDef(struct1) || !camDef(struct2) || !camDef(playerId))
 	{
 		camDebug("Not enough parameters specified for upgrading on map structures");
 		return;
 	}
 
-	const structsOnMap = enumStruct(player, struct1);
+	const structsOnMap = enumStruct(playerId, struct1);
 
 	for (let i = 0, l = structsOnMap.length; i < l; ++i)
 	{
@@ -299,23 +319,92 @@ function camUpgradeOnMapStructures(struct1, struct2, player, excluded)
 			}
 		}
 
-		//Cehck if this object has a label and/or group assigned to it
+		//Check if this object has a label and/or group assigned to it
 		// FIXME: O(n) lookup here
-		let label = (getLabel(structure));
-		let group = (structure.group);
+		const __STRUCT_LABEL = getLabel(structure);
+		const __STRUCT_GROUP = structure.group;
 
 		//Replace it
-		let structInfo = {x: structure.x * 128, y: structure.y * 128};
+		const structInfo = {x: structure.x * 128, y: structure.y * 128};
 		camSafeRemoveObject(structure, false);
-		const newStruct = addStructure(struct2, player, structInfo.x, structInfo.y);
+		const newStruct = addStructure(struct2, playerId, structInfo.x, structInfo.y);
 
-		if (camDef(label)) 
+		if (camDef(__STRUCT_LABEL)) 
 		{
-			addLabel(newStruct, label);
+			addLabel(newStruct, __STRUCT_LABEL);
 		}
-		if (group !== null)
+		if (__STRUCT_GROUP !== null)
 		{
-			groupAdd(group, newStruct);
+			groupAdd(__STRUCT_GROUP, newStruct);
+		}
+	}
+}
+
+//;; ## camUpgradeOnMapFeatures(feat1, feat2[, excluded])
+//;;
+//;; Search for feat1, save its coordinates, remove it, and then replace with it
+//;; with feat2. A third parameter can be specified to ignore specific object
+//;; IDs. Useful if a feature is assigned to an object label. It can be either an array
+//;; or a single ID number. Unortunatly, feature rotation is not preserved.
+//;; If a feature has a label or group, it will be transferred to the replacement, but if the
+//;; feature has multiple labels, then only one label will be transferred.
+//;;
+//;; @param {Object} struct1
+//;; @param {Object} struct2
+//;; @param {number|number[]} [excluded]
+//;; @returns {void}
+//;;
+function camUpgradeOnMapFeatures(feat1, feat2, excluded)
+{
+	if (!camDef(feat1) || !camDef(feat2))
+	{
+		camDebug("Not enough parameters specified for upgrading on map features");
+		return;
+	}
+
+	const featsOnMap = enumFeature(ALL_PLAYERS, feat1);
+
+	for (let i = 0, l = featsOnMap.length; i < l; ++i)
+	{
+		const feature = featsOnMap[i];
+		let skip = false;
+		
+		//Check if this object should be excluded from the upgrades
+		if (camDef(excluded))
+		{
+			if (excluded instanceof Array)
+			{
+				for (let j = 0, c = excluded.length; j < c; ++j)
+				{
+					if (feature.id === excluded[j])
+					{
+						skip = true;
+						break;
+					}
+				}
+				if (skip === true)
+				{
+					continue;
+				}
+			}
+			else if (feature.id === excluded)
+			{
+				continue;
+			}
+		}
+
+		//Check if this object has a label assigned to it
+		// FIXME: O(n) lookup here
+		const __FEATURE_LABEL = getLabel(feature);
+
+		//Replace it
+		const featInfo = {x: feature.x, y: feature.y};
+		camSafeRemoveObject(feature, false);
+		const newFeat = addFeature(feat2, featInfo.x, featInfo.y);
+		
+		if (camDef(__FEATURE_LABEL)) 
+		{
+			addLabel(newFeat, __FEATURE_LABEL);
 		}
 	}
 }
@@ -422,10 +511,26 @@ function __camBuildDroid(template, structure)
 	const __PROP = __camChangePropulsion(template.prop, structure.player);
 	makeComponentAvailable(template.body, structure.player);
 	makeComponentAvailable(__PROP, structure.player);
-	makeComponentAvailable(template.weap, structure.player);
-	// const __NAME = [ structure.name, structure.id, template.body, __PROP, template.weap ].join(" ");
-	// multi-turret templates are not supported yet
-	return buildDroid(structure, camNameTemplate(template.weap, template.body, __PROP), template.body, __PROP, "", "", template.weap);
+	const __NAME = camNameTemplate(template.weap, template.body, __PROP);
+	// multi-turret templates are NOW supported :)
+	if (typeof template.weap === "object" && camDef(template.weap[2]))
+	{
+		makeComponentAvailable(template.weap[0], structure.player);
+		makeComponentAvailable(template.weap[1], structure.player);
+		makeComponentAvailable(template.weap[2], structure.player);
+		return buildDroid(structure, __NAME, template.body, __PROP, "", "", template.weap[0], template.weap[1], template.weap[2]);
+	}
+	else if (typeof template.weap === "object" && camDef(template.weap[1]))
+	{
+		makeComponentAvailable(template.weap[0], structure.player);
+		makeComponentAvailable(template.weap[1], structure.player);
+		return buildDroid(structure, __NAME, template.body, __PROP, "", "", template.weap[0], template.weap[1]);
+	}
+	else
+	{
+		makeComponentAvailable(template.weap, structure.player);
+		return buildDroid(structure, __NAME, template.body, __PROP, "", "", template.weap);
+	}
 }
 
 //Check if an enabled factory can begin manufacturing something. Doing this

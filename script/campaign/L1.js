@@ -1,10 +1,7 @@
+include("script/campaign/transitionTech.js");
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
-const mis_playerRes = [
-	"R-Wpn-MG1Mk1", "R-Vehicle-Body01", "R-Sys-Spade1Mk1", "R-Vehicle-Prop-Wheels",
-	"R-Comp-SynapticLink", "R-Cyborg-Wpn-MG", "R-Cyb-Sys-Construct",
-];
 const mis_scavRes = [
 	"R-Wpn-Flamer-Damage01", "R-Wpn-Cannon-Damage01",
 ];
@@ -295,14 +292,9 @@ function sendPlayerTransporter()
 
 function enableBaseStructures()
 {
-	const structs = [
-		"A0CommandCentre", "A0PowerGenerator", "A0ResourceExtractor",
-		"A0ResearchFacility", "A0LightFactory", "A0CyborgFactory",
-	];
-
-	for (let i = 0; i < structs.length; ++i)
+	for (let i = 0; i < camBasicStructs.length; ++i)
 	{
-		enableStructure(structs[i], CAM_HUMAN_PLAYER);
+		enableStructure(camBasicStructs[i], CAM_HUMAN_PLAYER);
 	}
 }
 
@@ -462,7 +454,7 @@ function eventStartLevel()
 	centreView(startpos.x, startpos.y);
 
 	enableBaseStructures(); // Allow the player to build base structures (Command Center, Factory, etc.)
-	camCompleteRequiredResearch(mis_playerRes, CAM_HUMAN_PLAYER); // Give starting tech
+	camCompleteRequiredResearch(camRec1StartResearch, CAM_HUMAN_PLAYER); // Give starting tech
 	camCompleteRequiredResearch(mis_scavRes, MIS_CYAN_SCAVS); // Give scavengers weapon upgrades
 	camCompleteRequiredResearch(mis_scavRes, MIS_YELLOW_SCAVS);
 

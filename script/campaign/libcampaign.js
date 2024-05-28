@@ -97,6 +97,7 @@ const CAM_NEW_PARADIGM = 1;
 const CAM_THE_COLLECTIVE = 2;
 const CAM_NEXUS = 3;
 const CAM_INFESTED = 4;
+const CAM_TEAM_CHARLIE = 5;
 const CAM_SCAV_6 = 6;
 const CAM_SCAV_7 = 7;
 
@@ -124,6 +125,66 @@ const __cam_betaLevels = [
 const __cam_gammaLevels = [
 	"CAM_3A", "SUB_3_1S", "SUB_3_1", "CAM_3B", "SUB_3_2S", "SUB_3_2", "CAM3A-B",
 	"CAM3C", "CAM3A-D1", "CAM3A-D2", "CAM_3_4S", "CAM_3_4"
+];
+const __CAM_RECLAMATION_CAMPAIGN_NUMBER = 0;
+const __CAM_PROLOGUE_CAMPAIGN_NUMBER = 1;
+const __CAM_ACT1_CAMPAIGN_NUMBER = 2;
+const __CAM_ACT2_CAMPAIGN_NUMBER = 3;
+const __CAM_ACT3_CAMPAIGN_NUMBER = 4;
+const __CAM_ACT4A_CAMPAIGN_NUMBER = 5;
+const __CAM_ACT4B_CAMPAIGN_NUMBER = 6;
+const __cam_reclamationLevels = [
+	"L1",
+	"L2S", "L2",
+	"L3",
+	"L4S", "L4",
+	"L5S", "L5",
+	"L6S", "L6",
+	"L7",
+];
+const __cam_prologueLevels = [
+	"PL1", // PUTRID
+	"PL2", // SAFE HAVEN
+];
+const __cam_act1Levels = [
+	"A1L1", // WELCOME TO THE JUNGLE
+	"A1L2S", "A1L2", // ALLIED ASSAULT
+	"A1L3", // RISING
+	"A1L4S", "A1L4", // THE COLLECTIVE
+	"A1L5S", "A1L5", // A FRIEND IN NEED
+	"A1L6", // ONSLAUGHT
+];
+const __cam_act2Levels = [
+	"A2L1", // HOT DROP
+	"A2L2S", "A2L2", // DISILLUSIONED
+	"A2L3S", "A2L3", // IRONE DOME
+	"A2L4", // ROCK AND A HARD PLACE
+	"A2L5S", "A2L5", // SPEARHEAD
+	"A2L6S", "A2L6", // BREAKOUT
+	"A2L7", // ONSLAUGHT
+];
+const __cam_act3Levels = [
+	"A3L1", // OUTBREAK
+	"A3L2S", "A3L2", // SEARCH AND UNRESCUE
+	"A3L3S", "A3L3", // SHELL SHOCKED
+	"A3L4S", "A3L4", // POST-POCALYPSE PIRACY
+	"A3L5", // ONSLAUGHT
+];
+const __cam_act4RouteALevels = [
+	"A4L1A", // DEAD CENTER
+	"A4L2AS", "A4L2A", // UPLINK
+	"A4L3A", // HUNTED
+	"A4L4AS", "A4L4A", // SHOWDOWN
+	"A4L5AS", "A4L5A", // EXODUS
+];
+const __cam_act4RouteBLevels = [
+	"A4L1BS", "A4L1B", // ARMS RACE
+	"A4L2BS", "A4L2B", // TIGER'S DEN
+	"A4L3BS", "A4L3B", // APPREHENSION
+	"A4L4BS", "A4L4B", // PREMONITION
+	"A4L5BS", "A4L5B", // MIGHT OF THE MACHINE
+	"A4L6BS", "A4L6B", // ASUNDER
+	"A4L7BS", // FINAL STAND
 ];
 
 //artifact
