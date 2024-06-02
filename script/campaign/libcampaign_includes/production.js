@@ -130,23 +130,25 @@ function camEnableFactory(factoryLabel)
 	__camFactoryUpdateTactics(factoryLabel);
 }
 
-//;; ## camQueueDroidProduction(playerId, template)
+//;; ## camQueueDroidProduction(playerId, template[, position])
 //;;
 //;; Queues up an extra droid template for production.
 //;; It would be produced in the first factory that is capable of producing it,
 //;; at the end of its production loop, first queued first served.
+//;; If a position is given, then ensure the produced droid can reach that position.
 //;;
 //;; @param {number} playerId
 //;; @param {Object} template
+//;; @param {Object} position
 //;; @returns {void}
 //;;
-function camQueueDroidProduction(playerId, template)
+function camQueueDroidProduction(playerId, template, position)
 {
 	if (!camDef(__camFactoryQueue[playerId]))
 	{
 		__camFactoryQueue[playerId] = [];
 	}
-	__camFactoryQueue[playerId][__camFactoryQueue[playerId].length] = template;
+	__camFactoryQueue[playerId][__camFactoryQueue[playerId].length] = {template: template, position: position};
 }
 
 //;; ## camSetPropulsionTypeLimit([limit])
@@ -450,7 +452,16 @@ function __camAddDroidToFactoryGroup(droid, structure)
 		return;
 	}
 	const fi = __camFactoryInfo[__FLABEL];
-	groupAdd(fi.group, droid);
+	if (camDef(fi.assignGroup))
+	{
+		// Assign the droid to an alternate group
+		groupAdd(fi.assignGroup, droid);
+		fi.assignGroup = undefined;
+	}
+	else
+	{
+		groupAdd(fi.group, droid);
+	}
 	if (camDef(fi.assembly))
 	{
 		// this is necessary in case droid is regrouped manually
@@ -575,12 +586,36 @@ function __camContinueProduction(structure)
 	{
 		return;
 	}
+
+	// check factory queue
+	const __PLAYER = struct.player;
+	const structPos = camMakePos(struct);
+	if (camDef(__camFactoryQueue[__PLAYER]) && __camFactoryQueue[__PLAYER].length > 0)
+	{
+		// Only build if destination is reachable or undefined
+		const destPos = __camFactoryQueue[__PLAYER][0].position;
+		if ((!camDef(destPos) || propulsionCanReach(__camFactoryQueue[__PLAYER][0].template.prop, structPos.x, structPos.y, destPos.x, destPos.y)) 
+			&& __camBuildDroid(__camFactoryQueue[__PLAYER][0].template, struct))
+		{
+			__camFactoryQueue[__PLAYER].shift();
+			return; // Don't update the last production time
+		}
+	}
+
 	const fi = __camFactoryInfo[flabel];
+
+	// Only continue if this factory is enabled
+	if (!fi.enabled)
+	{
+		return;
+	}
+
 	if (camDef(fi.maxSize) && groupSize(fi.group) >= fi.maxSize)
 	{
 		// retry later
 		return;
 	}
+
 	if (camDef(fi.throttle) && camDef(fi.lastprod))
 	{
 		const __THROTTLE = gameTime - fi.lastprod;
@@ -590,6 +625,13 @@ function __camContinueProduction(structure)
 			return;
 		}
 	}
+
+	// reset factory loop
+	if (fi.state === -1)
+	{
+		fi.state = 0;
+	}
+
 	// check factory queue after every loop
 	if (fi.state === -1)
 	{
@@ -604,12 +646,23 @@ function __camContinueProduction(structure)
 			}
 		}
 	}
-	__camBuildDroid(fi.templates[fi.state], struct);
-	// loop through templates
-	++fi.state;
-	if (fi.state >= fi.templates.length)
+	// Check if a refillable group needs a replacement unit
+	const refillableTemplate = __camGetRefillableTemplateForFactory(flabel);
+	if (camDef(refillableTemplate))
 	{
-		fi.state = -1;
+		// Build this template instead, and assign it to the refillable group
+		fi.assignGroup = refillableTemplate.group;
+		__camBuildDroid(refillableTemplate.template, struct);
+	}
+	else // Build the standard unit
+	{
+		__camBuildDroid(fi.templates[fi.state], struct);
+		// loop through templates
+		++fi.state;
+		if (fi.state >= fi.templates.length)
+		{
+			fi.state = -1;
+		}
 	}
 	fi.lastprod = gameTime;
 }

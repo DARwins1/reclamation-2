@@ -15,7 +15,7 @@ var pinkAggrod;
 var redAggrod;
 var playerColour;
 
-const mis_orangeScavRes = [
+const mis_orangeScavResearch = [
 	"R-Wpn-MG-Damage02", "R-Wpn-Mortar-Damage01", "R-Wpn-Cannon-Damage02",
 	"R-Wpn-MG-ROF01", "R-Wpn-Mortar-ROF01", "R-Wpn-Cannon-ROF01",
 	"R-Vehicle-Metals01", "R-Struc-Materials01", "R-Defense-WallUpgrade01",
@@ -66,9 +66,9 @@ function sendPlayerTransporter()
 		cTempl.pllsart, cTempl.pllsart, cTempl.pllsart, cTempl.pllsart,
 		cTempl.pllrepw, cTempl.pllrepw,
 	];
-	const thirdTransportDroids = [ // 6 Twin Machineguns, 4 Heavy Gunner Cyborgs
-		cTempl.plltmgt, cTempl.plltmgt, cTempl.plltmgt, cTempl.plltmgt, cTempl.plltmgt, cTempl.plltmgt,
-		cTempl.cybca, cTempl.cybca, cTempl.cybca, cTempl.cybca,
+	const thirdTransportDroids = [ // 6 Flamer Cyborgs, 4 Twin Machineguns
+		cTempl.cybfl, cTempl.cybfl, cTempl.cybfl, cTempl.cybfl, cTempl.cybfl, cTempl.cybfl,
+		cTempl.plltmgt, cTempl.plltmgt, cTempl.plltmgt, cTempl.plltmgt,
 	];
 	const transportDroidLists = [firstTransportDroids, secondTransportDroids, thirdTransportDroids];
 
@@ -84,6 +84,7 @@ function heliAttack()
 {
 	// Focus towards the player's LZ
 	const ext = {
+		limit: 1,
 		targetPlayer: CAM_HUMAN_PLAYER,
 		pos: camMakePos("landingZone")
 	};
@@ -427,7 +428,7 @@ function eventStartLevel()
 	const startPos = camMakePos("landingZone");
 	const lz = getObject("landingZone"); //player lz
 
-	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, "THE_END");
+	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, "A1L2S");
 	setReinforcementTime(LZ_COMPROMISED_TIME);
 
 	centreView(startPos.x, startPos.y);
@@ -447,6 +448,9 @@ function eventStartLevel()
 	setMissionTime(camChangeOnDiff(camHoursToSeconds(1)));
 	setPower(PLAYER_POWER, CAM_HUMAN_PLAYER);
 	grantPlayerTech();
+	camCompleteRequiredResearch(mis_orangeScavResearch, MIS_ORANGE_SCAVS);
+	camCompleteRequiredResearch(mis_pinkScavResearch, MIS_PINK_SCAVS);
+	camCompleteRequiredResearch(mis_redScavResearch, MIS_RED_SCAVS);
 
 	camSetEnemyBases({
 		"orangeNWBase": {

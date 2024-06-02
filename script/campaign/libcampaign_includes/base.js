@@ -121,9 +121,13 @@ function camSetEnemyBases(bases)
 		}
 		if (groupSize(bi.group) === 0)
 		{
-			//camDebug("Base", baseLabel, "defined as empty group");
+			// Base is empty, probably hasn't been built yet.
+			camTrace("Base", baseLabel, "defined as empty group");
+			bi.eliminated = true;
+			bi.detected = true;
+			++__camNumEnemyBases; // Consider it "destroyed"
 		}
-		if (!__RELOAD)
+		else if (!__RELOAD)
 		{
 			bi.detected = false;
 			bi.eliminated = false;
@@ -144,7 +148,7 @@ function camSetEnemyBases(bases)
 function camDetectEnemyBase(baseLabel)
 {
 	const bi = __camEnemyBases[baseLabel];
-	if (bi.detected || bi.eliminated)
+	if (bi.detected || bi.eliminated || (camDef(bi.friendly) && bi.friendly))
 	{
 		return;
 	}
@@ -178,6 +182,32 @@ function camDetectEnemyBase(baseLabel)
 	}
 }
 
+//;; ## camSetBaseAffiliation(baseLabel, friendly)
+//;;
+//;; Change a base to either friendly or hostile. If friendly, remove
+//;; the base beacon and silencing the detect and eliminate sounds.
+//;;
+function camSetBaseAffiliation(baseLabel, friendly)
+{
+	const bi = __camEnemyBases[baseLabel];
+	if (camDef(bi.detectMsg) && bi.detected && !bi.eliminated && !bi.friendly && friendly)
+	{
+		// Remove the beacon
+		hackRemoveMessage(bi.detectMsg, PROX_MSG, CAM_HUMAN_PLAYER);
+	}
+
+	if (!bi.friendly && friendly)
+	{
+		++__camNumEnemyBases; // Consider this base "destroyed" for victory purposes
+	}
+	else if (bi.friendly && !friendly)
+	{
+		--__camNumEnemyBases; // Don't consider this base destroyed anymore
+	}
+
+	bi.friendly = friendly;
+}
+
 //;; ## camAllEnemyBasesEliminated()
 //;;
 //;; Returns `true` if all enemy bases managed by `libcampaign.js` are destroyed.
@@ -188,6 +218,28 @@ function camAllEnemyBasesEliminated()
 {
 	// FIXME: O(n) lookup here
 	return __camNumEnemyBases === Object.keys(__camEnemyBases).length;
+}
+
+//;; ## camBaseIsEliminated(baseLabel)
+//;;
+//;; Returns true if the base with the given label has been eliminated.
+//;;
+//;; @returns {boolean}
+//;;
+function camBaseIsEliminated(baseLabel)
+{
+	return __camEnemyBases[baseLabel].eliminated;
+}
+
+//;; ## camBaseIsFriendly(baseLabel)
+//;;
+//;; Returns true if the base with the given label is considered "friendly".
+//;;
+//;; @returns {boolean}
+//;;
+function camBaseIsFriendly(baseLabel)
+{
+	return __camEnemyBases[baseLabel].friendly;
 }
 
 //////////// privates
@@ -212,6 +264,38 @@ function __camCheckBaseSeen(seen)
 			continue;
 		}
 		camDetectEnemyBase(baseLabel);
+	}
+}
+
+function __camUpdateBaseGroups(struct)
+{
+	const structPos = camMakePos(struct);
+
+	for (let baseLabel in __camEnemyBases)
+	{
+		const bi = __camEnemyBases[baseLabel];
+		// Check that the new structure is a valid and in the base area
+		if (!__camIsValidLeftover(struct) && camWithinArea(struct, bi.cleanup) 
+			&& (!camDef(bi.player) || camPlayerMatchesFilter(struct.player, bi.player)))
+		{
+			groupAdd(bi.group, struct);
+			camTrace("Adding new structure", struct.id, "to base", baseLabel);
+
+			if (bi.eliminated) // Base being rebuilt?
+			{
+				if (!camDef(bi.friendly) || !bi.friendly)
+				{
+					// Enemy base being un-destroyed
+					__camNumEnemyBases--;
+				}
+				bi.eliminated = false;
+				bi.detected = false;
+				camTrace("Base", baseLabel, "is being rebuilt");
+				resetLabel(baseLabel, CAM_HUMAN_PLAYER); // subscribe for eventGroupSeen
+			}
+
+			return; // all done here
+		}
 	}
 }
 
@@ -255,6 +339,7 @@ function __camCheckBaseEliminated(group)
 	{
 		const bi = __camEnemyBases[baseLabel];
 		const leftovers = [];
+		const __FRIENDLY = (camDef(bi.friendly) && bi.friendly)
 		if (bi.eliminated || (bi.group !== group))
 		{
 			continue;
@@ -285,7 +370,7 @@ function __camCheckBaseEliminated(group)
 				const leftover = leftovers[i];
 				camSafeRemoveObject(leftover, true);
 			}
-			if (camDef(bi.eliminateSnd))
+			if (camDef(bi.eliminateSnd) && !__FRIENDLY)
 			{
 				// play sound
 				const pos = camMakePos(bi.cleanup);
@@ -297,7 +382,7 @@ function __camCheckBaseEliminated(group)
 			camDebug("All bases must have a cleanup area : " + baseLabel);
 			continue;
 		}
-		if (camDef(bi.detectMsg) && bi.detected) // remove the beacon
+		if (camDef(bi.detectMsg) && bi.detected && !__FRIENDLY) // remove the beacon
 		{
 			hackRemoveMessage(bi.detectMsg, PROX_MSG, CAM_HUMAN_PLAYER);
 		}
@@ -305,7 +390,10 @@ function __camCheckBaseEliminated(group)
 		bi.eliminated = true;
 		// bump counter before the callback, so that it was
 		// actual during the callback
-		++__camNumEnemyBases;
+		if (!__FRIENDLY)
+		{
+			++__camNumEnemyBases;
+		}
 		const callback = __camGlobalContext()["camEnemyBaseEliminated_" + baseLabel];
 		if (camDef(callback))
 		{

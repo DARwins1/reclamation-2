@@ -55,7 +55,8 @@
 //;; 	the group continues to execute the sub-order. The following data object
 //;; 	fields are available:
 //;;   * `leader` the leader droid or structure to follow.
-//;;   * `order` The order to give to the leader.
+//;;   * `suborder` The order for the group if the leader dies.
+//;;   * `leaderOrder` The order to give to the leader (if any).
 //;;   * `data` Data of the leader's order (if a droid).
 //;;   * `repair` Health percentage to fall back to repair facility, if any.
 //;;
@@ -109,7 +110,10 @@ function camManageGroup(group, order, data)
 		{
 			camTrace("Group", group, "assigned to follow droid", leaderObj.id);
 			// Give the suborder to the leader
-			camManageGroup(camMakeGroup(leaderObj), data.order, data.data);
+			if (camDef(data.leaderOrder))
+			{
+				camManageGroup(camMakeGroup(leaderObj), data.leaderOrder, data.data);
+			}
 		}
 		else if (leaderObj.type === STRUCTURE) // sensor towers, vtol strike towers, etc.
 		{
@@ -611,7 +615,7 @@ function __camTacticsTickForGroup(group)
 			if (leaderObj === null)
 			{
 				// Is the leader dead? Let the group execute the suborder.
-				camManageGroup(group, gi.data.order, gi.data.data);
+				camManageGroup(group, gi.data.suborder, gi.data.data);
 				return;
 			}
 

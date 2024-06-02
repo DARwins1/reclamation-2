@@ -345,6 +345,16 @@
             "RustRocket-MRL"
         ]
     },
+    "Baba-HBus-Flamer": {
+        "body": "MonsterFireBody",
+        "id": "Baba-HBus-MRA",
+        "name": "Monster Fire Truck",
+        "propulsion": "tracked01",
+        "type": "DROID",
+        "weapons": [
+            "RustFlame1Mk1"
+        ]
+    },
     "Baba-HTruck-MRA": {
         "body": "ScavTruckBody",
         "id": "Baba-HTruck-MRA",

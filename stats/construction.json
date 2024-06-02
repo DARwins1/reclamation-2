@@ -19,7 +19,7 @@
         "hitpoints": 35,
         "id": "CyborgSpade",
         "mountModel": "cybody.pie",
-        "name": "*Combat Engineer*",
+        "name": "Combat Engineer Cyborg",
         "sensorModel": "cy_con.pie",
         "weight": 150
     },

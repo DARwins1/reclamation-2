@@ -1476,6 +1476,27 @@
         "weaponSlots": 1,
         "weight": 3000
     },
+    "MonsterFireBody": {
+        "armourHeat": 1,
+        "armourKinetic": 4,
+        "buildPoints": 75,
+        "buildPower": 4,
+        "class": "Droids",
+        "hitpoints": 200,
+        "id": "MonsterFireBody",
+        "model": "exmonsterfire.pie",
+        "name": "Monster Fire Truck",
+        "powerOutput": 8000,
+        "propulsionExtraModels": {
+            "tracked01": {
+                "left": "rustltrk.pie",
+                "right": "rustrtrk.pie"
+            }
+        },
+        "size": "LIGHT",
+        "weaponSlots": 1,
+        "weight": 1200
+    },
     "Superbody": {
         "armourHeat": 999,
         "armourKinetic": 999,

@@ -38,6 +38,16 @@ const camRec2PrologueResearch = [
 	"R-Wpn-Rocket-LtA-TMk1", "R-Defense-Sarissa",
 ];
 
+// Used to grant research at the start of Act 1
 const camAct1StartResearch = camRec2StartResearch.concat(camRec2PrologueResearch);
+
+// Used to grant research to allies on A1L2
+const camA1L2AllyResearch = camAct1StartResearch.concat([
+	// A1L1
+	"R-Wpn-MG-ROF01", "R-Wpn-Cannon-ROF01", "R-Wpn-Rocket-ROF01",
+	"R-Wpn-Mortar-ROF01", "R-Wpn-Flamer-ROF01", "R-Wpn-Flamer-Damage02",
+	"R-Wpn-Rocket02-MRL", "R-Defense-MRL", "R-Wpn-Rocket-Damage02",
+	"R-Wpn-Cannon-Damage02",
+]);
 
 //...

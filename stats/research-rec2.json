@@ -4108,7 +4108,7 @@
         "requiredResearch": [
             "R-Vehicle-Prop-VTOL"
         ],
-        "researchPoints": 6000,
+        "researchPoints": 1200,
         "researchPower": 187,
         "resultStructures": [
             "A0VTolFactory1"
@@ -4121,10 +4121,9 @@
         "msgName": "RES_ST_VP",
         "name": "VTOL Rearming Pad",
         "requiredResearch": [
-            "R-Vehicle-Prop-VTOL",
-            "R-Struc-VTOLFactory"
+            "R-Vehicle-Prop-VTOL"
         ],
-        "researchPoints": 3600,
+        "researchPoints": 900,
         "researchPower": 112,
         "resultStructures": [
             "A0VtolPad"
@@ -4303,11 +4302,10 @@
         "msgName": "RES_SY_VSTW1",
         "name": "VTOL Strike Tower",
         "requiredResearch": [
-            "R-Sys-Sensor-Upgrade01",
-            "R-Struc-VTOLPad"
+            "R-Sys-VTOLStrike-Turret01"
         ],
-        "researchPoints": 7200,
-        "researchPower": 225,
+        "researchPoints": 700,
+        "researchPower": 125,
         "resultStructures": [
             "Sys-VTOL-RadarTower01"
         ],
@@ -4320,9 +4318,9 @@
         "name": "VTOL Strike Turret",
         "requiredResearch": [
             "R-Sys-Sensor-Turret01",
-            "R-Sys-VTOLStrike-Tower01"
+            "R-Vehicle-Prop-VTOL"
         ],
-        "researchPoints": 7200,
+        "researchPoints": 1400,
         "researchPower": 225,
         "resultComponents": [
             "Sys-VstrikeTurret01"
@@ -4449,7 +4447,7 @@
         "keyTopic": 1,
         "msgName": "RES_V_P_V1",
         "name": "VTOL Propulsion",
-        "researchPoints": 6000,
+        "researchPoints": 2100,
         "researchPower": 187,
         "resultComponents": [
             "V-Tol"
@@ -4819,6 +4817,7 @@
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Bomb01",
         "imdName": "trlvtlhe.PIE",
+        "keyTopic": 1,
         "msgName": "RES_W_BMB1",
         "name": "Cluster Bombs Bay",
         "requiredResearch": [

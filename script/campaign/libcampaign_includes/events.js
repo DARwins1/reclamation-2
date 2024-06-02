@@ -108,9 +108,11 @@ function cam_eventStartLevel()
 	// re-initialized on save-load. Otherwise, they are initialized
 	// on the global scope (or wherever necessary).
 	__camGroupInfo = {};
+	__camRefillableGroupInfo = {};
 	__camFactoryInfo = {};
 	__camFactoryQueue = {};
-	__camTruckInfo = {};
+	__camTruckInfo = [];
+	__camTruckAssignList = [];
 	__camNeedBonusTime = false;
 	__camDefeatOnTimeout = false;
 	__camRTLZTicker = 0;
@@ -139,9 +141,10 @@ function cam_eventStartLevel()
 	setTimer("__camSpawnVtols", camSecondsToMilliseconds(0.5));
 	setTimer("__camRetreatVtols", camSecondsToMilliseconds(0.9));
 	setTimer("__checkVtolSpawnObject", camSecondsToMilliseconds(5));
+	setTimer("__checkRefillableGroupObject", camSecondsToMilliseconds(5));
 	setTimer("__checkEnemyFactoryProductionTick", camSecondsToMilliseconds(0.8));
 	setTimer("__camTick", camSecondsToMilliseconds(1)); // campaign pollers
-	setTimer("__camTruckTick", camSecondsToMilliseconds(10) + camSecondsToMilliseconds(0.1)); // some slower campaign pollers
+	setTimer("__camTruckTick", camSecondsToMilliseconds(5));
 	setTimer("__camAiPowerReset", camMinutesToMilliseconds(3)); //reset AI power every so often
 	setTimer("__camShowVictoryConditions", camMinutesToMilliseconds(5));
 	setTimer("__camTacticsTick", camSecondsToMilliseconds(0.1));
@@ -172,8 +175,26 @@ function cam_eventDroidBuilt(droid, structure)
 	{
 		return;
 	}
+	if (droid.droidType === DROID_CONSTRUCT)
+	{
+		__camAssignTruck(droid);
+		return;
+	}
 	camSetDroidExperience(droid);
 	__camAddDroidToFactoryGroup(droid, structure);
+}
+
+function cam_eventStructureBuilt(struct, droid)
+{
+	if (struct.player !== CAM_HUMAN_PLAYER)
+	{
+		if (struct.stattype === FACTORY || struct.stattype === VTOL_FACTORY 
+			|| struct.stattype === RESEARCH_LAB || struct.stattype === POWER_GEN)
+		{
+			__camTruckCheckForModules(struct.player);
+		}
+		__camUpdateBaseGroups(struct);
+	}
 }
 
 function cam_eventDestroyed(obj)
@@ -204,6 +225,13 @@ function cam_eventDestroyed(obj)
 			const BOOM_BAIT_ID = addDroid(CAM_INFESTED, obj.x, obj.y, "Boom Bait",
 				"BoomBaitBody", "BaBaLegs", "", "", "InfestedMelee").id; // Spawn an infested civilian where the boom tick died...
 			queue("__camDetonateBoomtick", __CAM_TICKS_PER_FRAME, BOOM_BAIT_ID + ""); // ...then blow them up
+		}
+	}
+	else if (obj.type === STRUCTURE)
+	{
+		if (obj.player !== CAM_HUMAN_PLAYER)
+		{
+			__camTruckCheckMissingStructs(obj.player);
 		}
 	}
 }

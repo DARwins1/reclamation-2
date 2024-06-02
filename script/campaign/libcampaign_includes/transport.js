@@ -58,6 +58,18 @@ function camRemoveEnemyTransporterBlip()
 	}
 }
 
+//;; ## camGetTransporterDroids(player)
+//;;
+//;; Returns a list of droids being delivered by the given player's transport.
+//;; NOTE: This list can only be accessed when the transport is still on the map!
+//;;
+//;; @returns {Object}
+//;;
+function camGetTransporterDroids(player)
+{
+	return __camIncomingTransports[player].droids;
+}
+
 //////////// privates
 
 // returns true if transporter was launched,
@@ -160,7 +172,10 @@ function __camLandTransporter(player, pos)
 	{
 		playSound("pcv395.ogg", pos.x, pos.y, 0); //Incoming enemy transport.
 	}
-	camManageGroup(camMakeGroup(ti.droids), ti.order, ti.data);
+	if (camDef(ti.order))
+	{
+		camManageGroup(camMakeGroup(ti.droids), ti.order, ti.data);
+	}
 	if (player !== CAM_HUMAN_PLAYER)
 	{
 		for (let i = 0, len = ti.droids.length; i < len; ++i)

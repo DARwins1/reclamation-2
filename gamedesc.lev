@@ -97,3 +97,12 @@ data		"wrf/act1/cam3change.wrf"
 game		"wrf/act1/A1L1.gam"
 data		"wrf/act1/A1L1.wrf"
 
+between		A1L2S
+dataset		REC_2
+data		"wrf/act1/A1L2s.wrf"
+
+miss_keep	A1L2
+dataset		REC_2
+game		"wrf/act1/A1L2.gam"
+data		"wrf/act1/A1L2.wrf"
+

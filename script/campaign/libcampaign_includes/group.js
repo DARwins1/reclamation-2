@@ -115,3 +115,203 @@ function camNeverGroupDroid(what, playerFilter)
 	}
 	camDebug("Cannot parse", what);
 }
+
+//;; ## camMakeRefillableGroup(group, groupData, order, orderData)
+//;; Create and manage a new group with a predefined set of unit templates. Useful for defining groups
+//;; with a strict size and composition, such as commander squads.
+//;; The group will try to replenish itself from active factories if it loses units.
+//;; * `group` The group to manage, this can be set as undefined to make an initially empty group.
+//;; * `groupData` Contains information on what should be in the group and how it should be refilled:
+//;;	* `factories` A list of factory labels that this group should pull from. These factories will 
+//;;	  have their normal templates overridden when necessary to refill this group. If empty or undefined,
+//;;	  no factories will be used, which is useful if the group is meant to be resupplied by other means such
+//;;	  as reinforcements.
+//;;	* `globalFill` If true, pull units from all factories if `factories` is empty, undefined, or the set factories 
+//;;	  are destroyed. Useful to avoid needing to list every single factory label in `factories`.
+//;;	* `templates` The templates of units that this group is composed of. If units are missing from the 
+//;;	  group, the list missing units can be found with the `camGetRefillableGroupTemplates()` function.
+//;;	* `obj` An object, that when destroyed, disables this group from pulling from factories. Useful for commander
+//;;	  squads that should stop refilling when the commander is dead.
+//;; * `order` The group order. (see tactics.js)
+//;; * `orderData` The data associated with the group's order. (see tactics.js)
+//;;
+//;; @param {string} group
+//;; @param {Object} groupData
+//;; @param {number} order
+//;; @param {Object} orderData
+//;; @returns {number}
+//;;
+function camMakeRefillableGroup(group, groupData, order, orderData)
+{
+	if (!camDef(group))
+	{
+		group = camNewGroup();
+	}
+
+	camSetRefillableGroupData(group, groupData);
+
+	orderData.removable = false; // Ensure that the group isn't removed if/when it is empty
+	camManageGroup(group, order, orderData);
+	return group;
+}
+
+//;; ## camSetRefillableGroupData(group, groupData)
+//;;
+//;; Adjust the data of a refillable group.
+//;;
+//;; @param {string} group
+//;; @param {Object} groupData
+//;; @returns {void}
+//;;
+function camSetRefillableGroupData(group, groupData)
+{
+	if (!camDef(groupData))
+	{
+		groupData = {}; // empty object
+	}
+
+	__camRefillableGroupInfo[group] = { // NOTE: if `factories` and `globalFill` are undefined, then the group will not automatically refill!
+		factories: (camDef(groupData.factories)) ? groupData.factories : [],
+		globalFill: (camDef(groupData.globalFill) && groupData.globalFill) ? groupData.globalFill : false,
+		templates: (camDef(groupData.templates)) ? groupData.templates : [],
+		obj: groupData.obj // may be undefined. FIXME: Seems to get set to null instead?
+	};
+}
+
+//;; ## camDisableRefillableGroup(group)
+//;;
+//;; Shortcut function that disables a group from pulling more units automatically.
+//;;
+//;; @param {number} group
+//;; @returns {void}
+//;;
+function camDisableRefillableGroup(group)
+{
+	camSetRefillableGroupData(group, {
+		templates: __camRefillableGroupInfo[group].templates,
+		obj: __camRefillableGroupInfo[group].obj
+		// `factories` and `globalFill` are left blank
+	});
+}
+
+// Returns the templates of the units currently missing from the group
+// If `allTemplates` is true, then returns the entire group template list instead
+function camGetRefillableGroupTemplates(group, allTemplates)
+{
+	if (camDef(allTemplates) && allTemplates)
+	{
+		// Return the whole list
+		return __camRefillableGroupInfo[group].templates;
+	}
+	// Otherwise, return whatever templates the group is missing
+	return __camGetMissingGroupTemplates(group);
+}
+
+
+//;; ## camGroupAdd(group, droid)
+//;;
+//;; Wrapper for `groupAdd()` that also re-checks group morale.
+//;;
+//;; @param {number} group
+//;; @returns {void}
+//;;
+function camGroupAdd(group, droid)
+{
+	groupAdd(group, droid);
+	if (camDef(__camGroupInfo[group]))
+	{
+		profile("__camCheckGroupMorale", group);
+	}
+}
+
+//////////// privates
+
+// Return a list of all the templates in a refillable group's template list that can't be matched to a 
+// unique droid in the group.
+function __camGetMissingGroupTemplates(group, returnFirst)
+{
+	const droids = enumGroup(group);
+	const templateList = __camRefillableGroupInfo[group].templates;
+	const missingList = [];
+
+	// FIXME: Roughly O(n^2) loop here (can this be improved?)
+	for (let i = 0; i < templateList.length; i++)
+	{
+		const templ = templateList[i];
+		let foundMatch = false;
+		for (let j = 0; j < droids.length; j++)
+		{
+			if (foundMatch)
+			{
+				break;
+			}
+
+			const droid = droids[j];
+
+			if (!camDef(droid))
+			{
+				// This droid has already been matched
+				continue;
+			}
+			
+			// A droid matches a template if the propulsion, body, and weapon are the same
+			// NOTE: Comparison only works for single-turret templates!
+			if (camDroidMatchesTemplate(droid, templ))
+			{
+				// Remove this droid from the droids list; we don't want multiple templates matching to the same droid!
+				delete droids[j]; // Set this element as undefined
+				foundMatch = true;
+				continue;
+			}
+		}
+
+		if (!foundMatch)
+		{
+			// If we never found a matching droid, add this template to the list of missing templates
+			if (camDef(returnFirst) && returnFirst)
+			{
+				// Return the first missing template we find
+				return templateList[i];
+			}
+			missingList.push(templateList[i]);
+		}
+	}
+
+	return (camDef(returnFirst) && returnFirst) ? undefined : missingList;
+}
+
+// Gets a template to be built by the given factory
+function __camGetRefillableTemplateForFactory(factoryLabel)
+{
+	for (const group in __camRefillableGroupInfo)
+	{
+		const gi = __camRefillableGroupInfo[group];
+		const __VALID_FACTORY = gi.factories.includes(factoryLabel);
+		
+		// Check if the given factory can resupply this group
+		if (__VALID_FACTORY || (!__VALID_FACTORY && gi.globalFill))
+		{
+			// If so, see if this group is missing any templates
+			const missingTempl = __camGetMissingGroupTemplates(group, true);
+			if (camDef(missingTempl))
+			{
+				// Return the template and the group to send it to
+				return {group: group, tempate: missingTempl};
+			}
+		}
+	}
+}
+
+function __checkRefillableGroupObject()
+{
+	for (const group in __camRefillableGroupInfo)
+	{
+		if (camDef(__camRefillableGroupInfo[group].obj) && getObject(__camRefillableGroupInfo[group].obj) === null)
+		{
+			camSetRefillableGroupData(group, {
+				templates: __camRefillableGroupInfo[group].templates,
+				// `factories`, `globalFill`, and `obj` are left blank
+			});
+		}
+	}
+}

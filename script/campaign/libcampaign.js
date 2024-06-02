@@ -97,11 +97,11 @@ const CAM_NEW_PARADIGM = 1;
 const CAM_THE_COLLECTIVE = 2;
 const CAM_NEXUS = 3;
 const CAM_INFESTED = 4;
-const CAM_TEAM_CHARLIE = 5;
+// const CAM_TEAM_CHARLIE = 5;
 const CAM_SCAV_6 = 6;
 const CAM_SCAV_7 = 7;
 
-const __CAM_MAX_PLAYERS = 8;
+const __CAM_MAX_PLAYERS = 10;
 const __CAM_TICKS_PER_FRAME = 100;
 const __CAM_AI_POWER = 999999;
 const __CAM_INCLUDE_PATH = "script/campaign/libcampaign_includes/";
@@ -219,6 +219,7 @@ var __camFogB;
 //group
 var __camNewGroupCounter;
 var __camNeverGroupDroids;
+var __camRefillableGroupInfo;
 
 //hook
 var __camOriginalEvents = {};
@@ -279,6 +280,7 @@ var __camTransporterMessage;
 
 //truck
 var __camTruckInfo;
+var __camTruckAssignList;
 
 //victory
 const CAM_VICTORY_STANDARD = "__camVictoryStandard";

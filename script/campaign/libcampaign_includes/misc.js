@@ -570,6 +570,173 @@ function camSetFog(r, g, b)
 	__camFogB = b;
 }
 
+//;; Sets a droid's rank to the given value.
+//;; ```droid``` must be a droid object, while ```rank```
+//;; can be either an integer or name of a rank.
+//;;
+//;; @param {Object} droid
+//;; @param {number | String} rank
+//;; @returns {void}
+//;;
+function camSetDroidRank(droid, rank)
+{
+	if (!camDef(droid) || droid.type !== DROID)
+	{
+		camTrace("Tried setting an unkown object's rank.");
+		return;
+	}
+
+	if (droid.droidType === DROID_CONSTRUCT || droid.droidType === DROID_REPAIR)
+	{
+		camTrace("Tried setting the rank of a non-sensor system droid.");
+		return;
+	}
+
+	let xpAmount = 0;
+	if (camIsString(rank)) // Rank as a string?
+	{
+		switch (rank)
+		{
+			case "Green":
+				xpAmount = 4;
+				break;
+			case "Trained":
+				xpAmount = 8;
+				break;
+			case "Regular":
+				xpAmount = 16;
+				break;
+			case "Professional":
+				xpAmount = 32;
+				break;
+			case "Veteran":
+				xpAmount = 64;
+				break;
+			case "Elite":
+				xpAmount = 128;
+				break;
+			case "Special":
+				xpAmount = 256;
+				break;
+			case "Hero":
+				xpAmount = 512;
+				break;
+			default:
+				camDebug("Unkown rank given to camSetDroidRank!");
+				return;
+		}
+	}
+	else // Rank as an integer?
+	{
+		if (rank > 0)
+		{
+			xpAmount = Math.pow(2, rank + 1);
+		}
+	}
+
+	if (droid.droidType === DROID_COMMAND)
+	{
+		xpAmount *= 2; // Commanders need twice the xp
+	}
+
+	setDroidExperience(droid, xpAmount);
+}
+
+//;; Returns a droid's rank as an integer.
+//;; ```droid``` must be a droid object.
+//;;
+//;; @param {Object} droid
+//;; @returns {number}
+//;;
+function camGetDroidRank(droid)
+{
+	if (!camDef(droid) || droid.type !== DROID)
+	{
+		camTrace("Tried getting an unkown object's rank.");
+		return;
+	}
+
+	let xpAmount = droid.experience;
+	if (droid.droidType === DROID_COMMAND)
+	{
+		// Pretend commanders have half the XP they actually do
+		xpAmount /= 2;
+	}
+
+	if (xpAmount >= 512) return 8; // Hero
+	if (xpAmount >= 256) return 7; // Special
+	if (xpAmount >= 128) return 6; // Elite
+	if (xpAmount >= 64) return 5; // Veteran
+	if (xpAmount >= 32) return 4; // Professional
+	if (xpAmount >= 16) return 3; // Regular
+	if (xpAmount >= 8) return 2; // Trained
+	if (xpAmount >= 4) return 1; // Green
+	return 0; // Rookie
+}
+
+//;; Returns the amount of units a commander can handle base on rank.
+//;; ```droid``` must be a commander droid.
+//;;
+//;; @param {Object} commander
+//;; @returns {number|undefined}
+//;;
+function camGetCommanderMaxGroupSize(commander)
+{
+	if (!camDef(commander) || commander.type !== DROID || commander.droidType !== DROID_COMMAND)
+	{
+		camDebug("camGetCommanderMaxGroupSize must be given a commander droid object.");
+		return;
+	}
+
+	return 6 + (2 * camGetDroidRank(commander));
+}
+
+//;; Returns true if the given position lies within the given area label
+//;;
+//;; @param {Object | string} pos
+//;; @param {Object | string} area
+//;; @returns {boolean}
+//;;
+function camWithinArea(pos, area)
+{
+	const p = camMakePos(pos);
+	let a = area;
+	if (camIsString(area))
+	{
+		a = getObject(area);
+	}
+	if (!camDef(a))
+	{
+		console("area is undefined!")
+	}
+	if (a === null)
+	{
+		console("area is null!")
+	}
+	
+	return (p.x >= a.x 
+		&& p.x <= a.x2
+		&& p.y >= a.y 
+		&& p.y <= a.y2);
+}
+
+//;; Returns an array where all instances of item1 are replaced with item2
+//;;
+//;; @param {*[]} array
+//;; @param {*} area
+//;; @returns {*[]}
+//;;
+function camArrayReplaceWith(array, item1, item2)
+{
+	let index = array.indexOf(item1);
+	while (index !== -1)
+	{
+		array[index] = item2;
+		index = array.indexOf(item1);
+	}
+	return array;
+}
+
 // Returns stats about the given component from the global Stats data structure.
 // If a player is provided, look up stats from their specified Upgrades structure,
 // which contains stats that can be modified through research upgrades.
@@ -724,6 +891,54 @@ function camNameTemplate(weapon, body, propulsion)
 			: [ weapName, __BODY_NAME, __PROP_NAME ].join(" ");
 	}
 	return name;
+}
+
+//;; ## camDroidMatchesTemplate(droid, template)
+//;; Returns true if a given droid matches a given template
+//;; Takes in either a template object or a turret + body + propulsion
+//;; NOTE: Multi-turret droids/templates are not properly supported!
+//;;
+//;; @param {Object} droid
+//;; @param {Object} template
+//;; @returns {boolean}
+//;;
+function camDroidMatchesTemplate(droid, template)
+{
+	// First check if the propulsion and body match
+	if (template.prop != droid.propulsion || template.body != droid.body)
+	{
+		return false;
+	}
+
+	// Now handle the turret
+	switch (droid.droidType)
+	{
+		case DROID_CONSTRUCT:
+		{
+			return (template.weap == "Spade1Mk1" || template == "CyborgSpade");
+		}
+		case DROID_REPAIR:
+		{
+			// FIXME: We currently can't tell which repair turret is equipped on a unit!
+			// We can only determine if a unit has *a* repair turret!
+			return (template.weap == "LightRepair1" || template.weap == "HeavyRepair" || template.weap == "CyborgRepair");
+		}
+		case DROID_SENSOR:
+		{
+			// FIXME: We currently can't tell the CB and non CB sensor turrets apart!
+			return ((droid.isSensor && (template.weap == "SensorTurret1Mk1" || template.weap == "Sys-VstrikeTurret01"))
+				|| (droid.isCB && (template.weap == "Sys-CBTurret01" || template.weap == "Sys-VTOLCBTurret01")));
+		}
+		case DROID_COMMAND:
+		{
+			return (template.weap == "CommandBrain01");
+		}
+		default:
+		{
+			return (template.weap == droid.weapons[0].name);
+		}
+	}
+
 }
 
 //////////// privates
