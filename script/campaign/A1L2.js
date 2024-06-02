@@ -342,6 +342,7 @@ function eventTransporterLanded(transport)
 		{
 			// Assign this truck!
 			camAssignTruck(transTrucks[truckIndex], camGetTruckIndicesFromLabel(truckLabel)[spotIndex]);
+			truckIndex++;
 		}
 	}
 
@@ -708,7 +709,7 @@ function eventStartLevel()
 		morale: 90,
 		fallback: camMakePos("scavLZBase2"),
 		// regroup: true,
-		repair: 60,
+		repair: 75,
 		repairPos: camMakePos("scavLZBase2") // Wait here for repairs
 	});
 	// Foxtrot repair group (4 Repair Turrets)

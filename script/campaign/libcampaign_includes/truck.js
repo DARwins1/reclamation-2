@@ -397,13 +397,13 @@ function __camTruckTick()
 			continue;
 		}
 		
-		let orderGiven = false;
-
 		// Don't order trucks if they're busy building something
 		if (__camTruckBusy(truck, true))
 		{
 			continue;
 		}
+
+		let orderGiven = false;
 
 		// The truck is alive and ready, let's get started
 		// First, check if there are any base structures that need modules (factories/power/research)
