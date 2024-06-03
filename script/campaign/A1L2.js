@@ -510,18 +510,22 @@ function eventStartLevel()
 			detectMsg: "SCAV_LZBASE1",
 			detectSnd: "pcv374.ogg",
 			eliminateSnd: "pcv392.ogg",
+			// We need to designate a player here because allies will eventually build over this base
+			player: MIS_YELLOW_SCAVS
 		},
 		"foxtrotLZBase": {
 			cleanup: "scavLZBase2",
 			detectMsg: "SCAV_LZBASE2",
 			detectSnd: "pcv375.ogg",
 			eliminateSnd: "pcv391.ogg",
+			player: MIS_YELLOW_SCAVS
 		},
 		"golfLZBase": {
 			cleanup: "scavLZBase3",
 			detectMsg: "SCAV_LZBASE3",
 			detectSnd: "pcv374.ogg",
 			eliminateSnd: "pcv392.ogg",
+			player: MIS_YELLOW_SCAVS
 		},
 		"scavHillBase": {
 			cleanup: "scavOuterBase1",

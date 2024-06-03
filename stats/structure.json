@@ -3180,7 +3180,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
-            "BLHARDPT.PIE"
+            "Blhowmnt.PIE"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -3203,7 +3203,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
-            "BLHARDPT.PIE"
+            "Blhowmnt.PIE"
         ],
         "thermal": 15,
         "type": "DEFENSE",

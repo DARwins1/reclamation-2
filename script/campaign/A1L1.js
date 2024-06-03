@@ -394,32 +394,9 @@ function eventChat(from, to, message)
 function adaptScavColors()
 {
 	// Make sure the scavengers aren't choosing conflicting colors with the player
-	if (playerColour === 1)
-	{
-		changePlayerColour(MIS_ORANGE_SCAVS, 8); // Switch to yellow
-	}
-	else
-	{
-		changePlayerColour(MIS_ORANGE_SCAVS, 1); // Keep as orange
-	}
-
-	if (playerColour === 6)
-	{
-		changePlayerColour(MIS_PINK_SCAVS, 5); // Switch to blue
-	}
-	else
-	{
-		changePlayerColour(MIS_PINK_SCAVS, 6); // Keep as pink
-	}
-
-	if (playerColour === 4)
-	{
-		changePlayerColour(MIS_RED_SCAVS, 13); // Switch to infrared
-	}
-	else
-	{
-		changePlayerColour(MIS_RED_SCAVS, 4); // Keep as red
-	}
+	changePlayerColour(MIS_ORANGE_SCAVS, (playerColour !== 1) ? 1 : 8); // Set to orange or yellow
+	changePlayerColour(MIS_PINK_SCAVS, (playerColour !== 6) ? 6 : 5); // Set to pink or blue
+	changePlayerColour(MIS_RED_SCAVS, (playerColour !== 4) ? 4 : 13); // Set to red or infrared
 }
 
 function eventStartLevel()
