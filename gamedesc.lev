@@ -129,6 +129,7 @@ dataset		REC_2
 game		"wrf/act1/A1L5.gam"
 data		"wrf/act1/A1L5.wrf"
 
-between	A1L6
+expand		A1L6
 dataset		REC_2
+game		"wrf/act1/A1L6.gam"
 data		"wrf/act1/A1L6.wrf"

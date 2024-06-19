@@ -66,3 +66,31 @@ const camA1L4ColLZ3Structs = [
 	{stat: "GuardTower6H", x: 59, y: 50}, {stat: "AASite-QuadMg1", x: 59, y: 47, rot: 2}, {stat: "AASite-QuadMg1", x: 57, y: 52},
 	{stat: "PillBox1", x: 54, y: 51}, {stat: "PillBox1", x: 53, y: 47}, {stat: "GuardTower5", x: 55, y: 51},
 ];
+
+// A1L6
+// Collective LZ defenses
+const camA1L6ColLZ1Structs = [
+	{stat: "PillBox1", x: 74, y: 8}, {stat: "AASite-QuadMg1", x: 76, y: 9, rot: 3}, {stat: "AASite-QuadMg1", x: 76, y: 12, rot: 3},
+	{stat: "GuardTower6H", x: 70, y: 10}, {stat: "A0TankTrap", x: 69, y: 10}, {stat: "A0TankTrap", x: 70, y: 11},
+	{stat: "GuardTower6H", x: 70, y: 14}, {stat: "A0TankTrap", x: 69, y: 14}, {stat: "A0TankTrap", x: 70, y: 15},
+	{stat: "PillBox4", x: 73, y: 14}, {stat: "A0TankTrap", x: 74, y: 14}, {stat: "GuardTower5", x: 74, y: 13},
+];
+const camA1L6ColLZ2Structs = [
+	{stat: "A0TankTrap", x: 85, y: 34}, {stat: "AASite-QuadMg1", x: 86, y: 34, rot: 3}, {stat: "A0TankTrap", x: 86, y: 35},
+	{stat: "A0TankTrap", x: 88, y: 34}, {stat: "AASite-QuadMg1", x: 88, y: 35}, {stat: "A0TankTrap", x: 89, y: 35},
+	{stat: "GuardTower3", x: 82, y: 35}, {stat: "Sys-SensoTower02", x: 81, y: 37}, {stat: "PillBox4", x: 81, y: 38, rot: 3},
+	{stat: "Emplacement-MortarPit01", x: 88, y: 37}, {stat: "Emplacement-MortarPit01", x: 86, y: 38}, {stat: "Emplacement-MortarPit01", x: 88, y: 39},
+	{stat: "GuardTower5", x: 82, y: 40}, {stat: "GuardTower6H", x: 86, y: 40},
+];
+const camA1L6ColLZ3Structs = [
+	{stat: "PillBox6", x: 57, y: 53}, {stat: "GuardTower3", x: 60, y: 53}, {stat: "GuardTower3", x: 56, y: 56},
+	{stat: "A0TankTrap", x: 62, y: 53}, {stat: "AASite-QuadMg1", x: 62, y: 54, rot: 3}, {stat: "A0TankTrap", x: 61, y: 54},
+	{stat: "A0TankTrap", x: 61, y: 57}, {stat: "AASite-QuadMg1", x: 62, y: 57, rot: 3}, {stat: "A0TankTrap", x: 62, y: 58},
+	{stat: "Emplacement-MRL-pit", x: 59, y: 57},
+];
+const camA1L6ColLZ4Structs = [
+	{stat: "PillBox1", x: 8, y: 46}, {stat: "PillBox4", x: 11, y: 51}, {stat: "AASite-QuadMg1", x: 4, y: 49, rot: 1},
+	{stat: "Emplacement-MortarPit01", x: 4, y: 51}, {stat: "Emplacement-MortarPit01", x: 6, y: 53}, {stat: "AASite-QuadMg1", x: 9, y: 52, rot: 2},
+	{stat: "A0TankTrap", x: 5, y: 47}, {stat: "GuardTower6H", x: 5, y: 48}, {stat: "A0TankTrap", x: 6, y: 48},
+	{stat: "A0TankTrap", x: 9, y: 48}, {stat: "Sys-SensoTower02", x: 9, y: 49}, {stat: "A0TankTrap", x: 10, y: 49},
+];

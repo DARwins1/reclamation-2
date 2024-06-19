@@ -275,15 +275,6 @@ function eventStartLevel()
 		},
 	});
 
-	// cTempl.colpodt // MRP
-	// cTempl.colaaht // Hurricane
-	// cTempl.colmrat // MRA
-	// cTempl.colhmght // HMG
-	// cTempl.colcanht // Light Cannon
-	// cTempl.colflamt // Flamer
-	// cTempl.colmortht // Mortar
-	// cTempl.commcant // Medium Cannon
-	// cTempl.comatt // Lancer
 	camSetFactories({
 		"scavFactory1": {
 			assembly: "scavAssembly1",

@@ -336,10 +336,10 @@ function __camPlayerDead()
 				droidCount += 1;
 			}
 		});
-		dead = droidCount <= 0 && !__HAVE_FACTORIES;
+		dead = droidCount <= 0 && !haveFactories;
 
 		//Finish Beta-end early if they have no units and factories on Easy/Normal.
-		if (dead && (difficulty <= MEDIUM) && (__camNextLevel === "CAM_3A"))
+		if (dead && !__camVictoryData.gameOverOnDeath)
 		{
 			cam_eventMissionTimeout(); //Early victory trigger
 			return false;
@@ -552,24 +552,6 @@ function __camSetupConsoleForVictoryConditions()
 	queue("__camShowVictoryConditions", camSecondsToMilliseconds(0.5));
 }
 
-function __camShowBetaHint()
-{
-	return ((camDiscoverCampaign() === __CAM_BETA_CAMPAIGN_NUMBER) && (difficulty === HARD || difficulty === INSANE));
-}
-
-function __camShowBetaHintEarly()
-{
-	if (!camDef(__camWinLossCallback) || (__camWinLossCallback !== CAM_VICTORY_PRE_OFFWORLD))
-	{
-		return;
-	}
-
-	if (__camShowBetaHint())
-	{
-		__camShowVictoryConditions();
-	}
-}
-
 function __camShowVictoryConditions()
 {
 	if (!camDef(__camNextLevel))
@@ -579,11 +561,6 @@ function __camShowVictoryConditions()
 
 	if (__camWinLossCallback === CAM_VICTORY_PRE_OFFWORLD)
 	{
-		if (__camShowBetaHint())
-		{
-			console(_("Hard / Insane difficulty hint:"));
-			console(_("Fortify a strong base across the map to protect yourself from the Collective"));
-		}
 		return; // do not need this on these missions.
 	}
 

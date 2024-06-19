@@ -823,7 +823,7 @@ function __camTacticsTickForGroup(group)
 function __camCheckGroupMorale(group)
 {
 	const gi = __camGroupInfo[group];
-	if (!camDef(gi.data.morale))
+	if (!camDef(gi) || !camDef(gi.data.morale))
 	{
 		return;
 	}
