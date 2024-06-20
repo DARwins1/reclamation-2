@@ -335,7 +335,7 @@ function camAssignTruck(droid, index)
 function camAreaToStructSet(area, player)
 {
 	let a = area;
-	if (!camDef(area.x))
+	if (camIsString(area))
 	{
 		// Area label
 		a = getObject(area);

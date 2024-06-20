@@ -25,7 +25,7 @@ const mis_pinkScavResearch = [
 	"R-Vehicle-Metals01", "R-Struc-Materials01", "R-Defense-WallUpgrade01",
 ];
 const mis_redScavResearch = [
-	"R-Wpn-MG-Damage02", "R-Wpn-Rocket-Damage02", "R-Wpn-Flamer-ROF02",
+	"R-Wpn-MG-Damage02", "R-Wpn-Rocket-Damage02", "R-Wpn-Flamer-ROF01",
 	"R-Wpn-Cannon-Damage02", "R-Wpn-MG-ROF01", "R-Wpn-Rocket-ROF01",
 	"R-Wpn-Cannon-ROF01", "R-Vehicle-Metals01", "R-Wpn-Flamer-Damage02",
 	"R-Defense-WallUpgrade01", "R-Struc-Materials01",

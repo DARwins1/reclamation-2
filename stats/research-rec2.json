@@ -123,9 +123,6 @@
         "requiredResearch": [
             "R-Struc-CommandRelay"
         ],
-        "requiredStructures": [
-            "A0ComDroidControl"
-        ],
         "researchPoints": 600,
         "researchPower": 37,
         "resultComponents": [
@@ -218,6 +215,7 @@
     "R-Cyborg-Metals03": {
         "iconID": "IMAGE_RES_CYBORGTECH",
         "id": "R-Cyborg-Metals03",
+        "keyTopic": 1,
         "imdName": "icmolql.pie",
         "name": "Cyborg Composite Alloys Mk3",
         "requiredResearch": [
@@ -1224,7 +1222,8 @@
         "redStructures": [
             "Sys-SensoTower01",
             "GuardTower1",
-            "GuardTower6"
+            "GuardTower6",
+            "Sys-VTOL-RadarTower01"
         ],
         "requiredResearch": [
             "R-Sys-Engineering01"
@@ -1236,7 +1235,8 @@
             "A0HardcreteMk1Wall",
             "Sys-SensoTower02",
             "GuardTower3",
-            "GuardTower6H"
+            "GuardTower6H",
+            "Sys-VTOL-RadarTower02"
         ],
         "statID": "A0HardcreteMk1Wall"
     },
@@ -2307,7 +2307,7 @@
         "requiredResearch": [
             "R-Wpn-Cannon-Damage01"
         ],
-        "researchPoints": 3600,
+        "researchPoints": 1400,
         "researchPower": 112,
         "results": [
             {
@@ -4542,6 +4542,7 @@
     "R-Wpn-AAGun-Damage01": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-AAGun-Damage01",
+        "keyTopic": 1,
         "msgName": "RES_W_AAD1",
         "name": "AA HE Flak",
         "requiredResearch": [
@@ -4898,7 +4899,7 @@
              "R-Wpn-Cannon-Accuracy01",
              "R-Wpn-Cannon-Damage04"
         ],
-        "researchPoints": 1400,
+        "researchPoints": 1700,
         "researchPower": 150,
         "results": [
             {

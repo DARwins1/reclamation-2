@@ -23,14 +23,14 @@ var colUplinkTruckJob;
 const mis_scavResearch = [
 	"R-Wpn-MG-Damage02", "R-Wpn-Rocket-Damage02", "R-Wpn-Mortar-Damage01", 
 	"R-Wpn-Flamer-Damage02", "R-Wpn-Cannon-Damage02", "R-Wpn-MG-ROF01",
-	"R-Wpn-Rocket-ROF01", "R-Wpn-Mortar-ROF01", "R-Wpn-Flamer-ROF02",
+	"R-Wpn-Rocket-ROF01", "R-Wpn-Mortar-ROF01", "R-Wpn-Flamer-ROF01",
 	"R-Wpn-Cannon-ROF01", "R-Vehicle-Metals01", "R-Struc-Materials02", 
 	"R-Defense-WallUpgrade02", "R-Wpn-Flamer-Damage03",
 ];
 const mis_collectiveResearch = [
 	"R-Wpn-MG-Damage02", "R-Wpn-Rocket-Damage02", "R-Wpn-Mortar-Damage01", 
 	"R-Wpn-Flamer-Damage02", "R-Wpn-Cannon-Damage02", "R-Wpn-MG-ROF01",
-	"R-Wpn-Rocket-ROF01", "R-Wpn-Mortar-ROF01", "R-Wpn-Flamer-ROF02",
+	"R-Wpn-Rocket-ROF01", "R-Wpn-Mortar-ROF01", "R-Wpn-Flamer-ROF01",
 	"R-Wpn-Cannon-ROF01", "R-Vehicle-Metals01", "R-Struc-Materials02", 
 	"R-Defense-WallUpgrade02", "R-Wpn-Flamer-Damage03", "R-Sys-Engineering01",
 	"R-Wpn-Cannon-Accuracy01", "R-Wpn-Rocket-Accuracy01",
@@ -161,7 +161,7 @@ function sendCollectiveTransporter()
 	// If space allows, add additional Misc. attack units
 	let droidQueue = [];
 
-	if (!camDef(camGetTruck(colLZTruckJob))
+	if (!camDef(camGetTruck(colLZTruckJob)))
 	{
 		droidQueue.push(cTempl.coltruckht);
 	}
@@ -176,7 +176,7 @@ function sendCollectiveTransporter()
 	droidQueue = droidQueue.concat(camGetRefillableGroupTemplates([colRepairGroup, colUplinkPatrolGroup, colSensorGroup, colMortarGroup]));
 
 	const droids = [];
-	for (let i = 0; i < (difficulty < HARD) ? 8 : 10; i++)
+	for (let i = 0; i < ((difficulty < HARD) ? 8 : 10); i++)
 	{
 		if (i < droidQueue.length)
 		{
@@ -506,8 +506,8 @@ function eventStartLevel()
 		"orangeNorthRoadBase": {
 			cleanup: "orangeBase1",
 			detectMsg: "ORANGE_BASE1",
-			detectSnd: cam_sounds.baseDetection.scavengerOutpostDetected,
-			eliminateSnd: cam_sounds.baseElimination.scavengerOutpostEradicated,
+			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated,
 		},
 		"orangePlateauBase": {
 			cleanup: "orangeBase2",

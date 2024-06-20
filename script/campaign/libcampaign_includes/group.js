@@ -208,8 +208,8 @@ function camGetRefillableGroupTemplates(group, allTemplates)
 	if (group instanceof Array)
 	{
 		// If we were given an array of groups, the templates of all of them combined.
-		const templates = [];
-		for (g in group)
+		let templates = [];
+		for (g of group)
 		{
 			templates = templates.concat(camGetRefillableGroupTemplates(g, allTemplates));
 		}

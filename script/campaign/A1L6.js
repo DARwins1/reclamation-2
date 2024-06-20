@@ -13,7 +13,7 @@ var colTruckJob4;
 const mis_collectiveResearch = [
 	"R-Wpn-MG-Damage02", "R-Wpn-Rocket-Damage02", "R-Wpn-Mortar-Damage01", 
 	"R-Wpn-Flamer-Damage02", "R-Wpn-Cannon-Damage02", "R-Wpn-MG-ROF01",
-	"R-Wpn-Rocket-ROF02", "R-Wpn-Mortar-ROF01", "R-Wpn-Flamer-ROF02",
+	"R-Wpn-Rocket-ROF02", "R-Wpn-Mortar-ROF01", "R-Wpn-Flamer-ROF01",
 	"R-Wpn-Cannon-ROF02", "R-Vehicle-Metals02", "R-Struc-Materials02", 
 	"R-Defense-WallUpgrade02", "R-Sys-Engineering01",
 ];
@@ -111,7 +111,6 @@ function collectiveAttackWaves()
 		cTempl.colmrat, cTempl.colmrat, // MRA
 		cTempl.colhmght, cTempl.colhmght, // HMG
 		cTempl.colcanht, cTempl.colcanht, cTempl.colcanht, // Light Cannon
-		cTempl.colflamt, cTempl.colflamt, // Flamer
 		cTempl.colaaht, // Hurricane
 		cTempl.commcant, // Medium Cannon
 		cTempl.comatt, // Lancer
@@ -326,7 +325,7 @@ function checkIfLaunched()
 function eventStartLevel()
 {
 	camSetStandardWinLossConditions(CAM_VICTORY_TIMEOUT, "THE_END", {
-		reinforcements: camMinutesToSeconds(5), // Duration the transport "leaves" map.
+		reinforcements: camMinutesToSeconds(4), // Duration the transport "leaves" map.
 		gameOverOnDeath: false, // Don't fail when the player runs out of stuff
 		callback: "checkIfLaunched"
 	});
