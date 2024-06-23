@@ -96,10 +96,22 @@ function aggroCommander()
 	}
 }
 
-// Activate all remaining C-Scav factories
-function activateCScavFactories()
+// Activate the two southern C-Scav factories
+function activateFirstCScavFactories()
 {
+	camEnableFactory("scavFactory2");
 	camEnableFactory("scavFactory3");
+}
+
+// Activate the southwestern C-Scav factory
+function activateSecondCScavFactories()
+{
+	camEnableFactory("scavFactory1");
+}
+
+// Activate the northern C-Scav factory near the crashed transport
+function activateFinalCScavFactories()
+{
 	camEnableFactory("scavFactory4");
 }
 
@@ -134,6 +146,14 @@ function sendCollectiveTransporter()
 			}
 		}
 	);
+
+	// Dialogue about Collective prisoners
+	camQueueDialogue([
+		{text: "LIEUTENANT: The Collective must be using this site to process their prisoners.", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: With any luck, Clayde might still be detained inside.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: Commander Bravo, secure the area!", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: We have to make sure the prisoners are safe!", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+	]);
 }
 
 // Assign Collective units
@@ -223,6 +243,17 @@ function eventDestroyed(obj)
 		camCallOnce("aggroCommander");
 		camEnableFactory("colFactory");
 	}
+}
+
+// Dialogue about the Collective
+function camEnemyBaseDetected_colMainBase()
+{
+	// Dialogue about the Collective
+	camQueueDialogue([
+		{text: "LIEUTENANT: How did we not see this coming?", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: How were we so blindsided by the Collective?", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: Hopefully there's still time to fix things...", delay: camSecondsToMilliseconds(5), sound: CAM_RADIO_CLICK},
+	]);
 }
 
 function eventStartLevel()
@@ -352,14 +383,12 @@ function eventStartLevel()
 		interval: camSecondsToMilliseconds(38)
 	});
 
-	// Do these immediately
-	camEnableFactory("scavFactory1");
-	camEnableFactory("scavFactory2");
-
 	queue("activateBait", camMinutesToMilliseconds(1.75));
+	queue("activateFirstCScavFactories", camChangeOnDiff(camMinutesToMilliseconds(2)));
 	queue("heliAttack1", camChangeOnDiff(camMinutesToMilliseconds(2)));
 	queue("sendCollectiveTransporter", camMinutesToMilliseconds(3));
-	queue("activateCScavFactories", camChangeOnDiff(camMinutesToMilliseconds(6)));
+	queue("activateSecondCScavFactories", camChangeOnDiff(camMinutesToMilliseconds(4)));
+	queue("activateFinalCScavFactories", camChangeOnDiff(camMinutesToMilliseconds(6)));
 	queue("heliAttack2", camChangeOnDiff(camMinutesToMilliseconds(6)));
 	queue("aggroCommander", camChangeOnDiff(camMinutesToMilliseconds(12)));
 }

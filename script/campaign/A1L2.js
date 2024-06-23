@@ -64,6 +64,16 @@ camAreaEvent("powerCaptureZone", function(droid)
 		powerCaptured = true;
 		// Also grant the Power Module
 		enableResearch("R-Struc-PowerModuleMk1", CAM_HUMAN_PLAYER);
+
+		camQueueDialogue([
+			{text: "LIEUTENANT: That appears to be an in-house nuclear reactor.", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+			{text: "LIEUTENANT: ...It's a bit smaller than the ones usually hooked up to electrical grids.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+			{text: "LIEUTENANT: It seems like its sole purpose was to power NASDA's core systems.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+			{text: "LIEUTENANT: Thankfully, it appears to be mostly intact.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+			{text: "LIEUTENANT: Seems like the scavengers here didn't want to mess with something with \"nuclear\" in the name.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+			{text: "LIEUTENANT: ...And what's this?", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+			{text: "LIEUTENANT: The auxiliary generators seem to have a special module that we can use as well!", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		]);
 	}
 	else
 	{
@@ -80,6 +90,14 @@ camAreaEvent("uplinkCaptureZone", function(droid)
 			donateObject(object, MIS_CLAYDE);
 		}
 		uplinkCaptured = true;
+
+		camQueueDialogue([
+			{text: "CLAYDE: Well look at that. NASDA Central.", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+			{text: "LIEUTENANT: From the outside, it seems to be in decent condition.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+			{text: "LIEUTENANT: But we won't know more until we can get a look inside.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+			{text: "CLAYDE: Don't worry.", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+			{text: "CLAYDE: Once these scavengers are cleared out, we'll have all the time in the world.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		]);
 	}
 	else
 	{
@@ -98,6 +116,21 @@ camAreaEvent("vtolFactoryCaptureZone", function(droid)
 		vtolCaptured = true;
 		// Also grant VTOL Propulsion
 		enableResearch("R-Vehicle-Prop-VTOL", CAM_HUMAN_PLAYER);
+
+		camQueueDialogue([
+			{text: "CLAYDE: Lieutenant, what am I looking at here?", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+			{text: "LIEUTENANT: That..!", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+			{text: "LIEUTENANT: THAT is a Pre-Collapse VTOL Factory!", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+			{text: "LIEUTENANT: I never thought I'd see one of these again!.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+			{text: "CLAYDE: Slow down, Lieutenant.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+			{text: "LIEUTENANT: Sorry, sir.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+			{text: "LIEUTENANT: These scavengers were likely using this to assemble and store their helicopters.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+			{text: "LIEUTENANT: ...But with any luck, we should be able to...", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+			{text: "LIEUTENANT: Yes!", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+			{text: "LIEUTENANT: There are still Pre-Collapse designs inside this factory!", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+			{text: "LIEUTENANT: We'll be able to use them to design our own VTOL aircraft.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+			{text: "CLAYDE: Excellent.", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+		]);
 	}
 	else
 	{
@@ -358,7 +391,23 @@ function eventAttacked(victim, attacker)
 	if (victim.player == CAM_HUMAN_PLAYER || attacker.player == CAM_HUMAN_PLAYER)
 	{
 		camCallOnce("ambushLZ");
+
+		if ((victim.type === STRUCTURE && isNasdaStructure(victim)) || (attacker.type === STRUCTURE && isNasdaStructure(attacker)))
+		{
+			camCallOnce("nasdaStructDialogue");
+		}
 	}
+}
+
+// Dialogue about scavengers using NASDA defenses
+function nasdaStructDialogue()
+{
+	camQueueDialogue([
+		{text: "LIEUTENANT: It seems that these scavengers are repurposing NASDA's Pre-Collapse defense systems.", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: They look like they're in rather poor condition though.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: A few rusty, crumbling turrets aren't going to stop us today.", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Continue your assault, Commander.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+	]);
 }
 
 // Allow allies to start bringing reinforcements
@@ -367,27 +416,45 @@ function camEnemyBaseEliminated_charlieLZBase()
 	// NOTE: For the simplicity's sake, allied LZ's cannot be compromised or permanently destroyed on this mission.
 	sendCharlieTransporter();
 	setTimer("sendCharlieTransporter", camMinutesToMilliseconds(2.5));
+	hackRemoveMessage("CHARLIE_LZ", PROX_MSG, CAM_HUMAN_PLAYER);
+
+	camQueueDialogue([
+		{text: "CHARLIE: Thanks, Bravo.", delay: camSecondsToMilliseconds(6), sound: CAM_RADIO_CLICK},
+		{text: "CHARLIE: We'll help keep the scavengers off your back while you clear the other LZs.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+	]);
+
 	charlieLZSecure = true;
 	updateExtraObjectiveMessage();
-	hackRemoveMessage("CHARLIE_LZ", PROX_MSG, CAM_HUMAN_PLAYER);
 }
 
 function camEnemyBaseEliminated_foxtrotLZBase()
 {
 	sendFoxtrotTransporter();
 	setTimer("sendFoxtrotTransporter", camMinutesToMilliseconds(2.5));
+	hackRemoveMessage("FOXTROT_LZ", PROX_MSG, CAM_HUMAN_PLAYER);
+
+	camQueueDialogue([
+		{text: "FOXTROT: Good work clearing our LZ, Bravo.", delay: camSecondsToMilliseconds(6), sound: CAM_RADIO_CLICK},
+		{text: "FOXTROT: Let's show these scavs what REAL military muscle looks like!", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+	]);
+
 	foxtrotLZSecure = true;
 	updateExtraObjectiveMessage();
-	hackRemoveMessage("FOXTROT_LZ", PROX_MSG, CAM_HUMAN_PLAYER);
 }
 
 function camEnemyBaseEliminated_golfLZBase()
 {
 	sendGolfTransporter();
 	setTimer("sendGolfTransporter", camMinutesToMilliseconds(2.5));
+	hackRemoveMessage("GOLF_LZ", PROX_MSG, CAM_HUMAN_PLAYER);
+
+	camQueueDialogue([
+		{text: "GOLF: Nice job, Bravo.", delay: camSecondsToMilliseconds(6), sound: CAM_RADIO_CLICK},
+		{text: "GOLF: We'll help you bust down those defenses around NASDA Central.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+	]);
+
 	golfLZSecure = true;
 	updateExtraObjectiveMessage();
-	hackRemoveMessage("GOLF_LZ", PROX_MSG, CAM_HUMAN_PLAYER);
 }
 
 function updateExtraObjectiveMessage()
@@ -397,6 +464,15 @@ function updateExtraObjectiveMessage()
 	if (!foxtrotLZSecure) message.push("Secure team Foxtrot's LZ");
 	if (!golfLZSecure) message.push("Secure team Golf's LZ");
 	camSetExtraObjectiveMessage(message);
+
+	if (charlieLZSecure && foxtrotLZSecure && golfLZSecure)
+	{
+		camQueueDialogue([
+			{text: "LIEUTENANT: Excellent. All LZs secure.", delay: camSecondsToMilliseconds(6), sound: CAM_RADIO_CLICK},
+			{text: "LIEUTENANT: Good work, Commander Bravo.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+			{text: "LIEUTENANT: I'm sure the General will commend you once this battle is over.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		]);
+	}
 }
 
 // Pre-damage all NASDA stuff
@@ -410,25 +486,51 @@ function preDamageStuff()
 	}
 
 	// Damage NASDA defenses
-	let defenses = enumStruct(MIS_YELLOW_SCAVS).filter((struct) => (
-		struct.name == _("Rusty Medium Cannon Hardpoint") ||
-		struct.name == _("Rusty Heavy Machinegun Tower") ||
-		struct.name == _("Rusty Mini-Rocket Tower") ||
-		struct.name == _("Old Hardcrete Wall") ||
-		struct.name == _("Old Hardcrete Corner Wall") ||
-		struct.name == _("Old Heavy Machinegun Bunker") ||
-		struct.name == _("VTOL Rearming Pad")
-	));
+	let defenses = enumStruct(MIS_YELLOW_SCAVS).filter((struct) => (isNasdaStructure(struct)));
 	for (const struct of defenses)
 	{
 		setHealth(struct, camChangeOnDiff(60, true) + camRand(20));
 	}
 }
 
+// Returns true if the given structure is considered belonging to NASDA
+function isNasdaStructure(struct)
+{
+	return (struct.name == _("Rusty Medium Cannon Hardpoint") ||
+		struct.name == _("Rusty Heavy Machinegun Tower") ||
+		struct.name == _("Rusty Mini-Rocket Tower") ||
+		struct.name == _("Old Hardcrete Wall") ||
+		struct.name == _("Old Hardcrete Corner Wall") ||
+		struct.name == _("Old Heavy Machinegun Bunker") ||
+		struct.name == _("VTOL Rearming Pad"));
+}
+
+// Victory dialogue
+function finalDialogue()
+{
+	camQueueDialogue([
+		{text: "CLAYDE: Excellent work, Commanders.", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: NASDA Central is ours.", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Commander Foxtrot, clear the area of any remaining stragglers.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: I'll send some forces over shortly to fortify NASDA Central.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Bravo, Charlie, Golf. You three return to base and await further orders.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Good work, everyone.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Let today's victory mark the start of a bright new age.", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+	]);
+}
+
 // Returns true if all NASDA components are captured
 function nasdaCaptured()
 {
-	if (powerCaptured && uplinkCaptured && vtolCaptured) return true;
+	if (powerCaptured && uplinkCaptured && vtolCaptured && camAllArtifactsPickedUp())
+	{
+		camCallOnce("finalDialogue");
+
+		if (camDialogueDone())
+		{
+			return true;
+		}
+	} 
 	return undefined;
 }
 
@@ -440,8 +542,7 @@ function eventStartLevel()
 	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "A1L3", {
 		area: "compromiseZone",
 		reinforcements: camMinutesToSeconds(2.5),
-		callback: "nasdaCaptured",
-		annihilate: true
+		callback: "nasdaCaptured"
 	});
 
 	centreView(startPos.x, startPos.y);

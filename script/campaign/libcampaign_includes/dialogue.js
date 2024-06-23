@@ -5,8 +5,11 @@
 
 
 //;; ## camQueueDialogue(text, delay[, sound])
+//;;
 //;; Queues up a dialogue, consisting of the text to be displayed, 
 //;; the delay, and the sound file to be played (if any).
+//;; NOTE: Delay is amount of time to wait AFTER playing the previous dialogue,
+//;; NOT how long to wait after this function is called
 //;;
 //;; @param {string|Object|Object[]} text
 //;; @param {number} delay
@@ -22,9 +25,10 @@ function camQueueDialogue(text, delay, sound)
 			const text = diaInfo.text;
 			const delay = diaInfo.delay;
 			const sound = diaInfo.sound;
-			camQueueDialogue(text, delay, sound)
+			camQueueDialogue(text, delay, sound);
 		}
-	}	
+		return;
+	}
 
 	if (!camIsString(text))
 	{
@@ -33,7 +37,27 @@ function camQueueDialogue(text, delay, sound)
 		delay = text.delay;
 		text = text.text;
 	}
-	__camQueuedDialogue.push({text: text, time: gameTime + delay, sound: sound})
+
+	// Keep track of when the last dialogue is scheduled to play
+	if (__camLatestDialogueTime < gameTime)
+	{
+		__camLatestDialogueTime = gameTime;
+	}
+	__camLatestDialogueTime += delay;
+
+	__camQueuedDialogue.push({text: text, time: __camLatestDialogueTime, sound: sound})
+}
+
+//;; ## camDialogueDone()
+//;;
+//;; If there hasn't been any dialogue for the past four seconds (and the queue is empty).
+//;; Useful for scripting things to happen only after dialogue ends.
+//;;
+//;; @returns {boolean}
+//;;
+function camDialogueDone()
+{
+	return (__camLatestDialogueTime + camSecondsToMilliseconds(4) <= gameTime);
 }
 
 //////////// privates

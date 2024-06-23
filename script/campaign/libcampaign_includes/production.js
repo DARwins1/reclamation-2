@@ -600,7 +600,7 @@ function __camContinueProduction(structure)
 		// Only build if destination is reachable or undefined
 		const destPos = __camFactoryQueue[__PLAYER][0].position;
 		if ((!camDef(destPos) || propulsionCanReach(__camFactoryQueue[__PLAYER][0].template.prop, structPos.x, structPos.y, destPos.x, destPos.y)) 
-			&& camFactoryCanProducePropulsion(__camFactoryQueue[__PLAYER][0].template.prop, struct.stattype)
+			&& camFactoryCanProduceTemplate(__camFactoryQueue[__PLAYER][0].template, struct)
 			&& __camBuildDroid(__camFactoryQueue[__PLAYER][0].template, struct))
 		{
 			__camFactoryQueue[__PLAYER].shift();
@@ -639,7 +639,7 @@ function __camContinueProduction(structure)
 	}
 
 	// Check if a refillable group needs a replacement unit
-	const refillableTemplate = __camGetRefillableTemplateForFactory(flabel, struct.stattype);
+	const refillableTemplate = __camGetRefillableTemplateForFactory(flabel, struct);
 	if (camDef(refillableTemplate))
 	{
 		// Build this template instead, and assign it to the refillable group

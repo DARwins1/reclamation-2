@@ -296,6 +296,7 @@ var __camNumEnemyBases;
 //dialogue
 const CAM_RADIO_CLICK = "RADIO_CLICK";
 var __camQueuedDialogue;
+var __camLatestDialogueTime;
 
 //reinforcements
 const CAM_REINFORCE_NONE = 0;

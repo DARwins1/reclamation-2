@@ -76,6 +76,18 @@ function vtolAttack()
 		pos: camMakePos("landingZoneZulu")
 	};
 	camSetVtolData(CAM_THE_COLLECTIVE, ["vtolAttackPos2", "vtolAttackPos3"], "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(1.5)), undefined, ext);
+
+	// Dialogue about VTOLs
+	camQueueDialogue([
+		{text: "LIEUTENANT: General! Sir!", delay: 0, sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: Enemy air units closing in fast!", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Hold your positions!", delay: camSecondsToMilliseconds(8), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: But sir, we don't have enough firepower to deal with those VTOLs!", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: I said hold!", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: NASDA Central is NOT for the taking.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Commanders Charlie, Golf, Echo. Bring your forces to NASDA Central ASAP.", delay: camSecondsToMilliseconds(8), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: We cannot let the Collective have this site!", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+	]);
 }
 
 // Send Collective-scavengers at team Delta while the transport flies over
@@ -127,8 +139,8 @@ function sendDeltaTransporter()
 	{
 		camSendReinforcement(MIS_TEAM_DELTA, camMakePos("landingZoneDelta"), droids,
 			CAM_REINFORCE_TRANSPORT, {
-				entry: camMakePos("transportEntryPos"),
-				exit: camMakePos("transportEntryPos")
+				entry: camMakePos("transportEntryPosDelta"),
+				exit: camMakePos("transportEntryPosDelta")
 			}
 		);
 	}
@@ -167,8 +179,29 @@ function sendCollectiveTransporter()
 	}
 }
 
-// Assign Delta reinforcements
-// Also donate structures on the player's first landing
+// Send transports to evacuate allied units
+function sendEvacTransporter()
+{
+	if (enumArea("deltaEvacZone", MIS_TEAM_DELTA, false).filter((obj) => (obj.type === DROID)).length > 0)
+	{
+		camSendReinforcement(MIS_TEAM_DELTA, camMakePos("landingZoneDelta"), [cTempl.truck],
+			CAM_REINFORCE_TRANSPORT, {
+				entry: camMakePos("transportEntryPosDelta"),
+				exit: camMakePos("transportEntryPosDelta")
+			}
+		);
+	}
+	if (enumArea("zuluEvacZone", MIS_CLAYDE, false).filter((obj) => (obj.type === DROID)).length > 0)
+	{
+		camSendReinforcement(MIS_CLAYDE, camMakePos("landingZoneZulu"), [cTempl.truck],
+			CAM_REINFORCE_TRANSPORT, {
+				entry: camMakePos("transportEntryPosZulu"),
+				exit: camMakePos("transportEntryPosZulu")
+			}
+		);
+	}
+}
+
 function eventTransporterLanded(transport)
 {
 	if (!structsDonated && transport.player === CAM_HUMAN_PLAYER)
@@ -199,29 +232,51 @@ function eventTransporterLanded(transport)
 		addSpotter(18, 56, CAM_HUMAN_PLAYER, SPOTTER_RANGE * 128, false, 0);
 
 		structsDonated = true;
-		return;
 	}
 
 
-	if (phaseTwo || transport.player !== MIS_TEAM_DELTA)
+	if (!phaseTwo && transport.player === MIS_TEAM_DELTA)
 	{
-		return; // don't care
+		// Assign Delta reinforcements
+		const transDroids = camGetTransporterDroids(transport.player);
+		const transTrucks = transDroids.filter((droid) => (droid.droidType == DROID_CONSTRUCT));
+		const transOther = transDroids.filter((droid) => (droid.droidType != DROID_CONSTRUCT));
+
+		// Assign the truck
+		// Check if the LZ truck is missing
+		if (!camDef(camGetTruck(deltaTruckJob)) && camDef(transTrucks[0]))
+		{
+			// Assign this truck!
+			camAssignTruck(transTrucks[0], deltaTruckJob);
+		}
+
+		// Assign other units to their refillable groups
+		camAssignToRefillableGroups(transOther, [deltaRepairGroup, deltaMortarGroup, deltaVtolGroup, deltaPatrolGroup]);
 	}
-
-	const transDroids = camGetTransporterDroids(transport.player);
-	const transTrucks = transDroids.filter((droid) => (droid.droidType == DROID_CONSTRUCT));
-	const transOther = transDroids.filter((droid) => (droid.droidType != DROID_CONSTRUCT));
-
-	// Assign the truck
-	// Check if the LZ truck is missing
-	if (!camDef(camGetTruck(deltaTruckJob)) && camDef(transTrucks[0]))
+	else if (phaseTwo)
 	{
-		// Assign this truck!
-		camAssignTruck(transTrucks[0], deltaTruckJob);
+		if (transport.player === MIS_TEAM_DELTA)
+		{
+			// Evacuate Delta units
+			let evacDroids = enumArea("deltaEvacZone", MIS_TEAM_DELTA, false).filter((obj) => (obj.type === DROID && obj.droidType !== DROID_SUPERTRANSPORTER));
+			evacDroids = evacDroids.concat(camGetTransporterDroids(MIS_TEAM_DELTA)); // Include the dummy truck brought by the transporter
+			for (droid of evacDroids)
+			{
+				camSafeRemoveObject(droid);
+			}
+		}
+		else if (transport.player === MIS_CLAYDE)
+		{
+			// Evacuate Zulu units
+			let evacDroids = enumArea("zuluEvacZone", MIS_CLAYDE, false).filter((obj) => (obj.type === DROID && obj.droidType !== DROID_SUPERTRANSPORTER));
+			evacDroids = evacDroids.concat(camGetTransporterDroids(MIS_CLAYDE));
+			for (droid of evacDroids)
+			{
+				camSafeRemoveObject(droid);
+			}
+		}
+		// Yes, I KNOW that transports are only supposed to hold up to ten units.
 	}
-
-	// Assign other units to their refillable groups
-	camAssignToRefillableGroups(transOther, [deltaRepairGroup, deltaMortarGroup, deltaVtolGroup, deltaPatrolGroup]);
 }
 
 // Replace the spotter when the player re-loads the game
@@ -354,6 +409,7 @@ function collectiveAttackWaves()
 	{
 		waveEntrances.push("colEntrance3");
 		waveTemplates.push(neValleyDroids);
+		camCallOnce("collectiveDialogue");
 	}
 	if (waveIndex >= 10)
 	{
@@ -466,6 +522,22 @@ function collectiveAttackWaves()
 	}
 }
 
+// Dialogue about approaching Collective tanks
+function collectiveDialogue()
+{
+	camQueueDialogue([
+		{text: "FOXTROT: General, sir!", delay: 0, sound: CAM_RADIO_CLICK},
+		{text: "FOXTROT: We're spotting groups of enemy tanks rolling over the hills.", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+		{text: "FOXTROT: They look a lot tougher than scavengers, sir.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: The Collective.", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Why are they here?", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: The Collective must be leading this assault, sir.", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: Although I don't know how or why these scavengers are working with them.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Whatever it is, it probably has to do with this site.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Which means they're not going to get it.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+	]);
+}
+
 function setPhaseTwo()
 {
 	phaseTwo = true;
@@ -474,8 +546,6 @@ function setPhaseTwo()
 	removeTimer("collectiveAttackWaves");
 	setTimer("collectiveAttackWaves", camChangeOnDiff(camSecondsToMilliseconds(25)));
 
-	// TODO: Dialogue about evacuating
-
 	// Switch the teams of the NASDA power structures (so the player can destroy them)
 	const structs = enumArea("nasdaPowerArea", MIS_NASDA, false).filter((obj) => (obj.type === STRUCTURE));
 	for (structure of structs)
@@ -483,9 +553,85 @@ function setPhaseTwo()
 		donateObject(structure, MIS_NASDA_POWER);
 	}
 
+	camSetExtraObjectiveMessage(["Destroy NASDA's power systems", "Escape NASDA Central"]);
 	hackAddMessage("NASDA_POWER", PROX_MSG, CAM_HUMAN_PLAYER);
 
 	evacuateAllies();
+	queue("spawnCollectiveCommander", camSecondsToMilliseconds(40));
+
+	// Dialogue about evacuating
+	// Also tell the player to destroy NASDA's power systems.
+	camQueueDialogue([
+		{text: "FOXTROT: General!", delay: 0, sound: CAM_RADIO_CLICK},
+		{text: "FOXTROT: We're holding off the Collective as best we can!", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+		{text: "FOXTROT: But there's so many, of them. They just keep coming!", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "FOXTROT: I don't know how much longer we ca-", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Foxtrot, come in!", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Commander Foxtrot, do you read?", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: Sir, we've lost contact with team Foxtrot!", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: I'm picking up hostiles closing in from every direction.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: Teams Golf and Echo report that they're under attack as well.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: And team Charlie won't be able to reinforce us in time.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: What do we do, sir?", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: ...General, sir?", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Attention all forces, I'm authorizing an immediate withdrawal.", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Evacuate NASDA Central!", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Regroup at your bases and await further orders.", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: Commander Bravo, before you evacuate...", delay: camSecondsToMilliseconds(6), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: You need to destroy NASDA Central's power systems.", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: We can't allow the Collective to access NASDA's control systems.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: If we cut the power by destroying that reactor, we can deny access and buy ourselves some time.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: But you'll have to move fast.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: Your position is about to be overrun, and those defenses aren't going to last.", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+	]);
+}
+
+// Teams Delta and Zulu practice the time-honored strategy known as:
+// "Drop Everything and Run for Your Lives"
+function evacuateAllies()
+{
+	// Disable allied truck management
+	camDisableTruck("deltaLZ");
+	camDisableTruck("nasdaCentral");
+
+	// Disable refillable groups
+	camDisableRefillableGroup(deltaPatrolGroup);
+	camDisableRefillableGroup(deltaRepairGroup);
+	camDisableRefillableGroup(deltaMortarGroup);
+	camDisableRefillableGroup(deltaVtolGroup);
+	camDisableRefillableGroup(zuluPatrolGroup);
+	camDisableRefillableGroup(zuluVtolGroupNW);
+	camDisableRefillableGroup(zuluVtolGroupNE);
+	camDisableRefillableGroup(zuluVtolGroupSouth);
+
+	// Place all allied units into two groups
+	const deltaDroids = enumDroid(MIS_TEAM_DELTA);
+	// We don't actually care about the group, we just don't want the campaign library to order these units around anymore.
+	camMakeGroup(deltaDroids);
+	const zuluDroids = enumDroid(MIS_CLAYDE);
+	camMakeGroup(zuluDroids);
+
+	// Move all units towards their respective LZs
+	for (droid of deltaDroids)
+	{
+		const lz = camMakePos("landingZoneDelta");
+		orderDroidLoc(droid, DORDER_MOVE, lz.x, lz.y);
+	}
+	for (droid of zuluDroids)
+	{
+		const lz = camMakePos("landingZoneZulu");
+		orderDroidLoc(droid, DORDER_MOVE, lz.x, lz.y);
+	}
+
+	// Replace reinforcements with evac transports.
+	removeTimer("sendDeltaTransporter");
+	setTimer("sendEvacTransporter", camSecondsToMilliseconds(20));
+}
+
+// Spawn a Collective command tank from the southern entrance
+function spawnCollectiveCommander()
+{
+	// TODO: Implement
 }
 
 function eventDestroyed(obj)
@@ -496,13 +642,6 @@ function eventDestroyed(obj)
 		powerDestroyed = true;
 		hackRemoveMessage("NASDA_POWER", PROX_MSG, CAM_HUMAN_PLAYER);
 	}
-}
-
-// Have team Delta and Zulu practice the time-honored strategy known as:
-// "Drop Everything and Run for Your Lives"
-function evacuateAllies()
-{
-	// TODO: Implement
 }
 
 // Returns true if the player should be allowed to escape (and end the level)
@@ -787,4 +926,13 @@ function eventStartLevel()
 	setTimer("collectiveAttackWaves", camChangeOnDiff(camSecondsToMilliseconds(45)));
 	setTimer("sendDeltaTransporter", camChangeOnDiff(camMinutesToMilliseconds(2.5), true));
 	setTimer("sendCollectiveTransporter", camChangeOnDiff(camMinutesToMilliseconds(2)));
+
+	// Dialogue when arriving
+	camQueueDialogue([
+		{text: "CLAYDE: Commander Bravo.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: My engineers have set up an LZ for you outside of NASDA Central.", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Teams Foxtrot and Delta have already taken up positions to the southwest and southeast.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Use your forces and defend the northern approach.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Defend NASDA Central at all costs!", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+	]);
 }

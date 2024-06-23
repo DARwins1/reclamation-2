@@ -402,4 +402,41 @@ function eventStartLevel()
 	setTimer("collectiveAttackWaves", camChangeOnDiff(camSecondsToMilliseconds(45)));
 	setTimer("checkEnemyVtolArea", camSecondsToMilliseconds(1));
 	setTimer("sendCollectiveTransporter", camChangeOnDiff(camMinutesToMilliseconds(2)));
+
+	// Place the satellite uplink from A1L3
+	const NASDA = 1;
+	setAlliance(CAM_HUMAN_PLAYER, NASDA, true);
+	addStructure("UplinkCentre", NASDA, 108 * 128, 50 * 128);
+
+	// Placeholder for the actual briefing sequence
+	camQueueDialogue([
+		{text: "---- BRIEFING PLACEHOLDER ----", delay: 0},
+		{text: "LIEUTENANT: Amazing work, Bravo!", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: We were able to secure the remaining prisoners after you secured the area.", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: General Clayde, sir, are you there?", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Indeed, Lieutenant.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Commander Bravo, I believe commendations are in order.", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: If it weren't for you, the next transport would have surely taken me to the Collective's main prisoner camp.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: You have my personal thanks.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Lieutenant, what's the status of the other teams?", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: Sir, Foxtrot is MIA. Likely captured and taken to the same site the Collective was planning to send you to.", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: We've lost contact with teams Echo and Golf. Their last transmissions indicated that they were also attacked by the Collective.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: We lost contact with team Delta shortly after they returned to Echo's base.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: Teams Bravo and Charlie are the only ones accounted for, sir.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: What is team Charlie's status?", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: Team Charlie is holding position. They've encountered some Collective forces, but activity there is relatively light.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: And Team Bravo?", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: Team Bravo's site has been calm. After securing that uplink station, there have been no...", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Lieutenant?", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: General! Sir, there are dozens of contacts currently approaching Bravo's position!", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: There's no way Commander Bravo can hold them all back without support!", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Then they won't.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Commander Bravo, prepare your forces for evacuation.", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: We'll move you to Team Charlie's current position.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: You'll have to evacuate using your transport.", delay: camSecondsToMilliseconds(5), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: Hold out for as long as possible and evacuate as many units as you can.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: The transport will take some time to return, so make sure you're ready when by the time it comes back!", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: And remember that anything not evacuated will be lost!", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: Good luck, Commander.", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+	]);
 }

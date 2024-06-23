@@ -71,6 +71,18 @@
 	},
 
 
+	"position_12": {
+		"label": "transportEntryPosZulu",
+		"pos": [384, 4703]
+	},
+
+
+	"position_13": {
+		"label": "transportEntryPosDelta",
+		"pos": [2340, 304]
+	},
+
+
 	"area_0": {
 		"label": "landingZone",
 		"pos1": [2816, 2304],
@@ -292,6 +304,20 @@
 		"label": "nasdaPowerArea",
 		"pos1": [896, 7424],
 		"pos2": [1536, 8448]
+	},
+
+
+	"area_32": {
+		"label": "zuluEvacZone",
+		"pos1": [1792, 7680],
+		"pos2": [2432, 8320]
+	},
+
+
+	"area_33": {
+		"label": "deltaEvacZone",
+		"pos1": [5376, 8192],
+		"pos2": [6016, 8832]
 	},
 
 

@@ -165,11 +165,6 @@ function eventTransporterLanded(transport)
 		if (transporterIndex == 0)
 		{
 			camCallOnce("ambushLZ");
-			camQueueDialogue([
-				{text: "CLAYDE: TEST TEXT!", delay: 0, sound: CAM_RADIO_CLICK},
-				{text: "CLAYDE: TEST TEXT DELAYED", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
-				{text: "CLAYDE: TEST TEXT DELAYED MULTISOUND", delay: camSecondsToMilliseconds(3), sound: [CAM_RADIO_CLICK, CAM_RADIO_CLICK, CAM_RADIO_CLICK]},
-			]);
 		}
 
 		transporterIndex += 1;
@@ -197,6 +192,16 @@ function ambushLZ()
 		pos: camMakePos("orangeScavBase2"),
 		radius: 8
 	});
+
+	// Dialogue about scavenger encampments...
+	camQueueDialogue([
+		{text: "LIEUTENANT: Sir, we have confirmed reports of scavenger in our AO.", delay: camSecondsToMilliseconds(8), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: Multiple encampments within close proximity of several LZs.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: That's to be expected, this city used to hold millions, after all.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: All Commanders be advised; the Council has authorized the use of lethal force.", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Remember that our primary objective is secure NASDA Central.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Use whatever means necessary to achieve it.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+	]);
 }
 
 // Let the orange scavs start attacking the player
@@ -226,6 +231,8 @@ function orangeAggro()
 	camEnableFactory("orangeFactory1");
 	camEnableFactory("orangeFactory2");
 	orangeAggrod = true;
+
+	camCallOnce("scavDialogue");
 }
 
 // Let the pink scavs start attacking the player
@@ -256,6 +263,8 @@ function pinkAggro()
 	camEnableFactory("pinkFactory2");
 	camEnableFactory("pinkFactory3");
 	pinkAggrod = true;
+
+	camCallOnce("scavDialogue");
 }
 
 // Let the red scavs start attacking the player
@@ -271,6 +280,24 @@ function redAggro()
 	camEnableFactory("redFactory1");
 	camEnableFactory("redFactory2");
 	redAggrod = true;
+}
+
+// More dialogue about scavengers
+function scavDialogue()
+{
+	// Dialogue about scavenger encampments...
+	camQueueDialogue([
+		{text: "LIEUTENANT: Sir, we're encountering more scavengers as we settle our forces in.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: It seems that far more people survived the Collapse here than we predicted.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: I wonder...", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: ...Have these guys been fighting each other this whole time?", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Hmm...", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: These scavengers could complicate our mission.", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Lieutenant, as soon as possible, I want reconnaissance on NASDA Central.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: Find out what we'll be dealing with when we move to capture it.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "CLAYDE: I don't want any surprises this time.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: Roger that, sir.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+	]);
 }
 
 // Aggro the corresponding scavs early if one of these bases is elminated

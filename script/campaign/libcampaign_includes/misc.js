@@ -737,13 +737,21 @@ function camArrayReplaceWith(array, item1, item2)
 	return array;
 }
 
-// Returns stats about the given component from the global Stats data structure.
-// If a player is provided, look up stats from their specified Upgrades structure,
-// which contains stats that can be modified through research upgrades.
-// For example, `camGetCompStats("Lancer", "Weapon", CAM_HUMAN_PLAYER)` can be used
-// to get the current stats of the player's Lancer rockets.
-// ```compType``` can be "Body", "Brain", "Building", "Construct", "ECM", "Propulsion",
-// "Repair", "Sensor" or "Weapon".
+//;; ## camGetCompStats(compName, compType[, player])
+//;;
+//;; Returns stats about the given component from the global Stats data structure.
+//;; If a player is provided, look up stats from their specified Upgrades structure,
+//;; which contains stats that can be modified through research upgrades.
+//;; For example, `camGetCompStats("Lancer", "Weapon", CAM_HUMAN_PLAYER)` can be used
+//;; to get the current stats of the player's Lancer rockets.
+//;; ```compType``` can be "Body", "Brain", "Building", "Construct", "ECM", "Propulsion",
+//;; "Repair", "Sensor" or "Weapon".
+//;;
+//;; @param {string} compName
+//;; @param {string} compType
+//;; @param {number} player
+//;; @returns {Object}
+//;; 
 function camGetCompStats(compName, compType, player)
 {
 	if (camDef(player))
@@ -756,8 +764,15 @@ function camGetCompStats(compName, compType, player)
 	}
 }
 
-// Returns the external name of a component from it's internal ID name.
-// For example, `camGetCompNameFromId("Rocket-LtA-T", "Weapon")` returns "Lancer".
+//;; ## camGetCompNameFromId(compId, compType)
+//;;
+//;; Returns the external name of a component from it's internal ID name.
+//;; For example, `camGetCompNameFromId("Rocket-LtA-T", "Weapon")` returns "Lancer".
+//;;
+//;; @param {string} compName
+//;; @param {string} compType
+//;; @returns {string}
+//;; 
 function camGetCompNameFromId(compId, compType)
 {
 	// FIXME: O(n) lookup here
@@ -944,32 +959,50 @@ function camDroidMatchesTemplate(droid, template)
 	}
 }
 
-//;; ## camFactoryCanProducePropulsion(propulsion, factoryType)
-//;; Returns true if a given propulsion can be built by the given factory type.
+//;; ## camFactoryCanProduceTemplate(template, factory)
+//;; Returns true if a given template can be built by the given factory object.
 //;;
-//;; @param {string} propulsion
-//;; @param {number} factoryType
+//;; @param {Object} template
+//;; @param {Object} factory
 //;; @returns {boolean}
 //;;
-function camFactoryCanProducePropulsion(prop, factoryType)
+function camFactoryCanProduceTemplate(template, factory)
 {
-	switch (factoryType)
+	// First, check if the factory has enough modules to produce the template's body
+	const bodyName = camGetCompNameFromId(template.body, "Body"); // Returns a body's name (e.g. "Cobra")
+	const bodySize = camGetCompStats(bodyName, "Body").Size; // Get body size (NOTE: The capitalization of "Size" is correct here!)
+	// Return false if the body size is too large for the factory
+	if (factory.modules < bodySize) return false;
+
+	// Next, do a check to make sure scavenger factories can't produce non-scavenger units
+	if (factory.name === _("Scavenger Factory") || factory.name === _("Infested Scavenger Factory"))
 	{
-		case VTOL_FACTORY:
+		// NOTE: We only need to check light bodies here, since larger bodies will automatically fail the previous check!
+		if (template.body === "Body4ABT" || template.body === "Body1REC" || template.body === "Body2SUP" || template.body === "Body3MBT")
 		{
-			// Any VTOL or Helicopter propulsion
-			return (prop === "V-Tol" || prop === "V-Tol02" || prop === "V-Tol03" || prop === "Helicopter");
+			return false;
 		}
+		// NOTE: While Cyborg bodies are also technically "LIGHT", any sane cyborg template should be vetted by the next check.
+	}
+
+	// Last, check if the propulsion matches the factory type
+	switch (factory.stattype)
+	{
 		case CYBORG_FACTORY:
 		{
 			// Cyborg Legs
-			return (prop === "CyborgLegs" || prop === "CyborgLegs02" || prop === "CyborgLegs03" || prop === "BoomTickLegs");
+			return (template.prop === "CyborgLegs" || template.prop === "CyborgLegs02" || template.prop === "CyborgLegs03" || template.prop === "BoomTickLegs");
+		}
+		case VTOL_FACTORY:
+		{
+			// Any VTOL or Helicopter propulsion
+			return (template.prop === "V-Tol" || template.prop === "V-Tol02" || template.prop === "V-Tol03" || template.prop === "Helicopter");
 		}
 		case FACTORY:
 		{
 			// Anything else
-			return (prop !== "V-Tol" && prop !== "V-Tol02" && prop !== "V-Tol03" && prop !== "Helicopter"
-				&& prop !== "CyborgLegs" && prop !== "CyborgLegs02" && prop !== "CyborgLegs03" && prop !== "BoomTickLegs");
+			return (template.prop !== "V-Tol" && template.prop !== "V-Tol02" && template.prop !== "V-Tol03" && template.prop !== "Helicopter"
+				&& template.prop !== "CyborgLegs" && template.prop !== "CyborgLegs02" && template.prop !== "CyborgLegs03" && template.prop !== "BoomTickLegs");
 		}
 		default:
 		{
