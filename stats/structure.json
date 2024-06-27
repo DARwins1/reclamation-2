@@ -898,7 +898,7 @@
         "id": "A0LightFactory",
         "name": "Factory",
         "productionPoints": 10,
-        "moduleProductionPoints": 10,
+        "moduleProductionPoints": 0,
         "resistance": 150,
         "sensorID": "BaBaSensor",
         "strength": "MEDIUM",

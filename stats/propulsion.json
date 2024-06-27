@@ -243,7 +243,7 @@
         "buildPoints": 50,
         "buildPower": 50,
         "designable": 1,
-        "hitpointPctOfBody": 100,
+        "hitpointPctOfBody": 125,
         "id": "wheeled01",
         "model": "prlwhl1.PIE",
         "name": "Wheels",

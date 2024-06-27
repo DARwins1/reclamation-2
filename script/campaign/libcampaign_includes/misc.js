@@ -636,7 +636,7 @@ function camSetDroidRank(droid, rank)
 
 	if (droid.droidType === DROID_COMMAND)
 	{
-		xpAmount *= 2; // Commanders need twice the xp
+		xpAmount *= 4; // Commanders need 4x the xp
 	}
 
 	setDroidExperience(droid, xpAmount);
@@ -659,8 +659,8 @@ function camGetDroidRank(droid)
 	let xpAmount = droid.experience;
 	if (droid.droidType === DROID_COMMAND)
 	{
-		// Pretend commanders have half the XP they actually do
-		xpAmount /= 2;
+		// Pretend commanders have 1/4th the XP they actually do
+		xpAmount /= 4;
 	}
 
 	if (xpAmount >= 512) return 8; // Hero

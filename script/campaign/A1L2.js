@@ -425,6 +425,9 @@ function camEnemyBaseEliminated_charlieLZBase()
 
 	charlieLZSecure = true;
 	updateExtraObjectiveMessage();
+
+	camCallOnce("enableFirstFactories");
+	camCallOnce("enableSecondFactories");
 }
 
 function camEnemyBaseEliminated_foxtrotLZBase()
@@ -440,6 +443,11 @@ function camEnemyBaseEliminated_foxtrotLZBase()
 
 	foxtrotLZSecure = true;
 	updateExtraObjectiveMessage();
+
+	camCallOnce("enableFirstFactories");
+	camCallOnce("enableSecondFactories");
+	camCallOnce("enableThirdFactories");
+	if (difficulty >= HARD) camCallOnce("enableFinalFactories");
 }
 
 function camEnemyBaseEliminated_golfLZBase()
@@ -455,6 +463,11 @@ function camEnemyBaseEliminated_golfLZBase()
 
 	golfLZSecure = true;
 	updateExtraObjectiveMessage();
+
+	camCallOnce("enableFirstFactories");
+	camCallOnce("enableSecondFactories");
+	camCallOnce("enableThirdFactories");
+	camCallOnce("enableFinalFactories");
 }
 
 function updateExtraObjectiveMessage()
@@ -525,6 +538,12 @@ function nasdaCaptured()
 	if (powerCaptured && uplinkCaptured && vtolCaptured && camAllArtifactsPickedUp())
 	{
 		camCallOnce("finalDialogue");
+
+		if (getMissionTime() < camMinutesToSeconds(1))
+		{
+			// Disable the timer if the player is just waiting for dialogue to finish
+			setMissionTime(-1);
+		}
 
 		if (camDialogueDone())
 		{
@@ -680,7 +699,8 @@ function eventStartLevel()
 			data: {
 				// Patrol and harass the player's LZ
 				pos: [ "scavPatrolPos1", "scavPatrolPos2", "scavPatrolPos3", "scavPatrolPos4" ],
-				interval: camSecondsToMilliseconds(20)
+				interval: camSecondsToMilliseconds(20),
+				radius: 8
 			},
 			groupSize: 4,
 			maxSize: 4,
@@ -843,9 +863,9 @@ function eventStartLevel()
 	queue("groupPatrol", camChangeOnDiff(camMinutesToMilliseconds(0.25)));
 	queue("ambushLZ", camChangeOnDiff(camMinutesToMilliseconds(2.5)));
 	queue("enableFirstFactories", camChangeOnDiff(camMinutesToMilliseconds(2.5)));
-	queue("enableSecondFactories", camChangeOnDiff(camMinutesToMilliseconds(5)));
-	queue("enableThirdFactories", camChangeOnDiff(camMinutesToMilliseconds(9)));
-	queue("enableFinalFactories", camChangeOnDiff(camMinutesToMilliseconds(14)));
+	queue("enableSecondFactories", camChangeOnDiff(camMinutesToMilliseconds(6)));
+	queue("enableThirdFactories", camChangeOnDiff(camMinutesToMilliseconds(12)));
+	queue("enableFinalFactories", camChangeOnDiff(camMinutesToMilliseconds(20)));
 	queue("heliAttack1", camChangeOnDiff(camMinutesToMilliseconds(4)));
 	queue("heliAttack2", camChangeOnDiff(camMinutesToMilliseconds(12)));
 

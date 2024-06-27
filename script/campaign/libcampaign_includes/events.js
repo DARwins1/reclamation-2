@@ -158,6 +158,7 @@ function cam_eventStartLevel()
 	setTimer("__camTacticsTick", camSecondsToMilliseconds(0.1));
 	setTimer("__camPlayScheduledDialogues", camSecondsToMilliseconds(.1));
 	queue("__camGrantSpecialResearch", camSecondsToMilliseconds(6));
+	queue("__camEnableGuideTopics", camSecondsToMilliseconds(0.1)); // delayed to handle when mission scripts add research
 }
 
 function cam_eventDroidBuilt(droid, structure)
@@ -174,6 +175,18 @@ function cam_eventDroidBuilt(droid, structure)
 	{
 		// Occasionally hint that NEXUS is producing units on Gamma 5.
 		playSound(cam_sounds.nexus.productionCompleted);
+	}
+	if (droid.player === CAM_HUMAN_PLAYER)
+	{
+		// handling guide topics for built units
+		if (droid.isVTOL)
+		{
+			camCallOnce("__camDoAddVTOLUseTopics");
+		}
+		else if (droid.droidType === DROID_COMMAND)
+		{
+			camCallOnce("__camDoAddCommanderUseTopics");
+		}
 	}
 	if (!camDef(__camFactoryInfo))
 	{
@@ -332,6 +345,8 @@ function cam_eventTransporterLanded(transport)
 		{
 			setReinforcementTime(-1);
 		}
+		// Handle enabling guide topics relevant to units potentially "gifted" by libcampaign
+		__camEnableGuideTopicsForTransport(transport);
 	}
 }
 
@@ -356,9 +371,9 @@ function cam_eventMissionTimeout()
 
 function cam_eventAttacked(victim, attacker)
 {
-	if (camDef(victim) && victim && victim.type === DROID)
+	if (camDef(victim) && victim)
 	{
-		if (victim.player !== CAM_HUMAN_PLAYER && !allianceExistsBetween(CAM_HUMAN_PLAYER, victim.player))
+		if (victim.type === DROID && victim.player !== CAM_HUMAN_PLAYER && !allianceExistsBetween(CAM_HUMAN_PLAYER, victim.player))
 		{
 			//Try dynamically creating a group of nearby droids not part
 			//of a group. Only supports those who can hit ground units.
@@ -428,7 +443,7 @@ function cam_eventGameLoaded()
 			else if (tilesetType === "URBAN")
 			{
 				replaceTexture("page-7-barbarians-arizona.png",
-							"page-7-barbarians-urban.png");
+							"page-7-barbarians-kevlar.png");
 			}
 			break;
 		}
@@ -446,6 +461,9 @@ function cam_eventGameLoaded()
 
 	//Subscribe to eventGroupSeen again.
 	camSetEnemyBases();
+
+	// Ensure appropriate guide topics are displayed
+	__camEnableGuideTopics();
 
 	//Reset any vars
 	__camCheatMode = false;
@@ -490,4 +508,27 @@ function cam_eventObjectTransfer(obj, from)
 function cam_eventVideoDone()
 {
 	__camEnqueueVideos(); //Play any remaining videos automatically.
+}
+
+function cam_eventDroidRankGained(droid, rankNum)
+{
+	if (droid.player === CAM_HUMAN_PLAYER)
+	{
+		addGuideTopic("wz2100::units::experience", SHOWTOPIC_FIRSTADD);
+	}
+}
+
+function cam_eventResearched(research, structure, player)
+{
+	if (player !== CAM_HUMAN_PLAYER)
+	{
+		return;
+	}
+	let researchedByStruct = (camDef(structure) && structure);
+	if (!researchedByStruct)
+	{
+		return; // for now, return - don't think we need to process if researched by API call here?
+	}
+	// only pass the research in if it was completed by a structure (not if given by an API call, in which structure would be null)
+	__camProcessResearchGatedGuideTopics(research);
 }

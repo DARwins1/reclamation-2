@@ -425,3 +425,4 @@ include(__CAM_INCLUDE_PATH + "nexus.js");
 include(__CAM_INCLUDE_PATH + "group.js");
 include(__CAM_INCLUDE_PATH + "video.js");
 include(__CAM_INCLUDE_PATH + "dialogue.js");
+include(__CAM_INCLUDE_PATH + "guide.js");
