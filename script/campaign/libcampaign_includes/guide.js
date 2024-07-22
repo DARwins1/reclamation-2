@@ -83,6 +83,12 @@ function __camProcessResearchGatedGuideTopics(research = null)
 		addGuideTopic("wz2100::units::thermaldamage");
 	}
 
+	// First AA weapon researched
+	if (__camGuideTopicCheckResearchComplete("R-Wpn-AAGun03", research))
+	{
+		addGuideTopic("wz2100::units::weapons::antiair", showFlags);
+	}
+
 	// First (and only) Bunker Buster weapon researched
 	if (__camGuideTopicCheckResearchComplete("R-Wpn-Rocket03-HvAT", research))
 	{

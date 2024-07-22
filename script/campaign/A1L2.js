@@ -22,8 +22,11 @@ const mis_scavResearch = [
 	"R-Defense-WallUpgrade01", "R-Wpn-Flamer-Damage02",
 ];
 
+var powerClear;
 var powerCaptured;
+var upinkClear;
 var uplinkCaptured;
+var vtolClear;
 var vtolCaptured;
 var ambushTriggered;
 var charlieLZSecure;
@@ -54,7 +57,7 @@ camAreaEvent("heliRemoveZone", function(droid)
 camAreaEvent("powerCaptureZone", function(droid)
 {
 	// Only the player's units can capture NASDA components
-	if (droid.player == CAM_HUMAN_PLAYER && enumArea("powerCaptureZone", MIS_YELLOW_SCAVS, false).length == 0)
+	if (droid.player == CAM_HUMAN_PLAYER && powerClear)
 	{
 		// No enemies left, and a player unit is here! Capture this component
 		for (const object of enumArea("powerCaptureZone", MIS_NASDA, false))
@@ -62,6 +65,7 @@ camAreaEvent("powerCaptureZone", function(droid)
 			donateObject(object, MIS_CLAYDE);
 		}
 		powerCaptured = true;
+		hackRemoveMessage("POWER_ZONE", PROX_MSG, CAM_HUMAN_PLAYER);
 		// Also grant the Power Module
 		enableResearch("R-Struc-PowerModuleMk1", CAM_HUMAN_PLAYER);
 
@@ -70,7 +74,7 @@ camAreaEvent("powerCaptureZone", function(droid)
 			{text: "LIEUTENANT: ...It's a bit smaller than the ones usually hooked up to electrical grids.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
 			{text: "LIEUTENANT: It seems like its sole purpose was to power NASDA's core systems.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
 			{text: "LIEUTENANT: Thankfully, it appears to be mostly intact.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
-			{text: "LIEUTENANT: Seems like the scavengers here didn't want to mess with something with \"nuclear\" in the name.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+			// {text: "LIEUTENANT: Seems like these scavengers here didn't want to mess with something with \"nuclear\" in the name.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
 			{text: "LIEUTENANT: ...And what's this?", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
 			{text: "LIEUTENANT: The auxiliary generators seem to have a special module that we can use as well!", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
 		]);
@@ -83,13 +87,14 @@ camAreaEvent("powerCaptureZone", function(droid)
 
 camAreaEvent("uplinkCaptureZone", function(droid)
 {
-	if (droid.player == CAM_HUMAN_PLAYER && enumArea("uplinkCaptureZone", MIS_YELLOW_SCAVS, false).length == 0)
+	if (droid.player == CAM_HUMAN_PLAYER && uplinkClear)
 	{
 		for (const object of enumArea("uplinkCaptureZone", MIS_NASDA, false))
 		{
 			donateObject(object, MIS_CLAYDE);
 		}
 		uplinkCaptured = true;
+		hackRemoveMessage("UPLINK_ZONE", PROX_MSG, CAM_HUMAN_PLAYER);
 
 		camQueueDialogue([
 			{text: "CLAYDE: Well look at that. NASDA Central.", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
@@ -107,13 +112,14 @@ camAreaEvent("uplinkCaptureZone", function(droid)
 
 camAreaEvent("vtolFactoryCaptureZone", function(droid)
 {
-	if (droid.player == CAM_HUMAN_PLAYER && enumArea("vtolFactoryCaptureZone", MIS_YELLOW_SCAVS, false).length == 0)
+	if (droid.player == CAM_HUMAN_PLAYER && vtolClear)
 	{
 		for (const object of enumArea("vtolFactoryCaptureZone", MIS_NASDA, false))
 		{
 			donateObject(object, MIS_CLAYDE);
 		}
 		vtolCaptured = true;
+		hackRemoveMessage("VTOL_ZONE", PROX_MSG, CAM_HUMAN_PLAYER);
 		// Also grant VTOL Propulsion
 		enableResearch("R-Vehicle-Prop-VTOL", CAM_HUMAN_PLAYER);
 
@@ -488,6 +494,43 @@ function updateExtraObjectiveMessage()
 	}
 }
 
+function eventDestroyed(obj)
+{
+	if (obj.type === STRUCTURE && obj.player === MIS_YELLOW_SCAVS)
+	{
+		// Check if any of the component zones are clear (and ready for capture)
+
+		if (!powerClear && enumArea("powerCaptureZone", MIS_YELLOW_SCAVS, false).filter((obj) => (obj.type === STRUCTURE)).length == 0)
+		{
+			powerClear = true;
+			hackAddMessage("POWER_ZONE", PROX_MSG, CAM_HUMAN_PLAYER);
+			camCallOnce("captureDialogue");
+		}
+
+		if (!uplinkClear && enumArea("uplinkCaptureZone", MIS_YELLOW_SCAVS, false).filter((obj) => (obj.type === STRUCTURE)).length == 0)
+		{
+			uplinkClear = true;
+			hackAddMessage("UPLINK_ZONE", PROX_MSG, CAM_HUMAN_PLAYER);
+			camCallOnce("captureDialogue");
+		}
+
+		if (!vtolClear && enumArea("vtolFactoryCaptureZone", MIS_YELLOW_SCAVS, false).filter((obj) => (obj.type === STRUCTURE)).length == 0)
+		{
+			vtolClear = true;
+			hackAddMessage("VTOL_ZONE", PROX_MSG, CAM_HUMAN_PLAYER);
+			camCallOnce("captureDialogue");
+		}
+	}
+}
+
+function captureDialogue()
+{
+	camQueueDialogue([
+		{text: "LIEUTENANT: Commander Bravo, one of NASDA Central's components is clear of hostiles.", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+		{text: "LIEUTENANT: Move your units nearby to capture it.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+	]);
+}
+
 // Pre-damage all NASDA stuff
 function preDamageStuff()
 {
@@ -759,8 +802,11 @@ function eventStartLevel()
 		},
 	});
 
+	componentClear = false;
 	powerCaptured = false;
+	uplinkClear = false;
 	uplinkCaptured = false;
+	vtolClear = false;
 	vtolCaptured = false;
 	ambushTriggered = false;
 	charlieLZSecure = false;
