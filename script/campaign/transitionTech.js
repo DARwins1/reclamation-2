@@ -71,7 +71,7 @@ const camAct2StartResearch = [
 	"R-Defense-HardcreteWall", "R-Defense-HardcreteGate", "R-Defense-MortarPit",
 	"R-Defense-Pillbox01", "R-Defense-Pillbox04", "R-Defense-Pillbox05", 
 	"R-Defense-WallTower01", "R-Defense-WallTower02", "R-Defense-WallUpgrade01",
-	"R-Struc-Materials01",
+	"R-Defense-WallUpgrade02", "R-Struc-Materials01", "R-Struc-Materials02",
 ].concat(camA1L4AllyResearch);
 
 //...

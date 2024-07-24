@@ -1280,8 +1280,8 @@
             "R-Defense-HardcreteWall",
             "R-Wpn-MG-Damage01"
         ],
-        "researchPoints": 600,
-        "researchPower": 37,
+        "researchPoints": 700,
+        "researchPower": 67,
         "resultStructures": [
             "PillBox1"
         ],
@@ -1299,7 +1299,7 @@
             "R-Defense-HardcreteWall",
             "R-Wpn-Cannon1Mk1"
         ],
-        "researchPoints": 600,
+        "researchPoints": 700,
         "researchPower": 46,
         "resultStructures": [
             "PillBox4"
@@ -1318,7 +1318,7 @@
             "R-Defense-HardcreteWall",
             "R-Wpn-Flamer01Mk1"
         ],
-        "researchPoints": 600,
+        "researchPoints": 700,
         "researchPower": 46,
         "resultStructures": [
             "PillBox5"
@@ -1334,8 +1334,8 @@
             "R-Wpn-Rocket01-LtAT",
             "R-Defense-HardcreteWall"
         ],
-        "researchPoints": 800,
-        "researchPower": 46,
+        "researchPoints": 700,
+        "researchPower": 86,
         "resultStructures": [
             "PillBox6"
         ],
@@ -1354,7 +1354,7 @@
             "R-Wpn-Rocket01-LtAT"
         ],
         "researchPoints": 600,
-        "researchPower": 75,
+        "researchPower": 46,
         "resultStructures": [
             "GuardTower5"
         ],
@@ -1383,8 +1383,8 @@
         "requiredResearch": [
             "R-Wpn-MG3Mk1"
         ],
-        "researchPoints": 600,
-        "researchPower": 18,
+        "researchPoints": 400,
+        "researchPower": 68,
         "resultStructures": [
             "GuardTower1"
         ],
@@ -1398,7 +1398,7 @@
         "requiredResearch": [
             "R-Wpn-Rocket05-MiniPod"
         ],
-        "researchPoints": 2400,
+        "researchPoints": 400,
         "researchPower": 75,
         "resultStructures": [
             "GuardTower6"
@@ -1415,7 +1415,7 @@
             "R-Wpn-MG3Mk1",
             "R-Defense-Pillbox01"
         ],
-        "researchPoints": 900,
+        "researchPoints": 600,
         "researchPower": 37,
         "resultStructures": [
             "WallTower01"
@@ -1431,7 +1431,7 @@
             "R-Wpn-Cannon1Mk1",
             "R-Defense-HardcreteWall"
         ],
-        "researchPoints": 900,
+        "researchPoints": 600,
         "researchPower": 46,
         "resultStructures": [
             "WallTower02"
@@ -1450,8 +1450,8 @@
             "R-Wpn-Cannon2Mk1",
             "R-Defense-WallTower02"
         ],
-        "researchPoints": 1800,
-        "researchPower": 56,
+        "researchPoints": 800,
+        "researchPower": 76,
         "resultStructures": [
             "WallTower03"
         ],
@@ -1466,8 +1466,8 @@
             "R-Defense-WallTower03",
             "R-Wpn-Cannon3Mk1"
         ],
-        "researchPoints": 2400,
-        "researchPower": 75,
+        "researchPoints": 1200,
+        "researchPower": 175,
         "resultStructures": [
             "WallTower04"
         ],
@@ -1482,8 +1482,8 @@
             "R-Wpn-Rocket01-LtAT",
             "R-Defense-HardcreteWall"
         ],
-        "researchPoints": 900,
-        "researchPower": 46,
+        "researchPoints": 800,
+        "researchPower": 75,
         "resultStructures": [
             "WallTower06"
         ],
@@ -1499,7 +1499,7 @@
             "R-Defense-HardcreteWall",
             "R-Sys-Engineering01"
         ],
-        "researchPoints": 1200,
+        "researchPoints": 800,
         "researchPower": 37,
         "results": [
             {
@@ -1522,13 +1522,12 @@
     "R-Defense-WallUpgrade02": {
         "iconID": "IMAGE_RES_DEFENCE",
         "id": "R-Defense-WallUpgrade02",
-        "keyTopic": 1,
         "imdName": "BLWALL2.PIE",
         "name": "Improved Hardcrete Mk2",
         "requiredResearch": [
             "R-Defense-WallUpgrade01"
         ],
-        "researchPoints": 2400,
+        "researchPoints": 1000,
         "researchPower": 75,
         "results": [
             {
@@ -1552,12 +1551,13 @@
     "R-Defense-WallUpgrade03": {
         "iconID": "IMAGE_RES_DEFENCE",
         "id": "R-Defense-WallUpgrade03",
+        "keyTopic": 1,
         "imdName": "BLWALL2.PIE",
         "name": "Improved Hardcrete Mk3",
         "requiredResearch": [
             "R-Defense-WallUpgrade02"
         ],
-        "researchPoints": 3600,
+        "researchPoints": 1200,
         "researchPower": 112,
         "results": [
             {
@@ -1587,7 +1587,7 @@
         "requiredResearch": [
             "R-Sys-Sensor-Tower01"
         ],
-        "researchPoints": 900,
+        "researchPoints": 600,
         "researchPower": 37,
         "resultStructures": [
             "A0ComDroidControl"
@@ -1738,7 +1738,6 @@
     "R-Struc-Materials02": {
         "iconID": "IMAGE_RES_STRUCTURETECH",
         "id": "R-Struc-Materials02",
-        "keyTopic": 1,
         "imdName": "icmolql.pie",
         "name": "Reinforced Base Structure Materials Mk2",
         "requiredResearch": [
@@ -1771,6 +1770,7 @@
         "imdName": "icmolql.pie",
         "name": "Reinforced Base Structure Materials Mk3",
         "requiredResearch": [
+            "R-Defense-WallUpgrade03",
             "R-Struc-Materials02"
         ],
         "researchPoints": 3600,
@@ -3725,7 +3725,7 @@
             "R-Wpn-MG4",
             "R-Defense-RotMG"
         ],
-        "researchPoints": 4800,
+        "researchPoints": 900,
         "researchPower": 150,
         "resultStructures": [
             "Wall-RotMg"
@@ -3743,8 +3743,8 @@
         "requiredResearch": [
             "R-Wpn-Cannon5"
         ],
-        "researchPoints": 4800,
-        "researchPower": 150,
+        "researchPoints": 900,
+        "researchPower": 120,
         "resultStructures": [
             "Wall-VulcanCan"
         ],
@@ -3758,8 +3758,8 @@
         "requiredResearch": [
             "R-Wpn-Cannon4AMk1"
         ],
-        "researchPoints": 14400,
-        "researchPower": 450,
+        "researchPoints": 900,
+        "researchPower": 120,
         "resultStructures": [
             "WallTower-HPVcannon"
         ],
@@ -6559,7 +6559,7 @@
         "requiredResearch": [
             "R-Wpn-Rocket07-Tank-Killer"
         ],
-        "researchPoints": 7200,
+        "researchPoints": 1400,
         "researchPower": 225,
         "resultStructures": [
             "WallTower-HvATrocket"
@@ -8749,8 +8749,8 @@
         "requiredResearch": [
             "R-Wpn-Flamer01Mk1"
         ],
-        "researchPoints": 400,
-        "researchPower": 125,
+        "researchPoints": 300,
+        "researchPower": 34,
         "resultStructures": [
             "Flamer-Emplacement"
         ],
@@ -8764,8 +8764,8 @@
         "requiredResearch": [
             "R-Wpn-Cannon1Mk1"
         ],
-        "researchPoints": 400,
-        "researchPower": 125,
+        "researchPoints": 300,
+        "researchPower": 44,
         "resultStructures": [
             "Cannon-Emplacement"
         ],
@@ -8779,8 +8779,8 @@
         "requiredResearch": [
             "R-Wpn-Rocket-LtA-TMk1"
         ],
-        "researchPoints": 800,
-        "researchPower": 125,
+        "researchPoints": 400,
+        "researchPower": 56,
         "resultStructures": [
             "Sarissa-Tower"
         ],
