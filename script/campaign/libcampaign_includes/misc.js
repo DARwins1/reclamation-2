@@ -1060,10 +1060,10 @@ function camAreaSecure(area, player)
 	{
 		a = getObject(area);
 	}
-	let x1 = x;
-	let y1 = y;
-	let x2 = x2;
-	let y2 = y2;
+	let x1 = a.x;
+	let y1 = a.y;
+	let x2 = a.x2;
+	let y2 = a.y2;
 
 	if (!player)
 	{
