@@ -526,6 +526,7 @@ function __camBuildDroid(template, structure)
 	{
 		return false;
 	}
+	// TODO: Also check for engineers here?
 	const __PROP = __camChangePropulsion(template.prop, structure.player);
 	makeComponentAvailable(template.body, structure.player);
 	makeComponentAvailable(__PROP, structure.player);
@@ -599,6 +600,7 @@ function __camContinueProduction(structure)
 	const structPos = camMakePos(struct);
 	if (camDef(__camFactoryQueue[__PLAYER]) && __camFactoryQueue[__PLAYER].length > 0)
 	{
+		// TODO: Check past the first item in the queue
 		// Only build if destination is reachable or undefined
 		const destPos = __camFactoryQueue[__PLAYER][0].position;
 		if ((!camDef(destPos) || propulsionCanReach(__camFactoryQueue[__PLAYER][0].template.prop, structPos.x, structPos.y, destPos.x, destPos.y)) 
