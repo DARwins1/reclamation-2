@@ -55,11 +55,11 @@ const camA1L4AllyResearch = camA1L2AllyResearch.concat([
 	"R-Wpn-Rocket-Accuracy01", "R-Wpn-Rocket-ROF01", "R-Wpn-Rocket-Damage02",
 	"R-Struc-PowerModuleMk1", "R-Vehicle-Prop-VTOL", "R-Struc-VTOLFactory",
 	"R-Struc-VTOLPad", "R-Sys-VTOLStrike-Turret01", "R-Sys-VTOLStrike-Tower01",
-	"R-Wpn-MG-ROF01",
+	"R-Wpn-MG3Mk1", "R-Wpn-MG-Damage03", "R-Cyborg-Wpn-HvyMG",
 	// A1L3
-	"R-Vehicle-Prop-Halftracks", "R-Wpn-MG3Mk1", "R-Wpn-MG-Damage03",
-	"R-Defense-Tower01", "R-Cyborg-Wpn-HvyMG", "R-Wpn-Flamer-Damage03",
-	"R-Wpn-Mortar-Damage02",
+	"R-Vehicle-Prop-Halftracks", 
+	"R-Defense-Tower01", "R-Wpn-Flamer-Damage03",
+	"R-Wpn-Mortar-Damage02", "R-Wpn-MG-ROF01",
 ]);
 
 const camAct2StartResearch = [

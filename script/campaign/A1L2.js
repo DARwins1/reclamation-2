@@ -645,9 +645,8 @@ function eventStartLevel()
 	setAlliance(MIS_TEAM_CHARLIE, MIS_TEAM_GOLF, true);
 	setAlliance(MIS_TEAM_FOXTROT, MIS_TEAM_GOLF, true);
 
-	// TODO: Do we need artifacts?
 	camSetArtifacts({
-		"scavInnerFactory1": { tech: "R-Wpn-MG-ROF01" }, // Chaingun Upgrade
+		"scavInnerFactory1": { tech: "R-Wpn-MG3Mk1" }, // Heavy Machinegun
 		"scavInnerFactory2": { tech: "R-Wpn-Cannon-Accuracy01" }, // Cannon Laser Rangefinder
 		"scavInnerFactory3": { tech: "R-Wpn-Rocket-Accuracy01" }, // Stabilized Rockets
 	});

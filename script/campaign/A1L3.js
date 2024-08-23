@@ -9,7 +9,7 @@ const transportEntryPos1 = { x: 125, y: 24 };
 const transportEntryPos2 = { x: 74, y: 61 };
 
 var extraAntiAir;
-var hmgArtifactPlaced;
+var chaingunArtifactPlaced;
 var collectiveDetected;
 var backupTruckSpawned;
 
@@ -384,7 +384,7 @@ function eventAttacked(victim, attacker)
 function eventDestroyed(obj)
 {
 	if (obj.player === CAM_THE_COLLECTIVE && obj.type === DROID 
-		&& obj.droidType === DROID_CONSTRUCT && !hmgArtifactPlaced)
+		&& obj.droidType === DROID_CONSTRUCT && !chaingunArtifactPlaced)
 	{
 		if (!backupTruckSpawned)
 		{
@@ -416,10 +416,10 @@ function spawnBackupTruck()
 	}
 	else
 	{
-		// Give this truck the HMG artifact
+		// Give this truck the Chaingun Upgrade artifact
 		addLabel(newTruck, "colBackupBackupTruck");
-		camAddArtifact({"colBackupBackupTruck": { tech: "R-Wpn-MG3Mk1" }}); // Heavy Machinegun
-		hmgArtifactPlaced = true;
+		camAddArtifact({"colBackupBackupTruck": { tech: "R-Wpn-MG-ROF01" }}); // Chaingun Upgrade
+		chaingunArtifactPlaced = true;
 	}
 }
 
@@ -449,12 +449,12 @@ function addCollectiveAntiAir()
 // Put an artifact into the first HMG tower the Collective build
 function eventStructureBuilt(struct, droid) 
 {
-	if (!hmgArtifactPlaced && struct.player === CAM_THE_COLLECTIVE && 
+	if (!chaingunArtifactPlaced && struct.player === CAM_THE_COLLECTIVE && 
 		(struct.name === _("Heavy Machinegun Guard Tower") || struct.name === _("Heavy Machinegun Tower")))
 	{
 		addLabel(struct, "colHMGTower");
-		camAddArtifact({"colHMGTower": { tech: "R-Wpn-MG3Mk1" }}); // Heavy Machinegun
-		hmgArtifactPlaced = true;
+		camAddArtifact({"colHMGTower": { tech: "R-Wpn-MG-ROF01" }}); // Chaingun Upgrade
+		chaingunArtifactPlaced = true;
 	}
 }
 
@@ -686,7 +686,7 @@ function eventStartLevel()
 	}
 
 	extraAntiAir = false;
-	hmgArtifactPlaced = false;
+	chaingunArtifactPlaced = false;
 	collectiveDetected = false;
 	backupTruckSpawned = false;
 
