@@ -1648,6 +1648,7 @@
     "R-Struc-Factory-Upgrade01": {
         "iconID": "IMAGE_RES_STRUCTURETECH",
         "id": "R-Struc-Factory-Upgrade01",
+        "keyTopic": 1,
         "imdName": "BLFACT1.PIE",
         "msgName": "RES_ST_FU1",
         "name": "Automated Factory Production",
@@ -1915,6 +1916,7 @@
     "R-Struc-RprFac-Upgrade01": {
         "iconID": "IMAGE_RES_SYSTEMTECH",
         "id": "R-Struc-RprFac-Upgrade01",
+        "keyTopic": 1,
         "msgName": "RES_ST_RFU1",
         "name": "Automated Repair Facility",
         "requiredResearch": [
@@ -2437,6 +2439,7 @@
     "R-Wpn-Cannon2Mk1": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Cannon2Mk1",
+        "keyTopic": 1,
         "msgName": "RES_CN2MK1",
         "name": "Medium Cannon",
         "requiredResearch": [

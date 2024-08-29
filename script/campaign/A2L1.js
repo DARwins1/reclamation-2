@@ -85,7 +85,7 @@ function heliAttack1()
 	const ext = {
 		limit: 1
 	};
-	camSetVtolData(MIS_CYAN_SCAVS, "heliAttackPos1", "vtolRemoveZone", [cTempl.helpod], camChangeOnDiff(camMinutesToMilliseconds(3)), "scavHeliTower", ext);
+	camSetVtolData(MIS_CYAN_SCAVS, "heliAttackPos1", "vtolRemoveZone", [cTempl.helpod], camChangeOnDiff(camMinutesToMilliseconds(1.5)), "scavHeliTower", ext);
 }
 
 function heliAttack2()
@@ -96,7 +96,7 @@ function heliAttack2()
 		// targetPlayer: CAM_HUMAN_PLAYER, // TODO: Fix player target priority
 		pos: camMakePos("landingZone")
 	};
-	camSetVtolData(CAM_THE_COLLECTIVE, "heliAttackPos2", "vtolRemoveZone", [cTempl.helcan, cTempl.helhmg], camChangeOnDiff(camMinutesToMilliseconds(3)), "cScavHeliTower", ext);
+	camSetVtolData(CAM_THE_COLLECTIVE, "heliAttackPos2", "vtolRemoveZone", [cTempl.helcan, cTempl.helhmg], camChangeOnDiff(camSecondsToMilliseconds(45)), "cScavHeliTower", ext);
 }
 
 function vtolAttack()
@@ -512,7 +512,7 @@ function eventStartLevel()
 			groupSize: 5,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(110)),
 			// Collective medium tanks (mostly)
-			templates: [ cTempl.commcant, cTempl.colaaht, cTempl.comatht, cTempl.commcant ]
+			templates: [ cTempl.commcant, cTempl.colaaht, cTempl.comatt, cTempl.commcant ]
 		},
 		"scavFactory1": {
 			assembly: "scavAssembly1",
@@ -566,6 +566,7 @@ function eventStartLevel()
 		label: "colNWBase",
 		rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= MEDIUM), // Don't rebuild this truck unless we're on timerless mode (or on Normal+)
 		respawnDelay: ((tweakOptions.rec_timerlessMode) ? (TRUCK_TIME / 2) : TRUCK_TIME),
+		rebuildBase: tweakOptions.rec_timerlessMode,
 		template: cTempl.coltruckht,
 		structset: camAreaToStructSet("colBase1")
 	});
@@ -573,6 +574,7 @@ function eventStartLevel()
 		label: "colNEBase",
 		rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= MEDIUM), // Don't rebuild this truck unless we're on timerless mode (or on Normal+)
 		respawnDelay: ((tweakOptions.rec_timerlessMode) ? (TRUCK_TIME / 2) : TRUCK_TIME),
+		rebuildBase: tweakOptions.rec_timerlessMode,
 		template: cTempl.coltruckht,
 		structset: camAreaToStructSet("colBase3")
 	});
@@ -582,6 +584,7 @@ function eventStartLevel()
 			label: "colCraterBase",
 			rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty === INSANE), // Don't rebuild this truck unless we're on timerless mode (or on Insane)
 			respawnDelay: ((tweakOptions.rec_timerlessMode) ? (TRUCK_TIME / 2) : TRUCK_TIME),
+			rebuildBase: tweakOptions.rec_timerlessMode,
 			template: cTempl.coltruckht,
 			structset: camAreaToStructSet("colBase2")
 		});
