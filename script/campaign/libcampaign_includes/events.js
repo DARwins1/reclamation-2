@@ -269,6 +269,15 @@ function cam_eventDestroyed(obj)
 				delete __camPlayerTransports[obj.player];
 			}
 		}
+		// This event gets called both when the VTOL is removed from the map and when it's shot down.
+		// Hence, we check how much percent HP it has when it's destroyed.
+		// If it was blown up, its HP should be around 0.
+		else if (obj.isVTOL && obj.health > 5)
+		{
+			// VTOL successfully escaped the map
+			// console("VTOL id " + obj.id + " escaped with " + obj.health + "% HP!")
+			__camVtolEscaped(obj.id);
+		}
 		else if (camDef(obj.weapons[0]) && obj.weapons[0].id === _("BoomTickSac"))
 		{
 			const BOOM_BAIT_ID = addDroid(CAM_INFESTED, obj.x, obj.y, "Boom Bait",

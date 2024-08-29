@@ -93,7 +93,7 @@ function heliAttack2()
 	// Focus towards the player's LZ
 	const ext = {
 		limit: 1,
-		// targetPlayer: CAM_HUMAN_PLAYER, // TODO: Fix player target priority
+		targetPlayer: CAM_HUMAN_PLAYER,
 		pos: camMakePos("landingZone")
 	};
 	camSetVtolData(CAM_THE_COLLECTIVE, "heliAttackPos2", "vtolRemoveZone", [cTempl.helcan, cTempl.helhmg], camChangeOnDiff(camSecondsToMilliseconds(45)), "cScavHeliTower", ext);
@@ -106,7 +106,7 @@ function vtolAttack()
 	const ext = {
 		limit: ((difficulty <= EASY) ? [1, 2] : [2, 3]),
 		alternate: true,
-		// targetPlayer: CAM_HUMAN_PLAYER,
+		targetPlayer: CAM_HUMAN_PLAYER,
 		pos: camMakePos("landingZone"),
 		dynamic: true // TODO: Implement dynamic VTOL spawning
 	};

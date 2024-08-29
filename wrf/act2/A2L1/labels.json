@@ -299,7 +299,7 @@
 	"radius_0": {
 		"label": "vtolRemoveZone",
 		"pos": [320, 2368],
-		"radius": 128,
+		"radius": 256,
 		"subscriber": 2
 	}
 }

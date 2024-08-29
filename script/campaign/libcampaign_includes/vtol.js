@@ -42,7 +42,9 @@ function camSetVtolData(player, startPos, exitPos, templates, timer, obj, extras
 		timer: timer,
 		nextSpawnTime: timer + gameTime,
 		isFirstSpawn: true,
-		active: true
+		active: true,
+		dynamic: extras.dynamic,
+		dMultiplier: 1.0
 	});
 }
 
@@ -135,7 +137,7 @@ function __camSpawnVtols()
 		{
 			if (camDef(__camVtolDataSystem[idx].timer))
 			{
-				__camVtolDataSystem[idx].nextSpawnTime = gameTime + __camVtolDataSystem[idx].timer;
+				__camVtolDataSystem[idx].nextSpawnTime = gameTime + (__camVtolDataSystem[idx].timer * __camVtolDataSystem[idx].dMultiplier);
 			}
 			else
 			{
@@ -240,10 +242,27 @@ function __camSpawnVtols()
 		}
 
 		//...And send them.
-		camSendReinforcement(__camVtolDataSystem[idx].player, camMakePos(pos), droids, CAM_REINFORCE_GROUND, {
+		// (Also store the group of the new VTOLs)
+		const group = camSendReinforcement(__camVtolDataSystem[idx].player, camMakePos(pos), droids, CAM_REINFORCE_GROUND, {
 			order: CAM_ORDER_ATTACK,
 			data: { regroup: false, count: -1, targetPlayer: targetPlayer, pos: targetPos, radius: targetRadius}
 		});
+
+		if (__camVtolDataSystem[idx].dynamic)
+		{
+			// If dynamic mode is enabled, assume all VTOLs will die, and adjust the time modifier accordingly.
+			// When all VTOLs die, the multiplier increases by 0.5, up to a max of 2x spawn delay.
+			// If all VTOLs end up surviving, the multiplier will decrease by a net change of 0.5, down to 0.5x spawn delay (or double speed).
+			__camVtolDataSystem[idx].dMultiplier = Math.min(2.0, __camVtolDataSystem[idx].dMultiplier + 0.5);
+
+			// Store a list of the VTOL droid IDs
+			const groupDroids = enumGroup(group);
+			__camVtolDataSystem[idx].vtolIds = [];
+			for (const droid of groupDroids)
+			{
+				__camVtolDataSystem[idx].vtolIds.push(droid.id);
+			}
+		}
 	}
 }
 
@@ -269,6 +288,31 @@ function __camRetreatVtols()
 						orderDroidLoc(vt, DORDER_MOVE, __camVtolDataSystem[idx].exitPosition.x, __camVtolDataSystem[idx].exitPosition.y);
 						break;
 					}
+				}
+			}
+		}
+	}
+}
+
+// Called when a VTOL successfully escapes the map
+// Used to update dynamic VTOL spawn times
+function __camVtolEscaped(id)
+{
+	// Check which VTOL system the escapee belongs to
+	for (let idx = 0; idx < __camVtolDataSystem.length; ++idx)
+	{
+		if (__camVtolDataSystem[idx].dynamic)
+		{
+			// See if this VTOL matches one of the ones in the system group
+			for (const vtolId of __camVtolDataSystem[idx].vtolIds)
+			{
+				if (id === vtolId)
+				{
+					// Reduce the time multiplier
+					// NOTE: the (* 2) part is to offset the presumptive change made when the VTOLs were spawned
+					__camVtolDataSystem[idx].dMultiplier = Math.max(0.5, __camVtolDataSystem[idx].dMultiplier - (0.5 / __camVtolDataSystem[idx].vtolIds.length * 2));
+					// console("dMultiplier reduced to " + __camVtolDataSystem[idx].dMultiplier)
+					return; // No need to check further
 				}
 			}
 		}
