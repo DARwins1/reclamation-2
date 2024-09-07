@@ -80,6 +80,12 @@ function camSafeRemoveObject(obj, specialEffects)
 	}
 	if (camDef(obj) && obj)
 	{
+		if (obj.type === DROID && obj.isVTOL && !specialEffects)
+		{
+			// If we're quietly removing a VTOL, assume it "escapes" the map
+			__camVtolEscaped(obj.id);
+		}
+
 		removeObject(obj, specialEffects);
 	}
 }

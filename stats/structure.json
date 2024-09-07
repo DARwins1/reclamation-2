@@ -1074,7 +1074,7 @@
         "id": "A0VTolFactory1",
         "name": "VTOL Factory",
         "productionPoints": 10,
-        "moduleProductionPoints": 10,
+        "moduleProductionPoints": 0,
         "resistance": 150,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",

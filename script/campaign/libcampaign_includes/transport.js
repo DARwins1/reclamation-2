@@ -39,7 +39,7 @@ function camIsTransporter(gameObject)
 //;;
 function camSetupTransporter(placeX, placeY, exitX, exitY)
 {
-	addDroid(CAM_HUMAN_PLAYER, placeX, placeY, "Transport", "TransporterBody", "V-Tol", "", "", "MG3-VTOL");
+	addDroid(CAM_HUMAN_PLAYER, placeX, placeY, "Transport", "TransporterBody", "V-Tol02", "", "", "MG3-VTOL");
 	setTransporterExit(exitX, exitY, CAM_HUMAN_PLAYER);
 }
 
@@ -101,7 +101,7 @@ function __camDispatchTransporterUnsafe()
 		__camPlayerTransports[__PLAYER] = addDroid(__PLAYER, -1, -1,
 		                                         "Transporter",
 		                                         "TransporterBody",
-		                                         "V-Tol", "", "",
+		                                         "V-Tol02", "", "",
 		                                         "MG3-VTOL");
 	}
 	const transporter = __camPlayerTransports[__PLAYER];

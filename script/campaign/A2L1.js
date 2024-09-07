@@ -108,7 +108,7 @@ function vtolAttack()
 		alternate: true,
 		targetPlayer: CAM_HUMAN_PLAYER,
 		pos: camMakePos("landingZone"),
-		dynamic: true // TODO: Implement dynamic VTOL spawning
+		dynamic: true
 	};
 	camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos", "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(2)), "colCC", ext);
 }
@@ -666,12 +666,12 @@ function eventStartLevel()
 	{
 		startedFromMenu = true;
 		sendPlayerTransporter();
-		setTimer("sendPlayerTransporter", camMinutesToMilliseconds(1));
+		setTimer("sendPlayerTransporter", camMinutesToMilliseconds(2));
 		setPower(MIS_NUM_TRANSPORTS * 1000, CAM_HUMAN_PLAYER);
 	}
 	else
 	{
-		setReinforcementTime(camMinutesToSeconds(1)); // 1 minute
+		setReinforcementTime(camMinutesToSeconds(2)); // 1 minute
 	}
 
 	colLZBlip = false;
