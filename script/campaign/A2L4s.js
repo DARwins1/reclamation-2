@@ -2,18 +2,18 @@ include("script/campaign/libcampaign.js");
 
 function eventStartLevel()
 {
-	camSetupTransporter(101, 116, 118, 118);
+	camSetupTransporter(101, 116, 85, 94);
 	centreView(101, 116);
 	setNoGoArea(100, 115, 102, 117, CAM_HUMAN_PLAYER);
 	if (!tweakOptions.rec_timerlessMode)
 	{
-		setMissionTime(camChangeOnDiff(camHoursToSeconds(0.5)));
+		setMissionTime(camChangeOnDiff(camHoursToSeconds(1.25)));
 	}
 	else
 	{
 		setMissionTime(-1);
 	}
-	camSetStandardWinLossConditions(CAM_VICTORY_PRE_OFFWORLD, "A2L2");
+	camSetStandardWinLossConditions(CAM_VICTORY_PRE_OFFWORLD, "A2L4");
 
 	// Give player briefing.
 	// camPlayVideos({video: "L2_BRIEF", type: MISS_MSG});

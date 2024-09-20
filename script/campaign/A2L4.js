@@ -1,0 +1,359 @@
+include("script/campaign/libcampaign.js");
+include("script/campaign/templates.js");
+
+const MIS_TEAM_DELTA = 1;
+
+const mis_collectiveResearch = [
+	"R-Wpn-MG-Damage02", "R-Wpn-Rocket-Damage02", "R-Wpn-Mortar-Damage01", 
+	"R-Wpn-Flamer-Damage03", "R-Wpn-Cannon-Damage02", "R-Wpn-MG-ROF02",
+	"R-Wpn-Rocket-ROF02", "R-Wpn-Mortar-ROF01", "R-Wpn-Flamer-ROF01",
+	"R-Wpn-Cannon-ROF02", "R-Vehicle-Metals02", "R-Struc-Materials02", 
+	"R-Defense-WallUpgrade02", "R-Sys-Engineering01", "R-Cyborg-Metals02",
+	"R-Wpn-Cannon-Accuracy01", "R-Wpn-Rocket-Accuracy01",
+];
+
+var lzCyborgGroup;
+var site1Clear;
+var site2Clear;
+var site3Clear;
+var vtolsCalled;
+
+camAreaEvent("vtolRemoveZone", function(droid)
+{
+	camSafeRemoveObject(droid, false);
+	resetLabel("vtolRemoveZone", CAM_THE_COLLECTIVE);
+});
+
+function heliAttack()
+{
+	const ext = {
+		limit: [1, 1],
+		alternate: true
+	};
+	camSetVtolData(CAM_THE_COLLECTIVE, "heliAttackPos", "vtolRemoveZone", [cTempl.helcan, cTempl.helhmg], camChangeOnDiff(camSecondsToMilliseconds(45)), "heliTower", ext);
+}
+
+// Called after a set delay or if the player advances VERY quickly
+function vtolAttack()
+{
+	if (vtolsCalled)
+	{
+		return;
+	}
+
+	const templates = [cTempl.colatv, cTempl.colhmgv]; // Lancers, HMGs, and Cluster Bombs
+	const ext = {
+		limit: [2, 3, ((difficulty >= MEDIUM) ? 2 : 1)],
+		alternate: true,
+		dynamic: true
+	};
+	camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos", "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(2)), "colCC", ext);
+	vtolsCalled = true;
+}
+
+// Have the Collective ambush the player's LZ
+// Queued to occur roughly after the player's second transport arrives
+// Activates several factories, and immediately attacks the player's LZ with a Helicopter, Cyborgs, C-Scavs, and Hovers
+function lzAmbush()
+{
+	camEnableFactory("colCybFactory1");
+	camEnableFactory("colFactory2");
+	camEnableFactory("cScavFactory");
+	heliAttack();
+
+	camManageGroup(lzCyborgGroup, CAM_ORDER_ATTACK, {repair: 75});
+	camManageGroup(camMakeGroup("cScavLzGroup"), CAM_ORDER_ATTACK, {morale: 50, fallback: camMakePos("cyborgRallyPos")});
+	camManageGroup(camMakeGroup("hoverLzGroup"), CAM_ORDER_ATTACK, {repair: 75});
+
+	// Also set a proper compromise zone for the player's LZ
+	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "A2L5", {
+		reinforcements: camMinutesToSeconds(2),
+		callback: "antiAirSitesClear",
+		area: "compromiseZone"
+	});
+}
+
+// Enables the remaining Collective factories
+// Called after a set delay or if the player advances quickly
+function enableAllFactories()
+{
+	camEnableFactory("colFactory1");
+	camEnableFactory("colCybFactory2");
+
+	// Also enable these trucks
+	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds(120))
+	camManageTrucks(CAM_THE_COLLECTIVE, {
+		label: "colAABase1",
+		rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= MEDIUM),
+		respawnDelay: ((tweakOptions.rec_timerlessMode) ? (TRUCK_TIME / 2) : TRUCK_TIME),
+		rebuildBase: tweakOptions.rec_timerlessMode,
+		template: cTempl.coltruckht,
+		structset: camAreaToStructSet("colBase1")
+	});
+	camManageTrucks(CAM_THE_COLLECTIVE, {
+		label: "colAABase2",
+		rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= EASY),
+		respawnDelay: ((tweakOptions.rec_timerlessMode) ? (TRUCK_TIME / 2) : TRUCK_TIME),
+		rebuildBase: tweakOptions.rec_timerlessMode,
+		template: ((difficulty >= MEDIUM) ? cTempl.comtruckt : cTempl.coltruckht),
+		structset: camAreaToStructSet("colBase2")
+	});
+	camManageTrucks(CAM_THE_COLLECTIVE, {
+		label: "colAABase3",
+		rebuildTruck: (tweakOptions.rec_timerlessMode),
+		respawnDelay: ((tweakOptions.rec_timerlessMode) ? (TRUCK_TIME / 2) : TRUCK_TIME),
+		rebuildBase: tweakOptions.rec_timerlessMode,
+		template: cTempl.comtruckt,
+		structset: camAreaToStructSet("colBase3")
+	});
+}
+
+// Returns true if all main AA sites have been cleared
+function antiAirSitesClear()
+{
+	const AA_SITES1 = enumArea("colBase1", CAM_THE_COLLECTIVE, false).filter((obj) => (
+		obj.name === _("Hurricane AA Site")
+		|| obj.name === _("Cyclone AA Flak Site"))
+	).length;
+	const AA_SITES2 = enumArea("colBase2", CAM_THE_COLLECTIVE, false).filter((obj) => (
+		obj.name === _("Hurricane AA Site")
+		|| obj.name === _("Cyclone AA Flak Site"))
+	).length;
+	const AA_SITES3 = enumArea("colBase3", CAM_THE_COLLECTIVE, false).filter((obj) => (
+		obj.name === _("Hurricane AA Site")
+		|| obj.name === _("Cyclone AA Flak Site"))
+	).length;
+
+	// Add/remove objective blips
+	if (AA_SITES1 === 0)
+	{
+		// Site 1 is clear
+		if (!site1Clear)
+		{
+			hackRemoveMessage("AA_SITE1", PROX_MSG, CAM_HUMAN_PLAYER);
+			site1Clear = true;
+			camCallOnce("enableAllFactories");
+		}
+	}
+	else
+	{
+		// Site 1 is no longer clear
+		if (site1Clear)
+		{
+			hackAddMessage("AA_SITE1", PROX_MSG, CAM_HUMAN_PLAYER);
+			site1Clear = false;
+		}
+	}
+
+	if (AA_SITES2 === 0)
+	{
+		// Site 2 is clear
+		if (!site2Clear)
+		{
+			hackRemoveMessage("AA_SITE2", PROX_MSG, CAM_HUMAN_PLAYER);
+			site2Clear = true;
+			camCallOnce("vtolAttack");
+		}
+	}
+	else
+	{
+		// Site 2 is no longer clear
+		if (site2Clear)
+		{
+			hackAddMessage("AA_SITE2", PROX_MSG, CAM_HUMAN_PLAYER);
+			site2Clear = false;
+		}
+	}
+
+	if (AA_SITES3 === 0)
+	{
+		// Site 3 is clear
+		if (!site3Clear)
+		{
+			hackRemoveMessage("AA_SITE3", PROX_MSG, CAM_HUMAN_PLAYER);
+			site3Clear = true;
+		}
+	}
+	else
+	{
+		// Site 3 is no longer clear
+		if (site3Clear)
+		{
+			hackAddMessage("AA_SITE3", PROX_MSG, CAM_HUMAN_PLAYER);
+			site3Clear = false;
+		}
+	}
+
+	if (AA_SITES1 === 0 && AA_SITES2 === 0 && AA_SITES3 === 0)
+	{
+		// All clear!
+		return true;
+	}
+	else
+	{
+		return undefined;
+	}
+}
+
+function eventStartLevel()
+{
+	const startPos = camMakePos("landingZone");
+	const lz = getObject("landingZone");
+	const transportEntryPos = {x: 23, y: 85};
+
+	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "A2L5", {
+		reinforcements: camMinutesToSeconds(2),
+		callback: "antiAirSitesClear",
+		// will add compromise zone later
+	});
+	camSetExtraObjectiveMessage("Destroy the AA sites");
+
+	centreView(startPos.x, startPos.y);
+	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
+	startTransporterEntry(transportEntryPos.x, transportEntryPos.y, CAM_HUMAN_PLAYER);
+	setTransporterExit(transportEntryPos.x, transportEntryPos.y, CAM_HUMAN_PLAYER);
+
+	camCompleteRequiredResearch(mis_collectiveResearch, CAM_THE_COLLECTIVE);
+
+	camSetArtifacts({
+		"colFactory1": { tech: "R-Vehicle-Body06" }, // Panther
+		"colCBTower": { tech: "R-Sys-CBSensor-Turret01" }, // CB Turret
+		"colCybFactory2": { tech: "R-Cyborg-Hvywpn-Mcannon" }, // Super Heavy-Gunner
+		"colBombardPit": { tech: "R-Wpn-Mortar02Hvy" }, // Bombard
+	});
+
+	camSetEnemyBases({
+		"cScavSEBase": {
+			cleanup: "cScavBase",
+			detectMsg: "CSCAV_BASE",
+			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated
+		},
+		"colAABase1": {
+			cleanup: "colBase1",
+			detectMsg: "COL_BASE1",
+			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated
+		},
+		"colAABase2": {
+			cleanup: "colBase2",
+			detectMsg: "COL_BASE2",
+			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated
+		},
+		"colAABase3": {
+			cleanup: "colBase3",
+			detectMsg: "COL_BASE3",
+			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+		},
+		"colHoverBase": {
+			cleanup: "colBase4",
+			detectMsg: "COL_BASE4",
+			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+		},
+	});
+
+	const hoverTemplates = [ cTempl.comath, cTempl.commrah, cTempl.comath ];
+	if (difficulty >= MEDIUM) hoverTemplates.push(cTempl.combbh); // Add Bunker Buster
+	if (difficulty >= HARD) hoverTemplates.push(cTempl.comhpvh); // Add Hyper Velocity Cannon
+
+	camSetFactories({
+		"colFactory1": {
+			assembly: "colAssembly1",
+			order: CAM_ORDER_ATTACK,
+			data: {
+				repair: 40
+			},
+			groupSize: 3,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(55)),
+			templates: [ cTempl.comhmgt, cTempl.colpodt, cTempl.commcant, cTempl.colmrat, cTempl.comatt ]
+		},
+		"colFactory2": {
+			assembly: "colAssembly2",
+			order: CAM_ORDER_PATROL,
+			data: {
+				// Hovers that patrol the map and harass the player's forces
+				repair: 50,
+				pos: [
+					camMakePos("hoverPatrolPos1"),
+					camMakePos("hoverPatrolPos2"),
+					camMakePos("hoverPatrolPos3"),
+					camMakePos("hoverPatrolPos4"),
+					camMakePos("hoverPatrolPos5"),
+					camMakePos("hoverPatrolPos6"),
+				],
+				interval: camSecondsToMilliseconds(28)
+			},
+			groupSize: 5,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(65)),
+			templates: hoverTemplates
+		},
+		"colCybFactory1": {
+			assembly: "colCybAssembly",
+			order: CAM_ORDER_ATTACK,
+			data: {
+				repair: 40
+			},
+			groupSize: 5,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
+			templates: [ cTempl.cybca, cTempl.cybhg, cTempl.cybgr, cTempl.cybhg ]
+		},
+		"colCybFactory2": {
+			assembly: "colCybAssembly",
+			order: CAM_ORDER_ATTACK,
+			data: {
+				repair: 40
+			},
+			groupSize: 3,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(50)),
+			templates: [ cTempl.cybla, cTempl.scymc, cTempl.cybla ]
+		},
+		"cScavFactory": {
+			assembly: "cScavAssembly",
+			order: CAM_ORDER_ATTACK,
+			groupSize: 6,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(28)),
+			templates: [ cTempl.monmrl, cTempl.buscan, cTempl.gbjeep, cTempl.firetruck, cTempl.lance, cTempl.buggy ]
+		},
+	});
+
+	// Set up trucks
+	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds(120))
+	camManageTrucks(CAM_THE_COLLECTIVE, {
+		label: "colHoverBase",
+		rebuildTruck: (tweakOptions.rec_timerlessMode),
+		respawnDelay: ((tweakOptions.rec_timerlessMode) ? (TRUCK_TIME / 2) : TRUCK_TIME),
+		rebuildBase: tweakOptions.rec_timerlessMode,
+		template: cTempl.comtruckt,
+		structset: camAreaToStructSet("colBase4")
+	});
+
+	camManageGroup(camMakeGroup("cyborgPatrolGroup"), CAM_ORDER_PATROL, {
+		repair: 60,
+		pos: [
+			camMakePos("patrolPos1"),
+			camMakePos("patrolPos2"),
+			camMakePos("patrolPos3")
+		],
+		interval: camSecondsToMilliseconds(24)
+	});
+
+	vtolsCalled = false;
+	site1Clear = false;
+	site2Clear = false;
+	site3Clear = false;
+
+	hackAddMessage("AA_SITE1", PROX_MSG, CAM_HUMAN_PLAYER);
+	hackAddMessage("AA_SITE2", PROX_MSG, CAM_HUMAN_PLAYER);
+	hackAddMessage("AA_SITE3", PROX_MSG, CAM_HUMAN_PLAYER);
+
+	// Move the Collective Cyborgs away from the player's LZ
+	lzCyborgGroup = camMakeGroup("cyborgLzGroup")
+	camManageGroup(lzCyborgGroup, CAM_ORDER_DEFEND, {pos: camMakePos("cyborgRallyPos"), radius: 10});
+
+	queue("lzAmbush", camMinutesToMilliseconds(2.5));
+	queue("enableAllFactories", camChangeOnDiff(camMinutesToMilliseconds(10)));
+	queue("vtolAttack", camChangeOnDiff(camMinutesToMilliseconds(16)));
+}

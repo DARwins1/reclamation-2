@@ -49,6 +49,76 @@
         "researchPoints": 1200,
         "researchPower": 37
     },
+        "R-Cyborg-Hvywpn-Acannon": {
+        "iconID": "IMAGE_RES_CYBORGTECH",
+        "id": "R-Cyborg-Hvywpn-Acannon",
+        "msgName": "RES_CYW_H_AC",
+        "name": "Super Auto-Cannon Cyborg",
+        "redComponents": [
+            "CyborgCannon"
+        ],
+        "requiredResearch": [
+            "R-Wpn-Cannon5",
+            "R-Cyborg-Hvywpn-Mcannon"
+        ],
+        "researchPoints": 1900,
+        "researchPower": 150,
+        "resultComponents": [
+            "Cyb-Hvywpn-Acannon"
+        ],
+        "statID": "Cyb-Hvywpn-Acannon"
+    },
+    "R-Cyborg-Hvywpn-HPV": {
+        "iconID": "IMAGE_RES_CYBORGTECH",
+        "id": "R-Cyborg-Hvywpn-HPV",
+        "msgName": "RES_CYW_H_HPV",
+        "name": "Super HPC Cyborg",
+        "redComponents": [
+            "Cyb-Hvywpn-Mcannon"
+        ],
+        "requiredResearch": [
+            "R-Cyborg-Hvywpn-Mcannon",
+            "R-Wpn-Cannon4AMk1"
+        ],
+        "researchPoints": 1900,
+        "researchPower": 150,
+        "resultComponents": [
+            "Cyb-Hvywpn-HPV"
+        ],
+        "statID": "Cyb-Hvywpn-HPV"
+    },
+    "R-Cyborg-Hvywpn-Mcannon": {
+        "iconID": "IMAGE_RES_CYBORGTECH",
+        "id": "R-Cyborg-Hvywpn-Mcannon",
+        "keyTopic": 1,
+        "msgName": "RES_CYW_H_MC",
+        "name": "Super Heavy-Gunner",
+        "requiredResearch": [
+            "R-Wpn-Cannon2Mk1"
+        ],
+        "researchPoints": 1600,
+        "researchPower": 125,
+        "resultComponents": [
+            "Cyb-Hvywpn-Mcannon"
+        ],
+        "statID": "Cyb-Hvywpn-Mcannon"
+    },
+    "R-Cyborg-Hvywpn-TK": {
+        "iconID": "IMAGE_RES_CYBORGTECH",
+        "id": "R-Cyborg-Hvywpn-TK",
+        "msgName": "RES_CYW_H_TK",
+        "name": "Super Tank-Killer Cyborg",
+        "requiredResearch": [
+            "R-Cyborg-Hvywpn-Mcannon",
+            "R-Wpn-Rocket07-Tank-Killer"
+        ],
+        "researchPoints": 2400,
+        "researchPower": 156,
+        "resultComponents": [
+            "Cyb-Hvywpn-TK"
+        ],
+        "statID": "Cyb-Hvywpn-TK"
+    },
     "R-Cyborg-Legs01": {
         "iconID": "IMAGE_RES_CYBORGTECH",
         "id": "R-Cyborg-Legs01",
@@ -123,11 +193,11 @@
     "R-Cyborg-Metals03": {
         "iconID": "IMAGE_RES_CYBORGTECH",
         "id": "R-Cyborg-Metals03",
-        "keyTopic": 1,
         "imdName": "icmolql.pie",
         "name": "Cyborg Composite Alloys Mk3",
         "requiredResearch": [
             "R-Cyborg-Wpn-MG",
+            "R-Vehicle-Metals03",
             "R-Cyborg-Metals02"
         ],
         "researchPoints": 3600,
@@ -154,6 +224,7 @@
 	"R-Cyborg-Metals04": {
         "iconID": "IMAGE_RES_CYBORGTECH",
         "id": "R-Cyborg-Metals04",
+        "keyTopic": 1,
         "imdName": "icmolql.pie",
         "msgName": "RES_CYMET4",
         "name": "Cyborg Dense Composite Alloys",
@@ -527,9 +598,9 @@
         "iconID": "IMAGE_RES_DROIDTECH",
         "id": "R-Vehicle-Metals03",
         "imdName": "icmolql.pie",
-        "keyTopic": 1,
         "name": "Composite Alloys Mk3",
         "requiredResearch": [
+            "R-Vehicle-Body06",
             "R-Vehicle-Metals02"
         ],
         "researchPoints": 5400,
@@ -556,6 +627,7 @@
 	"R-Vehicle-Metals04": {
         "iconID": "IMAGE_RES_DROIDTECH",
         "id": "R-Vehicle-Metals04",
+        "keyTopic": 1,
         "imdName": "icmolql.pie",
         "msgName": "RES_V_MET4",
         "name": "Dense Composite Alloys",
@@ -2726,8 +2798,7 @@
         "msgName": "RES_W_M_AC1",
         "name": "Mortar Targeting Computer",
         "requiredResearch": [
-            "R-Wpn-Mortar-Damage01",
-            "R-Struc-Research-Upgrade02"
+            "R-Sys-CBSensor-Turret01"
         ],
         "researchPoints": 3600,
         "researchPower": 112,
@@ -4082,8 +4153,7 @@
         "msgName": "RES_SY_CBSTW1",
         "name": "CB Tower",
         "requiredResearch": [
-            "R-Wpn-Mortar-Damage03",
-            "R-Sys-Sensor-Upgrade01"
+            "R-Sys-CBSensor-Turret01"
         ],
         "researchPoints": 3600,
         "researchPower": 112,
@@ -4095,10 +4165,11 @@
     "R-Sys-CBSensor-Turret01": {
         "iconID": "IMAGE_RES_SYSTEMTECH",
         "id": "R-Sys-CBSensor-Turret01",
+        "keyTopic": 1,
         "msgName": "RES_SY_CBSTU1",
         "name": "CB Turret",
         "requiredResearch": [
-            "R-Sys-CBSensor-Tower01"
+            "R-Sys-Sensor-Turret01"
         ],
         "researchPoints": 4800,
         "researchPower": 150,
@@ -4131,14 +4202,14 @@
     "R-Sys-VTOLCBS-Tower01": {
         "iconID": "IMAGE_RES_SYSTEMTECH",
         "id": "R-Sys-VTOLCBS-Tower01",
-        "keyTopic": 1,
         "msgName": "RES_SY_VCBSTW1",
         "name": "VTOL CB Tower",
         "requiredResearch": [
+            "R-Defense-HardcreteWall",
             "R-Sys-CBSensor-Tower01",
-            "R-Sys-VTOLStrike-Tower01"
+            "R-Sys-VTOLCBS-Turret01"
         ],
-        "researchPoints": 7200,
+        "researchPoints": 800,
         "researchPower": 225,
         "resultStructures": [
             "Sys-VTOL-CB-Tower01"
@@ -4152,9 +4223,9 @@
         "name": "VTOL CB Turret",
         "requiredResearch": [
             "R-Sys-CBSensor-Turret01",
-            "R-Sys-VTOLCBS-Tower01"
+            "R-Sys-VTOLStrike-Turret01"
         ],
-        "researchPoints": 8400,
+        "researchPoints": 1200,
         "researchPower": 262,
         "resultComponents": [
             "Sys-VTOLCBTurret01"
@@ -4322,11 +4393,12 @@
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-AAGun-Accuracy01",
         "msgName": "RES_W_AAAC1",
-        "name": "AA Thermal Imaging Sensor",
+        "name": "AA Targeting Computer",
         "requiredResearch": [
-            "R-Wpn-RocketSlow-Accuracy03"
+            "R-Wpn-Mortar-Acc01",
+            "R-Wpn-AAGun03"
         ],
-        "researchPoints": 6000,
+        "researchPoints": 1600,
         "researchPower": 187,
         "results": [
             {
@@ -4351,12 +4423,12 @@
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-AAGun-Accuracy02",
         "msgName": "RES_W_AAAC2",
-        "name": "AA Target Acquisition Shells",
+        "name": "AA Thermal Imaging Sensor",
         "requiredResearch": [
             "R-Wpn-AAGun-Accuracy01",
-            "R-Wpn-Howitzer-Accuracy01"
+            "R-Wpn-RocketSlow-Accuracy03"
         ],
-        "researchPoints": 7200,
+        "researchPoints": 2000,
         "researchPower": 225,
         "results": [
             {
@@ -7046,7 +7118,7 @@
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-AAGun-Accuracy03",
         "msgName": "RES_W_AAAC3",
-        "name": "AA Target Prediction Computer",
+        "name": "AA Target Acquisition Shells",
         "requiredResearch": [
             "R-Wpn-Rail-Accuracy01",
 			"R-Wpn-AAGun-Accuracy02"
