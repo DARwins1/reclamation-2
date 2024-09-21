@@ -169,3 +169,8 @@ miss_keep	A2L4
 dataset		REC_2
 game		"wrf/act2/A2L4.gam"
 data		"wrf/act2/A2L4.wrf"
+
+expand		A2L5
+dataset		REC_2
+game		"wrf/act2/A2L5.gam"
+data		"wrf/act2/A2L5.wrf"

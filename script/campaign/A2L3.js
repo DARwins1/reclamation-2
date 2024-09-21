@@ -19,8 +19,6 @@ const mis_collectiveResearch = [
 	"R-Wpn-Cannon-Accuracy01", "R-Wpn-Rocket-Accuracy01",
 ];
 
-// The chances of a helicopter actually using this is incredibly low
-// but we should still have this
 camAreaEvent("vtolRemoveZone", function(droid)
 {
 	camSafeRemoveObject(droid, false);

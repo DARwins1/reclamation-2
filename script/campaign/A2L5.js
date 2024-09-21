@@ -1,0 +1,606 @@
+include("script/campaign/libcampaign.js");
+include("script/campaign/templates.js");
+
+const mis_collectiveResearch = [
+	"R-Wpn-MG-Damage02", "R-Wpn-Rocket-Damage02", "R-Wpn-Mortar-Damage01", 
+	"R-Wpn-Flamer-Damage03", "R-Wpn-Cannon-Damage02", "R-Wpn-MG-ROF02",
+	"R-Wpn-Rocket-ROF02", "R-Wpn-Mortar-ROF01", "R-Wpn-Flamer-ROF01",
+	"R-Wpn-Cannon-ROF02", "R-Vehicle-Metals02", "R-Struc-Materials02", 
+	"R-Defense-WallUpgrade02", "R-Sys-Engineering01", "R-Cyborg-Metals02",
+	"R-Wpn-Cannon-Accuracy01", "R-Wpn-Rocket-Accuracy01",
+];
+
+camAreaEvent("heliRemoveZone", function(droid)
+{
+	camSafeRemoveObject(droid, false);
+	resetLabel("heliRemoveZone", CAM_THE_COLLECTIVE);
+});
+
+function heliAttack1()
+{
+	const ext = {
+		limit: 1,
+	};
+	camSetVtolData(CAM_THE_COLLECTIVE, "heliAttackPos1", "heliRemoveZone", [cTempl.helpod, cTempl.helcan], camChangeOnDiff(camMinutesToMilliseconds(1.5)), "heliTower1", ext);
+}
+
+function heliAttack2()
+{
+	const ext = {
+		limit: 1,
+	};
+	camSetVtolData(CAM_THE_COLLECTIVE, "heliAttackPos2", "heliRemoveZone", [cTempl.helpod, cTempl.helhmg], camChangeOnDiff(camMinutesToMilliseconds(1.25)), "heliTower2", ext);
+}
+
+// Start moving patrol groups
+function groupPatrol()
+{
+	camManageGroup(camMakeGroup("cScavPatrolGroup"), CAM_ORDER_PATROL, {
+		pos: [
+			camMakePos("patrolPos1"),
+			camMakePos("patrolPos2"),
+			camMakePos("patrolPos3"),
+			camMakePos("patrolPos4")
+		],
+		interval: camSecondsToMilliseconds(26)
+	});
+
+	camManageGroup(camMakeGroup("colWestPatrolGroup"), CAM_ORDER_PATROL, {
+		pos: [
+			camMakePos("patrolPos3"),
+			camMakePos("patrolPos4"),
+			camMakePos("patrolPos5"),
+			camMakePos("patrolPos6")
+		],
+		interval: camSecondsToMilliseconds(38)
+	});
+	camManageGroup(camMakeGroup("colEastPatrolGroup"), CAM_ORDER_PATROL, {
+		pos: [
+			camMakePos("patrolPos7"),
+			camMakePos("patrolPos8"),
+			camMakePos("patrolPos9")
+		],
+		interval: camSecondsToMilliseconds(24)
+	});
+	camManageGroup(camMakeGroup("colHoverDefenseGroup"), CAM_ORDER_PATROL, {
+		pos: [
+			camMakePos("hoverPatrolPos1"),
+			camMakePos("hoverPatrolPos2"),
+			camMakePos("hoverPatrolPos3"),
+			camMakePos("hoverPatrolPos4")
+		],
+		interval: camSecondsToMilliseconds(18),
+		repair: 80
+	});
+	camManageGroup(camMakeGroup("colCommander"), CAM_ORDER_PATROL, {
+		pos: [
+			camMakePos("patrolPos6"),
+			camMakePos("patrolPos9"),
+			camMakePos("patrolPos10")
+			// More positions are added later
+		],
+		interval: camSecondsToMilliseconds(28),
+		repair: 70
+	});
+}
+
+function enableFirstFactories()
+{
+	camEnableFactory("cScavFactory3");
+	camEnableFactory("cScavFactory4");
+	camEnableFactory("colFactory1"); // Hover factory
+	camEnableFactory("colCybFactory1");
+}
+
+function enableSecondFactories()
+{
+	camEnableFactory("colFactory2");
+	camEnableFactory("colCybFactory2");
+
+	// Also expand the Collective commander's patrol region
+	if (getObject("colCommander") !== null)
+	{
+		camManageGroup(camMakeGroup("colCommander"), CAM_ORDER_PATROL, {
+			pos: [
+				camMakePos("patrolPos6"),
+				camMakePos("patrolPos9"),
+				camMakePos("patrolPos10"),
+				camMakePos("patrolPos5"),
+				camMakePos("patrolPos4"),
+				camMakePos("patrolPos7")
+			],
+			interval: camSecondsToMilliseconds(32),
+			repair: 70
+		});
+	}
+}
+
+function enableFinalFactories()
+{
+	camEnableFactory("colFactory3");
+	camEnableFactory("colCybFactory3");
+}
+
+// If the Collective commander is still alive, order it to attack the player directly (no more patrolling)
+function aggroCommander()
+{
+	if (getObject("colCommander") !== null)
+	{
+		// Collective commander still alive
+		camManageGroup(camMakeGroup("colCommander"), CAM_ORDER_ATTACK, {
+			targetPlayer: CAM_HUMAN_PLAYER,
+			repair: 70
+		});
+	}
+}
+
+// Reassign the VTOL strike turret's label when it's rebuilt
+function eventDroidBuilt(droid, structure)
+{
+	if (droid.player === CAM_THE_COLLECTIVE && camDroidMatchesTemplate(droid, cTempl.comstriket))
+	{
+		addLabel(droid, "colVtolSensor");
+	}
+}
+
+function eventStartLevel()
+{
+	const startPos = camMakePos("landingZone");
+	const lz = getObject("landingZone");
+
+	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, "A2L6S");
+
+	centreView(startPos.x, startPos.y);
+	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
+
+	camSetArtifacts({
+		"colBombardPit": { tech: "R-Wpn-Mortar02Hvy" }, // Bombard
+		"colFactory1": { tech: "R-Wpn-Rocket03-HvAT" }, // Bunker Buster
+		"colCycloneEmp": { tech: "R-Wpn-AAGun02"}, // Cyclone
+		"colResearch": { tech: "R-Wpn-Rocket-ROF02"}, // Rocket Autoloader Mk2
+	});
+
+	camCompleteRequiredResearch(mis_collectiveResearch, CAM_THE_COLLECTIVE);
+
+	camSetEnemyBases({
+		"cScavWesterCraterBase": {
+			cleanup: "cScavBase1",
+			detectMsg: "CSCAV_BASE1",
+			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated,
+		},
+		"cScavWestCraterBase": {
+			cleanup: "cScavBase2",
+			detectMsg: "CSCAV_BASE2",
+			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated,
+		},
+		"cScavOilOutpost": {
+			cleanup: "cScavBase3",
+			detectMsg: "CSCAV_BASE3",
+			detectSnd: cam_sounds.baseDetection.scavengerOutpostDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerOutpostEradicated,
+		},
+		"cScavNorthBase": {
+			cleanup: "cScavBase4",
+			detectMsg: "CSCAV_BASE4",
+			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated,
+		},
+		"cScavBigCraterBase": {
+			cleanup: "cScavBase5",
+			detectMsg: "CSCAV_BASE5",
+			detectSnd: cam_sounds.baseDetection.scavengerOutpostDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerOutpostEradicated,
+		},
+		"cScavEastBase": {
+			cleanup: "cScavBase6",
+			detectMsg: "CSCAV_BASE6",
+			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated,
+		},
+		"colCanalBase": {
+			cleanup: "colBase1",
+			detectMsg: "COL_BASE1",
+			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+		},
+		"colMoundBase": {
+			cleanup: "colBase2",
+			detectMsg: "COL_BASE2",
+			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+		},
+		"colBlockadeBase": {
+			cleanup: "colBase3",
+			detectMsg: "COL_BASE3",
+			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+		},
+		"colMainBase": {
+			cleanup: "colBase4",
+			detectMsg: "COL_BASE4",
+			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
+			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+		},
+	});
+
+	camSetFactories({
+		"cScavFactory1": {
+			assembly: "cScavAssembly1",
+			order: CAM_ORDER_ATTACK,
+			groupSize: 3,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(22)),
+			templates: [ cTempl.monmrl, cTempl.gbjeep, cTempl.buscan, cTempl.trike, cTempl.bloke, cTempl.lance, cTempl.bloke ]
+		},
+		"cScavFactory2": {
+			assembly: "cScavAssembly2",
+			order: CAM_ORDER_ATTACK,
+			groupSize: 3,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(26)),
+			templates: [ cTempl.monfire, cTempl.bjeep, cTempl.minitruck, cTempl.rbjeep ]
+		},
+		"cScavFactory3": {
+			assembly: "cScavAssembly3",
+			order: CAM_ORDER_ATTACK,
+			groupSize: 5,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(32)),
+			templates: [ cTempl.monlan, cTempl.minitruck, cTempl.firetruck, cTempl.rbuggy, cTempl.bloke ]
+		},
+		"cScavFactory4": {
+			assembly: "cScavAssembly4",
+			order: CAM_ORDER_ATTACK,
+			groupSize: 5,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(28)),
+			templates: [ cTempl.flatmrl, cTempl.moncan, cTempl.rbjeep, cTempl.buggy, cTempl.bloke, cTempl.lance, cTempl.monhmg ]
+		},
+		"colFactory1": {
+			assembly: "colAssembly1",
+			order: CAM_ORDER_ATTACK,
+			groupSize: 3,
+			data: {
+				repair: 60,
+				regroup: true
+			},
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
+			templates: [ cTempl.comath, cTempl.commrah, cTempl.comhpvh ]
+		},
+		"colFactory2": {
+			assembly: "colAssembly2",
+			order: CAM_ORDER_ATTACK,
+			data: {
+				repair: 40
+			},
+			groupSize: 5,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(50)),
+			templates: [ cTempl.colpodt, cTempl.colflamt, cTempl.colmrat, cTempl.colaaht ]
+		},
+		"colFactory3": {
+			assembly: "colAssembly3",
+			order: CAM_ORDER_ATTACK,
+			data: {
+				repair: 40
+			},
+			groupSize: 3,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
+			templates: [ cTempl.commcant, cTempl.comhmgt, cTempl.comatt, cTempl.commcant ]
+		},
+		"colCybFactory1": {
+			assembly: "colCybAssembly1",
+			order: CAM_ORDER_ATTACK,
+			data: {
+				repair: 30
+			},
+			groupSize: 4,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(35)),
+			templates: [ cTempl.cybca, cTempl.cybhg, cTempl.cybgr ]
+		},
+		"colCybFactory2": {
+			assembly: "colCybAssembly2",
+			order: CAM_ORDER_ATTACK,
+			data: {
+				repair: 30
+			},
+			groupSize: 3,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(50)),
+			templates: [ cTempl.cybgr, cTempl.scymc ]
+		},
+		"colCybFactory3": {
+			assembly: "colCybAssembly3",
+			order: CAM_ORDER_ATTACK,
+			data: {
+				repair: 30
+			},
+			groupSize: 6,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
+			templates: [ cTempl.cybla, cTempl.cybhg ]
+		},
+		"colVtolFactory": {
+			assembly: "colVtolAssembly",
+			order: CAM_ORDER_ATTACK,
+			groupSize: 2,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(45)),
+			templates: [ cTempl.colatv, cTempl.colatv, cTempl.colbombv, cTempl.colbombv ]
+		},
+	});
+
+	const COMMANDER_RANK = (difficulty <= MEDIUM) ? "Regular" : "Professional";
+	camSetDroidRank(getObject("colCommander"), COMMANDER_RANK);
+
+	// Set up refillable groups and trucks
+	// Collective commander group
+	// (2 Heavy Machineguns, 4 Super Heavy-Gunners, 1 VTOL Strike Turret, 1 Lancer, 1 Cyclone AA, 1 Heavy Repair Turret)
+	// NOTE: The 2 Heavy Cannon Tigers that spawn with this commander are not rebuilt (and not included here)
+	const commandTemplates = [
+		cTempl.comhmgt, cTempl.comhmgt,
+		cTempl.scymc, cTempl.scymc, cTempl.scymc, cTempl.scymc,
+		cTempl.comstriket,
+		cTempl.comatt,
+		cTempl.comhaat,
+		cTempl.comhrept,
+	];
+	if (difficulty >= HARD)
+	{
+		// Add an extra 2 Lancers on Hard+
+		commandTemplates.push(cTempl.comatt);
+		commandTemplates.push(cTempl.comatt);
+	}
+	camMakeRefillableGroup(camMakeGroup("colCommandGroup"), {
+		templates: commandTemplates,
+		factories: ["colFactory2", "colFactory3", "colCybFactory1", "colCybFactory2", "colCybFactory3"],
+		obj: "colCommander" // Stop refilling this group when the commander dies
+		}, CAM_ORDER_FOLLOW, {
+		leader: "colCommander",
+		repair: 60,
+		suborder: CAM_ORDER_ATTACK
+	});
+	// Hover patrol group
+	const hoverTemplates = 
+	camMakeRefillableGroup(undefined, {
+		templates: [ // 2 Lancers, 2 MRAs, 2 Bunker Busters
+			cTempl.comath, cTempl.comath,
+			cTempl.combbh,
+			cTempl.commrah, cTempl.commrah,
+			cTempl.combbh,
+		],
+		factories: ["colFactory1"],
+		}, CAM_ORDER_PATROL, {
+		pos: [
+			camMakePos("hoverPatrolPos5"),
+			camMakePos("hoverPatrolPos6"),
+			camMakePos("hoverPatrolPos7"),
+			camMakePos("hoverPatrolPos8"),
+			camMakePos("hoverPatrolPos9")
+		],
+		interval: camSecondsToMilliseconds(28),
+		repair: 80
+	});
+	// VTOL groups
+	// Assigned to the VTOL Strike unit (which in turn is assigned to a commander)
+	camMakeRefillableGroup(undefined, {
+		templates: [ // 3 Cluster bombs, 3 Lancers
+			cTempl.colbombv, cTempl.colatv,
+			cTempl.colbombv, cTempl.colatv,
+			cTempl.colbombv, cTempl.colatv,
+		],
+		factories: ["colVtolFactory"],
+		obj: "colVtolSensor",
+		}, CAM_ORDER_FOLLOW, {
+		leader: "colVtolSensor",
+		suborder: CAM_ORDER_ATTACK
+	});
+	// Assigned to the VTOL Radar Tower (northwest)
+	camMakeRefillableGroup(undefined, {
+		templates: [ // 2 Heavy Machineguns, 2 Lancers
+			cTempl.colhmgv, cTempl.colatv,
+			cTempl.colhmgv, cTempl.colatv,
+		],
+		factories: ["colVtolFactory"],
+		obj: "colVtolTower1",
+		}, CAM_ORDER_FOLLOW, {
+		leader: "colVtolTower1",
+		suborder: CAM_ORDER_ATTACK
+	});
+	// Assigned to the VTOL Radar Tower (center)
+	camMakeRefillableGroup(undefined, {
+		templates: [ // 2 Heavy Machineguns, 2 Lancers
+			cTempl.colhmgv, cTempl.colatv,
+			cTempl.colhmgv, cTempl.colatv,
+		],
+		factories: ["colVtolFactory"],
+		obj: "colVtolTower2",
+		}, CAM_ORDER_FOLLOW, {
+		leader: "colVtolTower2",
+		suborder: CAM_ORDER_ATTACK
+	});
+	// Assigned to the VTOL Radar Tower (east)
+	camMakeRefillableGroup(undefined, {
+		templates: [ // 2 Heavy Machineguns, 2 Lancers
+			cTempl.colhmgv, cTempl.colatv,
+			cTempl.colhmgv, cTempl.colatv,
+		],
+		factories: ["colVtolFactory"],
+		obj: "colVtolTower3",
+		}, CAM_ORDER_FOLLOW, {
+		leader: "colVtolTower3",
+		suborder: CAM_ORDER_ATTACK
+	});
+	// Assigned to the VTOL CB Tower
+	camMakeRefillableGroup(undefined, {
+		templates: [ // 2 Cluster Bombs, 2 Lancers
+			cTempl.colbombv, cTempl.colatv,
+			cTempl.colbombv, cTempl.colatv,
+		],
+		factories: ["colVtolFactory"],
+		obj: "colVtolCBTower",
+		}, CAM_ORDER_FOLLOW, {
+		leader: "colVtolCBTower",
+		suborder: CAM_ORDER_ATTACK
+	});
+	// Trucks
+	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds(70))
+	camManageTrucks(CAM_THE_COLLECTIVE, {
+		label: "colCanalBase",
+		rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= MEDIUM),
+		respawnDelay: ((tweakOptions.rec_timerlessMode) ? (TRUCK_TIME / 2) : TRUCK_TIME),
+		rebuildBase: tweakOptions.rec_timerlessMode,
+		truckDroid: getObject("colTruck1"),
+		structset: camAreaToStructSet("colBase1")
+	});
+	camManageTrucks(CAM_THE_COLLECTIVE, {
+		label: "colMoundBase",
+		rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= MEDIUM),
+		respawnDelay: ((tweakOptions.rec_timerlessMode) ? (TRUCK_TIME / 2) : TRUCK_TIME),
+		rebuildBase: tweakOptions.rec_timerlessMode,
+		truckDroid: getObject("colTruck2"),
+		structset: camAreaToStructSet("colBase2")
+	});
+	camManageTrucks(CAM_THE_COLLECTIVE, {
+		label: "colBlockadeBase",
+		rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= EASY),
+		respawnDelay: ((tweakOptions.rec_timerlessMode) ? (TRUCK_TIME / 2) : TRUCK_TIME),
+		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty >= MEDIUM),
+		truckDroid: getObject("colTruck3"),
+		structset: camAreaToStructSet("colBase3")
+	});
+	camManageTrucks(CAM_THE_COLLECTIVE, {
+		label: "colMainBase",
+		rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= EASY),
+		respawnDelay: ((tweakOptions.rec_timerlessMode) ? (TRUCK_TIME / 2) : TRUCK_TIME),
+		rebuildBase: tweakOptions.rec_timerlessMode,
+		truckDroid: getObject("colTruck4"),
+		structset: camAreaToStructSet("colBase4")
+	});
+
+	if (difficulty >= HARD || tweakOptions.rec_timerlessMode)
+	{
+		// Add a SECOND truck to the barricade base
+		camManageTrucks(CAM_THE_COLLECTIVE, {
+		label: "colBlockadeBase",
+			rebuildTruck: true,
+			respawnDelay: ((tweakOptions.rec_timerlessMode) ? (TRUCK_TIME / 2) : TRUCK_TIME),
+			rebuildBase: true,
+			template: cTempl.comtruckt,
+			structset: camAreaToStructSet("colBase3")
+		});
+	}
+
+	if (tweakOptions.rec_timerlessMode)
+	{
+		// switch (difficulty)
+		// {
+		// 	case INSANE:
+		// 		// Cranes for the red roadblock base and orange central crater base
+		// 		camManageTrucks(MIS_ORANGE_SCAVS, {
+		// 			label: "orangeSouthCraterBase",
+		// 			rebuildBase: true,
+		// 			respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+		// 			template: cTempl.crane,
+		// 			structset: camAreaToStructSet("orangeBase3")
+		// 		});
+		// 		camManageTrucks(MIS_RED_SCAVS, {
+		// 			label: "redRoadblockBase",
+		// 			rebuildBase: true,
+		// 			respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+		// 			template: cTempl.crane,
+		// 			structset: camAreaToStructSet("redBase1")
+		// 		});
+		// 	case HARD: // NOTE: Fall-through here! We still add Cranes from lower difficulties!
+		// 		// Cranes for the red north road base, and orange northeast crater base
+		// 		camManageTrucks(MIS_RED_SCAVS, {
+		// 			label: "redNorthRoadBase",
+		// 			rebuildBase: true,
+		// 			respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+		// 			template: cTempl.crane,
+		// 			structset: camAreaToStructSet("redBase2")
+		// 		});
+		// 		camManageTrucks(MIS_ORANGE_SCAVS, {
+		// 			label: "orangeNorthCraterBase",
+		// 			rebuildBase: true,
+		// 			respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+		// 			template: cTempl.crane,
+		// 			structset: camAreaToStructSet("orangeBase4")
+		// 		});
+		// 	case MEDIUM:
+		// 		// Cranes for the south red base and northwest orange base
+		// 		camManageTrucks(MIS_RED_SCAVS, {
+		// 			label: "redSouthRoadBase",
+		// 			rebuildBase: true,
+		// 			respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+		// 			template: cTempl.crane,
+		// 			structset: camAreaToStructSet("redBase4")
+		// 		});
+		// 		camManageTrucks(MIS_ORANGE_SCAVS, {
+		// 			label: "orangeNorthRoadBase",
+		// 			rebuildBase: true,
+		// 			respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+		// 			template: cTempl.crane,
+		// 			structset: camAreaToStructSet("orangeBase1")
+		// 		});
+		// 	default:
+		// 		// Cranes for the red uplink base, plateau base, and orange hill base
+		// 		camManageTrucks(MIS_RED_SCAVS, {
+		// 			label: "redUplinkBase",
+		// 			rebuildBase: true,
+		// 			respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+		// 			template: cTempl.crane,
+		// 			structset: camAreaToStructSet("redBase5")
+		// 		});
+		// 		camManageTrucks(MIS_RED_SCAVS, {
+		// 			label: "redPlateauBase",
+		// 			rebuildBase: true,
+		// 			respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+		// 			template: cTempl.crane,
+		// 			structset: camAreaToStructSet("redBase3")
+		// 		});
+		// 		camManageTrucks(MIS_ORANGE_SCAVS, {
+		// 			label: "orangePlateauBase",
+		// 			rebuildBase: true,
+		// 			respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+		// 			template: cTempl.crane,
+		// 			structset: camAreaToStructSet("orangeBase2")
+		// 		});
+		// }
+	}
+	else
+	{
+		setMissionTime(camChangeOnDiff(camHoursToSeconds(2)));
+	}
+
+	camAutoReplaceObjectLabel(["heliTower1", "heliTower2", "colVtolTower1", "colVtolTower2", "colVtolTower3", "colVtolCBTower"]);
+
+	// These factories are active immediately
+	camEnableFactory("cScavFactory1");
+	camEnableFactory("cScavFactor2");
+	camEnableFactory("colVtolFactory");
+
+	queue("groupPatrol", camSecondsToMilliseconds(5));
+	queue("heliAttack1", camChangeOnDiff(camSecondsToMilliseconds(10)));
+	queue("heliAttack2", camChangeOnDiff(camMinutesToMilliseconds(2)));
+	queue("enableFirstFactories", camChangeOnDiff(camMinutesToMilliseconds(6)));
+	queue("enableSecondFactories", camChangeOnDiff(camMinutesToMilliseconds(12)));
+	queue("enableFinalFactories", camChangeOnDiff(camMinutesToMilliseconds(18)));
+	queue("aggroCommander", camChangeOnDiff(camMinutesToMilliseconds(22)));
+
+	// Placeholder for the actual briefing sequence
+	// camQueueDialogue([
+	// 	{text: "---- BRIEFING PLACEHOLDER ----", delay: 0},
+	// 	{text: "LIEUTENANT: Sir, we've begun inspecting NASDA Central's core systems.", delay: camSecondsToMilliseconds(2), sound: CAM_RADIO_CLICK},
+	// 	{text: "CLAYDE: What's the status? How long until the systems are operational?", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+	// 	{text: "LIEUTENANT: It's hard to give a full analysis at this point.", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+	// 	{text: "LIEUTENANT: NASDA's computer systems are vast and we've only been able to examine a portion of it.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+	// 	{text: "LIEUTENANT: So far, we've found signs of electromagnetic damage, likely as a result of the Collapse.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+	// 	{text: "LIEUTENANT: Entire memory banks appear to have been fried, and the core processor is shattered.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+	// 	{text: "CLAYDE: What of the satellite control systems?", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+	// 	{text: "LIEUTENANT: Well, it seems that some subsystems might have been spared from damage.", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+	// 	{text: "LIEUTENANT: But the uplink systems are non-functional.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+	// 	{text: "LIEUTENANT: However, while scanning NASDA's memory banks, we found what appear to be coordinates to nearby satellite uplink stations.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+	// 	{text: "LIEUTENANT: If any of these uplinks are still operational, it's possible that they could be used as relay to connect NASDA's control systems and the satellites.", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+	// 	{text: "CLAYDE: I see. Then our next objective is clear.", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+	// 	{text: "CLAYDE: While I help the Council settle into our new base of operations, the Commanders will search for these uplink sites.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+	// 	{text: "CLAYDE: Commander Bravo. One of these uplinks appears to lie east of your current position.", delay: camSecondsToMilliseconds(4), sound: CAM_RADIO_CLICK},
+	// 	{text: "CLAYDE: Take your forces there and secure the area.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+	// 	{text: "LIEUTENANT: Don't forget to examine the technology recovered from NASDA Central, Commander!", delay: camSecondsToMilliseconds(5), sound: CAM_RADIO_CLICK},
+	// 	{text: "LIEUTENANT: I have a feeling that they'll prove to be very useful.", delay: camSecondsToMilliseconds(3), sound: CAM_RADIO_CLICK},
+	// ]);
+}

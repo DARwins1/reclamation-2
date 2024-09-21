@@ -3477,6 +3477,7 @@
     "R-Wpn-RocketSlow-Damage02": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-RocketSlow-Damage02",
+        "keyTopic": 1,
         "name": "HEAT Rocket Warhead Mk2",
         "requiredResearch": [
             "R-Wpn-RocketSlow-Damage01",
@@ -4960,8 +4961,7 @@
         "keyTopic": 1,
         "name": "Cannon Autoloader Mk2",
         "requiredResearch": [
-            "R-Wpn-Cannon-ROF01",
-            "R-Wpn-Rocket-ROF02"
+            "R-Wpn-Cannon-ROF01"
         ],
         "researchPoints": 6000,
         "researchPower": 187,

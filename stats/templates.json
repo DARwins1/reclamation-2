@@ -429,6 +429,16 @@
             "CommandTurret1"
         ]
     },
+    "CO-H-HRA-H": {
+        "body": "Body9REC",
+        "id": "CO-H-HRA-H",
+        "name": "Heavy Rocket Array Tiger Hover",
+        "propulsion": "hover01",
+        "type": "DROID",
+        "weapons": [
+            "Rocket-MRL-Hvy"
+        ]
+    },
     "CO-H-Command-Track": {
         "body": "Body9REC",
         "brain": "CommandBrain01",
@@ -638,6 +648,14 @@
         "sensor": "Sys-CBTurret01",
         "type": "DROID"
     },
+    "CO-L-Con-Halftrack": {
+        "body": "Body2SUP",
+        "construct": "Spade1Mk1",
+        "id": "CO-L-Con-Halftrack",
+        "name": "Truck Leopard Half-tracks",
+        "propulsion": "HalfTrack",
+        "type": "CONSTRUCT"
+    },
     "CO-M-Con-T": {
         "body": "Body6SUPP",
         "construct": "Spade1Mk1",
@@ -706,6 +724,16 @@
             "Mortar2Mk1"
         ]
     },
+    "CO-M-LTAT-T": {
+        "body": "Body6SUPP",
+        "id": "CO-M-LTAT-T",
+        "name": "Lancer Panther Tracks",
+        "propulsion": "tracked01",
+        "type": "DROID",
+        "weapons": [
+            "Rocket-LtA-T"
+        ]
+    },
     "CO-M-LTAT-Hover": {
         "body": "Body6SUPP",
         "id": "CO-M-LTAT-Hover",
@@ -762,6 +790,14 @@
         "name": "*CO-M-Repair-T*",
         "propulsion": "tracked01",
         "repair": "LightRepair1",
+        "type": "DROID"
+    },
+    "CO-M-HRepair-T": {
+        "body": "Body6SUPP",
+        "id": "CO-M-HRepair-T",
+        "name": "*CO-M-Repair-T*",
+        "propulsion": "tracked01",
+        "repair": "HeavyRepair",
         "type": "DROID"
     },
     "CO-M-Rocket-HvyA-T-Track": {

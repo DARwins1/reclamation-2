@@ -17,6 +17,7 @@ var site1Clear;
 var site2Clear;
 var site3Clear;
 var vtolsCalled;
+var factoriesEnabled;
 
 camAreaEvent("vtolRemoveZone", function(droid)
 {
@@ -41,7 +42,7 @@ function vtolAttack()
 		return;
 	}
 
-	const templates = [cTempl.colatv, cTempl.colhmgv]; // Lancers, HMGs, and Cluster Bombs
+	const templates = [cTempl.colatv, cTempl.colhmgv, cTempl.colbombv]; // Lancers, HMGs, and Cluster Bombs
 	const ext = {
 		limit: [2, 3, ((difficulty >= MEDIUM) ? 2 : 1)],
 		alternate: true,
@@ -77,6 +78,11 @@ function lzAmbush()
 // Called after a set delay or if the player advances quickly
 function enableAllFactories()
 {
+	if (factoriesEnabled)
+	{
+		return;
+	}
+
 	camEnableFactory("colFactory1");
 	camEnableFactory("colCybFactory2");
 
@@ -106,6 +112,8 @@ function enableAllFactories()
 		template: cTempl.comtruckt,
 		structset: camAreaToStructSet("colBase3")
 	});
+
+	factoriesEnabled = true;
 }
 
 // Returns true if all main AA sites have been cleared
@@ -344,6 +352,7 @@ function eventStartLevel()
 	site1Clear = false;
 	site2Clear = false;
 	site3Clear = false;
+	factoriesEnabled = false;
 
 	hackAddMessage("AA_SITE1", PROX_MSG, CAM_HUMAN_PLAYER);
 	hackAddMessage("AA_SITE2", PROX_MSG, CAM_HUMAN_PLAYER);
