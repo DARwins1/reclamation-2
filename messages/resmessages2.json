@@ -126,9 +126,9 @@
         "sequenceName": "res_struttech.ogg",
         "text": [
             "New Defensive Structure Available",
-            "Armored strongpoint with Hyper-Velocity Cannon",
+            "Armored bunker with Hyper-Velocity Cannon",
             "Automatically targets enemies in range",
-            "Defensive Strength: Medium"
+            "Defensive Strength: Bunker"
         ]
     },
     "RES_EMP_HVATR": {

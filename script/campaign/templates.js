@@ -75,10 +75,17 @@ pllmortt: { body: "Body1REC", prop: "tracked01", weap: "Mortar1Mk1" }, // Mortar
 pllrept: { body: "Body1REC", prop: "tracked01", weap: "LightRepair1" }, // Repair Turret Viper Tracks
 pllsenst: { body: "Body1REC", prop: "tracked01", weap: "SensorTurret1Mk1" }, // Sensor Viper Tracks
 plltruckt: { body: "Body1REC", prop: "tracked01", weap: "Spade1Mk1" }, // Truck Viper Tracks
-plmtruckht: { body: "Body5REC", prop: "tracked01", weap: "Spade1Mk1" }, // Truck Cobra Tracks
-plhhct: { body: "Body11ABT", prop: "tracked01", weap: "Cannon375mmMk1" }, // Heavy Cannon Python Tracks
+plmtruckht: { body: "Body5REC", prop: "HalfTrack", weap: "Spade1Mk1" }, // Truck Cobra Half-tracks
+plmtruckt: { body: "Body5REC", prop: "tracked01", weap: "Spade1Mk1" }, // Truck Cobra Tracks
+plmbbht: { body: "Body5REC", prop: "HalfTrack", weap: "Rocket-BB" }, // Bunker Buster Cobra Half-tracks
+plmatht: { body: "Body5REC", prop: "HalfTrack", weap: "Rocket-LtA-T" }, // Lancer Cobra Half-tracks
 plmatt: { body: "Body5REC", prop: "tracked01", weap: "Rocket-LtA-T" }, // Lancer Cobra Tracks
+plmmrat: { body: "Body5REC", prop: "tracked01", weap: "Rocket-MRL" }, // Mini-Rocket Array Cobra Tracks
+plmhmortt: { body: "Body5REC", prop: "tracked01", weap: "Mortar2Mk1" }, // Bombard Cobra Tracks
 plmrept: { body: "Body5REC", prop: "tracked01", weap: "LightRepair1" }, // Repair Turret Cobra Tracks
+plmsenst: { body: "Body5REC", prop: "tracked01", weap: "SensorTurret1Mk1" }, // Sensor Cobra Tracks
+plmcomht: { body: "Body5REC", prop: "HalfTrack", weap: "CommandBrain01" }, // Command Turret Cobra Half-tracks
+plhhct: { body: "Body11ABT", prop: "tracked01", weap: "Cannon375mmMk1" }, // Heavy Cannon Python Tracks
 plhasgnt: { body: "Body11ABT", prop: "tracked01", weap: "MG4ROTARYMk1" }, // Assault Gun Python Tracks
 plhhpvt: { body: "Body11ABT", prop: "tracked01", weap: "Cannon4AUTOMk1" }, // Hyper Velocity Cannon Python Tracks
 plhraat: { body: "Body11ABT", prop: "tracked01", weap: "AAGun2Mk1" }, // Whirlwind Python Tracks
@@ -117,6 +124,7 @@ gbjeep: { body: "B2RKJeepBody", prop: "BaBaProp", weap: "BabaMiniMortar" }, // G
 helpod: { body: "ScavengerHvyChopper", prop: "Helicopter", weap: "RustRocket-Pod-VTOL" }, // MRP Helicopter
 monfire: { body: "MonsterFireBody", prop: "tracked01", weap: "RustFlame1Mk1" }, // Monster Fire Truck
 monlan: { body: "MonsterBus", prop: "tracked01", weap: "RustRocket-LtA-T" }, // Lancer Monster Bus Tank
+monmcan: { body: "MonsterBus", prop: "tracked01", weap: "RustCannon2A-TMk1" }, // Medium Cannon Monster Bus Tank
 crane: { body: "ScavCraneBody", prop: "HalfTrack", weap: "ScavCrane" }, // Scavenger Crane (Truck)
 
 // Infested Units:

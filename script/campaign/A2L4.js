@@ -1,8 +1,6 @@
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
-const MIS_TEAM_DELTA = 1;
-
 const mis_collectiveResearch = [
 	"R-Wpn-MG-Damage02", "R-Wpn-Rocket-Damage02", "R-Wpn-Mortar-Damage01", 
 	"R-Wpn-Flamer-Damage03", "R-Wpn-Cannon-Damage02", "R-Wpn-MG-ROF02",
@@ -227,7 +225,7 @@ function eventStartLevel()
 		"colFactory1": { tech: "R-Vehicle-Body06" }, // Panther
 		"colCBTower": { tech: "R-Sys-CBSensor-Turret01" }, // CB Turret
 		"colCybFactory2": { tech: "R-Cyborg-Hvywpn-Mcannon" }, // Super Heavy-Gunner
-		"colBombardPit": { tech: "R-Wpn-Mortar02Hvy" }, // Bombard
+		// "colBombardPit": { tech: "R-Wpn-Mortar02Hvy" }, // Bombard
 	});
 
 	camSetEnemyBases({

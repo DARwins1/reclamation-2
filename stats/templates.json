@@ -872,6 +872,16 @@
             "QuadMg1AAGun"
         ]
     },
+    "LeopardHurricaneHalftrack": {
+        "body": "Body2SUP",
+        "id": "LeopardHurricaneHalftrack",
+        "name": "Hurricane AA Leopard Half-tracks",
+        "propulsion": "HalfTrack",
+        "type": "DROID",
+        "weapons": [
+            "QuadMg1AAGun"
+        ]
+    },
     "CobraComHalftrack": {
         "body": "Body5REC",
         "brain": "CommandBrain01",
@@ -934,6 +944,26 @@
             "Mortar2Mk1"
         ]
     },
+    "CobraHvyMortarTrack": {
+        "body": "Body5REC",
+        "id": "CobraHvyMortarTrack",
+        "name": "Bombard Cobra Tracks",
+        "propulsion": "tracked01",
+        "type": "DROID",
+        "weapons": [
+            "Mortar2Mk1"
+        ]
+    },
+    "CobraMRATrack": {
+        "body": "Body5REC",
+        "id": "CobraMRATrack",
+        "name": "Mini-Rocket Array Cobra Tracks",
+        "propulsion": "tracked01",
+        "type": "DROID",
+        "weapons": [
+            "Rocket-MRL"
+        ]
+    },
     "CobraLtA-Thalftrack": {
         "body": "Body5REC",
         "id": "CobraLtA-Thalftrack",
@@ -942,6 +972,16 @@
         "type": "DROID",
         "weapons": [
             "Rocket-LtA-T"
+        ]
+    },
+    "CobraBBhalftrack": {
+        "body": "Body5REC",
+        "id": "CobraBBhalftrack",
+        "name": "Bunker Buster Cobra Half-tracks",
+        "propulsion": "HalfTrack",
+        "type": "DROID",
+        "weapons": [
+            "Rocket-BB"
         ]
     },
     "CobraLtCnTrks": {
@@ -1037,6 +1077,14 @@
         "body": "Body1REC",
         "id": "SensorViperTrack",
         "name": "Sensor Viper Tracks",
+        "propulsion": "tracked01",
+        "sensor": "SensorTurret1Mk1",
+        "type": "DROID"
+    },
+    "SensorCobraTrack": {
+        "body": "Body5REC",
+        "id": "SensorCobraTrack",
+        "name": "Sensor Cobra Tracks",
         "propulsion": "tracked01",
         "sensor": "SensorTurret1Mk1",
         "type": "DROID"

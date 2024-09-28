@@ -1338,6 +1338,29 @@
         ],
         "width": 1
     },
+    "Emplacement-Ballista": {
+        "armour": 10,
+        "breadth": 1,
+        "buildPoints": 500,
+        "buildPower": 275,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 400,
+        "id": "Emplacement-Ballista",
+        "name": "Ballista Emplacement",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "Blhowmnt.PIE"
+        ],
+        "thermal": 10,
+        "type": "DEFENSE",
+        "weapons": [
+            "Rocket-Ballista"
+        ],
+        "width": 1
+    },
     "Emplacement-MRL-pit": {
         "armour": 10,
         "breadth": 1,

@@ -156,8 +156,8 @@ function eventStartLevel()
 	camSetArtifacts({
 		"colBombardPit": { tech: "R-Wpn-Mortar02Hvy" }, // Bombard
 		"colFactory1": { tech: "R-Wpn-Rocket03-HvAT" }, // Bunker Buster
-		"colCycloneEmp": { tech: "R-Wpn-AAGun02"}, // Cyclone
-		"colResearch": { tech: "R-Wpn-Rocket-ROF02"}, // Rocket Autoloader Mk2
+		"colCycloneEmp": { tech: "R-Wpn-AAGun02" }, // Cyclone
+		"colResearch": { tech: "R-Wpn-Rocket-ROF02" }, // Rocket Autoloader Mk2
 	});
 
 	camCompleteRequiredResearch(mis_collectiveResearch, CAM_THE_COLLECTIVE);

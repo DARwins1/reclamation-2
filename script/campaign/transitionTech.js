@@ -82,4 +82,20 @@ const camA2L2AllyResearch = camAct2StartResearch.concat([
 	"R-Wpn-Cannon2Mk1", "R-Defense-WallTower03", "R-Wpn-Cannon-Damage03",
 ]);
 
+// Used to grant research to teams Charlie and Golf on A2L6
+const camA2L6AllyResearch = camA2L2AllyResearch.concat([
+	// A2L2
+	"R-Wpn-Bomb01", "R-Wpn-Rocket-Accuracy02", "R-Wpn-MG-ROF02", 
+	"R-Wpn-Rocket-Damage03", "R-Struc-Factory-Upgrade01", "R-Struc-RprFac-Upgrade01",
+	// A2L3
+	"R-Vehicle-Prop-Hover", "R-Wpn-Cannon-ROF02",
+	// A2L4
+	"R-Vehicle-Body06", "R-Sys-CBSensor-Turret01", "R-Sys-CBSensor-Tower01",
+	"R-Sys-VTOLCBS-Turret01", "R-Sys-VTOLCBS-Tower01", "R-Wpn-Mortar-Acc01",
+	"R-Vehicle-Metals03", "R-Cyborg-Metals03", "R-Cyborg-Hvywpn-Mcannon",
+	// A2L5
+	"R-Wpn-Mortar02Hvy", "R-Defense-HvyMor", "R-Wpn-Rocket03-HvAT",
+	"R-Wpn-AAGun02", "R-Defense-AASite-QuadBof", "R-Wpn-Rocket-ROF02",
+]);
+
 //...

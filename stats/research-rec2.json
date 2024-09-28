@@ -14,6 +14,40 @@
         "name": "CAM3 RESEARCH",
         "techCode": 1
     },
+    "R-Script-Sensor-Debuff": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_SYSTEMTECH",
+        "id": "R-Sys-Sensor-Upgrade01",
+        "imdName": "GNLSNSR1.PIE",
+        "keyTopic": 1,
+        "name": "Sensor Debuff",
+        "researchPoints": 10,
+        "researchPower": 10,
+        "results": [
+            {
+                "class": "Sensor",
+                "parameter": "Range",
+                "value": -75
+            }
+        ]
+    },
+    "R-Script-Sensor-Debuff-Undo": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_SYSTEMTECH",
+        "id": "R-Sys-Sensor-Upgrade01",
+        "imdName": "GNLSNSR1.PIE",
+        "keyTopic": 1,
+        "name": "Undo Sensor Debuff",
+        "researchPoints": 10,
+        "researchPower": 10,
+        "results": [
+            {
+                "class": "Sensor",
+                "parameter": "Range",
+                "value": 75
+            }
+        ]
+    },
 	"R-Wpn-TUTMG": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-TUTMG",
@@ -3540,6 +3574,9 @@
         "id": "R-Defense-AASite-QuadBof",
         "msgName": "RES_EMP_AA1",
         "name": "Cyclone AA Flak Site",
+        "redStructures": [
+            "AASite-QuadMg1"
+        ],
         "requiredResearch": [
             "R-Wpn-AAGun02"
         ],
@@ -3571,7 +3608,7 @@
         "msgName": "RES_EMP_AA3",
         "name": "Whirlwind AA Site",
         "redStructures": [
-            "AASite-QuadMg1"
+            "AASite-QuadBof"
         ],
         "requiredResearch": [
             "R-Wpn-AAGun04",
@@ -3588,16 +3625,19 @@
         "iconID": "IMAGE_RES_DEFENCE",
         "id": "R-Defense-Emplacement-HPVcannon",
         "msgName": "RES_EMP_HPV",
-        "name": "Hyper Velocity Cannon Emplacement",
+        "name": "Hyper Velocity Cannon Bunker",
         "requiredResearch": [
             "R-Wpn-Cannon4AMk1"
         ],
-        "researchPoints": 3600,
-        "researchPower": 112,
+        "researchPoints": 450,
+        "researchPower": 182,
         "resultStructures": [
-            "Emplacement-HPVcannon"
+            "PillBoxHPC"
         ],
-        "statID": "Emplacement-HPVcannon"
+        "redStructures": [
+            "PillBox4"  
+        ],
+        "statID": "PillBoxHPC"
     },
     "R-Defense-Howitzer": {
         "iconID": "IMAGE_RES_DEFENCE",
@@ -3792,7 +3832,7 @@
         "requiredResearch": [
             "R-Wpn-Cannon4AMk1"
         ],
-        "researchPoints": 900,
+        "researchPoints": 400,
         "researchPower": 120,
         "resultStructures": [
             "WallTower-HPVcannon"
@@ -3831,6 +3871,7 @@
     },
     "R-Defense-WallUpgrade05": {
         "iconID": "IMAGE_RES_DEFENCE",
+        "keyTopic": 1,
         "id": "R-Defense-WallUpgrade05",
         "imdName": "BLWALL2.PIE",
         "name": "Supercrete Mk2",
@@ -3919,6 +3960,7 @@
     },
     "R-Struc-Materials05": {
         "iconID": "IMAGE_RES_STRUCTURETECH",
+        "keyTopic": 1,
         "id": "R-Struc-Materials05",
         "imdName": "icmolql.pie",
         "name": "Hardened Base Structure Materials Mk2",
@@ -8381,6 +8423,21 @@
         ],
         "statID": "Mortar2Mk1",
         "subgroupIconID": "IMAGE_RES_GRPROF"
+    },
+    "R-Sys-MobileRepairTurretHvy": {
+        "iconID": "IMAGE_RES_SYSTEMTECH",
+        "id": "R-Sys-MobileRepairTurretHvy",
+        "msgName": "RES_REPTUHVY",
+        "name": "Heavy Repair Turret",
+        "requiredResearch": [
+            "R-Sys-Engineering02"
+        ],
+        "researchPoints": 1300,
+        "researchPower": 147,
+        "resultComponents": [
+            "HeavyRepair"
+        ],
+        "statID": "HeavyRepair"
     },
     "R-Wpn-Rail-Accuracy01": {
         "iconID": "IMAGE_RES_WEAPONTECH",
