@@ -12,6 +12,7 @@ const mis_collectiveResearch = [
 ];
 
 var lzCyborgGroup;
+var lzCScavGroup;
 var site1Clear;
 var site2Clear;
 var site3Clear;
@@ -62,7 +63,7 @@ function lzAmbush()
 	heliAttack();
 
 	camManageGroup(lzCyborgGroup, CAM_ORDER_ATTACK, {repair: 75});
-	camManageGroup(camMakeGroup("cScavLzGroup"), CAM_ORDER_ATTACK, {morale: 50, fallback: camMakePos("cyborgRallyPos")});
+	camManageGroup(lzCScavGroup, CAM_ORDER_ATTACK, {morale: 50, fallback: camMakePos("cyborgRallyPos")});
 	camManageGroup(camMakeGroup("hoverLzGroup"), CAM_ORDER_ATTACK, {repair: 75});
 
 	// Also set a proper compromise zone for the player's LZ
@@ -126,7 +127,7 @@ function antiAirSitesClear()
 		obj.name === _("Hurricane AA Site")
 		|| obj.name === _("Cyclone AA Flak Site"))
 	).length;
-	const AA_SITES3 = enumArea("colBase3", CAM_THE_COLLECTIVE, false).filter((obj) => (
+	const AA_SITES3 = enumArea("checkZone3", CAM_THE_COLLECTIVE, false).filter((obj) => (
 		obj.name === _("Hurricane AA Site")
 		|| obj.name === _("Cyclone AA Flak Site"))
 	).length;
@@ -361,6 +362,9 @@ function eventStartLevel()
 	// Move the Collective Cyborgs away from the player's LZ
 	lzCyborgGroup = camMakeGroup("cyborgLzGroup")
 	camManageGroup(lzCyborgGroup, CAM_ORDER_DEFEND, {pos: camMakePos("cyborgRallyPos"), radius: 10});
+	// Also rally some C-Scavs
+	lzCScavGroup = camMakeGroup("cScavLzGroup")
+	camManageGroup(lzCScavGroup, CAM_ORDER_DEFEND, {pos: camMakePos("cyborgRallyPos"), radius: 10});
 
 	queue("lzAmbush", camMinutesToMilliseconds(2.5));
 	queue("enableAllFactories", camChangeOnDiff(camMinutesToMilliseconds(10)));
