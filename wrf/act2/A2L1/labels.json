@@ -104,7 +104,7 @@
 
 	"area_1": {
 		"label": "landingZone",
-		"pos1": [12672, 14592],
+		"pos1": [12800, 14720],
 		"pos2": [13184, 15104]
 	},
 
@@ -201,6 +201,14 @@
 
 
 	"object_0": {
+		"label": "cScavFactory1",
+		"id": 295,
+		"player": 2,
+		"type": 1
+	},
+
+
+	"object_1": {
 		"label": "cScavHeliTower",
 		"id": 369,
 		"player": 2,
@@ -208,7 +216,15 @@
 	},
 
 
-	"object_1": {
+	"object_2": {
+		"label": "scavFactory2",
+		"id": 135,
+		"player": 5,
+		"type": 1
+	},
+
+
+	"object_3": {
 		"label": "scavHeliTower",
 		"id": 359,
 		"player": 5,
@@ -216,15 +232,7 @@
 	},
 
 
-	"object_2": {
-		"label": "colFactory1",
-		"id": 75,
-		"player": 2,
-		"type": 1
-	},
-
-
-	"object_3": {
+	"object_4": {
 		"label": "cScavFactory3",
 		"id": 78,
 		"player": 2,
@@ -232,7 +240,7 @@
 	},
 
 
-	"object_4": {
+	"object_5": {
 		"label": "colCC",
 		"id": 73,
 		"player": 2,
@@ -240,31 +248,7 @@
 	},
 
 
-	"object_5": {
-		"label": "colFactory2",
-		"id": 74,
-		"player": 2,
-		"type": 1
-	},
-
-
 	"object_6": {
-		"label": "colResearch",
-		"id": 159,
-		"player": 2,
-		"type": 1
-	},
-
-
-	"object_7": {
-		"label": "cScavFactory2",
-		"id": 79,
-		"player": 2,
-		"type": 1
-	},
-
-
-	"object_8": {
 		"label": "colAAEmp",
 		"id": 242,
 		"player": 2,
@@ -272,9 +256,25 @@
 	},
 
 
+	"object_7": {
+		"label": "colFactory2",
+		"id": 74,
+		"player": 2,
+		"type": 1
+	},
+
+
+	"object_8": {
+		"label": "cScavFactory2",
+		"id": 79,
+		"player": 2,
+		"type": 1
+	},
+
+
 	"object_9": {
-		"label": "cScavFactory1",
-		"id": 295,
+		"label": "colFactory1",
+		"id": 75,
 		"player": 2,
 		"type": 1
 	},
@@ -289,9 +289,9 @@
 
 
 	"object_11": {
-		"label": "scavFactory2",
-		"id": 135,
-		"player": 5,
+		"label": "colResearch",
+		"id": 159,
+		"player": 2,
 		"type": 1
 	},
 

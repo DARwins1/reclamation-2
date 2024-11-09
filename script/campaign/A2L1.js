@@ -8,7 +8,7 @@ const MIS_CYAN_SCAVS = 5;
 const transportEntryPos = { x: 96, y: 122 };
 const colTransportEntryPos = { x: 124, y: 90 };
 
-var transporterIndex; //Number of transport loads sent into the level
+var firstTransport; // Whether the player's first transport has landed
 var startedFromMenu;
 var playerColour;
 var colLZBlip;
@@ -34,53 +34,6 @@ camAreaEvent("vtolRemoveZone", function(droid)
 	camSafeRemoveObject(droid, false);
 	resetLabel("vtolRemoveZone", CAM_THE_COLLECTIVE);
 });
-
-// Extra transport units are only awarded to those who start from the menu.
-// Otherwise a player can just bring in units from the Prologue.
-function sendPlayerTransporter()
-{
-	if (!camDef(transporterIndex))
-	{
-		transporterIndex = 0;
-	}
-
-	if (transporterIndex >= MIS_NUM_TRANSPORTS)
-	{
-		removeTimer("sendPlayerTransporter");
-		return;
-	}
-
-	// First transport is always the same
-	const firstTransportDroids = [ // 1 Command Turret, 2 HMG Cyborgs, 4 Lancer Cyborgs, 3 Light Cannons
-		cTempl.pllcomht,
-		cTempl.cybhg, cTempl.cybhg,
-		cTempl.cybla, cTempl.cybla, cTempl.cybla, cTempl.cybla,
-		cTempl.pllcanht, cTempl.pllcanht, cTempl.pllcanht,
-	];
-	
-	// Subsequent transport droids are randomly chosen from this pool
-	const droidPool = [
-		cTempl.cybhg, cTempl.cybla, cTempl.cybfl, cTempl.cybgr, cTempl.cybca,
-		cTempl.pllcanht, cTempl.pllhmght, cTempl.plllant, cTempl.pllmrat, cTempl.pllmortw, cTempl.pllpodt,
-		cTempl.pllcanv, cTempl.pllpodv, cTempl.pllhmgv, cTempl.plllanv,
-	];
-
-	const droids = (transporterIndex === 0) ? firstTransportDroids : [];
-	if (transporterIndex > 0)
-	{
-		for (let i = 0; i < 10; i++)
-		{
-			droids.push(droidPool[camRand(droidPool.length)]);
-		}
-	}
-
-	camSendReinforcement(CAM_HUMAN_PLAYER, camMakePos("landingZone"), droids,
-		CAM_REINFORCE_TRANSPORT, {
-			entry: transportEntryPos,
-			exit: transportEntryPos
-		}
-	);
-}
 
 function heliAttack1()
 {
@@ -156,43 +109,12 @@ function grantPlayerTech()
 	camCompleteRequiredResearch(camAct2StartResearch, CAM_HUMAN_PLAYER);
 }
 
-// Get some higher rank droids.
-function setUnitRank(transport)
-{
-	const droidExp = [64, 32, 16, 8, 4];
-	let droids;
-
-	if (transporterIndex >= droidExp.length)
-	{
-		return;
-	}
-
-	if (transport)
-	{
-		droids = enumCargo(transport);
-	}
-
-	for (let i = 0, len = droids.length; i < len; ++i)
-	{
-		const droid = droids[i];
-		if (droid.droidType !== DROID_CONSTRUCT && droid.droidType !== DROID_REPAIR)
-		{
-			setDroidExperience(droid, droidExp[(transporterIndex - 1)]);
-		}
-	}
-}
-
 // Bump the rank of the first batch of transport droids (if starting from the menu).
 function eventTransporterLanded(transport)
 {
 	if (transport.player === CAM_HUMAN_PLAYER)
 	{
-		if (!camDef(transporterIndex))
-		{
-			transporterIndex = 0;
-		}
-
-		if (transporterIndex == 0)
+		if (firstTransport)
 		{			
 			// Transfer all Charlie units/structures to the player
 			const objs = enumDroid(MIS_TEAM_CHARLIE).concat(enumStruct(MIS_TEAM_CHARLIE));
@@ -204,12 +126,22 @@ function eventTransporterLanded(transport)
 			camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, "A2L2S");
 		}
 
-		transporterIndex += 1;
-
 		if (startedFromMenu)
 		{
-			setUnitRank(transport);
+			droids = enumCargo(transport);
+			const droidExp = (firstTransport) ? [64] : [32, 16, 8, 4];
+
+			for (let i = 0, len = droids.length; i < len; ++i)
+			{
+				const droid = droids[i];
+				if (droid.droidType !== DROID_CONSTRUCT && droid.droidType !== DROID_REPAIR)
+				{
+					setDroidExperience(droid, droidExp[i % droidExp.length]);
+				}
+			}
 		}
+
+		firstTransport = false;
 	}
 }
 
@@ -667,16 +599,86 @@ function eventStartLevel()
 	if (enumDroid(CAM_HUMAN_PLAYER, DROID_SUPERTRANSPORTER).length === 0)
 	{
 		startedFromMenu = true;
-		sendPlayerTransporter();
-		setTimer("sendPlayerTransporter", camMinutesToMilliseconds(2));
-		setPower(MIS_NUM_TRANSPORTS * 1000, CAM_HUMAN_PLAYER);
+
+		// Send a transport with a commander and some high-rank droids
+		const firstTransportDroids = [ // 1 Command Turret, 2 HMG Cyborgs, 4 Lancer Cyborgs, 3 Light Cannons
+			cTempl.pllcomht,
+			cTempl.cybhg, cTempl.cybhg,
+			cTempl.cybla, cTempl.cybla, cTempl.cybla, cTempl.cybla,
+			cTempl.pllcanht, cTempl.pllcanht, cTempl.pllcanht,
+		];
+
+		camSendReinforcement(CAM_HUMAN_PLAYER, camMakePos("landingZone"), firstTransportDroids,
+			CAM_REINFORCE_TRANSPORT, {
+				entry: transportEntryPos,
+				exit: transportEntryPos
+			}
+		);
+		
+		// Subsequent transport droids are randomly chosen from this pool
+		const attackPool = [ // Misc. cyborgs and tanks
+			cTempl.cybhg, cTempl.cybla, cTempl.cybfl, cTempl.cybgr, cTempl.cybca,
+			cTempl.pllcanht, cTempl.pllhmght, cTempl.plllant, cTempl.pllmrat, cTempl.pllpodt,
+		]
+
+		const artPool = [ // Mortars
+			cTempl.pllmortw,
+		]
+
+		const vtolPool = [ // Misc. VTOLs
+			cTempl.pllcanv, cTempl.pllpodv, cTempl.pllhmgv, cTempl.plllanv,
+		];
+
+		// Store units "offworld", so that the player can bring them in via transport.
+		// The chosen units are distributed (roughly) as: 1/2 "attack" units, 1/4 artillery, 1/4 VTOLs
+		// Since the player started from the menu, the number of units to store 
+		// (AKA, the ones "safely evacuated" from the previous level) is based on difficulty (MIS_NUM_TRANSPORTS).
+		const NUM_DROIDS = (MIS_NUM_TRANSPORTS - 1) * 10; // "- 1" because of the starting transport
+		let numAttackDroids = (NUM_DROIDS / 2) + NUM_DROIDS % 4;
+		let numArtilleryDroids = Math.floor(NUM_DROIDS / 4);
+		let numVtolDroids = Math.floor(NUM_DROIDS / 4);
+		for (let i = 0; i < NUM_DROIDS; i++)
+		{
+			const choice = [];
+			let template;
+			if (numAttackDroids > 0) choice.push("attack");
+			if (numArtilleryDroids > 0) choice.push("artillery");
+			if (numVtolDroids > 0) choice.push("vtol");
+			switch (choice[camRand(choice.length)])
+			{
+				case "attack":
+				{
+					// Choose a random attack template
+					template = attackPool[camRand(attackPool.length)];
+					break;
+				}
+				case "artillery":
+				{
+					// Choose a random artillery template
+					template = artPool[camRand(artPool.length)];
+					break;
+				}
+				case "vtol":
+				{
+					// Choose a random vtol template
+					template = vtolPool[camRand(vtolPool.length)];
+					break;
+				}
+			}
+
+			// Create the droid
+			addDroid(CAM_HUMAN_PLAYER, -1, -1, 
+				camNameTemplate(template), template.body, template.prop, "", "", template.weap);
+			// NOTE: We can't give the offworld droid XP here, since the scripting API can't find it.
+			// Instead, we'll grant XP when the transport drops it off.
+		}
+
+		setPower(MIS_NUM_TRANSPORTS * 1000, CAM_HUMAN_PLAYER);		
 	}
-	else
-	{
-		setReinforcementTime(camMinutesToSeconds(2)); // 1 minute
-	}
+	setReinforcementTime(camMinutesToSeconds(1)); // 1 minute
 
 	colLZBlip = false;
+	firstTransport = true;
 
 	camAutoReplaceObjectLabel("scavHeliTower");
 	camAutoReplaceObjectLabel("cScavHeliTower");

@@ -121,7 +121,7 @@ function activateLzScavs()
 	// Undo the sensor debuff
 	camCompleteRequiredResearch(["R-Script-Sensor-Debuff-Undo"], MIS_LZ_SCAVS);
 	// NOTE: This part is timed even in timerless mode!
-	setMissionTime(camChangeOnDiff(camMinutesToSeconds(1)));
+	setMissionTime(camChangeOnDiff(camSecondsToMilliseconds(70)));
 	camEnableFactory("lzScavFactory");
 }
 

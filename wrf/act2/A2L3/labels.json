@@ -242,14 +242,6 @@
 
 
 	"object_5": {
-		"label": "colCC",
-		"id": 4,
-		"player": 2,
-		"type": 1
-	},
-
-
-	"object_6": {
 		"label": "cScavFactory",
 		"id": 3,
 		"player": 2,
@@ -257,15 +249,15 @@
 	},
 
 
-	"object_7": {
-		"label": "colTruck",
-		"id": 210,
+	"object_6": {
+		"label": "colCC",
+		"id": 4,
 		"player": 2,
-		"type": 0
+		"type": 1
 	},
 
 
-	"object_8": {
+	"object_7": {
 		"label": "colCybFactory",
 		"id": 211,
 		"player": 2,
@@ -273,7 +265,23 @@
 	},
 
 
+	"object_8": {
+		"label": "colTruck",
+		"id": 210,
+		"player": 2,
+		"type": 0
+	},
+
+
 	"object_9": {
+		"label": "colFactory",
+		"id": 9,
+		"player": 2,
+		"type": 1
+	},
+
+
+	"object_10": {
 		"label": "colCommander",
 		"id": 357,
 		"player": 2,
@@ -281,7 +289,7 @@
 	},
 
 
-	"object_10": {
+	"object_11": {
 		"label": "scavHeliTower",
 		"id": 16,
 		"player": 5,
@@ -289,17 +297,9 @@
 	},
 
 
-	"object_11": {
+	"object_12": {
 		"label": "cScavHeliTower",
 		"id": 15,
-		"player": 2,
-		"type": 1
-	},
-
-
-	"object_12": {
-		"label": "colFactory",
-		"id": 9,
 		"player": 2,
 		"type": 1
 	},
