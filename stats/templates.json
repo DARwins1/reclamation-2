@@ -1181,6 +1181,16 @@
             "Mortar1Mk1"
         ]
     },
+    "MortarViperWheels": {
+        "body": "Body1REC",
+        "id": "MortarViperWheels",
+        "name": "Mortar Viper Wheels",
+        "propulsion": "wheeled01",
+        "type": "DROID",
+        "weapons": [
+            "Mortar1Mk1"
+        ]
+    },
     "MRPViperVTOL": {
         "body": "Body1REC",
         "id": "MRPViperVTOL",

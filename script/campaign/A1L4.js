@@ -19,6 +19,7 @@ const mis_collectiveResearch = [
 ];
 
 var phaseTwo;
+var phaseTwoTime;
 var deltaTruckJob;
 var colTruckJob1;
 var colTruckJob2;
@@ -27,7 +28,6 @@ var nasdaCentralStructSet;
 var waveIndex;
 var powerDestroyed;
 var structsDonated;
-var deltaSensorPos;
 var deltaVtolPos;
 var zuluVtolPos1;
 var zuluVtolPos2;
@@ -285,61 +285,6 @@ function eventGameLoaded()
 	addSpotter(18, 56, CAM_HUMAN_PLAYER, SPOTTER_RANGE * 128, false, 0);
 }
 
-// // Check if a Sensor/VTOL tower is rebuilt
-// function eventStructureBuilt(struct, droid)
-// {
-// 	if (struct.player === MIS_TEAM_DELTA && struct.x === deltaSensorPos.x && struct.y === deltaSensorPos.y)
-// 	{
-// 		// Delta Sensor Tower rebuilt!
-// 		addLabel(struct, "deltaSensorTower");
-// 		camManageGroup(deltaMortarGroup, CAM_ORDER_FOLLOW, {
-// 			leader: "deltaSensorTower",
-// 			suborder: CAM_ORDER_DEFEND,
-// 			pos: camMakePos("deltaRepairPos") // Defend this position if the tower is destroyed (again).
-// 		});
-// 	}
-// 	else if (struct.player === MIS_TEAM_DELTA && struct.x === deltaVtolPos.x && struct.y === deltaVtolPos.y)
-// 	{
-// 		// Delta VTOL Tower rebuilt!
-// 		addLabel(struct, "deltaVtolTower");
-// 		camManageGroup(deltaVtolGroup, CAM_ORDER_FOLLOW, {
-// 			leader: "deltaVtolTower",
-// 			suborder: CAM_ORDER_DEFEND,
-// 			pos: camMakePos("zuluVtolAssembly")
-// 		});
-// 	}
-// 	else if (struct.player === MIS_CLAYDE && struct.x === zuluVtolPos1.x && struct.y === zuluVtolPos1.y)
-// 	{
-// 		// Zulu NW VTOL Tower rebuilt!
-// 		addLabel(struct, "zuluVtolTower1");
-// 		camManageGroup(zuluVtolGroupNW, CAM_ORDER_FOLLOW, {
-// 			leader: "zuluVtolTower1",
-// 			suborder: CAM_ORDER_DEFEND,
-// 			pos: camMakePos("zuluVtolAssembly")
-// 		});
-// 	}
-// 	else if (struct.player === MIS_CLAYDE && struct.x === zuluVtolPos2.x && struct.y === zuluVtolPos2.y)
-// 	{
-// 		// Zulu NE VTOL Tower rebuilt!
-// 		addLabel(struct, "zuluVtolTower2");
-// 		camManageGroup(zuluVtolGroupNE, CAM_ORDER_FOLLOW, {
-// 			leader: "zuluVtolTower2",
-// 			suborder: CAM_ORDER_DEFEND,
-// 			pos: camMakePos("zuluVtolAssembly")
-// 		});
-// 	}
-// 	else if (struct.player === MIS_CLAYDE && struct.x === zuluVtolPos3.x && struct.y === zuluVtolPos3.y)
-// 	{
-// 		// Zulu south VTOL Tower rebuilt!
-// 		addLabel(struct, "zuluVtolTower3");
-// 		camManageGroup(zuluVtolGroupSouth, CAM_ORDER_FOLLOW, {
-// 			leader: "zuluVtolTower3",
-// 			suborder: CAM_ORDER_DEFEND,
-// 			pos: camMakePos("zuluVtolAssembly")
-// 		});
-// 	}
-// }
-
 // Bring in Collective and Collective-affiliated scavengers
 // NOTE: The Collective and their scavengers are represented by the same player (CAM_THE_COLLECTIVE)
 // The Collective-scavengers will usually be referred to as "C-Scavs".
@@ -366,15 +311,15 @@ function collectiveAttackWaves()
 
 	const northCityDroids = [cTempl.moncan, cTempl.rbjeep, cTempl.bloke, cTempl.bjeep, cTempl.lance];
 
-	const neValleyDroids = [cTempl.firetruck, cTempl.gbjeep, cTempl.lance, cTempl.trike, cTempl.monsar];
+	const neValleyDroids = [cTempl.firetruck, cTempl.gbjeep, cTempl.lance, cTempl.trike, cTempl.monsar, cTempl.kevbloke, cTempl.kevlance];
 
-	const nePlateauDroids = [cTempl.bjeep, cTempl.minitruck, cTempl.buscan, cTempl.monhmg, cTempl.sartruck];
+	const nePlateauDroids = [cTempl.bjeep, cTempl.minitruck, cTempl.buscan, cTempl.monhmg, cTempl.sartruck, cTempl.kevbloke];
 
 	const eastPlateauDroids = [cTempl.flatmrl, cTempl.gbjeep, cTempl.kevbloke, cTempl.kevlance, cTempl.buggy, cTempl.rbuggy];
 
-	const nwCraterDroids = [cTempl.monmrl, cTempl.gbjeep, cTempl.minitruck, cTempl.kevlance, cTempl.bjeep];
+	const nwCraterDroids = [cTempl.monmrl, cTempl.gbjeep, cTempl.minitruck, cTempl.kevlance, cTempl.bjeep, cTempl.bloke];
 
-	const eastValleyDroids = [cTempl.flatat, cTempl.minitruck, cTempl.gbjeep, cTempl.trike, cTempl.moncan];
+	const eastValleyDroids = [cTempl.flatat, cTempl.minitruck, cTempl.gbjeep, cTempl.trike, cTempl.moncan, cTempl.bloke];
 
 	const southDroids = [cTempl.moncan, cTempl.bjeep, cTempl.bloke, cTempl.minitruck, cTempl.flatmrl, cTempl.buggy];
 
@@ -452,6 +397,13 @@ function collectiveAttackWaves()
 	if (phaseTwo)
 	{
 		numColOverrides++;
+	}
+
+	if (phaseTwo && gameTime < phaseTwoTime + camMinutesToMilliseconds(1.5))
+	{
+		// Don't spawn Collective override groups for about 1.5 minutes when the player is told to evac
+		// This should give the player enough breathing room to destroy the power systems and regroup
+		numColOverrides = 0;
 	}
 
 	// Choose from among the active entrances and spawn units
@@ -543,6 +495,7 @@ function collectiveDialogue()
 function setPhaseTwo()
 {
 	phaseTwo = true;
+	phaseTwoTime = gameTime;
 
 	// Attack waves come faster
 	removeTimer("collectiveAttackWaves");
@@ -802,10 +755,12 @@ function eventStartLevel()
 	// Set up refillable groups for the player's allies
 	// Also set up allied and Collective trucks
 
-	// Delta patrol group (4 Mini-Rocket Pods, 6 Mini-Rocket Arrays)
+	// Delta patrol group (4 Light Cannons, 2 Heavy Machinegunners, 3 Mechanics, 3 Grenadiers)
 	deltaPatrolGroup = camMakeRefillableGroup(camMakeGroup("deltaPatrolGroup"), {templates: [
-		cTempl.pllpodt, cTempl.pllpodt, cTempl.pllmrat, cTempl.pllmrat, cTempl.pllmrat,
-		cTempl.pllpodt, cTempl.pllpodt, cTempl.pllmrat, cTempl.pllmrat, cTempl.pllmrat,
+		cTempl.pllcant, cTempl.pllcant, cTempl.pllcant, cTempl.pllcant,
+		cTempl.cybhg, cTempl.cybhg,
+		cTempl.cybrp, cTempl.cybrp, cTempl.cybrp,
+		cTempl.cybgr, cTempl.cybgr, cTempl.cybgr,
 		]}, CAM_ORDER_PATROL, {
 		pos: [
 			camMakePos("patrolPos1"), camMakePos("patrolPos2"), camMakePos("patrolPos5")
@@ -819,7 +774,7 @@ function eventStartLevel()
 	});
 	// Delta Mortar group
 	deltaMortarGroup = camMakeRefillableGroup(camMakeGroup("deltaMortarGroup"), {templates: [
-		cTempl.pllmortt, cTempl.pllmortt, cTempl.pllmortt, cTempl.pllmortt,
+		cTempl.pllmortw, cTempl.pllmortw, cTempl.pllmortw, cTempl.pllmortw,
 		]}, CAM_ORDER_FOLLOW, {
 		leader: "deltaSensorTower",
 		suborder: CAM_ORDER_DEFEND,
@@ -829,9 +784,10 @@ function eventStartLevel()
 	deltaRepairGroup = camMakeRefillableGroup(camMakeGroup("deltaRepairGroup"), {templates: [
 		cTempl.pllrept, cTempl.pllrept,
 		]}, CAM_ORDER_DEFEND, {pos: camMakePos("deltaRepairPos")});
-	// Delta VTOL group (4 Light Cannons)
+	// Delta VTOL group (3 Light Cannons, 2 HMGs)
 	deltaVtolGroup = camMakeRefillableGroup(camMakeGroup("deltaVtolGroup"), {templates: [
-		cTempl.pllcanv, cTempl.pllcanv, cTempl.pllcanv, cTempl.pllcanv,
+		cTempl.pllcanv, cTempl.pllcanv, cTempl.pllcanv,
+		cTempl.pllhmgv, cTempl.pllhmgv,
 		]}, CAM_ORDER_FOLLOW, {
 		leader: "deltaVtolTower",
 		suborder: CAM_ORDER_DEFEND,
@@ -926,16 +882,11 @@ function eventStartLevel()
 	});
 
 	phaseTwo = false;
+	phaseTwoTime = 0;
 	waveIndex = 0;
 	powerDestroyed = false;
 	structsDonated = false;
 
-	// // Store the locations of these towers (in case they're destroyed and rebuilt)
-	// deltaSensorPos = camMakePos("deltaSensorTower");
-	// deltaVtolPos = camMakePos("deltaVtolTower");
-	// zuluVtolPos1 = camMakePos("zuluVtolTower1");
-	// zuluVtolPos2 = camMakePos("zuluVtolTower2");
-	// zuluVtolPos3 = camMakePos("zuluVtolTower3");
 	// Automatically re-label these structures if they're destroyed and rebuilt
 	camAutoReplaceObjectLabel(["deltaSensorTower", "deltaVtolTower", "zuluVtolTower1", "zuluVtolTower2", "zuluVtolTower3"]);
 

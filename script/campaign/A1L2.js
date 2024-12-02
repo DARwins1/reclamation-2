@@ -39,6 +39,8 @@ var charlieRepairGroup;
 var foxtrotAttackGroup;
 var foxtrotRepairGroup;
 var golfAttackGroup;
+var golfMortarGroup;
+var golfSensorGroup;
 var golfRepairGroup;
 var charlieTruckJob1;
 var charlieTruckJob2;
@@ -302,12 +304,12 @@ function sendGolfTransporter()
 {
 	// Make a list of droids to bring in in order of importance
 	// For team Golf, this is:
-	// Trucks -> Repair -> Attack
+	// Trucks -> Repair -> Attack -> Sensor -> Mortar
 	let droidQueue = [];
 
 	if (!camDef(camGetTruck(foxtrotTruckJob1))) droidQueue.push(cTempl.plltruckt);
 
-	droidQueue = droidQueue.concat(camGetRefillableGroupTemplates([golfRepairGroup, golfAttackGroup]));
+	droidQueue = droidQueue.concat(camGetRefillableGroupTemplates([golfRepairGroup, golfAttackGroup, golfSensorGroup, golfMortarGroup]));
 
 	const droids = [];
 	// Get (up to) the first 10 units in the queue
@@ -356,7 +358,7 @@ function eventTransporterLanded(transport)
 		case MIS_TEAM_GOLF:
 		{
 			truckJobs = [golfTruckJob];
-			otherGroups = [golfRepairGroup, golfAttackGroup];
+			otherGroups = [golfSensorGroup, golfMortarGroup];
 			break;
 		}
 		default:
@@ -379,6 +381,20 @@ function eventTransporterLanded(transport)
 			// Assign this truck!
 			camAssignTruck(transTrucks[truckIndex], job);
 			truckIndex++;
+		}
+	}
+
+	// Next, check if a new (golf) sensor unit has landed
+	// If so, apply its label
+	if (transport.player === MIS_TEAM_GOLF)
+	{
+		for (const droid of transOther)
+		{
+			if (droid.droidType === DROID_SENSOR)
+			{
+				// New Golf sensor tank
+				addLabel(droid, "golfSensor");
+			}
 		}
 	}
 
@@ -618,8 +634,8 @@ function eventStartLevel()
 	changePlayerColour(MIS_NASDA, 10); // NASDA is white in all cases
 	changePlayerColour(MIS_CLAYDE, (PLAYER_COLOR !== 15) ? 15 : 0); // Clayde to brown or green
 	changePlayerColour(MIS_YELLOW_SCAVS, (PLAYER_COLOR !== 8) ? 8 : 1); // Scavs to yellow or orange
-	changePlayerColour(MIS_TEAM_CHARLIE, (PLAYER_COLOR !== 5) ? 5 : 11); // Charlie to blue or bright blue
-	changePlayerColour(MIS_TEAM_FOXTROT, (PLAYER_COLOR !== 4) ? 4 : 13); // Foxtrot to red or infrared
+	changePlayerColour(MIS_TEAM_CHARLIE, (PLAYER_COLOR !== 11) ? 11 : 5); // Charlie to bright blue or blue
+	changePlayerColour(MIS_TEAM_FOXTROT, (PLAYER_COLOR !== 13) ? 13 : 4); // Foxtrot to infrared or red
 	changePlayerColour(MIS_TEAM_GOLF, (PLAYER_COLOR !== 7) ? 7 : 0); // Golf to cyan or green
 
 	camCompleteRequiredResearch(mis_scavResearch, MIS_YELLOW_SCAVS);
@@ -884,21 +900,29 @@ function eventStartLevel()
 		structset: camFoxtrotA1L2Structs
 	});
 
-	// Golf attack group (8 Light Cannons, 4 Twin Machineguns, 6 Grenadier Cyborgs, 4 Mechanic Cyborgs)
+	// Golf attack group (8 MRA's)
 	golfAttackGroup = camMakeRefillableGroup(undefined, {templates: [
-		cTempl.pllcant, cTempl.pllcant, cTempl.pllcant, cTempl.pllcant, cTempl.pllcant, cTempl.pllcant, cTempl.pllcant, cTempl.pllcant,
-		cTempl.plltmgt, cTempl.plltmgt, cTempl.plltmgt, cTempl.plltmgt,
-		cTempl.cybgr, cTempl.cybgr, cTempl.cybgr, cTempl.cybgr, cTempl.cybgr, cTempl.cybgr,
-		cTempl.cybrp, cTempl.cybrp, cTempl.cybrp, cTempl.cybrp,
+		cTempl.pllmrat, cTempl.pllmrat, cTempl.pllmrat, cTempl.pllmrat, cTempl.pllmrat, cTempl.pllmrat, cTempl.pllmrat, cTempl.pllmrat,
 		]}, CAM_ORDER_ATTACK, {
-		count: 22,
-		morale: 90,
-		fallback: camMakePos("scavOuterAssembly4"),
+		count: 8,
+		morale: 80,
+		fallback: camMakePos("scavOuterAssembly4"), // Prioritize this area
 		repair: 50,
-		repairPos: camMakePos("scavOuterAssembly4") // Wait here for repairs
+		repairPos: camMakePos("scavLZBase3") // Wait here for repairs
 	});
+	// Golf mortar group (6 Mortars)
+	golfMortarGroup = camMakeRefillableGroup(undefined, {templates: [
+		cTempl.pllmortt, cTempl.pllmortt, cTempl.pllmortt, cTempl.pllmortt, cTempl.pllmortt, cTempl.pllmortt,
+		]}, CAM_ORDER_FOLLOW, {
+		leader: "golfSensor",
+		repair: 50,
+		suborder: CAM_ORDER_DEFEND,
+		repairPos: camMakePos("scavLZBase3") // Wait here for repairs
+	});
+	// Golf sensor "group" (Just a single Sensor)
+	golfSensorGroup = camMakeRefillableGroup(undefined, {templates: [cTempl.pllsenst]}, CAM_ORDER_ATTACK, {pos: camMakePos("scavOuterAssembly4")}); // Prioritize this area
 	// Golf repair group (2 Repair Turrets)
-	golfRepairGroup = camMakeRefillableGroup(undefined, {templates: [cTempl.pllrepw, cTempl.pllrepw]}, CAM_ORDER_DEFEND, {pos: camMakePos("scavOuterAssembly4")});
+	golfRepairGroup = camMakeRefillableGroup(undefined, {templates: [cTempl.pllrept, cTempl.pllrept]}, CAM_ORDER_DEFEND, {pos: camMakePos("scavLZBase3")});
 	// Truck
 	golfTruckJob = camManageTrucks(MIS_TEAM_GOLF, {
 		label: "golfLZ",

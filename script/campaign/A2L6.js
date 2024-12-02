@@ -600,7 +600,6 @@ function eventTransporterLanded(transport)
 	// If so, apply the appropriate label
 	for (const droid of transOther)
 	{
-		// Check if we have an open job and an available truck
 		if (droid.droidType === DROID_COMMAND)
 		{
 			// New Charlie command tank
@@ -850,7 +849,7 @@ function eventStartLevel()
 	const PLAYER_COLOR = playerData[0].colour;
 	changePlayerColour(CAM_INFESTED, (PLAYER_COLOR !== 9) ? 9 : 4); // Infested to purple or red
 	changePlayerColour(MIS_LZ_SCAVS, (PLAYER_COLOR !== 2) ? 2 : 10); // Scavs to gray or white
-	changePlayerColour(MIS_TEAM_CHARLIE, (PLAYER_COLOR !== 5) ? 5 : 11); // Charlie to blue or bright blue
+	changePlayerColour(MIS_TEAM_CHARLIE, (PLAYER_COLOR !== 11) ? 11 : 5); // Charlie to bright blue or blue
 	changePlayerColour(MIS_TEAM_GOLF, (PLAYER_COLOR !== 7) ? 7 : 0); // Golf to cyan or green
 
 	camCompleteRequiredResearch(mis_collectiveResearch, CAM_THE_COLLECTIVE);
