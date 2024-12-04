@@ -134,7 +134,7 @@ function activateLzScavs()
 	// Undo the sensor debuff
 	camCompleteRequiredResearch(["R-Script-Sensor-Debuff-Undo"], MIS_LZ_SCAVS);
 	// NOTE: This part is timed even in timerless mode!
-	setMissionTime(camChangeOnDiff(camSecondsToMilliseconds(70)));
+	setMissionTime(camChangeOnDiff(70));
 	camEnableFactory("lzScavFactory");
 }
 
@@ -171,7 +171,7 @@ function camEnemyBaseEliminated_scavLZBase()
 		{text: "GOLF: Let's break that prison and get everyone home in one piece.", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: General, all teams are ready to assault the Collective's prisoner camp.", delay: 5, sound: CAM_RCLICK},
 		{text: "CLAYDE: Perfect. We're deploying our diversion now.", delay: 4, sound: CAM_RCLICK},
-		{text: "CLAYDE: Lieutenant, you're in charge of the assault now.", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: Lieutenant, you're in charge of the assault.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: Destroy that camp, and get our people home safely.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: General Clayde, signing off.", delay: 3, sound: CAM_RCLICK},
 	]);
@@ -205,7 +205,7 @@ function sendCollectiveScouts()
 	if (!playerHidden) return; // Don't play dialogue if the player has already been revealed
 	// Dialogue warning of Collective scouts
 	camQueueDialogue([
-		{text: "LIEUTENANT: Team Bravo, the Collective have sent scouts towards your LZ.", delay: 0, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Team Bravo, I'm detecting increased comms traffic near your position.", delay: 0, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Seems like they're wondering why that outpost hasn't reported back.", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Your cover won't last much longer, get ready to fight!", delay: 3, sound: CAM_RCLICK},
 	]);
@@ -634,7 +634,7 @@ function enableMoreFactories()
 		{text: "CHARLIE: Lieutenant! It looks like the General's plan is working!", delay: 0, sound: CAM_RCLICK},
 		{text: "CHARLIE: Whatever he's doing, Collective aren't bringing in any reinforcements!", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Yes, I haven't detected any Collective transports.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: But be careful, the Collective are likely to regroup and counter attack soon!", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: But be careful, the Collective are likely to regroup and counter attack soon.", delay: 3, sound: CAM_RCLICK},
 	]);
 }
 
@@ -730,7 +730,7 @@ function stealthBreakDialogue()
 	camQueueDialogue([
 		{text: "LIEUTENANT: Commander Bravo, I'll leave the first strike to you.", delay: 0, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Once you open fire, Commanders Charlie and Golf will support you.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Remember; even though Clayde's diversion should prevent enemy reinforcements, the Collective still have a large force stationed here.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Remember; even though Clayde's diversion should prevent enemy reinforcements, the Collective are sure to have a large force stationed here.", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Make sure you're ready when you attack, because there's no going back now...", delay: 4, sound: CAM_RCLICK},
 	]);
 }
@@ -783,6 +783,20 @@ function playerInfestedDialogue()
 	]);
 }
 
+// Dialogue when the main camp is secure
+function playerInfestedDialogue()
+{
+	camQueueDialogue([
+		{text: "CHARLIE: Bravo!", delay: 4},
+		{text: "CHARLIE: You've gotta get back to base, man.", delay: 2, sound: CAM_RCLICK},
+		{text: "CHARLIE: The Collective is gonna any minute now!", delay: 3, sound: CAM_RCLICK},
+		{text: "GOLF: Don't worry about us, Bravo.", delay: 3, sound: CAM_RCLICK},
+		{text: "GOLF: We'll get these guys back safe and sound.", delay: 3},
+		{text: "GOLF: You just worry about saving your own hide!", delay: 3},
+		{text: "GOLF: We can handle the rest from here.", delay: 3},
+	]);
+}
+
 // Start sending Infested waves once the player progresses far enough
 function sendInfestedReinforcements()
 {
@@ -821,6 +835,7 @@ function campClear()
 {
 	if (camBaseIsEliminated("colMainBase"))
 	{
+		camCallOnce("campClearDialogue");
 		return true; // Camp is cleared
 		// TODO: Remove beacon blip
 	}

@@ -307,7 +307,7 @@ function sendGolfTransporter()
 	// Trucks -> Repair -> Attack -> Sensor -> Mortar
 	let droidQueue = [];
 
-	if (!camDef(camGetTruck(foxtrotTruckJob1))) droidQueue.push(cTempl.plltruckt);
+	if (!camDef(camGetTruck(golfTruckJob))) droidQueue.push(cTempl.plltruckt);
 
 	droidQueue = droidQueue.concat(camGetRefillableGroupTemplates([golfRepairGroup, golfAttackGroup, golfSensorGroup, golfMortarGroup]));
 
@@ -358,7 +358,7 @@ function eventTransporterLanded(transport)
 		case MIS_TEAM_GOLF:
 		{
 			truckJobs = [golfTruckJob];
-			otherGroups = [golfSensorGroup, golfMortarGroup];
+			otherGroups = [golfRepairGroup, golfAttackGroup, golfSensorGroup, golfMortarGroup];
 			break;
 		}
 		default:
@@ -427,8 +427,8 @@ function nasdaStructDialogue()
 	camQueueDialogue([
 		{text: "LIEUTENANT: It seems that these scavengers are repurposing NASDA's Pre-Collapse defense systems.", delay: 2, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: They look like they're in rather poor condition though.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: A few rusty, crumbling turrets aren't going to stop us today.", delay: 4, sound: CAM_RCLICK},
-		{text: "CLAYDE: Continue your assault, Commander.", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: A few crumbling structures aren't going to stop us today.", delay: 4, sound: CAM_RCLICK},
+		{text: "CLAYDE: Continue your assault, Commanders.", delay: 3, sound: CAM_RCLICK},
 	]);
 }
 

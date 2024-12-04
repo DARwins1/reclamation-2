@@ -155,7 +155,7 @@ function eventStartLevel()
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 
 	camSetArtifacts({
-		"colBombardPit": { tech: "R-Wpn-Mortar02Hvy" }, // Bombard
+		// "colBombardPit": { tech: "R-Wpn-Mortar02Hvy" }, // Bombard
 		"colFactory1": { tech: "R-Wpn-Rocket03-HvAT" }, // Bunker Buster
 		"colCycloneEmp": { tech: "R-Wpn-AAGun02" }, // Cyclone
 		"colResearch": { tech: "R-Struc-Research-Module" }, // Research Module
@@ -601,7 +601,7 @@ function eventStartLevel()
 		{text: "CHARLIE: General, team Delta has reported back from reconnaissance, sir.", delay: 2, sound: CAM_RCLICK},
 		{text: "CLAYDE: And?", delay: 3, sound: CAM_RCLICK},
 		{text: "CHARLIE: That place is a deathtrap, sir. It's easily the most heavily defended position in this sector.", delay: 3, sound: CAM_RCLICK},
-		{text: "CHARLIE: Or rather, the most heavily defended that we've found so-", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: Or at least... the most heavily defended that we've found so-", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: Enough! Are there any points when the camp has less defenders?", delay: 2, sound: CAM_RCLICK},
 		{text: "CHARLIE: W-Well, yes. The Collective patrols come and go with their transports.", delay: 3, sound: CAM_RCLICK},
 		{text: "CHARLIE: But we've also detected numerous smaller bases in the area.", delay: 3, sound: CAM_RCLICK},

@@ -86,7 +86,7 @@ function vtolAttack()
 		{text: "CLAYDE: I said hold!", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: NASDA Central is NOT for the taking.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: Commanders Charlie, Golf, Echo. Bring your forces to NASDA Central ASAP.", delay: 8, sound: CAM_RCLICK},
-		{text: "CLAYDE: We cannot let the Collective have this site!", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: We cannot lose this site so easily!", delay: 3, sound: CAM_RCLICK},
 	]);
 }
 
@@ -330,8 +330,8 @@ function collectiveAttackWaves()
 		cTempl.colhmght, cTempl.colhmght, // HMG
 		cTempl.colcanht, cTempl.colcanht, cTempl.colcanht, // Light Cannon
 		cTempl.colflamt, cTempl.colflamt, // Flamer
-		cTempl.colaaht, // Hurricane
 	];
+	if (difficulty >= MEDIUM) colOverrideDroids.push(cTempl.colaaht); // Add another chance for Hurricane
 	if (waveIndex >= 10) colOverrideDroids.push(cTempl.colmcant); // Add chance for Medium Cannon (Leopard)
 	if (difficulty >= HARD) colOverrideDroids.push(cTempl.colmcant); // Add another chance for Medium Cannon (Leopard)
 	if (phaseTwo && difficulty >= HARD) colOverrideDroids.push(cTempl.commcant); // Add chance for Medium Cannon (Panther)
@@ -486,8 +486,8 @@ function collectiveDialogue()
 		{text: "CLAYDE: The Collective.", delay: 4, sound: CAM_RCLICK},
 		{text: "CLAYDE: Why are they here?", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: The Collective must be leading this assault, sir.", delay: 4, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Although I don't know how or why these scavengers are working with them.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: Whatever it is, it probably has to do with this site.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: But how are they leading these scavengers?", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: However they're doing it, I'm sure it has to do with this site.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: Which means they're not going to get it.", delay: 3, sound: CAM_RCLICK},
 	]);
 }
@@ -639,7 +639,7 @@ function eventStartLevel()
 	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "A1L5S", {
 		area: "compromiseZone",
 		retlz: true,
-		reinforcements: camMinutesToSeconds(2),
+		reinforcements: camMinutesToSeconds(1.5),
 		callback: "canEscape"
 	});
 	camSetExtraObjectiveMessage("Defend NASDA Central");
@@ -904,8 +904,8 @@ function eventStartLevel()
 	queue("setPhaseTwo", camMinutesToMilliseconds(22));
 
 	setTimer("collectiveAttackWaves", camChangeOnDiff(camSecondsToMilliseconds(50)));
-	setTimer("sendDeltaTransporter", camChangeOnDiff(camMinutesToMilliseconds(2.5), true));
-	setTimer("sendCollectiveTransporter", camChangeOnDiff(camMinutesToMilliseconds(2)));
+	setTimer("sendDeltaTransporter", camChangeOnDiff(camMinutesToMilliseconds(1.5), true));
+	setTimer("sendCollectiveTransporter", camChangeOnDiff(camMinutesToMilliseconds(2.25)));
 
 	// Dialogue when arriving
 	camQueueDialogue([
@@ -913,6 +913,6 @@ function eventStartLevel()
 		{text: "CLAYDE: My engineers have set up an LZ for you outside of NASDA Central.", delay: 2, sound: CAM_RCLICK},
 		{text: "CLAYDE: Teams Foxtrot and Delta have already taken up positions to the southwest and southeast.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: Use your forces and defend the northern approach.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: Defend NASDA Central at all costs!", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: We must hold NASDA Central at all costs!", delay: 3, sound: CAM_RCLICK},
 	]);
 }

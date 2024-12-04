@@ -156,11 +156,11 @@ function enableAllFactories()
 	}
 
 	camQueueDialogue([
-		{text: "CLAYDE: Hmm. It seems that there's still a significant amount of scavengers opposing the Collective's presence.", delay: 0, sound: CAM_RCLICK},
+		{text: "CLAYDE: Hmm. It seems that there's still a significant amount of scavengers opposing the Collective.", delay: 0, sound: CAM_RCLICK},
 		{text: "CLAYDE: I wonder if we can work this to our advantage...", delay: 3, sound: CAM_RCLICK},
 		{text: "CHARLIE: Do you think we could form some sort of alliance with them, General?", delay: 6, sound: CAM_RCLICK},
 		{text: "CLAYDE: Hmm...", delay: 5, sound: CAM_RCLICK},
-		{text: "CLAYDE: Perhaps in a manner of speaking...", delay: 2},
+		{text: "CLAYDE: Perhaps... in a manner of speaking...", delay: 2},
 	]);
 }
 
@@ -445,7 +445,7 @@ function eventStartLevel()
 	}
 	else
 	{
-		setMissionTime(camChangeOnDiff(camHoursToSeconds(1)));
+		setMissionTime(camChangeOnDiff(camHoursToSeconds(1.25)));
 	}
 
 	camAutoReplaceObjectLabel(["scavHeliTower", "cScavHeliTower", "colCC"]);
@@ -474,7 +474,7 @@ function eventStartLevel()
 		{text: "CLAYDE: ...", delay: 2, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: The Collective seem to have a... deep fascination with what they call \"The Machine\"", delay: 2, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Given everything we know about them, it seems that their entire command structure is devoted to it.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: So the Collective is a cult that worships machines?", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: So they're a cult that worships machines?", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Well... uhh... maybe.", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: It seems that they'll accept anyone into their ranks as long as they share enough devotion.", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: We're... still not sure if this \"Machine\" is a singular entity or not.", delay: 3, sound: CAM_RCLICK},

@@ -2211,7 +2211,7 @@
         "model": "sc_hvgren.pie",
         "mountModel": "scbody.pie",
         "movement": "INDIRECT",
-        "muzzleGfx": "FXMMort.PIE",
+        "muzzleGfx": "TRHRMORT.PIE",
         "name": "Super Heavy Grenadier Cyborg",
         "numExplosions": 1,
         "recoilValue": 75,

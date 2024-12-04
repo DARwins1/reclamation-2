@@ -33,7 +33,7 @@ function eventStartLevel()
 		{text: "LIEUTENANT: Commander Bravo? Commander Bravo come in!", delay: 2, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Oh thank goodness, I still have your signal!", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Everything is falling apart.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: We've lost contact with everyone except you and Commander Charlie.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: I've lost contact with everyone except you and Commander Charlie.", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: The Collective completely overran NASDA Central.", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: But thanks to you, they shouldn't be able to use NASDA's satellite control systems.", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: We lost contact with Commander Foxtrot and his team, and we believe that they were captured by the Collective.", delay: 3, sound: CAM_RCLICK},

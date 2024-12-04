@@ -129,13 +129,13 @@ function activateSecondFactories()
 
 	// Dialogue about Collective sightings
 	camQueueDialogue([
-		{text: "GOLF: General, we've had some odd, uhh, sightings.", delay: 0, sound: CAM_RCLICK},
+		{text: "GOLF: Hey, General!", delay: 0, sound: CAM_RCLICK},
 		{text: "GOLF: We've spotted some... strange looking vehicles moving through our AO, sir.", delay: 3, sound: CAM_RCLICK},
 		{text: "GOLF: They, uhh... don't look like scavengers, sir.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: ...And what do you expect me to make of this, Commander Golf?", delay: 4, sound: CAM_RCLICK},
-		{text: "GOLF: I don't know, it's just...", delay: 4, sound: CAM_RCLICK},
-		{text: "GOLF: Their vehicles look more like ours than scavengers.", delay: 2, sound: CAM_RCLICK},
-		{text: "GOLF: ...I think there may be another force operating in this sector.", delay: 3, sound: CAM_RCLICK},
+		{text: "GOLF: I dunno, it's just...", delay: 4, sound: CAM_RCLICK},
+		{text: "GOLF: Their vehicles look a bit more like ours than scavengers.", delay: 2, sound: CAM_RCLICK},
+		{text: "GOLF: ...Maybe there's another force operating in this sector?", delay: 3, sound: CAM_RCLICK},
 	]);
 }
 
@@ -336,7 +336,7 @@ function introduceCollective()
 	// Dialogue about unknown transmissions
 	camQueueDialogue([
 		{text: "LIEUTENANT: Sir, I'm picking up some strange transmissions.", delay: 0, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: They're originating east of team Bravo's current position.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: They're originating somewhere to the east of team Bravo's current position.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: Have you been able to decipher them?", delay: 4, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: No sir. They appear to have some level of encryption.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: Encrypted scavenger radio broadcasts? What are the odds of them having that kind of tech?", delay: 3, sound: CAM_RCLICK},
@@ -773,7 +773,7 @@ function eventStartLevel()
 	}
 	else
 	{
-		setMissionTime(camChangeOnDiff(camHoursToSeconds(1)));
+		setMissionTime(camChangeOnDiff(camHoursToSeconds(1.25)));
 	}
 
 	camAutoReplaceObjectLabel(["heliTower1", "heliTower2"]);

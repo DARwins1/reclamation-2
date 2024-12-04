@@ -116,16 +116,17 @@ const __cam_alphaLevels = [
 	"CAM_1A", "CAM_1B", "SUB_1_1S", "SUB_1_1", "SUB_1_2S", "SUB_1_2", "SUB_1_3S",
 	"SUB_1_3", "CAM_1C", "CAM_1CA", "SUB_1_4AS", "SUB_1_4A", "SUB_1_5S", "SUB_1_5",
 	"CAM_1A-C", "SUB_1_7S", "SUB_1_7", "SUB_1_DS", "SUB_1_D", "CAM_1END"
-];
+]; // 12 missions
 const __cam_betaLevels = [
 	"CAM_2A", "SUB_2_1S", "SUB_2_1", "CAM_2B", "SUB_2_2S", "SUB_2_2", "CAM_2C",
 	"SUB_2_5S", "SUB_2_5", "SUB_2DS", "SUB_2D", "SUB_2_6S", "SUB_2_6", "SUB_2_7S",
 	"SUB_2_7", "SUB_2_8S", "SUB_2_8", "CAM_2END"
-];
+]; // 11 missions
 const __cam_gammaLevels = [
 	"CAM_3A", "SUB_3_1S", "SUB_3_1", "CAM_3B", "SUB_3_2S", "SUB_3_2", "CAM3A-B",
 	"CAM3C", "CAM3A-D1", "CAM3A-D2", "CAM_3_4S", "CAM_3_4"
-];
+]; // 9 missions
+// total missions: 32
 const __CAM_RECLAMATION_CAMPAIGN_NUMBER = 0;
 const __CAM_PROLOGUE_CAMPAIGN_NUMBER = 1;
 const __CAM_ACT1_CAMPAIGN_NUMBER = 2;
@@ -134,18 +135,18 @@ const __CAM_ACT3_CAMPAIGN_NUMBER = 4;
 const __CAM_ACT4A_CAMPAIGN_NUMBER = 5;
 const __CAM_ACT4B_CAMPAIGN_NUMBER = 6;
 const __cam_reclamationLevels = [
-	"L1",
-	"L2S", "L2",
-	"L3",
-	"L4S", "L4",
-	"L5S", "L5",
-	"L6S", "L6",
-	"L7",
-];
+	"L1", // RECLAMATION
+	"L2S", "L2", // LIBERATOR
+	"L3", // STOMP OUT
+	"L4S", "L4", // BREACH
+	"L5S", "L5", // CLEANUP
+	"L6S", "L6", // FRIENDLY SKIES
+	"L7", // EVACUATION
+]; // 7 missions
 const __cam_prologueLevels = [
 	"PL1", // PUTRID
 	"PL2", // SAFE HAVEN
-];
+]; // 2 missions
 const __cam_act1Levels = [
 	"A1L1", // WELCOME TO THE JUNGLE
 	"A1L2S", "A1L2", // ALLIED ASSAULT
@@ -153,7 +154,7 @@ const __cam_act1Levels = [
 	"A1L4S", "A1L4", // THE COLLECTIVE
 	"A1L5S", "A1L5", // A FRIEND IN NEED
 	"A1L6", // ONSLAUGHT
-];
+]; // 6 missions
 const __cam_act2Levels = [
 	"A2L1", // HOT DROP
 	"A2L2S", "A2L2", // DISILLUSIONED
@@ -162,7 +163,7 @@ const __cam_act2Levels = [
 	"A2L5", // CHOKEHOLD
 	"A2L6S", "A2L6", // BREAKOUT
 	"A2L7", // ONSLAUGHT
-];
+]; // 7 missions
 const __cam_act3Levels = [
 	"A3L1", // OUTBREAK
 	"A3L2S", "A3L2", // SEARCH AND UNRESCUE

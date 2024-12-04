@@ -32,6 +32,6 @@ function eventStartLevel()
 		{text: "CLAYDE: Commander Bravo, send a scout team to the outskirts of their base.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: Find and relieve team Delta, and await further instructions.", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: General, sir, has their been any transmission from team Echo?", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: No... and that's what concerns me.", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: No... and that's what concerns me the most.", delay: 3, sound: CAM_RCLICK},
 	]);
 }

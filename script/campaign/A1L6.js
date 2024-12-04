@@ -226,19 +226,19 @@ function collectiveAttackWaves()
 
 	// Lastly, start spawning more waves of enemies over time.
 	// This will cause the Collective to become overwhelming after a while.
-	if (waveIndex % 12 === 0)
-	{
-		// Increase the number of VTOLs every 12 waves
-		vtolAttack();
-	}
-	if (waveIndex % 6 === 0)
-	{
-		// Increase the number of Helicopters every 6 waves
-		heliAttack();
-	}
 	if (waveIndex % 16 === 0)
 	{
-		// Increase the number of ground attacks every 16 waves
+		// Increase the number of VTOLs every 16 waves
+		vtolAttack();
+	}
+	if (waveIndex % 12 === 0)
+	{
+		// Increase the number of Helicopters every 12 waves
+		heliAttack();
+	}
+	if (waveIndex % 20 === 0)
+	{
+		// Increase the number of ground attacks every 20 waves
 		setTimer("collectiveAttackWaves", camChangeOnDiff(camSecondsToMilliseconds(45)));
 		// NOTE: Since the above increases are based on the number of ground waves, not only will the
 		// number of enemies increase over time, but the RATE that they increase will get faster too!
@@ -296,11 +296,11 @@ function eventTransporterLaunch(transporter)
 		allowWin = true;
 
 		// Stash away up to 1k power every time the player launches a transport
-		const POWER_PER_TRANSPORT = 1000;
-		const CURRENT_POWER = playerPower(CAM_HUMAN_PLAYER);
+		// const POWER_PER_TRANSPORT = 1000;
+		// const CURRENT_POWER = playerPower(CAM_HUMAN_PLAYER);
 
-		savedPower = Math.min(CURRENT_POWER, POWER_PER_TRANSPORT);
-		setPower(Math.max(CURRENT_POWER - POWER_PER_TRANSPORT, 0), CAM_HUMAN_PLAYER);
+		// savedPower = Math.min(CURRENT_POWER, POWER_PER_TRANSPORT);
+		// setPower(Math.max(CURRENT_POWER - POWER_PER_TRANSPORT, 0), CAM_HUMAN_PLAYER);
 	}
 }
 
@@ -326,7 +326,7 @@ function eventStartLevel()
 		gameOverOnDeath: false, // Don't fail when the player runs out of stuff
 		callback: "checkIfLaunched"
 	});
-	camSetExtraObjectiveMessage(_("Evacuate as many transports as possible"));
+	camSetExtraObjectiveMessage(_("Evacuate as many units as possible"));
 	setMissionTime(-1); // Infinite time
 
 	const startPos = camMakePos("landingZone");
@@ -396,7 +396,7 @@ function eventStartLevel()
 
 	queue("heliAttack", camChangeOnDiff(camMinutesToMilliseconds(2)));
 	queue("vtolAttack", camChangeOnDiff(camMinutesToMilliseconds(6)));
-	setTimer("collectiveAttackWaves", camChangeOnDiff(camSecondsToMilliseconds(45)));
+	setTimer("collectiveAttackWaves", camChangeOnDiff(camSecondsToMilliseconds(60)));
 	setTimer("checkEnemyVtolArea", camSecondsToMilliseconds(1));
 	setTimer("sendCollectiveTransporter", camChangeOnDiff(camMinutesToMilliseconds(2)));
 

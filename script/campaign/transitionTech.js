@@ -165,7 +165,7 @@ const camA2L6AllyResearch = camA2L2AllyResearch.concat([
 	"R-Struc-Research-Module", // Artifact
 ]);
 
-const camAct3StartResearch = camA1L4AllyResearch.concat([
+const camAct3StartResearch = camA2L6AllyResearch.concat([
 	// A2L6
 	"R-Wpn-Cannon4AMk1", // Artifact
 	"R-Defense-Emplacement-HPVcannon", "R-Defense-WallTower-HPVcannon", "R-Cyborg-Hvywpn-HPV", 

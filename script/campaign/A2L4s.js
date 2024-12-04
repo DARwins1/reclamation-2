@@ -37,12 +37,13 @@ function eventStartLevel()
 		{text: "CLAYDE: Commander Bravo, during your last mission, we regained contact with team Golf.", delay: 4, sound: CAM_RCLICK},
 		{text: "CLAYDE: They've managed to hold off the Collective so far, but they're running low on resources, and need reinforcements.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: However, the Collective have surrounded their position with anti-aircraft sites, and we can't get any transports through safely.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: Your objective is to land your forces outside the range of these AA sites, and neutralize them with a ground assault.", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: Your objective is to punch a hole in the Collective's blockade.", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: Take your forces and land outside the range of these AA sites, then neutralize them with a ground assault.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: Once enough of these sites are gone, we'll be able to send reinforcements to team Golf.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: Good luck, Commander.", delay: 3, sound: CAM_RCLICK},
 		// Separate from the mission briefing
-		{text: "LIEUTENANT: Commander, those AA sites are located in the flooded portion of the city.", delay: 12, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: It'll be challenging to navigate the terrain their with conventional ground forces.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: ...But the propulsion that you found the in the previous Collective base may prove to be useful there.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Commander Bravo, those AA sites are located in the flooded portion of the city.", delay: 12, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: It'll be challenging to navigate the terrain there with conventional ground forces.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: ...But the propulsion that you found the in the that last Collective base may prove to be useful there.", delay: 3, sound: CAM_RCLICK},
 	]);
 }

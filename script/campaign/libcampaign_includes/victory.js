@@ -600,7 +600,7 @@ function __camShowVictoryConditions()
 	}
 	else if (__camWinLossCallback === CAM_VICTORY_TIMEOUT)
 	{
-		console(_("Survive until the timer reaches zero"));
+		// console(_("Survive until the timer reaches zero"));
 	}
 	else if (__camWinLossCallback === CAM_VICTORY_STANDARD)
 	{

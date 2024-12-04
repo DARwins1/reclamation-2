@@ -257,7 +257,7 @@ function eventStartLevel()
 		"colCBTower": { tech: "R-Sys-CBSensor-Turret01" }, // CB Turret
 		"colCybFactory2": { tech: "R-Cyborg-Hvywpn-Mcannon" }, // Super Heavy-Gunner
 		"colAAEmp": { tech: "R-Wpn-AAGun-ROF01" }, // AA Ammunition Hopper
-		// "colBombardPit": { tech: "R-Wpn-Mortar02Hvy" }, // Bombard
+		"colBombardPit": { tech: "R-Wpn-Mortar02Hvy" }, // Bombard
 	});
 
 	camSetEnemyBases({

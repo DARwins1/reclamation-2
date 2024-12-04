@@ -2661,8 +2661,7 @@
         "msgName": "RES_FLAME1",
         "name": "Flamer",
         "requiredResearch": [
-            "R-Wpn-MG1Mk1",
-            "R-Vehicle-Engine01"
+            "R-Wpn-MG1Mk1"
         ],
         "researchPoints": 600,
         "researchPower": 18,
@@ -2817,6 +2816,10 @@
         "requiredResearch": [
             "R-Wpn-MG-Damage01"
         ],
+        "redComponents": [
+            "MG1Mk1",
+            "MG1-VTOL"
+        ],
         "researchPoints": 1200,
         "researchPower": 37,
         "resultComponents": [
@@ -2834,6 +2837,9 @@
         "requiredResearch": [
             "R-Wpn-MG2Mk1",
             "R-Wpn-MG-Damage02"
+        ],
+        "redComponents": [
+            "MG2-VTOL"
         ],
         "researchPoints": 2400,
         "researchPower": 75,
@@ -3393,9 +3399,6 @@
         "keyTopic": 1,
         "msgName": "RES_W_RK_MP1",
         "name": "Mini-Rocket Pod",
-        "requiredResearch": [
-            "R-Vehicle-Engine01"
-        ],
         "researchPoints": 1200,
         "researchPower": 37,
         "resultComponents": [

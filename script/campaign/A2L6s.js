@@ -29,7 +29,7 @@ function eventStartLevel()
 		{text: "CLAYDE: Good.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: And what of the Collective's counter attack?", delay: 2, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Well, this should disrupt their movements for some time.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: But I doubt it will delay the Collective forever.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: But I doubt this will delay them forever.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: We'll have to make do, then. This is the best chance we'll get.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: Commanders Bravo, Charlie, Golf.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: It's time to assault the Collective's main prisoner camp.", delay: 2, sound: CAM_RCLICK},

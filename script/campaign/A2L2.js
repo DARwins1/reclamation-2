@@ -109,7 +109,7 @@ function echoDialogue()
 		{text: "CLAYDE: We know the Collective have captured team Foxtrot.", delay: 4, sound: CAM_RCLICK},
 		{text: "CLAYDE: They also briefly held me captive as well.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: ...And they seem to be in the recruiting scavengers as well.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: We still don't know what their end-goal is, but for know we can at least assume that team Echo is alive.", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: We still don't know what their end-goal is, but for now, we can at least have faith that team Echo is alive.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: The first step to finding them is by securing that base.", delay: 3, sound: CAM_RCLICK},
 	]);
 }
@@ -542,8 +542,8 @@ function discoverEcho()
 function landingDialogue()
 {
 	camQueueDialogue([
-		{text: "LIEUTENANT: Commander Bravo, teams Delta and Echo were partner Commanders, and they shared a single base.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: If Delta's distress signal is anything to go by, then their base was likely overrun.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Commander Bravo, teams Delta and Echo were assigned together, and they shared a single base.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: If Delta's distress signal is anything to go by, then it was likely overrun by the Collective.", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Move fast, and be prepared for anything.", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: With any luck, we might be able to save Delta before the Collective get them.", delay: 2, sound: CAM_RCLICK},
 	]);

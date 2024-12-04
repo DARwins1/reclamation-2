@@ -39,9 +39,10 @@ camAreaEvent("vtolRemoveZone", function(droid)
 function heliAttack1()
 {
 	const ext = {
-		limit: 1
+		limit: 1,
+		targetPlayer: CAM_THE_COLLECTIVE,
 	};
-	camSetVtolData(MIS_CYAN_SCAVS, "heliAttackPos1", "vtolRemoveZone", [cTempl.helpod], camChangeOnDiff(camMinutesToMilliseconds(1.5)), "scavHeliTower", ext);
+	camSetVtolData(MIS_CYAN_SCAVS, "heliAttackPos1", "vtolRemoveZone", [cTempl.helpod], camChangeOnDiff(camMinutesToMilliseconds(1.75)), "scavHeliTower", ext);
 }
 
 function heliAttack2()
@@ -52,7 +53,7 @@ function heliAttack2()
 		targetPlayer: CAM_HUMAN_PLAYER,
 		pos: camMakePos("landingZone")
 	};
-	camSetVtolData(CAM_THE_COLLECTIVE, "heliAttackPos2", "vtolRemoveZone", [cTempl.helcan, cTempl.helhmg], camChangeOnDiff(camSecondsToMilliseconds(45)), "cScavHeliTower", ext);
+	camSetVtolData(CAM_THE_COLLECTIVE, "heliAttackPos2", "vtolRemoveZone", [cTempl.helcan, cTempl.helhmg], camChangeOnDiff(camMinutesToMilliseconds(1)), "cScavHeliTower", ext);
 }
 
 function vtolAttack()
@@ -171,7 +172,7 @@ function activateFinalFactories()
 function startCollectiveTransports()
 {
 	sendCollectiveTransporter();
-	setTimer("sendCollectiveTransporter", camChangeOnDiff(camMinutesToMilliseconds(5)));
+	setTimer("sendCollectiveTransporter", camChangeOnDiff(camMinutesToMilliseconds(6)));
 }
 
 function sendCollectiveTransporter() 
@@ -296,6 +297,21 @@ function vtolDialogue2()
 		{text: "CLAYDE: Commander, make sure you take down as many of those VTOLs as you can.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: The more of them that you destroy, the longer it'll take the Collective to muster more air strikes.", delay: 3, sound: CAM_RCLICK}
 	]);
+}
+
+// Spawns a player unit at the LZ, and then removes it.
+// If the unit had any EXP, repeat the cycle.
+// Do this until the spawned unit has no EXP
+function drainPlayerExp()
+{
+	pos = camMakePos("landingZone");
+	droidExp = -1;
+	while (droidExp != 0)
+	{
+		droid = addDroid(CAM_HUMAN_PLAYER, pos.x, pos.y, "EXP Sink", "Body1REC", "wheeled01", "", "", "MG1Mk1");
+		droidExp = droid.experience;
+		camSafeRemoveObject(droid);
+	}
 }
 
 // Allow the player to change to colors that are hard-coded to be unselectable
@@ -471,7 +487,7 @@ function eventStartLevel()
 				repair: 35
 			},
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(45)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
 			templates: [ cTempl.colpodt, cTempl.colhmght, cTempl.colmrat, cTempl.colflamt, cTempl.colcanht, cTempl.colmcant ]
 		},
 		"colFactory2": {
@@ -482,7 +498,7 @@ function eventStartLevel()
 				repair: 25
 			},
 			groupSize: 5,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(110)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(130)),
 			// Collective medium tanks (mostly)
 			templates: [ cTempl.commcant, cTempl.colaaht, cTempl.comatt, cTempl.commcant ]
 		},
@@ -628,7 +644,7 @@ function eventStartLevel()
 	}
 	else
 	{
-		setMissionTime(camChangeOnDiff(camHoursToSeconds(1.25)));
+		setMissionTime(camChangeOnDiff(camHoursToSeconds(1.5)));
 	}
 
 	startedFromMenu = false;
@@ -713,6 +729,14 @@ function eventStartLevel()
 
 		setPower(MIS_NUM_TRANSPORTS * 1000, CAM_HUMAN_PLAYER);		
 	}
+	else
+	{
+		// Grant 100 power for every droid the player saved from the last campaign
+		let numDroids = enumDroid(CAM_HUMAN_PLAYER).length - 1; // Don't count the transporter itself
+		// Also include the cargo of the first transport
+		numDroids += enumDroid(CAM_HUMAN_PLAYER, DROID_SUPERTRANSPORTER)[0].cargoCount - 1; // Cargo count seems to always have at least 1?
+		setPower(numDroids * 100, CAM_HUMAN_PLAYER);
+	}
 	setReinforcementTime(camMinutesToSeconds(1)); // 1 minute
 
 	colLZBlip = false;
@@ -726,26 +750,31 @@ function eventStartLevel()
 	camEnableFactory("cScavFactory2");
 
 	queue("groupPatrol", camChangeOnDiff(camMinutesToMilliseconds(0.5)));
-	queue("activateSecondFactories", camChangeOnDiff(camMinutesToMilliseconds(2)));
-	queue("cyborgAttack", camChangeOnDiff(camMinutesToMilliseconds(3)));
-	queue("heliAttack1", camChangeOnDiff(camMinutesToMilliseconds(4)));
-	queue("heliAttack2", camChangeOnDiff(camMinutesToMilliseconds(6)));
-	queue("activateFinalFactories", camChangeOnDiff(camMinutesToMilliseconds(6)));
-	queue("vtolAttack", camChangeOnDiff(camMinutesToMilliseconds(8)));
-	queue("startCollectiveTransports", camChangeOnDiff(camMinutesToMilliseconds(12)));
+	queue("activateSecondFactories", camChangeOnDiff(camMinutesToMilliseconds(4)));
+	queue("cyborgAttack", camChangeOnDiff(camMinutesToMilliseconds(5)));
+	queue("heliAttack1", camChangeOnDiff(camMinutesToMilliseconds(6)));
+	queue("heliAttack2", camChangeOnDiff(camMinutesToMilliseconds(8)));
+	queue("activateFinalFactories", camChangeOnDiff(camMinutesToMilliseconds(12)));
+	queue("vtolAttack", camChangeOnDiff(camMinutesToMilliseconds(10)));
+	queue("startCollectiveTransports", camChangeOnDiff(camMinutesToMilliseconds(16)));
+	if (!startedFromMenu)
+	{
+		// Prevent the player from bringing recycled unit EXP from Act 1
+		drainPlayerExp();
+	}
 
 	// Placeholder for the actual briefing sequence
 	camQueueDialogue([
 		{text: "---- BRIEFING PLACEHOLDER ----", delay: 0},
-		{text: "LIEUTENANT: Sir, Team Bravo's evacuation was a success, and they're awaiting further orders.", delay: 2, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Sir, Team Bravo has evacuated with all that they could. They're awaiting further orders.", delay: 2, sound: CAM_RCLICK},
 		{text: "CLAYDE: Well done, Commander Bravo.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: If we're to salvage this operation, we'll need as many able-bodied men as possible.", delay: 2, sound: CAM_RCLICK},
 		{text: "CLAYDE: Commander Charlie, report your situation.", delay: 3, sound: CAM_RCLICK},
 		{text: "CHARLIE: We're holed up alright sir.", delay: 3, sound: CAM_RCLICK},
 		{text: "CHARLIE: But we've spotted Collective forces to the north of our position.", delay: 2, sound: CAM_RCLICK},
-		{text: "CHARLIE: It looks like they're setting up some defenses.", delay: 3, sound: CAM_RCLICK},
-		{text: "CHARLIE: There's also a lot of fighting between the local scavengers.", delay: 3, sound: CAM_RCLICK},
-		{text: "CHARLIE: Looks like some of the scavengers are working with the Collective.", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: They've been busy setting up some defenses.", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: There's also been lot of fighting between the local scavengers.", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: It looks like some of the scavengers are working with the Collective.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: I don't have a hard time believing that.", delay: 4, sound: CAM_RCLICK},
 		{text: "CLAYDE: Lieutenant, keep parsing through the Collective's transmissions.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: Find out why these scavengers are working along with the Collective.", delay: 3, sound: CAM_RCLICK},
