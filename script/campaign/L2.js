@@ -312,6 +312,11 @@ function eventStartLevel()
 	addDroid(MIS_CYAN_SCAVS, busPos.x, busPos.y, "The Battle Bus",
 		"MonsterBus", "tracked01", "", "", "RustCannon1Mk1");
 
+	if (difficulty < HARD) {
+		// If we're below hard, remove one of the 3 yellow mortar pits
+		camSafeRemoveObject("removablePit");
+	}
+
 	// Spawn civilians in their zones
 	populateCivilians();
 

@@ -552,15 +552,15 @@ function evacuateAllies()
 	camDisableTruck("deltaLZ");
 	camDisableTruck("nasdaCentral");
 
-	// Disable refillable groups
-	camDisableRefillableGroup(deltaPatrolGroup);
-	camDisableRefillableGroup(deltaRepairGroup);
-	camDisableRefillableGroup(deltaMortarGroup);
-	camDisableRefillableGroup(deltaVtolGroup);
-	camDisableRefillableGroup(zuluPatrolGroup);
-	camDisableRefillableGroup(zuluVtolGroupNW);
-	camDisableRefillableGroup(zuluVtolGroupNE);
-	camDisableRefillableGroup(zuluVtolGroupSouth);
+	// Lock refillable groups (don't assign any more units)
+	camLockRefillableGroup(deltaPatrolGroup);
+	camLockRefillableGroup(deltaRepairGroup);
+	camLockRefillableGroup(deltaMortarGroup);
+	camLockRefillableGroup(deltaVtolGroup);
+	camLockRefillableGroup(zuluPatrolGroup);
+	camLockRefillableGroup(zuluVtolGroupNW);
+	camLockRefillableGroup(zuluVtolGroupNE);
+	camLockRefillableGroup(zuluVtolGroupSouth);
 
 	// Place all allied units into two groups
 	const deltaDroids = enumDroid(MIS_TEAM_DELTA);

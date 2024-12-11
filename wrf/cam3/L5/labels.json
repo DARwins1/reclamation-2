@@ -197,7 +197,7 @@
 
 	"area_10": {
 		"label": "outpostAmbushTrigger",
-		"pos1": [3200, 4096],
+		"pos1": [2560, 4096],
 		"pos2": [4352, 4224]
 	},
 
@@ -388,20 +388,19 @@
 
 
 	"object_10": {
-		"label": "showcaseBoomTick",
-		"id": 1056,
-		"player": 4,
-		"type": 0
-	},
-
-
-	"object_11": {
 		"label": "sarissaPit",
 		"id": 1166,
 		"player": 3,
 		"type": 1
 	},
 
+
+	"object_11": {
+		"label": "showcaseBoomTick",
+		"id": 1056,
+		"player": 4,
+		"type": 0
+	},
 
 	"radius_0": {
         "subscriber": 2,

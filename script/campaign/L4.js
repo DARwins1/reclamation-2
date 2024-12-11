@@ -483,7 +483,7 @@ function eventStartLevel()
 	camSetArtifacts({
 		"scavFactory": { tech: "R-Wpn-MG-ROF01" }, // Chaingun Upgrade
 		"researchFacility": { tech: "R-Struc-Research-Module" }, // Research module
-		"mgCrate": { tech: "R-Vehicle-Prop-Halftracks" }, // Half-Tracks
+		"mgCrate": { tech: "R-Vehicle-Prop-Halftracks" }, // Half-Tracks (it doesn't have the HMG anymore lol)
 	});
 
 	// Set up bases
@@ -593,7 +593,7 @@ function eventStartLevel()
 			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(12)),
 			// Infested civilians, with some occasional vehicles
-			templates: [cTempl.infciv, cTempl.infrbjeep, cTempl.infciv, cTempl.inflance, cTempl.infciv, cTempl.infbjeep, cTempl.infciv, cTempl.inffiretruck]
+			templates: [cTempl.infciv, cTempl.infrbjeep, cTempl.infciv, cTempl.inflance, cTempl.infciv, cTempl.infbjeep, cTempl.infciv]
 		},
 		"infestedFactory5": {
 			assembly: "infestedAssembly5",
@@ -629,7 +629,7 @@ function eventStartLevel()
 			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(18)),
 			// Large Infested vehicles
-			templates: [cTempl.infciv, cTempl.inffiretruck, cTempl.infciv, cTempl.infrbjeep, cTempl.infciv, cTempl.infbuscan, cTempl.infciv, cTempl.infbjeep]
+			templates: [cTempl.infciv, cTempl.infciv, cTempl.infrbjeep, cTempl.infciv, cTempl.infbuscan, cTempl.infciv, cTempl.infbjeep]
 		},
 	});
 

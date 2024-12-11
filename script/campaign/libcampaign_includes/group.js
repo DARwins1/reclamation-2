@@ -179,14 +179,14 @@ function camSetRefillableGroupData(group, groupData)
 	};
 }
 
-//;; ## camDisableRefillableGroup(group)
+//;; ## camLockRefillableGroup(group)
 //;;
 //;; Shortcut function that (permanently) disables a group from pulling more units automatically.
 //;;
 //;; @param {number} group
 //;; @returns {void}
 //;;
-function camDisableRefillableGroup(group)
+function camLockRefillableGroup(group)
 {
 	camSetRefillableGroupData(group, {
 		templates: __camRefillableGroupInfo[group].templates,

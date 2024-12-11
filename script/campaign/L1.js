@@ -19,6 +19,10 @@ var allowColourChange = true;
 // This variable is to make sure the transport correctly matches the player's colour on this level.
 var playerColour;
 
+// Scavenger groups that fight in the center before the player is detected
+var yScavCentralPatrol;
+var cScavCentralPatrol;
+
 // Damage NASDA structures
 function preDamageNasdaStructs()
 {
@@ -36,18 +40,7 @@ function preDamageNasdaStructs()
 camAreaEvent("captureZone", function(droid)
 {
 	// Give the player some power
-	if (difficulty === HARD)
-	{
-		setPower(600, CAM_HUMAN_PLAYER);
-	}
-	else if (difficulty === INSANE)
-	{
-		setPower(300, CAM_HUMAN_PLAYER);
-	}
-	else
-	{
-		setPower(900, CAM_HUMAN_PLAYER);
-	}
+	setPower(camChangeOnDiff(1000), CAM_HUMAN_PLAYER);
 
 	camAbsorbPlayer(MIS_NASDA, CAM_HUMAN_PLAYER); // Give NASDA base to player
 	changePlayerColour(MIS_NASDA, playerColour); // NASDA Base to player's colour
@@ -207,6 +200,9 @@ function yScavPlayerDetected()
 		camPlayVideos({video: "L1_DETMSG", type: MISS_MSG});
 		queue("messageAlert", camSecondsToMilliseconds(0.2));
 		playerDetected = true;
+		// Stop refilling these groups
+		camLockRefillableGroup(yScavCentralPatrol);
+		camLockRefillableGroup(cScavCentralPatrol);
 	}
 
 	// Set the first yellow factory to attack the player (if it still exists)
@@ -243,6 +239,9 @@ function cScavPlayerDetected()
 		camPlayVideos({video: "L1_DETMSG", type: MISS_MSG});
 		queue("messageAlert", camSecondsToMilliseconds(0.2));
 		playerDetected = true;
+		// Stop refilling these groups
+		camLockRefillableGroup(yScavCentralPatrol);
+		camLockRefillableGroup(cScavCentralPatrol);
 	}
 
 	// Set the cyan factory to attack the player (if it still exists)
@@ -518,7 +517,7 @@ function eventStartLevel()
 			groupSize: 3,
 			maxSize: 3,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(16)),
-			templates: [ cTempl.trike, cTempl.bloke ]
+			templates: [ ] // Empty; we just need this factory to refill a group for now
 		},
 		// This factory only activates when the player is detected
 		"yScavFactory2": {
@@ -544,8 +543,30 @@ function eventStartLevel()
 			groupSize: 4,
 			maxSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(20)),
-			templates: [ cTempl.bjeep, cTempl.bloke, cTempl.bloke ]
+			templates: [ ] // Empty; we just need this factory to refill a group for now
 		},
+	});
+
+	yScavCentralPatrol = camMakeRefillableGroup(undefined, {templates: [
+		cTempl.trike, cTempl.bloke,
+		cTempl.bloke, cTempl.trike,
+		]}, CAM_ORDER_ATTACK, {
+		pos: [
+			camMakePos("scavPatrol1"),
+			camMakePos("scavPatrol2"),
+		],
+		factories = ["yScavFactory1"]
+	});
+
+	cScavCentralPatrol = camMakeRefillableGroup(undefined, {templates: [
+		cTempl.bjeep, cTempl.bloke, cTempl.bloke,
+		cTempl.bjeep, cTempl.bloke, cTempl.bloke,
+		]}, CAM_ORDER_ATTACK, {
+		pos: [
+			camMakePos("scavPatrol1"),
+			camMakePos("scavPatrol2"),
+		],
+		factories = ["cScavFactory"]
 	});
 
 	// Place a beacon on the NASDA base

@@ -76,11 +76,11 @@ function eventDestroyed(obj)
 		{
 		case 2: // One factory down; increase wave spawn rate
 			removeTimer("sendInfestedReinforcements");
-			setTimer("sendInfestedReinforcements", camChangeOnDiff(camSecondsToMilliseconds(55)));
+			setTimer("sendInfestedReinforcements", camChangeOnDiff(camSecondsToMilliseconds(75)));
 			break;
 		case 1: // Two factories down; increase wave spawn rate further
 			removeTimer("sendInfestedReinforcements");
-			setTimer("sendInfestedReinforcements", camChangeOnDiff(camSecondsToMilliseconds(35)));
+			setTimer("sendInfestedReinforcements", camChangeOnDiff(camSecondsToMilliseconds(30)));
 			break;
 		default: // All factories down; stop waves and activate any remaing scav factories
 			removeTimer("sendInfestedReinforcements");
@@ -198,7 +198,7 @@ camAreaEvent("outpostAmbushTrigger", function(droid)
 		camEnableFactory("infestedFactory3");
 		camEnableFactory("infestedFactory4");
 
-		setTimer("sendInfestedReinforcements", camChangeOnDiff(camSecondsToMilliseconds(75)));
+		setTimer("sendInfestedReinforcements", camChangeOnDiff(camSecondsToMilliseconds(105)));
 
 		// Two groups at once, from both sides
 		const group1 = [cTempl.stinger, cTempl.stinger, cTempl.infrbjeep, cTempl.infbuscan, cTempl.infbuggy, cTempl.inffiretruck];
@@ -238,7 +238,7 @@ function sendInfestedReinforcements()
 	// West entrance
 	if (getObject("infestedFactory4") !== null)
 	{
-		const droids = [cTempl.stinger, cTempl.inflance, cTempl.infbuscan, cTempl.infbloke, cTempl.infbjeep, cTempl.infrbjeep];
+		const droids = [cTempl.stinger, cTempl.inflance, cTempl.infbloke, cTempl.infbjeep, cTempl.infrbjeep];
 		preDamageInfestedGroup(camSendReinforcement(CAM_INFESTED, camMakePos("infestedEntry4"), randomTemplates(droids), CAM_REINFORCE_GROUND, 
 			{order: CAM_ORDER_ATTACK, data: {targetPlayer: CAM_HUMAN_PLAYER}}
 		));
