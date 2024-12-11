@@ -464,7 +464,7 @@ function eventStartLevel()
 
 	// Set artifact placement
 	camSetArtifacts({
-		"yScavFactory1": { tech: "R-Wpn-MG-Damage01" }, // Hardened MG Bullets
+		// "yScavFactory1": { tech: "R-Wpn-MG-Damage01" }, // Hardened MG Bullets
 		"yScavFactory2": { tech: "R-Wpn-Rocket05-MiniPod" }, // Mini-Rocket Pod
 		"cScavFactory": { tech: "R-Vehicle-Prop-Tracks" }, // Tracked Propulsion
 		"cScavSensor": { tech: "R-Sys-Sensor-Turret01" }, // Sensor Turret

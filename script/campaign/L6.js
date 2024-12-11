@@ -504,7 +504,7 @@ function eventStartLevel()
 
 	camSetArtifacts({
 		"nwScavFactory2": { tech: "R-Wpn-Rocket02-MRL" }, // Mini-Rocket Array
-		"eastScavFactory": { tech: "R-Wpn-Rocket-LtA-TMk1" }, // Sarissa AT Rocket
+		"eastScavFactory": { tech: "R-Wpn-Rocket-Damage04" }, // HEAT Rocket Warhead
 	});
 
 	// Set up bases

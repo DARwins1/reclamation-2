@@ -16,26 +16,25 @@ const camRec1StartResearch = [
 // Basically just everything the player acquires before L4.
 const camRec2StartResearch = [
 	// L1
-	"R-Wpn-MG-Damage01", // Artifact
 	"R-Sys-Sensor-Turret01", // Artifact
 	"R-Sys-Sensor-Tower01",
 	"R-Wpn-Rocket05-MiniPod", // Artifact
 	"R-Defense-Tower06", "R-Wpn-Rocket-Damage01",
 	"R-Sys-Engineering01", // Found in NASDA's research facility
-	"R-Sys-MobileRepairTurret01", "R-Cyb-Sys-Repair",
+	"R-Sys-MobileRepairTurret01", "R-Cyb-Sys-Repair", "R-Wpn-MG-Damage01",
 	"R-Defense-TankTrap01",
 	"R-Vehicle-Prop-Tracks", // Artifact
 
 	// L2
 	"R-Wpn-Mortar01Lt", // Artifact
 	"R-Wpn-Mortar-Damage01", "R-Cyb-Wpn-Grenade",
-	"R-Wpn-MG2Mk1", // Artifact
-	"R-Wpn-MG-Damage02",
-
-	// L3
 	"R-Wpn-Cannon1Mk1", // Artifact
 	"R-Defense-Cannon", "R-Defense-Cannon", "R-Cyborg-Wpn-Cannon", 
 	"R-Wpn-Cannon-Damage01",
+
+	// L3
+	"R-Wpn-MG2Mk1", // Artifact
+	"R-Wpn-MG-Damage02",
 	"R-Vehicle-Metals01", // Artifact
 	"R-Cyborg-Metals01",
 	"R-Wpn-Flamer01Mk1", // Artifact
@@ -46,20 +45,25 @@ const camRec2StartResearch = [
 // For documentation purposes only
 // const camRec1RemainingResearch = [
 // 	// L4
+//	"R-Wpn-MG-ROF01", // Artifact
+//	"R-Wpn-Cannon-ROF01", "R-Wpn-Rocket-ROF01", "R-Wpn-Flamer-ROF01",
+//	"R-Wpn-Mortar-ROF01",
 // 	"R-Struc-Research-Module", // Artifact
 // 	"R-Wpn-Rocket-Accuracy01", "R-Wpn-Rocket-Damage02", "R-Wpn-Cannon-Accuracy01",
 // 	"R-Wpn-Cannon-Damage02",
-// 	"R-Wpn-MG3Mk1", // Artifact
-// 	"R-Defense-Tower01", "R-Wpn-MG-Damage02",
+// 	"R-Vehicle-Prop-Halftracks", // Artifact
 // 	// L5
 // 	"R-Wpn-Flamer-ROF02", // Artifact
-// 	"R-Vehicle-Prop-Halftracks", // Artifact
-// 	// L6
+// 	"R-Wpn-MG3Mk1", // Artifact
+// 	"R-Defense-Tower01", "R-Wpn-MG-Damage02", "R-Cyborg-Wpn-HvyMG",
 // 	"R-Wpn-Rocket-LtA-TMk1", // Artifact
 // 	"R-Defense-Sarissa", "R-Cyborg-Wpn-LtRocket", "R-Wpn-Rocket-Damage03",
 // 	"R-Wpn-Cannon-Damage03",
+// 	// L6
 // 	"R-Wpn-Rocket02-MRL", // Artifact
 // 	"R-Defense-MRL", "R-Wpn-Rocket-ROF02", "R-Wpn-Cannon-ROF02",
+// 	"R-Wpn-Rocket-Damage04", // Artifact
+// 	"R-Wpn-Mortar-Damage02",
 // ].concat(camRec2StartResearch);
 
 // What is acquired during the Prologue

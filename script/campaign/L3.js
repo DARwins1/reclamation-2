@@ -267,7 +267,7 @@ function eventStartLevel()
 	camCompleteRequiredResearch(mis_yellowScavRes, MIS_YELLOW_SCAVS); 
 
 	camSetArtifacts({
-		"cScavFactory1": { tech: "R-Wpn-Cannon1Mk1" }, // Light Cannon
+		"cScavFactory1": { tech: "R-Wpn-MG2Mk1" }, // Twin Machinegun
 		"cScavFactory2": { tech: "R-Wpn-Flamer01Mk1" }, // Flamer
 		"cScavFactory3": { tech: "R-Vehicle-Metals01" }, // Composite Alloys
 	});

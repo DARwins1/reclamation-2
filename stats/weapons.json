@@ -546,7 +546,7 @@
         "shortRange": 768,
         "waterGfx": "FXSSplsh.PIE",
         "weaponClass": "KINETIC",
-        "weaponEffect": "ALL ROUNDER",
+        "weaponEffect": "ANTI PERSONNEL",
         "weaponSubClass": "MACHINE GUN",
         "weaponWav": "weld-1.ogg",
         "weight": 120

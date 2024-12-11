@@ -483,7 +483,7 @@ function eventStartLevel()
 	camSetArtifacts({
 		"scavFactory": { tech: "R-Wpn-MG-ROF01" }, // Chaingun Upgrade
 		"researchFacility": { tech: "R-Struc-Research-Module" }, // Research module
-		"mgCrate": { tech: "R-Wpn-MG3Mk1" }, // Heavy Machinegun
+		"mgCrate": { tech: "R-Vehicle-Prop-Halftracks" }, // Half-Tracks
 	});
 
 	// Set up bases

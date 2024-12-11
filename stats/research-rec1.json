@@ -982,6 +982,25 @@
         ],
         "statID": "CyborgCannon"
     },
+    "R-Cyborg-Wpn-HvyMG": {
+        "iconID": "IMAGE_RES_CYBORGTECH",
+        "id": "R-Cyborg-Wpn-HvyMG",
+        "msgName": "RES_CYW_HMG",
+        "name": "Heavy Machinegunner Cyborg",
+        "replacedComponents": [
+            "CyborgChaingun:CyborgHeavyChaingun"
+        ],
+        "requiredResearch": [
+            "R-Wpn-MG3Mk1",
+            "R-Cyborg-Wpn-MG"
+        ],
+        "researchPoints": 1500,
+        "researchPower": 46,
+        "resultComponents": [
+            "CyborgHeavyChaingun"
+        ],
+        "statID": "CyborgHeavyChaingun"
+    },
     "R-Cyb-Wpn-Grenade": {
         "iconID": "IMAGE_RES_CYBORGTECH",
         "id": "R-Cyborg-Wpn-Grenade",
@@ -2568,11 +2587,11 @@
     "R-Wpn-MG-Damage01": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-MG-Damage01",
-        "keyTopic": 1,
         "msgName": "RES_W_MG_D1",
         "name": "Hardened MG Bullets",
         "requiredResearch": [
-            "R-Wpn-MG1Mk1"
+            "R-Wpn-MG1Mk1",
+            "R-Sys-Engineering01"
         ],
         "researchPoints": 600,
         "researchPower": 18,
@@ -2708,6 +2727,10 @@
         "keyTopic": 1,
         "msgName": "RES_MG2MK1",
         "name": "Twin Machinegun",
+        "redComponents": [
+            "MG1Mk1",
+            "MG1-VTOL"
+        ],
         "requiredResearch": [
             "R-Wpn-MG-Damage01"
         ],
@@ -2806,11 +2829,10 @@
     "R-Wpn-Mortar-Damage02": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Mortar-Damage02",
-        "keyTopic": 1,
         "name": "HE Mortar Shells Mk2",
         "requiredResearch": [
             "R-Wpn-Mortar-Damage01",
-            "R-Wpn-Cannon-Damage02"
+            "R-Wpn-Rocket-Damage04"
         ],
         "researchPoints": 3600,
         "researchPower": 112,
@@ -2844,6 +2866,7 @@
     "R-Wpn-Mortar-Damage03": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Mortar-Damage03",
+        "keyTopic": 1,
         "name": "HE Mortar Shells Mk3",
         "requiredResearch": [
             "R-Wpn-Mortar-Damage02",
@@ -3103,7 +3126,7 @@
                 "value": 25
             }
         ],
-        "statID": "Rocket-LtA-TMk1",
+        "statID": "Rocket-Pod",
         "subgroupIconID": "IMAGE_RES_GRPDAM",
         "techCode": 1
     },
@@ -5969,9 +5992,8 @@
         "id": "R-Wpn-Rocket-Damage04",
         "keyTopic": 1,
         "msgName": "RES_W_RK_D4",
-        "name": "HEAP Mini-Rockets",
+        "name": "HEAT Rocket Warhead",
         "requiredResearch": [
-            "R-Wpn-Cannon-Damage04",
             "R-Wpn-Rocket-Damage03"
         ],
         "researchPoints": 4800,
@@ -5992,12 +6014,13 @@
                 "value": 25
             }
         ],
-        "statID": "Rocket-Pod",
+        "statID": "Rocket-LtA-TMk1",
         "subgroupIconID": "IMAGE_RES_GRPDAM"
     },
     "R-Wpn-Rocket-Damage05": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Rocket-Damage05",
+        "keyTopic": 1,
         "name": "HEAP Mini-Rockets Mk2",
         "requiredResearch": [
             "R-Wpn-Rocket-Damage04",
@@ -6093,6 +6116,7 @@
     "R-Wpn-RocketSlow-Damage04": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-RocketSlow-Damage04",
+        "keyTopic": 1,
         "msgName": "RES_W_SRK_D4",
         "name": "HESH Rocket Warhead",
         "requiredResearch": [

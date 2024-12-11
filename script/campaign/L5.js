@@ -464,8 +464,9 @@ function eventStartLevel()
 	}
 
 	camSetArtifacts({
-		"cScavFactory": { tech: "R-Vehicle-Prop-Halftracks" }, // Half-Tracks
+		"cScavFactory": { tech: "R-Wpn-MG3Mk1" }, // Heavy Machinegun
 		"yScavFactory1": { tech: "R-Wpn-Flamer-ROF02" }, // Flamer Autoloader Mk2
+		"sarissaPit": { tech: "R-Wpn-Rocket-LtA-TMk1" }, // Sarissa AT Rocket
 	});
 
 	// Set up bases
@@ -681,7 +682,7 @@ function eventStartLevel()
 	const busPos = camMakePos("boomShowcaseGroup");
 	showBus = addDroid(MIS_CYAN_SCAVS, busPos.x, busPos.y, "Battle Bus 4",
 		"MonsterBus", "tracked01", "", "", "RustCannon1Mk1").id;
-	setHealth(getObject(DROID, MIS_CYAN_SCAVS, showBus), 15); // Starts very damaged
+	setHealth(getObject(DROID, MIS_CYAN_SCAVS, showBus), 30); // Starts very damaged
 	addLabel({ type: GROUP, id: camMakeGroup(getObject(DROID, MIS_CYAN_SCAVS, showBus)) }, "showBusST", false);
 	resetLabel("showBusST", CAM_HUMAN_PLAYER); // subscribe for eventGroupSeen (used to trigger Boom Tick demonstration)
 

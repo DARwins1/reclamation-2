@@ -201,7 +201,7 @@ function eventStartLevel()
 
 	camSetArtifacts({
 		"mortarPit": { tech: "R-Wpn-Mortar01Lt" }, // Mortar
-		"cScavFactory2": { tech: "R-Wpn-MG2Mk1" }, // Twin Machinegun
+		"cScavFactory2": { tech: "R-Wpn-Cannon1Mk1" }, // Light Cannon
 	});
 
 	// Set up bases

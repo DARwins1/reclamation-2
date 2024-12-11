@@ -519,7 +519,7 @@
         "subgroupIconID": "IMAGE_RES_GRPUPG",
         "techCode": 1
     },
-	 "R-Cyborg-Armor-Heat04": {
+	"R-Cyborg-Armor-Heat04": {
         "iconID": "IMAGE_RES_CYBORGTECH",
         "id": "R-Cyborg-Armor-Heat04",
         "imdName": "icamrhot.pie",
@@ -923,7 +923,7 @@
         "subgroupIconID": "IMAGE_RES_GRPUPG",
         "techCode": 1
     },
-	 "R-Vehicle-Armor-Heat04": {
+	"R-Vehicle-Armor-Heat04": {
         "iconID": "IMAGE_RES_DROIDTECH",
         "id": "R-Vehicle-Armor-Heat04",
         "imdName": "icamrhot.pie",
