@@ -131,72 +131,55 @@ function camEnemyBaseDetected_infestedHighwayCamp()
 	// Activate both infested factories and the western scav factory
 	camEnableFactory("westInfestedFactory");
 	camEnableFactory("westScavFactory");
-
-	// Start sending infested waves from the west and north entrances
-	setTimer("westInfestedReinforcements", camChangeOnDiff(camSecondsToMilliseconds(45)));
 }
 
 function activateNorthInfested()
 {
 	// Activate the north infested base
 	camEnableFactory("northInfestedFactory");
-	setTimer("northInfestedReinforcements", camChangeOnDiff(camSecondsToMilliseconds(45)));
+	setTimer("infestedReinforcements", camChangeOnDiff(camSecondsToMilliseconds(45)));
+
+	// Also activate the eastern scav factory
+	camEnableFactory("eastScavFactory");
 
 	// Message the player about infested outside of the area
 	camPlayVideos([cam_sounds.incoming.incomingIntelligenceReport, {video: "L6_INFESMSG", type: MISS_MSG}]);
 	queue("messageAlert", camSecondsToMilliseconds(3.4));
 }
 
-function westInfestedReinforcements()
+function infestedReinforcements()
 {
-	// Stop if the infested factory was destroyed, or if the level is in it's ending phase
-	if (getObject("westInfestedFactory") === null || wavePhase)
+	// Stop if the level is in its ending phase
+	if (wavePhase)
 	{
 		removeTimer("westInfestedReinforcements");
 		return;
 	}
 
-	const droids = [cTempl.stinger, cTempl.inffiretruck, cTempl.infbuscan, cTempl.infbuggy, cTempl.infrbuggy, cTempl.infbloke];
-
-	preDamageInfestedGroup(camSendReinforcement(CAM_INFESTED, camMakePos("wHighwayEntry"), randomTemplates(droids), CAM_REINFORCE_GROUND, 
-		{order: CAM_ORDER_ATTACK, data: {targetPlayer: CAM_HUMAN_PLAYER}}
-	));
-}
-
-function northInfestedReinforcements()
-{
-	// Stop if the infested factory was destroyed, or if the level is in it's ending phase
-	if (getObject("northInfestedFactory") === null || wavePhase)
+	// If the player hasn't destroyed an objective/factory yet, only spawn a wave from 1 place at a time
+	randValue = undefined;
+	if (!southAADestroyed && !eastAADestroyed && !nwAADestroyed
+		&& getObject("westInfestedFactory") !== null && getObject("northInfestedFactory") !== null)
 	{
-		removeTimer("northInfestedReinforcements");
-		return;
+		// Generate a random value of 0 or 1
+		randValue = camRand(2);
 	}
 
-	const droids = [cTempl.stinger, cTempl.boomtick, cTempl.infminitruck, cTempl.inftrike, cTempl.infrbuggy, cTempl.inflance];
-
-	preDamageInfestedGroup(camSendReinforcement(CAM_INFESTED, camMakePos("nRoadEntry"), randomTemplates(droids), CAM_REINFORCE_GROUND, 
-		{order: CAM_ORDER_ATTACK, data: {targetPlayer: CAM_HUMAN_PLAYER}}
-	));
-}
-
-// Triggered when following the highway to the east
-camAreaEvent("boomTickTrigger", function(droid)
-{
-	// Trigger only if it's a player unit
-	if (droid.player === CAM_HUMAN_PLAYER)
+	if (getObject("westInfestedFactory") !== null && (!camDef(randValue) || randValue == 0))
 	{
-		// Send a small infested group against the player
-		const droids = [cTempl.vilestinger, cTempl.boomtick, cTempl.boomtick, cTempl.infciv, cTempl.infciv, cTempl.infciv, cTempl.infciv]; 
-
-		preDamageInfestedGroup(camSendReinforcement(CAM_INFESTED, camMakePos("eHighwayEntry"), droids, CAM_REINFORCE_GROUND, 
+		const westDroids = [cTempl.stinger, cTempl.infbuscan, cTempl.infbuggy, cTempl.infrbuggy, cTempl.infbloke];
+		preDamageInfestedGroup(camSendReinforcement(CAM_INFESTED, camMakePos("wHighwayEntry"), randomTemplates(westDroids), CAM_REINFORCE_GROUND, 
 			{order: CAM_ORDER_ATTACK, data: {targetPlayer: CAM_HUMAN_PLAYER}}
 		));
 	}
-	else
+	if (getObject("northInfestedFactory") !== null && (!camDef(randValue) || randValue == 1))
 	{
-		resetLabel("boomTickTrigger", CAM_HUMAN_PLAYER);
+		const northDroids = [cTempl.stinger, cTempl.boomtick, cTempl.infminitruck, cTempl.inftrike, cTempl.infrbuggy, cTempl.inflance];
+		preDamageInfestedGroup(camSendReinforcement(CAM_INFESTED, camMakePos("neRoadEntry"), randomTemplates(northDroids), CAM_REINFORCE_GROUND, 
+			{order: CAM_ORDER_ATTACK, data: {targetPlayer: CAM_HUMAN_PLAYER}}
+		));
 	}
-});
+}
 
 // Triggered when moving north along the road towards the scavenger bases
 camAreaEvent("scavAttackTrigger", function(droid)
@@ -207,7 +190,6 @@ camAreaEvent("scavAttackTrigger", function(droid)
 		// Enable the remaining scav factories
 		camEnableFactory("nwScavFactory1");
 		camEnableFactory("nwScavFactory2");
-		camEnableFactory("eastScavFactory");
 
 		// Start sending helicopters from the west
 		westHeliAttack();
@@ -317,7 +299,7 @@ function checkAA()
 	// Check the southern base
 	if (!southAADestroyed && enumArea("swScavBase", MIS_CYAN_SCAVS, false).filter(
 		function(object) {
-			return object.name === _("Cyclone AA Flak Site");
+			return object.name === _("Rusty Cyclone AA Flak Site");
 		}).length === 0)
 	{
 		southAADestroyed = true;
@@ -327,7 +309,7 @@ function checkAA()
 	// Check the eastern base
 	if (!eastAADestroyed && enumArea("eScavBase", MIS_CYAN_SCAVS, false).filter(
 		function(object) {
-			return object.name === _("Cyclone AA Flak Site");
+			return object.name === _("Rusty Cyclone AA Flak Site");
 		}).length === 0)
 	{
 		eastAADestroyed = true;
@@ -337,7 +319,7 @@ function checkAA()
 	// Check the northwest base
 	if (!nwAADestroyed && enumArea("nwScavFactoryBase", MIS_CYAN_SCAVS, false).filter(
 		function(object) {
-			return object.name === _("Cyclone AA Flak Site");
+			return object.name === _("Rusty Cyclone AA Flak Site");
 		}).length === 0)
 	{
 		nwAADestroyed = true;
@@ -407,9 +389,6 @@ function infestedEndWaves()
 		preDamageInfestedGroup(camSendReinforcement(CAM_INFESTED, camMakePos("nwRoadEntry"), randomTemplates(nwRoadDroids), CAM_REINFORCE_GROUND, 
 			{order: CAM_ORDER_ATTACK, data: {targetPlayer: CAM_HUMAN_PLAYER}}
 		));
-		preDamageInfestedGroup(camSendReinforcement(CAM_INFESTED, camMakePos("nRoadEntry"), randomTemplates(nRoadDroids), CAM_REINFORCE_GROUND, 
-			{order: CAM_ORDER_ATTACK, data: {targetPlayer: CAM_HUMAN_PLAYER}}
-		));
 	}
 	if (numWaves > 11)
 	{
@@ -420,7 +399,7 @@ function infestedEndWaves()
 			{order: CAM_ORDER_ATTACK, data: {targetPlayer: CAM_HUMAN_PLAYER}}
 		));
 	}
-	if (numWaves === 12)
+	if (numWaves === 16)
 	{
 		// Give the player an angry message about how slow they are
 		camPlayVideos({video: "L6_SCOLDMSG", type: MISS_MSG});
@@ -458,15 +437,14 @@ function randomTemplates(coreUnits)
 // Change the transport's entry position to be closer to the LZ (and away from the AA)
 function rerouteTransport()
 {
-	startTransporterEntry(68, 126, CAM_HUMAN_PLAYER);
+	startTransporterEntry(68, 110, CAM_HUMAN_PLAYER);
 }
 
 function eventStartLevel()
 {
 	const lz = getObject("LZ");
 	const tent = getObject("transporterEntry");
-	const text = camMakePos(68, 126);
-	const busPos = getObject("monsterBusPos");
+	const text = camMakePos(68, 110);
 
 	numWaves = 0;
 	wavePhase = false;
@@ -503,8 +481,8 @@ function eventStartLevel()
 	camCompleteRequiredResearch(mis_infestedRes, CAM_INFESTED);
 
 	camSetArtifacts({
-		"nwScavFactory2": { tech: "R-Wpn-Rocket02-MRL" }, // Mini-Rocket Array
-		"eastScavFactory": { tech: "R-Wpn-Rocket-Damage04" }, // HEAT Rocket Warhead
+		"eastScavFactory": { tech: "R-Wpn-Rocket02-MRL" }, // Mini-Rocket Array
+		"nwScavFactory2": { tech: "R-Wpn-Rocket-Damage04" }, // HEAT Rocket Warhead
 	});
 
 	// Set up bases
@@ -595,7 +573,7 @@ function eventStartLevel()
 			order: CAM_ORDER_ATTACK,
 			groupSize: 4,
 			maxSize: 8,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(30)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(35)),
 			data: {
 				morale: 50,
 				fallback: camMakePos("nwAssembly1"),
@@ -603,7 +581,7 @@ function eventStartLevel()
 				count: -1,
 				targetPlayer: CAM_HUMAN_PLAYER
 			},
-			templates: [cTempl.bloke, cTempl.monhmg, cTempl.buscan, cTempl.lance, cTempl.bloke, cTempl.monsar, cTempl.monmrl, cTempl.lance] // Heavy vehicles + infantry
+			templates: [cTempl.bloke, cTempl.monhmg, cTempl.moncan, cTempl.lance, cTempl.bloke, cTempl.monsar, cTempl.monmrl, cTempl.lance] // Heavy vehicles + infantry
 		},
 		"nwScavFactory2": {
 			assembly: "nwAssembly2",
@@ -641,9 +619,7 @@ function eventStartLevel()
 			groupSize: 1,
 			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(15)),
-			data: {
-				targetPlayer: CAM_HUMAN_PLAYER
-			},
+			// No target player here...
 			templates: [cTempl.inflance, cTempl.infminitruck, cTempl.infmoncan, cTempl.infbjeep, cTempl.infbloke, cTempl.infrbjeep, cTempl.infbloke] // Mixed units
 		},
 		"northInfestedFactory": {
@@ -673,10 +649,6 @@ function eventStartLevel()
 
 	// Enable the south west scav factory right away
 	camEnableFactory("southScavFactory");
-
-	// Spawn a scav Monster Bus tank near the southern scav base
-	addDroid(MIS_CYAN_SCAVS, busPos.x, busPos.y, "Battle Bus 2",
-		"MonsterBus", "tracked01", "", "", "RustCannon1Mk1");
 
 	// Set a timer for checking when the player is "ready" to return to LZ
 	setTimer("checkForLZReturn", camSecondsToMilliseconds(3));
