@@ -552,7 +552,7 @@ function eventStartLevel()
 		cTempl.bloke, cTempl.trike,
 		],
 		factories: ["yScavFactory1"]
-		}, CAM_ORDER_ATTACK, {
+		}, CAM_ORDER_PATROL, {
 		pos: [
 			camMakePos("scavPatrol1"),
 			camMakePos("scavPatrol2"),
@@ -564,7 +564,7 @@ function eventStartLevel()
 		cTempl.bjeep, cTempl.bloke, cTempl.bloke,
 		],
 		factories: ["cScavFactory"]
-		}, CAM_ORDER_ATTACK, {
+		}, CAM_ORDER_PATROL, {
 		pos: [
 			camMakePos("scavPatrol1"),
 			camMakePos("scavPatrol2"),
