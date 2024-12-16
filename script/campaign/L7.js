@@ -8,6 +8,7 @@ const MIS_TRANSPORT = 2; // Used for the transport that comes to pick them up
 var numWaves; // How many infested attack waves have occured
 var phase; // Spawning behaviour changes at 10 minutes remaining
 var killSweepY; // The height of the area where everything dies at the end of the level
+var endingBlast;
 
 // var detonateInfo;
 
@@ -217,7 +218,7 @@ function endEffects()
 	setTimer("killSweep", camSecondsToMilliseconds(0.3));
 
 	// Stop spawning new attacks waves
-	removeTimer("infestedAttackWaves");
+	endingBlast = true;
 	camSetVtolSpawnStateAll(false);
 
 	// Set the fog to it's default colours
@@ -331,6 +332,11 @@ function heliAttack()
 // Infested attack waves progression
 function infestedAttackWaves()
 {
+	if (endingBlast)
+	{
+		return; // Don't spawn more during the ending blast
+	}
+
 	numWaves++;
 
 	/*
@@ -588,6 +594,7 @@ function eventStartLevel()
 	numWaves = 0;
 	phase = 1;
 	killSweepY = 30;
+	endingBlast = false;
 
 	// Give player briefing about the incoming infested waves.
 	camPlayVideos({video: "L7_BRIEF", type: MISS_MSG});
