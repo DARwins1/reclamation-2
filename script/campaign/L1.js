@@ -550,23 +550,25 @@ function eventStartLevel()
 	yScavCentralPatrol = camMakeRefillableGroup(undefined, {templates: [
 		cTempl.trike, cTempl.bloke,
 		cTempl.bloke, cTempl.trike,
-		]}, CAM_ORDER_ATTACK, {
+		],
+		factories: ["yScavFactory1"]
+		}, CAM_ORDER_ATTACK, {
 		pos: [
 			camMakePos("scavPatrol1"),
 			camMakePos("scavPatrol2"),
-		],
-		factories = ["yScavFactory1"]
+		]
 	});
 
 	cScavCentralPatrol = camMakeRefillableGroup(undefined, {templates: [
 		cTempl.bjeep, cTempl.bloke, cTempl.bloke,
 		cTempl.bjeep, cTempl.bloke, cTempl.bloke,
-		]}, CAM_ORDER_ATTACK, {
+		],
+		factories: ["cScavFactory"]
+		}, CAM_ORDER_ATTACK, {
 		pos: [
 			camMakePos("scavPatrol1"),
 			camMakePos("scavPatrol2"),
-		],
-		factories = ["cScavFactory"]
+		]
 	});
 
 	// Place a beacon on the NASDA base
