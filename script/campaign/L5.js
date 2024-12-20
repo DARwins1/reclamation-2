@@ -17,7 +17,6 @@ const mis_infestedRes = [
 ];
 
 // Player values
-const MIS_AMBIENT = 1;
 const MIS_CYAN_SCAVS = 2;
 const MIS_YELLOW_SCAVS = 3;
 
@@ -444,10 +443,6 @@ function eventStartLevel()
 	});
 
 	// set up alliances
-	setAlliance(MIS_AMBIENT, CAM_HUMAN_PLAYER, true);
-	setAlliance(MIS_AMBIENT, MIS_CYAN_SCAVS, true);
-	setAlliance(MIS_AMBIENT, MIS_YELLOW_SCAVS, true);
-	setAlliance(MIS_AMBIENT, CAM_INFESTED, true);
 	setAlliance(MIS_CYAN_SCAVS, MIS_YELLOW_SCAVS, true); // The scavs are now friends :)
 
 	centreView(startpos.x, startpos.y);
@@ -459,15 +454,6 @@ function eventStartLevel()
 	camCompleteRequiredResearch(mis_scavRes, MIS_CYAN_SCAVS);
 	camCompleteRequiredResearch(mis_scavRes, MIS_YELLOW_SCAVS);
 	camCompleteRequiredResearch(mis_infestedRes, CAM_INFESTED);
-
-	if (playerData[0].colour != 8)
-	{
-		changePlayerColour(MIS_YELLOW_SCAVS, 8); // Set the yellow scavs back to yellow
-	}
-	else
-	{
-		changePlayerColour(MIS_YELLOW_SCAVS, 1); // Set as orange if the player is already yellow
-	}
 
 	camSetArtifacts({
 		"cScavFactory": { tech: "R-Wpn-MG3Mk1" }, // Heavy Machinegun

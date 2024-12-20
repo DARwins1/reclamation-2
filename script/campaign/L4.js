@@ -474,10 +474,6 @@ function eventStartLevel()
 	setAlliance(MIS_RESEARCH_FACILITY, MIS_CYAN_SCAVS, true);
 	setAlliance(MIS_RESEARCH_FACILITY, CAM_INFESTED, true);
 
-	setAlliance(MIS_AMBIENT, CAM_HUMAN_PLAYER, true);
-	setAlliance(MIS_AMBIENT, MIS_CYAN_SCAVS, true);
-	setAlliance(MIS_AMBIENT, CAM_INFESTED, true);
-
 	setAlliance(MIS_FAUX_INFESTED, CAM_HUMAN_PLAYER, true); // Don't compromise LZ or aggro transport
 
 	centreView(startpos.x, startpos.y);
@@ -490,7 +486,6 @@ function eventStartLevel()
 	camCompleteRequiredResearch(mis_infestedRes, CAM_INFESTED);
 
 	changePlayerColour(MIS_RESEARCH_FACILITY, 10); // Set the research facility to white
-	changePlayerColour(MIS_AMBIENT, 10);
 	if (playerData[0].colour != 9)
 	{
 		changePlayerColour(CAM_INFESTED, 9); // Set infested to purple

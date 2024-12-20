@@ -18,7 +18,6 @@ const mis_infestedRes = [
 ];
 
 // Player values
-const MIS_AMBIENT = 1;
 const MIS_CYAN_SCAVS = 2;
 
 // Keep track of how many waves have spawned for the second part of the level
@@ -471,11 +470,6 @@ function eventStartLevel()
 		retlz: true
 	});
 	camSetExtraObjectiveMessage(_("Destroy the AA emplacements"));
-
-	// set up alliances
-	setAlliance(MIS_AMBIENT, CAM_HUMAN_PLAYER, true);
-	setAlliance(MIS_AMBIENT, MIS_CYAN_SCAVS, true);
-	setAlliance(MIS_AMBIENT, CAM_INFESTED, true);
 
 	centreView(tent.x, tent.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
