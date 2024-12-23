@@ -1328,6 +1328,38 @@
         "weaponSlots": 1,
         "weight": 250
     },
+    "BoomTickBody": {
+        "armourHeat": 8,
+        "armourKinetic": 15,
+        "buildPoints": 205,
+        "buildPower": 50,
+        "class": "Cyborgs",
+        "droidType": "CYBORG_SUPER",
+        "hitpoints": 100,
+        "id": "BoomTickBody",
+        "model": "boomtickbody.pie",
+        "name": "Boom Tick Body",
+        "powerOutput": 500,
+        "size": "LIGHT",
+        "weaponSlots": 1,
+        "weight": 250
+    },
+    "BasherBody": {
+        "armourHeat": 8,
+        "armourKinetic": 15,
+        "buildPoints": 205,
+        "buildPower": 50,
+        "class": "Cyborgs",
+        "droidType": "CYBORG_SUPER",
+        "hitpoints": 100,
+        "id": "BasherBody",
+        "model": "basherbody.pie",
+        "name": "Basher Body",
+        "powerOutput": 500,
+        "size": "LIGHT",
+        "weaponSlots": 1,
+        "weight": 250
+    },
     "CyborgHeavyBody": {
         "armourHeat": 8,
         "armourKinetic": 15,

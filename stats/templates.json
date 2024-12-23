@@ -53,13 +53,24 @@
     },
     "BoomTick": {
         "available": true,
-        "body": "CrawlerBody",
+        "body": "BoomTickBody",
         "id": "BoomTick",
         "name": "Boom Tick Crawler",
         "propulsion": "BoomTickLegs",
         "type": "CYBORG_SUPER",
         "weapons": [
             "BoomTickSac"
+        ]
+    },
+    "Basher": {
+        "available": true,
+        "body": "BasherBody",
+        "id": "Basher",
+        "name": "Infested Basher",
+        "propulsion": "BoomTickLegs",
+        "type": "CYBORG_SUPER",
+        "weapons": [
+            "BasherMelee"
         ]
     },
     "BaBaCivilian": {

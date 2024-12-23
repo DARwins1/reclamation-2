@@ -500,7 +500,7 @@ function __camVictoryOffworld()
 			}
 		}
 	}
-	if (enumArea(lz, ENEMIES, false).length > 0)
+	if (enumArea(lz, ENEMIES, false).filter((obj) => (obj.type === STRUCTURE || (obj.type == DROID && !obj.isVTOL))).length > 0)
 	{
 		const __REMIND_COMPROMISED = 30; // every X seconds
 		//Protect against early access to reinforcements GUI if it shouldn't be available yet
