@@ -254,6 +254,9 @@ function camEnemyBaseEliminated_northTown()
 		{text: "CLAYDE: Take a look around the town, see if there's anything suspicious.", delay: 3, sound: CAM_RCLICK},
 	]);
 	queue("enableWarehouseDestruction", camSecondsToMilliseconds(18));
+
+	// Also call for replacements
+	sendTransport5();
 }
 
 function setStageOne()

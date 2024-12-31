@@ -1249,11 +1249,11 @@
         "buildPower": 50,
         "ecmID": "ZNULLECM",
         "height": 2,
-        "hitpoints": 500,
+        "hitpoints": 250,
         "id": "CivWarehouse2",
-        "name": "Warehouse",
+        "name": "Suspicious Warehouse",
         "sensorID": "ZNULLSENSOR",
-        "strength": "MEDIUM",
+        "strength": "SOFT",
         "structureModel": [
             "BLWARE2.pie"
         ],
