@@ -145,8 +145,14 @@ function cam_eventStartLevel()
 	__camExpLevel = 0;
 	__camQueuedDialogue = [];
 	__camLatestDialogueTime = 0;
+	__camSunStats = {};
 	camSetPropulsionTypeLimit(); //disable the propulsion changer by default
 	__camAiPowerReset(); //grant power to the AI
+	camSetFog(); // Set fog to it's default color
+	camSetSunPos(); // Set the sun to it's default position
+	camSetSunIntensity(); // Set the sun to it's default position
+	camSetWeather(CAM_WEATHER_DEFAULT);
+	camSetSkyType(CAM_SKY_DAY);
 	setTimer("__camSpawnVtols", camSecondsToMilliseconds(0.5));
 	setTimer("__camRetreatVtols", camSecondsToMilliseconds(0.9));
 	setTimer("__checkVtolSpawnObject", camSecondsToMilliseconds(5));
@@ -161,6 +167,7 @@ function cam_eventStartLevel()
 	queue("__camGrantSpecialResearch", camSecondsToMilliseconds(6));
 	queue("__camEnableGuideTopics", camSecondsToMilliseconds(0.1)); // delayed to handle when mission scripts add research
 	queue("__camResetPower", camSecondsToMilliseconds(1));
+	setTimer("__camWeatherCycle", camSecondsToMilliseconds(45));
 }
 
 function cam_eventDroidBuilt(droid, structure)
@@ -428,8 +435,16 @@ function cam_eventGameLoaded()
 	receiveAllEvents(true);
 	__camSaveLoading = true;
 
-	// Reset the fog colour to the correct value
-	setFogColour(__camFogR, __camFogG, __camFogB);
+	// Reset the fog, sun, and sky to the correct values
+	setFogColour(__camFogRGB.r, __camFogRGB.g, __camFogRGB.b);
+	camSetSunPos(__camSunStats.x, __camSunStats.y, __camSunStats.z);
+	setSunIntensity(
+		__camSunStats.ar, __camSunStats.ag, __camSunStats.ab,
+		__camSunStats.dr, __camSunStats.dg, __camSunStats.db,
+		__camSunStats.sr, __camSunStats.sg, __camSunStats.sb
+	);
+	camSetSkyType();
+	__camWeatherCycle();
 
 	if (__camWinLossCallback === CAM_VICTORY_TIMEOUT
 		&& enumDroid(CAM_HUMAN_PLAYER, DROID_SUPERTRANSPORTER).length === 0)

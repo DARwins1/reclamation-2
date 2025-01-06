@@ -859,6 +859,12 @@ function eventStartLevel()
 
 	// Change the fog colour to a dark purple
 	camSetFog(114, 73, 156);
+	// Set the sky to night
+	camSetSkyType(CAM_SKY_NIGHT);
+	// Darken and purple-ify the lighting somewhat
+	camSetSunIntensity(.4,.35,.4,.9,.9,.9,.9,.9,.9);
+	// Make it snow constantly
+	camSetWeather(CAM_WEATHER_SNOWSTORM);
 
 	// All Infested structures start out partially damaged
 	preDamageInfested();

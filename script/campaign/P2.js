@@ -1045,11 +1045,14 @@ function nukeMap()
 	// Make a big explosion south of the haven
 	fireWeaponAtLoc("LargeExplosion", 34, 62, CAM_HUMAN_PLAYER);
 
-	// Adjust the lighting
-	setSunPosition(0, -0.2, 0.3);
-	setSunIntensity(0.7, 0.5, 0.5, 1.4, 0.6, 0.6, 1.4, 0.6, 0.6);
+	// Make the world go red
+	camSetSunPos(0, -0.2, 0.3);
+	camSetSunIntensity(0.7, 0.5, 0.5, 1.4, 0.6, 0.6, 1.4, 0.6, 0.6);
 
-	// Set the fog to it's default colours
+	// Stop snowing
+	camSetWeather(CAM_WEATHER_CLEAR);
+
+	// Set the fog to its default colours
 	camSetFog(182, 225, 236);
 
 	// End-mission dialogue
@@ -1188,6 +1191,10 @@ function eventStartLevel()
 
 	// Change the fog colour to a light pink/purple
 	camSetFog(185, 182, 236);
+	// Increase the lighting, and give it a SLIGHT pink/purple hue
+	camSetSunIntensity(.6,.58,.6,1.2,1.15,1.2,1.2,1.15,1.2);
+	// Shift the sun towards
+	camSetSunPos(450.0, -400.0, 225.0);
 
 	// All Infested structures start out partially damaged
 	preDamageInfested(); // TODO: ARE there any structures???

@@ -313,13 +313,6 @@ var __camTracedOnce = {};
 //events
 var __camSaveLoading;
 
-//keep track of the colour of fog
-//these values are given values every level
-//this is hacky and stoopid
-var __camFogR;
-var __camFogG;
-var __camFogB;
-
 //group
 var __camNewGroupCounter;
 var __camNeverGroupDroids;
@@ -347,6 +340,38 @@ const __camTimerlessPowerLimits = [ // Timerless mode power limits
 var __camCalledOnce = {};
 var __camExpLevel;
 var __camLabelInfo;
+const __camArizonaFogRGB = {r:176, g:143, b:95}; // Default RGB for arizona fog. IDEALLY, these would be read from palette.txt
+const __camUrbanFogRGB = {r:16, g:16, b:64}; // Default RGB for urban fog.
+const __camRockyFogRGB = {r:182, g:225, b:236}; // Default RGB for rocky fog.
+var __camFogRGB;
+const __camDefaultSunStats = {
+	x: 225.0, 
+	y: -600.0, 
+	z: 450.0,
+	ar: 0.5,
+	ag: 0.5,
+	ab: 0.5,
+	dr: 1,
+	dg: 1,
+	db: 1,
+	sr: 1,
+	sg: 1,
+	sb: 1
+};
+var __camSunStats;
+const CAM_WEATHER_DEFAULT = 0; // Set weather based on tileset
+const CAM_WEATHER_CLEAR = 1; // No weather
+const CAM_WEATHER_RAIN = 2; // Intermittent rain
+const CAM_WEATHER_RAINSTORM = 3; // Constant rain
+const CAM_WEATHER_SNOW = 4; // Intermittent snow
+const CAM_WEATHER_SNOWSTORM = 5; // Constant snow
+var __camWeatherType;
+const CAM_SKY_DAY = 0;
+const CAM_SKY_NIGHT = 1;
+const __camArizonaSkyTexture = "texpages/page-25-sky-arizona.png";
+const __camUrbanSkyTexture = "texpages/page-25-sky-urban.png";
+const __camNightSkyTexture = "texpages/night-sky.png";
+var __camSkyboxType;
 
 //nexus
 var __camLastNexusAttack;

@@ -311,8 +311,8 @@ function eventStartLevel()
 	setLimits();
 	if (tilesetType === "URBAN" || tilesetType === "ROCKIES")
 	{
-		weatherCycle();
-		setTimer("weatherCycle", 45000);
+		// weatherCycle();
+		// setTimer("weatherCycle", 45000);
 	}
 }
 
