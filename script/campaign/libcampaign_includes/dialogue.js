@@ -4,19 +4,22 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
-//;; ## camQueueDialogue(text, delay[, sound])
+//;; ## camQueueDialogue(text, delay[, sound[, callback]])
 //;;
 //;; Queues up a dialogue, consisting of the text to be displayed, 
 //;; the delay (in seconds), and the sound file to be played (if any).
 //;; NOTE: Delay is amount of time to wait AFTER playing the previous dialogue,
 //;; NOT how long to wait after this function is called
+//;; If defined, callback is the name of a script function to call at the time of the dialogue.
+//;; Useful for syncing script events to specific dialogue texts.
 //;;
 //;; @param {string|Object|Object[]} text
 //;; @param {number} delay
 //;; @param {string} sound
+//;; @param {string} callback
 //;; @returns {void}
 //;;
-function camQueueDialogue(text, delay, sound)
+function camQueueDialogue(text, delay, sound, callback)
 {
 	if (text instanceof Array)
 	{
@@ -25,7 +28,8 @@ function camQueueDialogue(text, delay, sound)
 			const text = diaInfo.text;
 			const delay = camSecondsToMilliseconds(diaInfo.delay);
 			const sound = diaInfo.sound;
-			camQueueDialogue(text, delay, sound);
+			const callback = diaInfo.callback;
+			camQueueDialogue(text, delay, sound, callback);
 		}
 		return;
 	}
@@ -36,6 +40,7 @@ function camQueueDialogue(text, delay, sound)
 		sound = text.sound;
 		delay = text.delay;
 		text = text.text;
+		callback = text.callback;
 	}
 
 	// Keep track of when the last dialogue is scheduled to play
@@ -45,7 +50,19 @@ function camQueueDialogue(text, delay, sound)
 	}
 	__camLatestDialogueTime += delay;
 
-	__camQueuedDialogue.push({text: text, time: __camLatestDialogueTime, sound: sound})
+	__camQueuedDialogue.push({text: text, time: __camLatestDialogueTime, sound: sound, callback: callback})
+}
+
+//;; ## camInterruptDialogue()
+//;;
+//;; Stop all queued dialogue. Useful for preventing dialogue from interrupting events, 
+//;; or for starting new dialogue without waiting for old ones to finish.
+//;;
+//;; @returns {void}
+//;;
+function camInterruptDialogue()
+{
+	__camQueuedDialogue = [];
 }
 
 //;; ## camDialogueDone()
@@ -87,6 +104,12 @@ function __camPlayScheduledDialogues()
 				{
 					__camPlayDialogueSound(diaInfo.sound);
 				}
+			}
+
+			if (camDef(diaInfo.callback))
+			{
+				// If a callback function is defined, call it here
+				__camGlobalContext()[diaInfo.callback]();
 			}
 		}
 		else

@@ -156,12 +156,12 @@ camAreaEvent("safeZone", function(droid)
 			{text: "CHARLIE: We've detected some groups that have tried to make it here on foot.", delay: 3, sound: CAM_RCLICK},
 			{text: "CHARLIE: It seems like they've been pinned down in the hills north of us, sir.", delay: 3, sound: CAM_RCLICK},
 			{text: "CLAYDE: Commander Charlie, grant command of the base to Commander Bravo.", delay: 3, sound: CAM_RCLICK},
-			{text: "CHARLIE: Yes, sir!", delay: 3, sound: CAM_RCLICK},
+			{text: "CHARLIE: Yes, sir!", delay: 3, sound: CAM_RCLICK, callback: "donateBase"},
 		]);
 
 		hackRemoveMessage("SAFE_HAVEN", PROX_MSG, CAM_HUMAN_PLAYER);
 
-		queue("donateBase", camSecondsToMilliseconds(27));
+		// queue("donateBase", camSecondsToMilliseconds(27));
 	}
 	else
 	{
@@ -998,6 +998,7 @@ function checkHaven()
 		setScrollLimits(39, 42, 78, 63);
 
 		// Dialogue...
+		camInterruptDialogue(); // Stop any previous conversations
 		camQueueDialogue([
 			{text: "CHARLIE: General, team Bravo has returned to the haven.", delay: 2, sound: CAM_RCLICK},
 			{text: "CHARLIE: What are our-", delay: 3, sound: CAM_RCLICK},
