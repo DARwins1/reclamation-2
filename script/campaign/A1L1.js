@@ -702,7 +702,7 @@ function eventStartLevel()
 	queue("heliAttack", camChangeOnDiff(camMinutesToMilliseconds(16)));
 
 	// Constant rain
-	camSetWeather(CAM_WEATHER_RAINSTORM);
+	// camSetWeather(CAM_WEATHER_RAINSTORM);
 	camSetSkyType(CAM_SKY_NIGHT);
 	// Darken the fog to 1/4 default brightness
 	camSetFog(4, 4, 16);

@@ -680,6 +680,27 @@
         "type": "HQ",
         "width": 2
     },
+    "InfCommandCentre": {
+        "armour": 10,
+        "baseModel": "blbhq.pie",
+        "breadth": 2,
+        "buildPoints": 500,
+        "buildPower": 100,
+        "ecmID": "ZNULLECM",
+        "height": 3,
+        "hitpoints": 1000,
+        "id": "InfCommandCentre",
+        "name": "Infested Command Center",
+        "resistance": 300,
+        "sensorID": "CCSensor",
+        "strength": "HARD",
+        "structureModel": [
+            "blinfhqalt.pie"
+        ],
+        "thermal": 10,
+        "type": "HQ",
+        "width": 2
+    },
     "A0CommandCentreCO": {
         "armour": 10,
         "baseModel": "blbhq.pie",
@@ -696,6 +717,27 @@
         "strength": "HARD",
         "structureModel": [
             "blhq3.pie"
+        ],
+        "thermal": 10,
+        "type": "HQ",
+        "width": 2
+    },
+    "InfCommandCentreCO": {
+        "armour": 10,
+        "baseModel": "blbhq.pie",
+        "breadth": 2,
+        "buildPoints": 500,
+        "buildPower": 100,
+        "ecmID": "ZNULLECM",
+        "height": 3,
+        "hitpoints": 1000,
+        "id": "InfCommandCentreCO",
+        "name": "Infested Collective Command Center",
+        "resistance": 300,
+        "sensorID": "CCSensor",
+        "strength": "HARD",
+        "structureModel": [
+            "blinfhq3.pie"
         ],
         "thermal": 10,
         "type": "HQ",
@@ -766,6 +808,29 @@
         "type": "CYBORG FACTORY",
         "width": 1
     },
+    "InfCyborgFactory": {
+        "armour": 10,
+        "baseModel": "blbcfact.pie",
+        "breadth": 2,
+        "buildPoints": 500,
+        "buildPower": 100,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 1000,
+        "id": "InfCyborgFactory",
+        "name": "Infested Cyborg Factory",
+        "productionPoints": 10,
+        "moduleProductionPoints": 10,
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "blinfcfact1.pie"
+        ],
+        "thermal": 10,
+        "type": "CYBORG FACTORY",
+        "width": 1
+    },
     "A0FacMod1": {
         "armour": 10,
         "breadth": 3,
@@ -801,6 +866,25 @@
         "strength": "HARD",
         "structureModel": [
             "BLWALLC2.pie"
+        ],
+        "thermal": 15,
+        "type": "CORNER WALL",
+        "width": 1
+    },
+    "InfHardcreteMk1CWall": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 125,
+        "buildPower": 25,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 700,
+        "id": "InfHardcreteMk1CWall",
+        "name": "Infested Hardcrete Corner Wall",
+        "sensorID": "ZNULLSENSOR",
+        "strength": "HARD",
+        "structureModel": [
+            "BLINFWALLC2.pie"
         ],
         "thermal": 15,
         "type": "CORNER WALL",
@@ -843,6 +927,28 @@
             "BLWALLC2.pie",
             "BLWALLH_T_COL.pie",
             "BLWALLH_l_COL.pie"
+        ],
+        "thermal": 15,
+        "type": "WALL",
+        "width": 1
+    },
+    "InfHardcreteMk1Wall": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 125,
+        "buildPower": 25,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 700,
+        "id": "InfHardcreteMk1Wall",
+        "name": "Infested Hardcrete Wall",
+        "sensorID": "ZNULLSENSOR",
+        "strength": "HARD",
+        "structureModel": [
+            "BLINFWALL2.pie",
+            "BLINFWALLC2.pie",
+            "BLINFWALLH_T_COL.pie",
+            "BLINFWALLH_l_COL.pie"
         ],
         "thermal": 15,
         "type": "WALL",
@@ -913,6 +1019,33 @@
         "type": "FACTORY",
         "width": 3
     },
+    "InfLightFactory": {
+        "armour": 10,
+        "baseModel": "blbfact.pie",
+        "breadth": 3,
+        "buildPoints": 500,
+        "buildPower": 100,
+        "ecmID": "ZNULLECM",
+        "height": 3,
+        "hitpoints": 1000,
+        "id": "InfLightFactory",
+        "name": "Infested Factory",
+        "productionPoints": 10,
+        "moduleProductionPoints": 0,
+        "resistance": 150,
+        "sensorID": "BaBaSensor",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "blinffact0.pie",
+            "factory_module1.pie",
+            "blinffact1.pie",
+            "factory_module2.pie",
+            "blinffact2.pie"
+        ],
+        "thermal": 10,
+        "type": "FACTORY",
+        "width": 3
+    },
     "A0PowMod1": {
         "armour": 10,
         "breadth": 2,
@@ -952,6 +1085,31 @@
             "blpower0.pie",
             "power_module4.pie",
             "blpower4.pie"
+        ],
+        "thermal": 20,
+        "type": "POWER GENERATOR",
+        "width": 2
+    },
+    "InfA0PowerGenerator": {
+        "armour": 20,
+        "baseModel": "blbpower.pie",
+        "breadth": 2,
+        "buildPoints": 500,
+        "buildPower": 50,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 1000,
+        "id": "InfA0PowerGenerator",
+        "name": "Infested Power Generator",
+        "powerPoints": 55,
+        "modulePowerPoints": 28,
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "blinfpower0.pie",
+            "power_module4.pie",
+            "blinfpower4.pie"
         ],
         "thermal": 20,
         "type": "POWER GENERATOR",
@@ -999,6 +1157,31 @@
             "blresch0.pie",
             "research_module4.pie",
             "blresch4.pie"
+        ],
+        "thermal": 10,
+        "type": "RESEARCH",
+        "width": 2
+    },
+    "InfResearchFacility": {
+        "armour": 10,
+        "baseModel": "blbresch.pie",
+        "breadth": 2,
+        "buildPoints": 500,
+        "buildPower": 100,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 800,
+        "id": "InfResearchFacility",
+        "name": "Infested Research Facility",
+        "researchPoints": 14,
+        "moduleResearchPoints": 7,
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "blinfresch0.pie",
+            "research_module4.pie",
+            "blinfresch4.pie"
         ],
         "thermal": 10,
         "type": "RESEARCH",
@@ -1442,6 +1625,29 @@
         ],
         "width": 1
     },
+    "InfEmplacement-MRL-pit": {
+        "armour": 10,
+        "breadth": 1,
+        "buildPoints": 300,
+        "buildPower": 100,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 400,
+        "id": "InfEmplacement-MRL-pit",
+        "name": "Infested Mini-Rocket Battery",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "BLINFHARDPT.PIE"
+        ],
+        "thermal": 10,
+        "type": "DEFENSE",
+        "weapons": [
+            "Rocket-MRL"
+        ],
+        "width": 1
+    },
     "Emplacement-MRLHvy-pit": {
         "armour": 10,
         "breadth": 1,
@@ -1456,6 +1662,28 @@
         "strength": "MEDIUM",
         "structureModel": [
             "BLHARDPT.PIE"
+        ],
+        "thermal": 10,
+        "type": "DEFENSE",
+        "weapons": [
+            "Rocket-MRL-Hvy"
+        ],
+        "width": 1
+    },
+    "InfEmplacement-MRLHvy-pit": {
+        "armour": 10,
+        "breadth": 1,
+        "buildPoints": 300,
+        "buildPower": 135,
+        "height": 1,
+        "hitpoints": 400,
+        "id": "InfEmplacement-MRLHvy-pit",
+        "name": "Infested Heavy Rocket Battery",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "BLINFHARDPT.PIE"
         ],
         "thermal": 10,
         "type": "DEFENSE",
@@ -1763,6 +1991,29 @@
         ],
         "width": 1
     },
+    "InfGuardTower-Rail1": {
+        "armour": 10,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 275,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 600,
+        "id": "InfGuardTower-Rail1",
+        "name": "Infested Needle Gun Tower",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLINFGUARDN.pie"
+        ],
+        "thermal": 10,
+        "type": "DEFENSE",
+        "weapons": [
+            "RailGun1Mk1"
+        ],
+        "width": 1
+    },
     "GuardTower-RotMg": {
         "armour": 20,
         "breadth": 1,
@@ -1786,6 +2037,29 @@
         ],
         "width": 1
     },
+    "InfGuardTower-RotMg": {
+        "armour": 20,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 150,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 600,
+        "id": "InfGuardTower-RotMg",
+        "name": "Infested Assault Gun Tower",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLINFGUARDN.pie"
+        ],
+        "thermal": 20,
+        "type": "DEFENSE",
+        "weapons": [
+            "MG4ROTARYMk1"
+        ],
+        "width": 1
+    },
     "GuardTower1": {
         "armour": 10,
         "breadth": 1,
@@ -1801,6 +2075,29 @@
         "strength": "MEDIUM",
         "structureModel": [
             "BLGUARDM.PIE"
+        ],
+        "thermal": 10,
+        "type": "DEFENSE",
+        "weapons": [
+            "MG3Mk1"
+        ],
+        "width": 1
+    },
+    "InfGuardTower1": {
+        "armour": 10,
+        "breadth": 1,
+        "buildPoints": 250,
+        "buildPower": 80,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 450,
+        "id": "InfGuardTower1",
+        "name": "Infested Heavy Machinegun Guard Tower",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "BLINFGUARDM.PIE"
         ],
         "thermal": 10,
         "type": "DEFENSE",
@@ -1847,6 +2144,29 @@
         "strength": "HARD",
         "structureModel": [
             "BLGUARDN.pie"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "MG3Mk1"
+        ],
+        "width": 1
+    },
+    "InfGuardTower3": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 100,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 600,
+        "id": "InfGuardTower3",
+        "name": "Infested Heavy Machinegun Tower",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLINFGUARDN.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -1924,6 +2244,29 @@
         ],
         "width": 1
     },
+    "InfGuardTower5": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 350,
+        "buildPower": 150,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 600,
+        "id": "InfGuardTower5",
+        "name": "Infested Lancer Tower",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLINFGUARDN.pie"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "Rocket-LtA-T"
+        ],
+        "width": 1
+    },
     "GuardTower6": {
         "armour": 10,
         "breadth": 1,
@@ -1947,6 +2290,29 @@
         ],
         "width": 1
     },
+    "InfGuardTower6": {
+        "armour": 10,
+        "breadth": 1,
+        "buildPoints": 250,
+        "buildPower": 80,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 450,
+        "id": "InfGuardTower6",
+        "name": "Infested Mini-Rocket Guard Tower",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "BLINFGUARDM.pie"
+        ],
+        "thermal": 10,
+        "type": "DEFENSE",
+        "weapons": [
+            "Rocket-Pod"
+        ],
+        "width": 1
+    },
     "GuardTower6H": {
         "armour": 15,
         "breadth": 1,
@@ -1962,6 +2328,29 @@
         "strength": "HARD",
         "structureModel": [
             "BLGUARDN.pie"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "Rocket-Pod"
+        ],
+        "width": 1
+    },
+    "InfGuardTower6H": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 350,
+        "buildPower": 125,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 600,
+        "id": "InfGuardTower6H",
+        "name": "Infested Mini-Rocket Tower",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLINFGUARDN.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -2383,6 +2772,29 @@
         ],
         "width": 1
     },
+    "InfPillBox1": {
+        "armour": 20,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 100,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 700,
+        "id": "InfPillBox1",
+        "name": "Infested Heavy Machinegun Bunker",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "BUNKER",
+        "structureModel": [
+            "blinfpilbox_col.pie"
+        ],
+        "thermal": 20,
+        "type": "DEFENSE",
+        "weapons": [
+            "MG3-Pillbox"
+        ],
+        "width": 1
+    },
     "OldPillBox1": {
         "armour": 20,
         "breadth": 1,
@@ -2475,6 +2887,29 @@
         ],
         "width": 1
     },
+    "InfPillBox4": {
+        "armour": 20,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 125,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 700,
+        "id": "InfPillBox4",
+        "name": "Infested Light Cannon Bunker",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "BUNKER",
+        "structureModel": [
+            "Blinfcanpil_col.pie"
+        ],
+        "thermal": 20,
+        "type": "DEFENSE",
+        "weapons": [
+            "Cannon1Mk1"
+        ],
+        "width": 1
+    },
     "PillBox5": {
         "armour": 20,
         "breadth": 1,
@@ -2490,6 +2925,29 @@
         "strength": "BUNKER",
         "structureModel": [
             "Blcanpil_col.pie"
+        ],
+        "thermal": 20,
+        "type": "DEFENSE",
+        "weapons": [
+            "Flame1Mk1"
+        ],
+        "width": 1
+    },
+    "InfPillBox5": {
+        "armour": 20,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 100,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 700,
+        "id": "InfPillBox5",
+        "name": "Infested Flamer Bunker",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "BUNKER",
+        "structureModel": [
+            "Blinfcanpil_col.pie"
         ],
         "thermal": 20,
         "type": "DEFENSE",
@@ -2521,6 +2979,29 @@
         ],
         "width": 1
     },
+    "InfPillBox6": {
+        "armour": 20,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 150,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 700,
+        "id": "InfPillBox6",
+        "name": "Infested Lancer Bunker",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "BUNKER",
+        "structureModel": [
+            "Blinfcanpil_col.pie"
+        ],
+        "thermal": 20,
+        "type": "DEFENSE",
+        "weapons": [
+            "Rocket-LtA-T"
+        ],
+        "width": 1
+    },
     "PillBoxHPC": {
         "armour": 20,
         "breadth": 1,
@@ -2544,6 +3025,29 @@
         ],
         "width": 1
     },
+    "InfPillBoxHPC": {
+        "armour": 20,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 175,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 700,
+        "id": "InfPillBoxHPC",
+        "name": "Infested Hyper Velocity Cannon Bunker",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "BUNKER",
+        "structureModel": [
+            "Blinfcanpil_col.pie"
+        ],
+        "thermal": 20,
+        "type": "DEFENSE",
+        "weapons": [
+            "Cannon4AUTOMk1"
+        ],
+        "width": 1
+    },
     "PillBoxTK": {
         "armour": 20,
         "breadth": 1,
@@ -2559,6 +3063,29 @@
         "strength": "BUNKER",
         "structureModel": [
             "Blcanpil_col.pie"
+        ],
+        "thermal": 20,
+        "type": "DEFENSE",
+        "weapons": [
+            "Rocket-HvyA-T"
+        ],
+        "width": 1
+    },
+    "InfPillBoxTK": {
+        "armour": 20,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 225,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 700,
+        "id": "InfPillBoxTK",
+        "name": "Infested Tank Killer Bunker",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "BUNKER",
+        "structureModel": [
+            "Blinfcanpil_col.pie"
         ],
         "thermal": 20,
         "type": "DEFENSE",
@@ -2605,6 +3132,29 @@
         "strength": "BUNKER",
         "structureModel": [
             "blpilbox_col.pie"
+        ],
+        "thermal": 20,
+        "type": "DEFENSE",
+        "weapons": [
+            "MG4ROTARY-Pillbox"
+        ],
+        "width": 1
+    },
+    "InfPillbox-RotMG": {
+        "armour": 20,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 150,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 700,
+        "id": "InfPillbox-RotMG",
+        "name": "Infested Rotary MG Bunker",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "BUNKER",
+        "structureModel": [
+            "blinfpilbox_col.pie"
         ],
         "thermal": 20,
         "type": "DEFENSE",
@@ -2917,6 +3467,29 @@
         ],
         "width": 1
     },
+    "InfTower-Projector": {
+        "armour": 20,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 125,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 700,
+        "id": "InfTower-Projector",
+        "name": "Infested Inferno Bunker",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "BUNKER",
+        "structureModel": [
+            "Blinfcanpil_col.PIE"
+        ],
+        "thermal": 20,
+        "type": "DEFENSE",
+        "weapons": [
+            "Flame2"
+        ],
+        "width": 1
+    },
     "Tower-RotMg": {
         "armour": 20,
         "breadth": 1,
@@ -3006,6 +3579,30 @@
         ],
         "width": 1
     },
+    "InfWall-RotMg": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 150,
+        "combinesWithWall": true,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 800,
+        "id": "InfWall-RotMg",
+        "name": "Infested Assault Gun Hardpoint",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLINFGUARD2.pie"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "MG4ROTARYMk1"
+        ],
+        "width": 1
+    },
     "Wall-VulcanCan": {
         "armour": 15,
         "breadth": 1,
@@ -3022,6 +3619,30 @@
         "strength": "HARD",
         "structureModel": [
             "BLGUARD2.pie"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "Cannon5VulcanMk1"
+        ],
+        "width": 1
+    },
+    "InfWall-VulcanCan": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 250,
+        "combinesWithWall": true,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 800,
+        "id": "InfWall-VulcanCan",
+        "name": "Infested Assault Cannon Hardpoint",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLINFGUARD2.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -3078,6 +3699,30 @@
         ],
         "width": 1
     },
+    "InfWallTower-HPVcannon": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 225,
+        "combinesWithWall": true,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 800,
+        "id": "InfWallTower-HPVcannon",
+        "name": "Hyper Velocity Cannon Hardpoint",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLINFGUARD2.pie"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "Cannon4AUTOMk1"
+        ],
+        "width": 1
+    },
     "WallTower-HvATrocket": {
         "armour": 15,
         "breadth": 1,
@@ -3102,6 +3747,30 @@
         ],
         "width": 1
     },
+    "InfWallTower-HvATrocket": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 275,
+        "combinesWithWall": true,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 800,
+        "id": "InfWallTower-HvATrocket",
+        "name": "Infested Tank Killer Hardpoint",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLINFGUARD2.pie"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "Rocket-HvyA-T"
+        ],
+        "width": 1
+    },
     "WallTower-Projector": {
         "armour": 15,
         "breadth": 1,
@@ -3117,6 +3786,29 @@
         "strength": "MEDIUM",
         "structureModel": [
             "BLHARDPT.PIE"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "Flame2"
+        ],
+        "width": 1
+    },
+    "InfWallTower-Projector": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 300,
+        "buildPower": 150,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 400,
+        "id": "InfWallTower-Projector",
+        "name": "Infested Inferno Emplacement",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "BLINFHARDPT.PIE"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -3221,6 +3913,30 @@
         ],
         "width": 1
     },
+    "InfWallTower01": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 100,
+        "combinesWithWall": true,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 800,
+        "id": "InfWallTower01",
+        "name": "Infested Heavy Machinegun Hardpoint",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLINFGUARD2.pie"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "MG3Mk1"
+        ],
+        "width": 1
+    },
     "WallTower02": {
         "armour": 15,
         "breadth": 1,
@@ -3245,6 +3961,30 @@
         ],
         "width": 1
     },
+    "InfWallTower02": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 125,
+        "combinesWithWall": true,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 800,
+        "id": "InfWallTower02",
+        "name": "Infested Light Cannon Hardpoint",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLINFGUARD2.pie"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "Cannon1Mk1"
+        ],
+        "width": 1
+    },
     "WallTower03": {
         "armour": 15,
         "breadth": 1,
@@ -3261,6 +4001,30 @@
         "strength": "HARD",
         "structureModel": [
             "BLGUARD2.pie"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "Cannon2A-TMk1"
+        ],
+        "width": 1
+    },
+    "InfWallTower03": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 200,
+        "combinesWithWall": true,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 800,
+        "id": "InfWallTower03",
+        "name": "Infested Medium Cannon Hardpoint",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLINFGUARD2.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -3317,6 +4081,30 @@
         ],
         "width": 1
     },
+    "InfWallTower04": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 250,
+        "combinesWithWall": true,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 800,
+        "id": "InfWallTower04",
+        "name": "Infested Heavy Cannon Hardpoint",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLINFGUARD2.pie"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "Cannon375mmMk1"
+        ],
+        "width": 1
+    },
     "WallTower05": {
         "armour": 15,
         "breadth": 1,
@@ -3357,6 +4145,30 @@
         "strength": "HARD",
         "structureModel": [
             "BLGUARD2.pie"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "Rocket-LtA-T"
+        ],
+        "width": 1
+    },
+    "InfWallTower06": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 175,
+        "combinesWithWall": true,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 800,
+        "id": "InfWallTower06",
+        "name": "Infested Lancer Hardpoint",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLINFGUARD2.pie"
         ],
         "thermal": 15,
         "type": "DEFENSE",
@@ -3407,6 +4219,29 @@
         ],
         "width": 1
     },
+    "InfFlamer-Emplacement": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 225,
+        "buildPower": 80,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 400,
+        "id": "InfFlamer-Emplacement",
+        "name": "Infested Flamer Emplacement",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "Blinfhowmnt.PIE"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "Flame1Mk1"
+        ],
+        "width": 1
+    },
     "Cannon-Emplacement": {
         "armour": 15,
         "breadth": 1,
@@ -3430,6 +4265,29 @@
         ],
         "width": 1
     },
+    "InfCannon-Emplacement": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 225,
+        "buildPower": 80,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 400,
+        "id": "InfCannon-Emplacement",
+        "name": "Infested Light Cannon Emplacement",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "Blinfhowmnt.PIE"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "Cannon1Mk1"
+        ],
+        "width": 1
+    },
     "Sarissa-Tower": {
         "armour": 10,
         "breadth": 1,
@@ -3445,6 +4303,29 @@
         "strength": "MEDIUM",
         "structureModel": [
             "BLGUARDM.pie"
+        ],
+        "thermal": 10,
+        "type": "DEFENSE",
+        "weapons": [
+            "Rocket-LtA-TMk1"
+        ],
+        "width": 1
+    },
+    "InfSarissa-Tower": {
+        "armour": 10,
+        "breadth": 1,
+        "buildPoints": 250,
+        "buildPower": 80,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 450,
+        "id": "InfSarissa-Tower",
+        "name": "Infested Sarissa Guard Tower",
+        "resistance": 150,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "BLINFGUARDM.pie"
         ],
         "thermal": 10,
         "type": "DEFENSE",
