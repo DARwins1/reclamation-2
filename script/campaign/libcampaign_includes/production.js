@@ -349,7 +349,7 @@ function camUpgradeOnMapStructures(struct1, struct2, playerId, excluded)
 	}
 }
 
-//;; ## camSetPreDamageModifier(playerId, droidRange, structRange, excludedTemplates)
+//;; ## camSetPreDamageModifier(playerId, droidRange[, structRange[, excludedTemplates]])
 //;;
 //;; Damages all units and structures belonging to the given player to the given HP ranges.
 //;; Applies this modifier to all units and structures currently on the map, as well as any units
@@ -367,7 +367,7 @@ function camSetPreDamageModifier(playerId, droidRange, structRange, excludedTemp
 {
 	__camPreDamageModifier[playerId] = {
 		droidRange: droidRange,
-		structRange: structRange,
+		structRange: (camDef(structRange)) ? structRange : droidRange,
 		excludedTemplates: excludedTemplates
 	};
 

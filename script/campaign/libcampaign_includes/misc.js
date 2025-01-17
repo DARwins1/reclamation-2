@@ -1281,6 +1281,34 @@ function camAreaSecure(area, player)
 	).length === 0;
 }
 
+//;; ## camRandInfTemplates(coreTemplates, coreSize, fodderSize)
+//;; Returns a list of templates created by randomly choosing a number of core templates and adding Infested Civilians.
+//;;
+//;; @param {Object[]} coreTemplates
+//;; @param {number} coreSize
+//;; @param {number} fodderSize
+//;; @returns {Object[]}
+//;;
+function camRandInfTemplates(coreTemplates, coreSize, fodderSize)
+{
+	const droids = [];
+
+	// Add core templates
+	for (let i = 0; i < coreSize; ++i)
+	{
+		droids.push(coreTemplates[camRand(coreTemplates.length)]);
+	}
+
+	// Add Infested Civilians.
+	const infCiv = [cTempl.infciv, cTempl.infciv2]
+	for (let i = 0; i < fodderSize; ++i)
+	{
+		droids.push(infCiv[camRand(2)]);
+	}
+
+	return droids;
+}
+
 //////////// privates
 
 function __camGlobalContext()

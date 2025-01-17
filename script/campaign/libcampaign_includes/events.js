@@ -223,7 +223,10 @@ function cam_eventDroidBuilt(droid, structure)
 	}
 	camSetDroidExperience(droid);
 	__camPreDamageDroid(droid);
-	__camAddDroidToFactoryGroup(droid, structure);
+	if (droid.player !== CAM_INFESTED)
+	{
+		__camAddDroidToFactoryGroup(droid, structure);
+	}
 }
 
 function cam_eventStructureBuilt(struct, droid)

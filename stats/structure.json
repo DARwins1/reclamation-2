@@ -193,7 +193,7 @@
             "infBLBRBGEN.PIE"
         ],
         "thermal": 5,
-        "type": "POWER GENERATOR",
+        "type": "GENERIC",
         "width": 1
     },
     "InfRocketPit": {

@@ -74,6 +74,9 @@ function camNextLevel(nextLevel)
 //;; * `showArtifacts` Whether to show artifacts in the victory info. Optional.
 //;;   * `false` means the player will not see any artifact info victory condition text,
 //;;   * `true` means the player will see how many artifacts are left to collect in the victory info text (default),
+//;; * `ignoreInfestedUnits` Whether the mission should count Infested units for victory. Optional.
+//;;   * `false` means that all units belonging to all enemy players must be destroyed for annihilation victory (default),
+//;;   * `true` means that units belonging to CAM_INFESTED will be ignored and don't need to be destroyed for victory purposes,
 //;; For offworld victory, some more extra data parameters can be defined:
 //;; * `area` The landing zone to return to.
 //;; * `message` The "Return to LZ" message ID. Optional.
@@ -621,6 +624,12 @@ function __camShowVictoryConditions()
 					++structuresOnMap;
 				}
 			});
+
+			if (camDef(ignoreInfestedUnits) && ignoreInfestedUnits)
+			{
+				// If we're to ignore Infested units, remove them from the unit count
+				unitsOnMap -= countDroid(DROID_ANY, CAM_INFESTED);
+			}
 
 			if (unitsOnMap > 0)
 			{

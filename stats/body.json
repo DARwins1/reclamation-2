@@ -637,6 +637,72 @@
         "weaponSlots": 1,
         "weight": 2700
     },
+    "InfBody11ABT": {
+        "armourHeat": 9,
+        "armourKinetic": 20,
+        "buildPoints": 350,
+        "buildPower": 60,
+        "class": "Droids",
+        "designable": 1,
+        "hitpoints": 200,
+        "id": "InfBody11ABT",
+        "model": "infhbod11.pie",
+        "name": "Infested Python",
+        "powerOutput": 20000,
+        "propulsionExtraModels": {
+            "HalfTrack": {
+                "left": "infprhhtr3.pie"
+            },
+            "HalfTrack02": {
+                "left": "infprhhtr3.pie"
+            },
+            "HalfTrack03": {
+                "left": "infprhhtr3.pie"
+            },
+            "V-Tol": {
+                "left": "prhvtl3.pie",
+                "moving": "fxvtl11.pie"
+            },
+            "V-Tol02": {
+                "left": "prhvtl3.pie",
+                "moving": "fxvtl11.pie"
+            },
+            "V-Tol03": {
+                "left": "prhvtl3.pie",
+                "moving": "fxvtl11.pie"
+            },
+            "hover01": {
+                "left": "infprhhov1.pie"
+            },
+            "hover02": {
+                "left": "infprhhov1.pie"
+            },
+            "hover03": {
+                "left": "infprhhov1.pie"
+            },
+            "tracked01": {
+                "left": "infprhtrk3.pie"
+            },
+            "tracked02": {
+                "left": "infprhtrk3.pie"
+            },
+            "tracked03": {
+                "left": "infprhtrk3.pie"
+            },
+            "wheeled01": {
+                "left": "infprhwhl1.pie"
+            },
+            "wheeled02": {
+                "left": "infprhwhl1.pie"
+            },
+            "wheeled03": {
+                "left": "infprhwhl1.pie"
+            }
+        },
+        "size": "HEAVY",
+        "weaponSlots": 1,
+        "weight": 2700
+    },
     "Body12SUP": {
         "armourHeat": 18,
         "armourKinetic": 18,
@@ -769,6 +835,72 @@
         "weaponSlots": 1,
         "weight": 600
     },
+    "InfBody1REC": {
+        "armourHeat": 4,
+        "armourKinetic": 10,
+        "buildPoints": 115,
+        "buildPower": 30,
+        "class": "Droids",
+        "designable": 1,
+        "hitpoints": 65,
+        "id": "InfBody1REC",
+        "model": "inflbod01.pie",
+        "name": "Infested Viper",
+        "powerOutput": 5000,
+        "propulsionExtraModels": {
+            "HalfTrack": {
+                "left": "infprlhtr1.pie"
+            },
+            "HalfTrack02": {
+                "left": "infprlhtr1.pie"
+            },
+            "HalfTrack03": {
+                "left": "infprlhtr1.pie"
+            },
+            "V-Tol": {
+                "left": "prlvtl1.pie",
+                "moving": "fxvtl01.pie"
+            },
+            "V-Tol02": {
+                "left": "prlvtl1.pie",
+                "moving": "fxvtl01.pie"
+            },
+            "V-Tol03": {
+                "left": "prlvtl1.pie",
+                "moving": "fxvtl01.pie"
+            },
+            "hover01": {
+                "left": "infprlhov1.pie"
+            },
+            "hover02": {
+                "left": "infprlhov1.pie"
+            },
+            "hover03": {
+                "left": "infprlhov1.pie"
+            },
+            "tracked01": {
+                "left": "infprltrk1.pie"
+            },
+            "tracked02": {
+                "left": "infprltrk1.pie"
+            },
+            "tracked03": {
+                "left": "infprltrk1.pie"
+            },
+            "wheeled01": {
+                "left": "infprlwhl1.pie"
+            },
+            "wheeled02": {
+                "left": "infprlwhl1.pie"
+            },
+            "wheeled03": {
+                "left": "infprlwhl1.pie"
+            }
+        },
+        "size": "LIGHT",
+        "weaponSlots": 1,
+        "weight": 600
+    },
     "Body2SUP": {
         "armourHeat": 6,
         "armourKinetic": 12,
@@ -829,6 +961,72 @@
             },
             "wheeled03": {
                 "left": "prlwhl1.pie"
+            }
+        },
+        "size": "LIGHT",
+        "weaponSlots": 1,
+        "weight": 750
+    },
+    "InfBody2SUP": {
+        "armourHeat": 6,
+        "armourKinetic": 12,
+        "buildPoints": 152,
+        "buildPower": 41,
+        "class": "Droids",
+        "designable": 1,
+        "hitpoints": 107,
+        "id": "InfBody2SUP",
+        "model": "inflbod02.pie",
+        "name": "Infested Leopard",
+        "powerOutput": 4000,
+        "propulsionExtraModels": {
+            "HalfTrack": {
+                "left": "infprlhtr1.pie"
+            },
+            "HalfTrack02": {
+                "left": "infprlhtr1.pie"
+            },
+            "HalfTrack03": {
+                "left": "infprlhtr1.pie"
+            },
+            "V-Tol": {
+                "left": "prlvtl2.pie",
+                "moving": "fxvtl2and3.pie"
+            },
+            "V-Tol02": {
+                "left": "prlvtl2.pie",
+                "moving": "fxvtl2and3.pie"
+            },
+            "V-Tol03": {
+                "left": "prlvtl2.pie",
+                "moving": "fxvtl2and3.pie"
+            },
+            "hover01": {
+                "left": "infprlhov1.pie"
+            },
+            "hover02": {
+                "left": "infprlhov1.pie"
+            },
+            "hover03": {
+                "left": "infprlhov1.pie"
+            },
+            "tracked01": {
+                "left": "infprltrk1.pie"
+            },
+            "tracked02": {
+                "left": "infprltrk1.pie"
+            },
+            "tracked03": {
+                "left": "infprltrk1.pie"
+            },
+            "wheeled01": {
+                "left": "infprlwhl1.pie"
+            },
+            "wheeled02": {
+                "left": "infprlwhl1.pie"
+            },
+            "wheeled03": {
+                "left": "infprlwhl1.pie"
             }
         },
         "size": "LIGHT",
@@ -1033,6 +1231,72 @@
         "weaponSlots": 1,
         "weight": 2000
     },
+    "InfBody5REC": {
+        "armourHeat": 6,
+        "armourKinetic": 15,
+        "buildPoints": 205,
+        "buildPower": 46,
+        "class": "Droids",
+        "designable": 1,
+        "hitpoints": 130,
+        "id": "InfBody5REC",
+        "model": "infmbod05.pie",
+        "name": "Infested Cobra",
+        "powerOutput": 15000,
+        "propulsionExtraModels": {
+            "HalfTrack": {
+                "left": "infprmhtr2.pie"
+            },
+            "HalfTrack02": {
+                "left": "infprmhtr2.pie"
+            },
+            "HalfTrack03": {
+                "left": "infprmhtr2.pie"
+            },
+            "V-Tol": {
+                "left": "prmvtl1.pie",
+                "moving": "fxvtl5to8.pie"
+            },
+            "V-Tol02": {
+                "left": "prmvtl1.pie",
+                "moving": "fxvtl5to8.pie"
+            },
+            "V-Tol03": {
+                "left": "prmvtl1.pie",
+                "moving": "fxvtl5to8.pie"
+            },
+            "hover01": {
+                "left": "infprmhov1.pie"
+            },
+            "hover02": {
+                "left": "infprmhov1.pie"
+            },
+            "hover03": {
+                "left": "infprmhov1.pie"
+            },
+            "tracked01": {
+                "left": "infprmtrk2.pie"
+            },
+            "tracked02": {
+                "left": "infprmtrk2.pie"
+            },
+            "tracked03": {
+                "left": "infprmtrk2.pie"
+            },
+            "wheeled01": {
+                "left": "infprmwhl1.pie"
+            },
+            "wheeled02": {
+                "left": "infprmwhl1.pie"
+            },
+            "wheeled03": {
+                "left": "infprmwhl1.pie"
+            }
+        },
+        "size": "MEDIUM",
+        "weaponSlots": 1,
+        "weight": 2000
+    },
     "Body6SUPP": {
         "armourHeat": 9,
         "armourKinetic": 18,
@@ -1093,6 +1357,72 @@
             },
             "wheeled03": {
                 "left": "prmwhl1.pie"
+            }
+        },
+        "size": "MEDIUM",
+        "weaponSlots": 1,
+        "weight": 2500
+    },
+    "InfBody6SUPP": {
+        "armourHeat": 9,
+        "armourKinetic": 18,
+        "buildPoints": 254,
+        "buildPower": 57,
+        "class": "Droids",
+        "designable": 1,
+        "hitpoints": 193,
+        "id": "InfBody6SUPP",
+        "model": "infmbod06.pie",
+        "name": "Infested Panther",
+        "powerOutput": 13000,
+        "propulsionExtraModels": {
+            "HalfTrack": {
+                "left": "infprmhtr2.pie"
+            },
+            "HalfTrack02": {
+                "left": "infprmhtr2.pie"
+            },
+            "HalfTrack03": {
+                "left": "infprmhtr2.pie"
+            },
+            "V-Tol": {
+                "left": "prmvtl1.pie",
+                "moving": "fxvtl5to8.pie"
+            },
+            "V-Tol02": {
+                "left": "prmvtl1.pie",
+                "moving": "fxvtl5to8.pie"
+            },
+            "V-Tol03": {
+                "left": "prmvtl1.pie",
+                "moving": "fxvtl5to8.pie"
+            },
+            "hover01": {
+                "left": "infprmhov1.pie"
+            },
+            "hover02": {
+                "left": "infprmhov1.pie"
+            },
+            "hover03": {
+                "left": "infprmhov1.pie"
+            },
+            "tracked01": {
+                "left": "infprmtrk2.pie"
+            },
+            "tracked02": {
+                "left": "infprmtrk2.pie"
+            },
+            "tracked03": {
+                "left": "infprmtrk2.pie"
+            },
+            "wheeled01": {
+                "left": "infprmwhl1.pie"
+            },
+            "wheeled02": {
+                "left": "infprmwhl1.pie"
+            },
+            "wheeled03": {
+                "left": "infprmwhl1.pie"
             }
         },
         "size": "MEDIUM",
@@ -1291,6 +1621,72 @@
             },
             "wheeled03": {
                 "left": "prhwhl1.pie"
+            }
+        },
+        "size": "HEAVY",
+        "weaponSlots": 1,
+        "weight": 3300
+    },
+    "InfBody9REC": {
+        "armourHeat": 15,
+        "armourKinetic": 22,
+        "buildPoints": 420,
+        "buildPower": 71,
+        "class": "Droids",
+        "designable": 1,
+        "hitpoints": 284,
+        "id": "InfBody9REC",
+        "model": "infhbod09.pie",
+        "name": "Infested Tiger",
+        "powerOutput": 18000,
+        "propulsionExtraModels": {
+            "HalfTrack": {
+                "left": "infprhhtr3.pie"
+            },
+            "HalfTrack02": {
+                "left": "infprhhtr3.pie"
+            },
+            "HalfTrack03": {
+                "left": "infprhhtr3.pie"
+            },
+            "V-Tol": {
+                "left": "prhvtl1.pie",
+                "moving": "fxvtl09.pie"
+            },
+            "V-Tol02": {
+                "left": "prhvtl1.pie",
+                "moving": "fxvtl09.pie"
+            },
+            "V-Tol03": {
+                "left": "prhvtl1.pie",
+                "moving": "fxvtl09.pie"
+            },
+            "hover01": {
+                "left": "infprhhov1.pie"
+            },
+            "hover02": {
+                "left": "infprhhov1.pie"
+            },
+            "hover03": {
+                "left": "infprhhov1.pie"
+            },
+            "tracked01": {
+                "left": "infprhtrk3.pie"
+            },
+            "tracked02": {
+                "left": "infprhtrk3.pie"
+            },
+            "tracked03": {
+                "left": "infprhtrk3.pie"
+            },
+            "wheeled01": {
+                "left": "infprhwhl1.pie"
+            },
+            "wheeled02": {
+                "left": "infprhwhl1.pie"
+            },
+            "wheeled03": {
+                "left": "infprhwhl1.pie"
             }
         },
         "size": "HEAVY",

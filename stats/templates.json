@@ -563,6 +563,16 @@
             "Cannon375mmMk1"
         ]
     },
+    "INF-H-HvyCan-Tracks": {
+        "body": "InfBody9REC",
+        "id": "INF-H-HvyCan-Tracks",
+        "name": "Infested Heavy Cannon Tiger Tracks",
+        "propulsion": "tracked01",
+        "type": "DROID",
+        "weapons": [
+            "Cannon375mmMk1"
+        ]
+    },
     "CO-H-QuadBofAA-T": {
         "body": "Body6SUPP",
         "id": "CO-H-QuadBofAA-T",
@@ -831,6 +841,16 @@
         "body": "Body6SUPP",
         "id": "CO-M-MedCan-Tracks",
         "name": "*CO-M-MedCan-Tracks*",
+        "propulsion": "tracked01",
+        "type": "DROID",
+        "weapons": [
+            "Cannon2A-TMk1"
+        ]
+    },
+    "INF-M-MedCan-Tracks": {
+        "body": "InfBody6SUPP",
+        "id": "INF-M-MedCan-Tracks",
+        "name": "Infested Medium Cannon Panther Tracks",
         "propulsion": "tracked01",
         "type": "DROID",
         "weapons": [
@@ -1512,6 +1532,171 @@
         "type": "CYBORG",
         "weapons": [
             "Cyb-Wpn-Thermite"
+        ]
+    },
+    "InfCyborgCannon01Grd": {
+        "available": false,
+        "body": "CyborgLightBody",
+        "id": "Cyb-Cannon-GROUND",
+        "name": "Infested Heavy Gunner Cyborg",
+        "propulsion": "CyborgLegs",
+        "type": "CYBORG",
+        "weapons": [
+            "InfCyborgCannon"
+        ]
+    },
+    "InfCyborgChain01Ground": {
+        "available": false,
+        "body": "CyborgLightBody",
+        "id": "Cyb-Chain-GROUND",
+        "name": "Infested Machinegunner Cyborg",
+        "propulsion": "CyborgLegs",
+        "type": "CYBORG",
+        "weapons": [
+            "InfCyborgChaingun"
+        ]
+    },
+    "InfCyborgHvyChain": {
+        "available": false,
+        "body": "CyborgLightBody",
+        "id": "InfCyborgHvyChain",
+        "name": "Infested Heavy Machinegunner Cyborg",
+        "propulsion": "CyborgLegs",
+        "type": "CYBORG",
+        "weapons": [
+            "InfCyborgHeavyChaingun"
+        ]
+    },
+    "InfCyborgFlamer01Grd": {
+        "available": false,
+        "body": "CyborgLightBody",
+        "id": "Cyb-Flamer-GROUND",
+        "name": "Infested Flamer Cyborg",
+        "propulsion": "CyborgLegs",
+        "type": "CYBORG",
+        "weapons": [
+            "InfCyborgFlamer01"
+        ]
+    },
+    "InfCyb-Gren": {
+        "available": false,
+        "body": "CyborgLightBody",
+        "id": "InfCyb-Gren",
+        "name": "Infested Grenadier Cyborg",
+        "propulsion": "CyborgLegs",
+        "type": "CYBORG",
+        "weapons": [
+            "InfCyb-Wpn-Grenade"
+        ]
+    },
+    "InfCyb-Hvy-Acannon": {
+        "available": false,
+        "body": "CyborgHeavyBody",
+        "id": "InfCyb-Hvy-Acannon",
+        "name": "Infested Super Auto-Cannon Cyborg",
+        "propulsion": "CyborgLegs",
+        "type": "CYBORG_SUPER",
+        "weapons": [
+            "InfCyb-Hvywpn-Acannon"
+        ]
+    },
+    "InfCyb-Hvy-HPV": {
+        "available": false,
+        "body": "CyborgHeavyBody",
+        "id": "InfCyb-Hvy-HPV",
+        "name": "Infested Super HPC Cyborg",
+        "propulsion": "CyborgLegs",
+        "type": "CYBORG_SUPER",
+        "weapons": [
+            "InfCyb-Hvywpn-HPV"
+        ]
+    },
+    "InfCyb-Hvy-Mcannon": {
+        "available": false,
+        "body": "CyborgHeavyBody",
+        "id": "InfCyb-Hvy-Mcannon",
+        "name": "Infested Super Heavy-Gunner Cyborg",
+        "propulsion": "CyborgLegs",
+        "type": "CYBORG_SUPER",
+        "weapons": [
+            "InfCyb-Hvywpn-Mcannon"
+        ]
+    },
+    "InfCyb-Hvy-Gren": {
+        "available": false,
+        "body": "CyborgHeavyBody",
+        "id": "InfCyb-Hvy-Gren",
+        "name": "Infested Super Heavy Grenadier Cyborg",
+        "propulsion": "CyborgLegs",
+        "type": "CYBORG_SUPER",
+        "weapons": [
+            "InfCyb-Hvywpn-Grenade"
+        ]
+    },
+    "InfCyb-Hvy-TK": {
+        "available": false,
+        "body": "CyborgHeavyBody",
+        "id": "InfCyb-Hvy-TK",
+        "name": "Infested Super Tank-Killer Cyborg",
+        "propulsion": "CyborgLegs",
+        "type": "CYBORG_SUPER",
+        "weapons": [
+            "InfCyb-Hvywpn-TK"
+        ]
+    },
+    "InfCyb-Rail1-GROUND": {
+        "available": false,
+        "body": "CyborgLightBody",
+        "id": "InfCyb-Rail1-GROUND",
+        "name": "Infested Needle Gunner Cyborg",
+        "propulsion": "CyborgLegs",
+        "type": "CYBORG",
+        "weapons": [
+            "InfCyb-Wpn-Rail1"
+        ]
+    },
+    "InfCyborgRkt01Ground": {
+        "available": false,
+        "body": "CyborgLightBody",
+        "id": "Cyb-Rocket-GROUND",
+        "name": "Infested Lancer Cyborg",
+        "propulsion": "CyborgLegs",
+        "type": "CYBORG",
+        "weapons": [
+            "InfCyborgRocket"
+        ]
+    },
+    "InfCyborgRkt01Mk1": {
+        "available": false,
+        "body": "CyborgLightBody",
+        "id": "Cyb-Rocket-GROUND",
+        "name": "Infested Sarissa Cyborg",
+        "propulsion": "CyborgLegs",
+        "type": "CYBORG",
+        "weapons": [
+            "InfCyborgLtRocket"
+        ]
+    },
+    "InfCyb-RotMG-GROUND": {
+        "available": false,
+        "body": "CyborgLightBody",
+        "id": "InfCyb-RotMG-GROUND",
+        "name": "Infested Assault Gunner Cyborg",
+        "propulsion": "CyborgLegs",
+        "type": "CYBORG",
+        "weapons": [
+            "InfCyborgRotMG"
+        ]
+    },
+    "InfCyb-Thermite": {
+        "available": false,
+        "body": "CyborgLightBody",
+        "id": "InfCyb-Thermite",
+        "name": "Infested Thermite Flamer Cyborg",
+        "propulsion": "CyborgLegs",
+        "type": "CYBORG",
+        "weapons": [
+            "InfCyb-Wpn-Thermite"
         ]
     },
     "NP-H-HvyCannon-Hover": {

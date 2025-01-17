@@ -213,3 +213,8 @@ dataset		REC_2
 data		"wrf/rec2change.wrf"
 game		"wrf/act3/A3L1.gam"
 data		"wrf/act3/A3L1.wrf"
+
+expand		A3L2
+dataset		REC_2
+game		"wrf/act3/A3L2.gam"
+data		"wrf/act3/A3L2.wrf"

@@ -96,7 +96,9 @@ function eventTransporterLanded(transport)
 				donateObject(obj, CAM_HUMAN_PLAYER);
 			}
 
-			camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, "THE_END");
+			camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, "A3L2", {
+				ignoreInfestedUnits: true // The Infested never stop spawning; their units don't need to be wiped out to win
+			});
 		}
 
 		if (startedFromMenu)
@@ -128,7 +130,7 @@ function activateFirstFactories()
 	camEnableFactory("infFactory3");
 
 	// Send a group of Bashers towards the player's base
-	camSendReinforcement(CAM_INFESTED, getObject("infEntry5"), randomizeTemplates([cTempl.basher]), CAM_REINFORCE_GROUND,
+	camSendReinforcement(CAM_INFESTED, getObject("infEntry5"), camRandInfTemplates([cTempl.basher], 8, 6), CAM_REINFORCE_GROUND,
 		{order: CAM_ORDER_ATTACK, data: {targetPlayer: CAM_HUMAN_PLAYER}}
 	);
 
@@ -161,7 +163,7 @@ function sendCollectiveTransporter()
 	}
 
 	// Next, add grab some droids for the transport
-	const TRANSPORT_SIZE = ((difficulty <= EASY) ? 4 : ((difficulty === MEDIUM) ? 6 : 8));
+	const TRANSPORT_SIZE = ((difficulty <= EASY) ? 6 : ((difficulty === MEDIUM) ? 8 : 10));
 	const droidPool = [
 		cTempl.cominft, // Inferno
 		cTempl.cybth, // Thermite Flamer
@@ -207,14 +209,17 @@ function sendCollectiveTransporter()
 }
 
 function sendInfestedReinforcements()
-{
+{	
+	const CORE_SIZE = 4 + camRand(5);
+	const FODDER_SIZE = 14 + camRand(3);
+
 	// South road entrance
 	// (Stops entirely when factory is destroyed)
 	if (getObject("infFactory1") !== null)
 	{
 		const droids = [cTempl.stinger, cTempl.infbloke, cTempl.infkevbloke, cTempl.infminitruck, cTempl.infbuggy, cTempl.infrbuggy];
 		const TARGET = (camBaseIsEliminated("colSouthRoadblock")) ? undefined : CAM_THE_COLLECTIVE;
-		camSendReinforcement(CAM_INFESTED, getObject("infEntry1"), randomizeTemplates(droids), CAM_REINFORCE_GROUND,
+		camSendReinforcement(CAM_INFESTED, getObject("infEntry1"), camRandInfTemplates(droids, CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND,
 			{order: CAM_ORDER_ATTACK, data: {targetPlayer: TARGET}}
 		);
 	}
@@ -225,7 +230,7 @@ function sendInfestedReinforcements()
 	{
 		const droids = [cTempl.stinger, cTempl.inffiretruck, cTempl.infkevbloke, cTempl.inflance, cTempl.infbuggy, cTempl.infrbuggy];
 		const TARGET = (camBaseIsEliminated("colSouthRoadblock")) ? undefined : CAM_THE_COLLECTIVE;
-		camSendReinforcement(CAM_INFESTED, getObject("infEntry2"), randomizeTemplates(droids), CAM_REINFORCE_GROUND, 
+		camSendReinforcement(CAM_INFESTED, getObject("infEntry2"), camRandInfTemplates(droids, CORE_SIZE / 2, 2 * FODDER_SIZE / 3), CAM_REINFORCE_GROUND, 
 			{order: CAM_ORDER_ATTACK, data: {targetPlayer: TARGET}}
 		);
 
@@ -235,50 +240,30 @@ function sendInfestedReinforcements()
 	if (getObject("infFactory2") !== null && allowExtraWaves)
 	{
 		const droids = [cTempl.stinger, cTempl.infkevlance, cTempl.infbuscan, cTempl.infbloke, cTempl.infbjeep, cTempl.infrbjeep];
-		camSendReinforcement(CAM_INFESTED, getObject("infEntry3"), randomizeTemplates(droids), CAM_REINFORCE_GROUND);
+		camSendReinforcement(CAM_INFESTED, getObject("infEntry3"), camRandInfTemplates(droids, CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND);
 	}
 
 	// East trench entrance
 	if (allowExtraWaves)
 	{
-		const droids = [cTempl.stinger, cTempl.infkevlance, cTempl.infbuscan, cTempl.infbloke, cTempl.infbjeep, cTempl.infrbjeep];
+		const droids = [cTempl.stinger, cTempl.infkevlance, cTempl.infmoncan, cTempl.infbloke, cTempl.infbjeep, cTempl.infrbjeep];
 		const TARGET = (camBaseIsEliminated("colEastRoadblock")) ? undefined : CAM_THE_COLLECTIVE;
-		camSendReinforcement(CAM_INFESTED, getObject("infEntry4"), randomizeTemplates(droids), CAM_REINFORCE_GROUND,
+		camSendReinforcement(CAM_INFESTED, getObject("infEntry4"), camRandInfTemplates(droids, CORE_SIZE / 2, 2 * FODDER_SIZE / 3), CAM_REINFORCE_GROUND,
 			{order: CAM_ORDER_ATTACK, data: {targetPlayer: TARGET}}
 		);
 	}
 
 	// East road entrance
-	if (getObject("infFactory3") !== null)
-	{
-		// TODO: Make these waves smaller once the factory is destroyed
-		const droids = [cTempl.stinger, cTempl.infbloke, cTempl.infkevbloke, cTempl.infminitruck, cTempl.infbuggy, cTempl.infrbuggy];
-		const TARGET = (camBaseIsEliminated("colEastRoadblock")) ? undefined : CAM_THE_COLLECTIVE;
-		camSendReinforcement(CAM_INFESTED, getObject("infEntry5"), randomizeTemplates(droids), CAM_REINFORCE_GROUND,
-			{order: CAM_ORDER_ATTACK, data: {targetPlayer: TARGET}}
-		);
-	}
-}
+	// (Gets weaker when factory is destroyed)
+	// Make these waves smaller once the factory is destroyed
+	const EAST_CORE_SIZE = (getObject("infFactory3") !== null) ? CORE_SIZE : CORE_SIZE / 2;
+	const EAST_FODDER_SIZE = (getObject("infFactory3") !== null) ? FODDER_SIZE : 2 * FODDER_SIZE / 3;
 
-// Randomize the provided list of units and tack on a bunch of extra rocket fodder
-function randomizeTemplates(list)
-{
-	const droids = [];
-	const CORE_SIZE = 4 + camRand(5); // Maximum of 8 core units.
-	const FODDER_SIZE = 14 + camRand(3); // 14 - 16 extra Infested Civilians to the swarm.
-
-	for (let i = 0; i < CORE_SIZE; ++i)
-	{
-		droids.push(list[camRand(list.length)]);
-	}
-
-	// Add a bunch of Infested Civilians.
-	for (let i = 0; i < FODDER_SIZE; ++i)
-	{
-		droids.push(cTempl.infciv);
-	}
-
-	return droids;
+	const droids = [cTempl.stinger, cTempl.infbloke, cTempl.infkevbloke, cTempl.infminitruck, cTempl.infbuggy, cTempl.infrbuggy];
+	const TARGET = (camBaseIsEliminated("colEastRoadblock")) ? undefined : CAM_THE_COLLECTIVE;
+	camSendReinforcement(CAM_INFESTED, getObject("infEntry5"), camRandInfTemplates(droids, EAST_CORE_SIZE, EAST_FODDER_SIZE), CAM_REINFORCE_GROUND,
+		{order: CAM_ORDER_ATTACK, data: {targetPlayer: TARGET}}
+	);
 }
 
 // Spawns a player unit at the LZ, and then removes it.

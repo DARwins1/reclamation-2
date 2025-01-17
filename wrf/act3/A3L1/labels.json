@@ -191,14 +191,6 @@
 
 
 	"object_4": {
-		"label": "colCC",
-		"id": 24,
-		"player": 2,
-		"type": 1
-	},
-
-
-	"object_5": {
 		"label": "colFactory",
 		"id": 23,
 		"player": 2,
@@ -206,7 +198,7 @@
 	},
 
 
-	"object_6": {
+	"object_5": {
 		"label": "infFactory3",
 		"id": 92,
 		"player": 4,
@@ -214,7 +206,7 @@
 	},
 
 
-	"object_7": {
+	"object_6": {
 		"label": "cScavFactory2",
 		"id": 131,
 		"player": 2,
@@ -222,7 +214,7 @@
 	},
 
 
-	"object_8": {
+	"object_7": {
 		"label": "colTruck3",
 		"id": 275,
 		"player": 2,
@@ -230,7 +222,7 @@
 	},
 
 
-	"object_9": {
+	"object_8": {
 		"label": "colTruck1",
 		"id": 274,
 		"player": 2,
@@ -238,7 +230,7 @@
 	},
 
 
-	"object_10": {
+	"object_9": {
 		"label": "colTruck2",
 		"id": 273,
 		"player": 2,
@@ -246,7 +238,7 @@
 	},
 
 
-	"object_11": {
+	"object_10": {
 		"label": "heliTower",
 		"id": 278,
 		"player": 2,
@@ -254,6 +246,14 @@
 	},
 
 
+	"object_11": {
+		"label": "colCC",
+		"id": 24,
+		"player": 2,
+		"type": 1
+	},
+
+	
 	"radius_0": {
 		"label": "vtolRemoveZone",
 		"pos": [17472, 4672],

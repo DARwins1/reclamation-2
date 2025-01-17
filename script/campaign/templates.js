@@ -29,6 +29,7 @@ kevlance: { body: "BaBaLanceBody-Kev", prop: "BaBaLegs", weap: "BabaLance" }, //
 
 // Infested Units:
 infciv: { body: "InfestedCivilianBody", prop: "BaBaLegs", weap: "InfestedMelee" }, // Infested civilian (melee unit)
+infciv2: { body: "InfestedCivilianBodyAlt", prop: "BaBaLegs", weap: "InfestedMelee" }, // Infested civilian (alternate animation)
 infbloke: { body: "InfestedScavBody", prop: "BaBaLegs", weap: "BabaMG" }, // Infested bloke
 infkevbloke: { body: "InfestedScavBody-Kev", prop: "BaBaLegs", weap: "BabaMG" }, // Infested Armored bloke
 inflance: { body: "InfestedLanceBody", prop: "BaBaLegs", weap: "BabaLance" }, // Infested rocket scav
@@ -150,6 +151,27 @@ monmcan: { body: "MonsterBus", prop: "tracked01", weap: "RustCannon2A-TMk1" }, /
 crane: { body: "ScavCraneBody", prop: "HalfTrack", weap: "ScavCrane" }, // Scavenger Crane (Truck)
 
 // Infested Units:
+infcybmg: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "InfCyborgChaingun" }, // Infested Machinegunner Cyborg
+infcybhg: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "InfCyborgHeavyChaingun" }, // Infested Heavy Machinegunner Cyborg
+infcybag: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "InfCyborgRotMG" }, // Infested Assault Gunner Cyborg
+infcybfl: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "InfCyborgFlamer01" }, // Infested Flamer Cyborg
+infcybth: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "InfCyb-Wpn-Thermite" }, // Infested Thermite Flamer Cyborg
+infcybgr: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "InfCyb-Wpn-Grenade" }, // Infested Grenadier Cyborg
+infscygr: { body: "CyborgHeavyBody", prop: "CyborgLegs", weap: "InfCyb-Hvywpn-Grenade" }, // Infested Super Heavy Grenadier Cyborg
+infcybla: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "InfCyborgRocket" }, // Infested Lancer Cyborg
+infscytk: { body: "CyborgHeavyBody", prop: "CyborgLegs", weap: "InfCyb-Hvywpn-TK" }, // Infested Super Tank-Killer Cyborg
+infcybca: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "InfCyborgCannon" }, // Infested Heavy Gunner Cyborg
+infscymc: { body: "CyborgHeavyBody", prop: "CyborgLegs", weap: "InfCyb-Hvywpn-Mcannon" }, // Infested Super Heavy-Gunner Cyborg
+infscyhc: { body: "CyborgHeavyBody", prop: "CyborgLegs", weap: "InfCyb-Hvywpn-HPV" }, // Infested Super HPC Cyborg
+infscyac: { body: "CyborgHeavyBody", prop: "CyborgLegs", weap: "InfCyb-Hvywpn-Acannon" }, // Infested Super Auto-Cannon Cyborg
+
+infcolcanht: { body: "InfBody2SUP", prop: "HalfTrack", weap: "Cannon1Mk1" }, // Infested Light Cannon Leopard Half-tracks
+infcolpodt: { body: "InfBody2SUP", prop: "tracked01", weap: "Rocket-Pod" }, // Infested Mini-Rocket Pod Leopard Tracks
+infcolhmght: { body: "InfBody2SUP", prop: "HalfTrack", weap: "MG3Mk1" }, // Infested Heavy Machinegun Leopard Half-tracks
+infcomatt: { body: "InfBody6SUPP", prop: "tracked01", weap: "Rocket-LtA-T" }, // Infested Lancer Panther Tracks
+infcommcant: { body: "InfBody6SUPP", prop: "tracked01", weap: "Cannon2A-TMk1" }, // Infested Medium Cannon Panther Tracks
+infcohhcant: { body: "InfBody9REC", prop: "tracked01", weap: "Cannon375mmMk1" }, // Infested Heavy Cannon Tiger Tracks
+
 basher: { body: "BasherBody", prop: "BoomTickLegs", weap: "BasherMelee" }, // Basher
 
 // Collective Units:
