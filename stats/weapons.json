@@ -1763,7 +1763,7 @@
         "hitpoints": 250,
         "id": "Cannon4AUTOMk1",
         "lightWorld": 1,
-        "longRange": 1216,
+        "longRange": 1280,
         "longHit": 65,
         "maxElevation": 90,
         "minElevation": -60,
@@ -5140,7 +5140,7 @@
         "effectSize": 50,
         "explosionWav": "smlexpl.ogg",
         "facePlayer": 1,
-        "firePause": 80,
+        "firePause": 120,
         "flightGfx": "FXSPLME.PIE",
         "flightSpeed": 1700,
         "hitGfx": "FXATEXP.PIE",
@@ -5215,7 +5215,7 @@
     "Rocket-Ballista": {
         "buildPoints": 1000,
         "buildPower": 275,
-        "damage": 360,
+        "damage": 270,
         "designable": 1,
         "effectSize": 135,
         "explosionWav": "lrgexpl.ogg",
@@ -5291,7 +5291,7 @@
         "weaponEffect": "ARTILLERY ROUND",
         "weaponSubClass": "ROCKET",
         "weaponWav": "rocket.ogg",
-        "weight": 20000
+        "weight": 10000
     },
     "Rocket-LtA-T": {
         "buildPoints": 500,
@@ -5492,7 +5492,7 @@
         "numAttackRuns": 1,
         "numExplosions": 1,
         "numRounds": 2,
-        "reloadTime": 80,
+        "reloadTime": 120,
         "radiusLife": 10,
         "rotate": 180,
         "shortHit": 50,

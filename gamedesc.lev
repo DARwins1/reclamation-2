@@ -260,3 +260,8 @@ expand		A3L8
 dataset		REC_2
 game		"wrf/act3/A3L8.gam"
 data		"wrf/act3/A3L8.wrf"
+
+expand		A3L9
+dataset		REC_2
+game		"wrf/act3/A3L9.gam"
+data		"wrf/act3/A3L9.wrf"

@@ -665,10 +665,9 @@ function eventStartLevel()
 		obj: "colVtolTower1", // East base tower
 		}, CAM_ORDER_FOLLOW, {
 			leader: "colVtolTower1",
-			suborder: CAM_ORDER_DEFEND, // Tower groups defend until tower is rebuilt
+			suborder: CAM_ORDER_ATTACK,
 			data: {
-				pos: camMakePos("colVtolAssembly"),
-				radius: 24
+				targetPlayer: CAM_HUMAN_PLAYER
 		}
 	});
 	camMakeRefillableGroup(undefined, {
@@ -680,10 +679,9 @@ function eventStartLevel()
 		obj: "colVtolTower2", // Southeast outpost tower
 		}, CAM_ORDER_FOLLOW, {
 			leader: "colVtolTower2",
-			suborder: CAM_ORDER_DEFEND,
+			suborder: CAM_ORDER_ATTACK,
 			data: {
-				pos: camMakePos("colVtolAssembly"),
-				radius: 24
+				targetPlayer: CAM_HUMAN_PLAYER
 		}
 	});
 	camMakeRefillableGroup(undefined, {
@@ -695,10 +693,9 @@ function eventStartLevel()
 		obj: "colVtolTower3", // VTOL base tower
 		}, CAM_ORDER_FOLLOW, {
 			leader: "colVtolTower3",
-			suborder: CAM_ORDER_DEFEND,
+			suborder: CAM_ORDER_ATTACK,
 			data: {
-				pos: camMakePos("colVtolAssembly"),
-				radius: 24
+				targetPlayer: CAM_HUMAN_PLAYER
 		}
 	});
 	camMakeRefillableGroup(undefined, {
@@ -710,10 +707,9 @@ function eventStartLevel()
 		obj: "colVtolTower4", // Southwest base tower
 		}, CAM_ORDER_FOLLOW, {
 			leader: "colVtolTower4",
-			suborder: CAM_ORDER_DEFEND,
+			suborder: CAM_ORDER_ATTACK,
 			data: {
-				pos: camMakePos("colVtolAssembly"),
-				radius: 24
+				targetPlayer: CAM_HUMAN_PLAYER
 		}
 	});
 	camMakeRefillableGroup(undefined, {
@@ -725,10 +721,9 @@ function eventStartLevel()
 		obj: "colVtolCBTower1", // Northwest base CB tower
 		}, CAM_ORDER_FOLLOW, {
 			leader: "colVtolCBTower1",
-			suborder: CAM_ORDER_DEFEND,
+			suborder: CAM_ORDER_ATTACK,
 			data: {
-				pos: camMakePos("colVtolAssembly"),
-				radius: 24
+				targetPlayer: CAM_HUMAN_PLAYER
 		}
 	});
 	camMakeRefillableGroup(undefined, {
@@ -740,10 +735,9 @@ function eventStartLevel()
 		obj: "colVtolCBTower2", // VTOL base CB tower
 		}, CAM_ORDER_FOLLOW, {
 			leader: "colVtolCBTower2",
-			suborder: CAM_ORDER_DEFEND,
+			suborder: CAM_ORDER_ATTACK,
 			data: {
-				pos: camMakePos("colVtolAssembly"),
-				radius: 24
+				targetPlayer: CAM_HUMAN_PLAYER
 		}
 	});
 	camMakeRefillableGroup(undefined, {
@@ -755,16 +749,15 @@ function eventStartLevel()
 		obj: "colVtolCBTower3", // Southwest base CB tower
 		}, CAM_ORDER_FOLLOW, {
 			leader: "colVtolCBTower3",
-			suborder: CAM_ORDER_DEFEND,
+			suborder: CAM_ORDER_ATTACK,
 			data: {
-				pos: camMakePos("colVtolAssembly"),
-				radius: 24
+				targetPlayer: CAM_HUMAN_PLAYER
 		}
 	});
 	camMakeRefillableGroup(undefined, {
 		templates: [ // 4 Tank Killers, 2 Assault Cannons, 4 Thermite Bombs
-			cTempl.comhatv, cTempl.comhatv, cTempl.comacanv, cTempl.comtbombv, cTempl.comtbombv,
-			cTempl.comhatv, cTempl.comhatv, cTempl.comacanv, cTempl.comtbombv, cTempl.comtbombv,
+			cTempl.comhatv, cTempl.comhatv, cTempl.comacanv, cTempl.comthermv, cTempl.comthermv,
+			cTempl.comhatv, cTempl.comhatv, cTempl.comacanv, cTempl.comthermv, cTempl.comthermv,
 		],
 		globalFill: true,
 		obj: "colVtolSensor", // VTOL Strike Turret assigned to a commander

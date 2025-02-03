@@ -60,8 +60,9 @@ pllcanw: { body: "Body1REC", prop: "wheeled01", weap: "Cannon1Mk1" }, // Light C
 pllcanht: { body: "Body1REC", prop: "HalfTrack", weap: "Cannon1Mk1" }, // Light Cannon Viper Half-tracks
 pllcant: { body: "Body1REC", prop: "tracked01", weap: "Cannon1Mk1" }, // Light Cannon Viper Tracks
 plmhpvht: { body: "Body5REC", prop: "HalfTrack", weap: "Cannon4AUTOMk1" }, // Hyper Velocity Cannon Cobra Half-tracks
-plhhpvt: { body: "Body11ABT", prop: "tracked01", weap: "Cannon4AUTOMk1" }, // Hyper Velocity Cannon Python Tracks
+plmhpvt: { body: "Body5REC", prop: "tracked01", weap: "Cannon4AUTOMk1" }, // Hyper Velocity Cannon Cobra Tracks
 plmacant: { body: "Body5REC", prop: "tracked01", weap: "Cannon5VulcanMk1" }, // Assault Cannon Cobra Tracks
+plhhpvt: { body: "Body11ABT", prop: "tracked01", weap: "Cannon4AUTOMk1" }, // Hyper Velocity Cannon Python Tracks
 plhacant: { body: "Body11ABT", prop: "tracked01", weap: "Cannon5VulcanMk1" }, // Assault Cannon Python Tracks
 plhhct: { body: "Body11ABT", prop: "tracked01", weap: "Cannon375mmMk1" }, // Heavy Cannon Python Tracks
 
@@ -69,12 +70,18 @@ pllmortw: { body: "Body1REC", prop: "wheeled01", weap: "Mortar1Mk1" }, // Mortar
 pllmortt: { body: "Body1REC", prop: "tracked01", weap: "Mortar1Mk1" }, // Mortar Viper Tracks
 plmhmortw: { body: "Body5REC", prop: "wheeled01", weap: "Mortar2Mk1" }, // Bombard Cobra Wheels
 plmhmortt: { body: "Body5REC", prop: "tracked01", weap: "Mortar2Mk1" }, // Bombard Cobra Tracks
+plmrmortt: { body: "Body5REC", prop: "tracked01", weap: "Mortar3ROTARYMk1" }, // Pepperpot Cobra Tracks
+plhrmortt: { body: "Body11ABT", prop: "tracked01", weap: "Mortar3ROTARYMk1" }, // Pepperpot Python Tracks
+plhhowt: { body: "Body11ABT", prop: "tracked01", weap: "Howitzer105Mk1" }, // Howitzer Python Tracks
+plhript: { body: "Body11ABT", prop: "tracked01", weap: "Rocket-IDF" }, // Ripple Rocket Python Tracks
 
 pllmraw: { body: "Body1REC", prop: "wheeled01", weap: "Rocket-MRL" }, // Mini-Rocket Array Viper Wheels
 pllmraht: { body: "Body1REC", prop: "HalfTrack", weap: "Rocket-MRL" }, // Mini-Rocket Array Viper Half-tracks
 pllmrat: { body: "Body1REC", prop: "tracked01", weap: "Rocket-MRL" }, // Mini-Rocket Array Viper Tracks
 plmmraht: { body: "Body5REC", prop: "HalfTrack", weap: "Rocket-MRL" }, // Mini-Rocket Array Cobra Half-tracks
 plmmrat: { body: "Body5REC", prop: "tracked01", weap: "Rocket-MRL" }, // Mini-Rocket Array Cobra Tracks
+plhhraht: { body: "Body11ABT", prop: "HalfTrack", weap: "Rocket-MRL-Hvy" }, // Heavy Rocket Array Python Half-tracks
+plhhrat: { body: "Body11ABT", prop: "tracked01", weap: "Rocket-MRL-Hvy" }, // Heavy Rocket Array Python Tracks
 
 pllpodw: { body: "Body1REC", prop: "wheeled01", weap: "Rocket-Pod" }, // Mini-Rocket Pod Viper Wheels
 pllpodht: { body: "Body1REC", prop: "HalfTrack", weap: "Rocket-Pod" }, // Mini-Rocket Pod Viper Half-tracks
@@ -86,14 +93,24 @@ plllanht: { body: "Body1REC", prop: "HalfTrack", weap: "Rocket-LtA-T" }, // Lanc
 plllant: { body: "Body1REC", prop: "tracked01", weap: "Rocket-LtA-T" }, // Lancer Viper Tracks
 plmatht: { body: "Body5REC", prop: "HalfTrack", weap: "Rocket-LtA-T" }, // Lancer Cobra Half-tracks
 plmatt: { body: "Body5REC", prop: "tracked01", weap: "Rocket-LtA-T" }, // Lancer Cobra Tracks
+plmhatw: { body: "Body5REC", prop: "wheeled01", weap: "Rocket-HvyA-T" }, // Tank Killer Cobra Wheels
+plmhatht: { body: "Body5REC", prop: "HalfTrack", weap: "Rocket-HvyA-T" }, // Tank Killer Cobra Half-tracks
+plmhatt: { body: "Body5REC", prop: "tracked01", weap: "Rocket-HvyA-T" }, // Tank Killer Cobra Tracks
+plhhatw: { body: "Body11ABT", prop: "wheeled01", weap: "Rocket-HvyA-T" }, // Tank Killer Python Wheels
+plhhatht: { body: "Body11ABT", prop: "HalfTrack", weap: "Rocket-HvyA-T" }, // Tank Killer Python Half-tracks
+plhhatt: { body: "Body11ABT", prop: "tracked01", weap: "Rocket-HvyA-T" }, // Tank Killer Python Tracks
+plhhath: { body: "Body11ABT", prop: "hover01", weap: "Rocket-HvyA-T" }, // Tank Killer Python Hover
 
 pllaaw: { body: "Body1REC", prop: "wheeled01", weap: "QuadMg1AAGun" }, // Hurricane Viper Wheels
-plhraat: { body: "Body11ABT", prop: "tracked01", weap: "AAGun2Mk1" }, // Whirlwind Python Tracks
+plhhaaht: { body: "Body11ABT", prop: "HalfTrack", weap: "AAGun2Mk1" }, // Cyclone Python Half-tracks
+plhhaat: { body: "Body11ABT", prop: "tracked01", weap: "AAGun2Mk1" }, // Cyclone Python Tracks
+plhraat: { body: "Body11ABT", prop: "tracked01", weap: "QuadRotAAGun" }, // Whirlwind Python Tracks
 
 pllrepw: { body: "Body1REC", prop: "wheeled01", weap: "LightRepair1" }, // Repair Turret Viper Wheels
 pllrept: { body: "Body1REC", prop: "tracked01", weap: "LightRepair1" }, // Repair Turret Viper Tracks
 plmrept: { body: "Body5REC", prop: "tracked01", weap: "LightRepair1" }, // Repair Turret Cobra Tracks
 plmhrept: { body: "Body5REC", prop: "tracked01", weap: "HeavyRepair" }, // Heavy Repair Turret Cobra Tracks
+plhhrept: { body: "Body11ABT", prop: "HalfTrack", weap: "HeavyRepair" }, // Heavy Repair Turret Python Half-tracks
 
 plltmgt: { body: "Body1REC", prop: "tracked01", weap: "MG2Mk1" }, // Twin Machinegun Viper Tracks
 pllhmght: { body: "Body1REC", prop: "HalfTrack", weap: "MG3Mk1" }, // Heavy Machinegun Viper Half-tracks
@@ -102,18 +119,34 @@ plhasgnt: { body: "Body11ABT", prop: "tracked01", weap: "MG4ROTARYMk1" }, // Ass
 
 pllcomht: { body: "Body1REC", prop: "HalfTrack", weap: "CommandBrain01" }, // Command Turret Viper Half-tracks
 plmcomht: { body: "Body5REC", prop: "HalfTrack", weap: "CommandBrain01" }, // Command Turret Cobra Half-tracks
+plhcomw: { body: "Body11ABT", prop: "wheeled01", weap: "CommandBrain01" }, // Command Turret Python Wheels
+plhcomht: { body: "Body11ABT", prop: "HalfTrack", weap: "CommandBrain01" }, // Command Turret Python Half-tracks
+plhcomt: { body: "Body11ABT", prop: "tracked01", weap: "CommandBrain01" }, // Command Turret Python Tracks
+plhcomh: { body: "Body11ABT", prop: "hover01", weap: "CommandBrain01" }, // Command Turret Python Hover
 
 pllflamt: { body: "Body1REC", prop: "tracked01", weap: "Flame1Mk1" }, // Flamer Viper Tracks
+plhinfw: { body: "Body11ABT", prop: "wheeled01", weap: "Flame2" }, // Inferno Python Wheels
+plhinfht: { body: "Body11ABT", prop: "HalfTrack", weap: "Flame2" }, // Inferno Python Half-tracks
+plhinfh: { body: "Body11ABT", prop: "hover01", weap: "Flame2" }, // Inferno Python Hover
 
 pllsenst: { body: "Body1REC", prop: "tracked01", weap: "SensorTurret1Mk1" }, // Sensor Viper Tracks
-plmsenst: { body: "Body5REC", prop: "tracked01", weap: "SensorTurret1Mk1" }, // Sensor Cobra Tracks
 pllstrikeht: { body: "Body1REC", prop: "HalfTrack", weap: "Sys-VstrikeTurret01" }, // VTOL Strike Turret Viper Half-tracks
+plmsenst: { body: "Body5REC", prop: "tracked01", weap: "SensorTurret1Mk1" }, // Sensor Cobra Tracks
+plhsenst: { body: "Body11ABT", prop: "tracked01", weap: "SensorTurret1Mk1" }, // Sensor Python Tracks
 
 plltruckt: { body: "Body1REC", prop: "tracked01", weap: "Spade1Mk1" }, // Truck Viper Tracks
 plmtruckht: { body: "Body5REC", prop: "HalfTrack", weap: "Spade1Mk1" }, // Truck Cobra Half-tracks
 plmtruckt: { body: "Body5REC", prop: "tracked01", weap: "Spade1Mk1" }, // Truck Cobra Tracks
+plmtruckh: { body: "Body5REC", prop: "hover01", weap: "Spade1Mk1" }, // Truck Cobra Hover
+plhtruckht: { body: "Body11ABT", prop: "HalfTrack", weap: "Spade1Mk1" }, // Truck Python Half-tracks
+plhtruckt: { body: "Body11ABT", prop: "tracked01", weap: "Spade1Mk1" }, // Truck Python Tracks
+plhtruckh: { body: "Body11ABT", prop: "hover01", weap: "Spade1Mk1" }, // Truck Python Hover
 
 plmbbht: { body: "Body5REC", prop: "HalfTrack", weap: "Rocket-BB" }, // Bunker Buster Cobra Half-tracks
+plhbbw: { body: "Body11ABT", prop: "wheeled01", weap: "Rocket-BB" }, // Bunker Buster Python Wheels
+plhbbht: { body: "Body11ABT", prop: "HalfTrack", weap: "Rocket-BB" }, // Bunker Buster Python Half-tracks
+plhbbt: { body: "Body11ABT", prop: "tracked01", weap: "Rocket-BB" }, // Bunker Buster Python Tracks
+plhbbh: { body: "Body11ABT", prop: "hover01", weap: "Rocket-BB" }, // Bunker Buster Python Hover
 
 pllcanv: { body: "Body1REC", prop: "V-Tol", weap: "Cannon1-VTOL" }, // Light Cannon Viper VTOL
 pllpodv: { body: "Body1REC", prop: "V-Tol", weap: "Rocket-VTOL-Pod" }, // Mini-Rocket Pod Viper VTOL
@@ -121,6 +154,16 @@ pllhmgv: { body: "Body1REC", prop: "V-Tol", weap: "MG3-VTOL" }, // Heavy Machine
 pllsarv: { body: "Body1REC", prop: "V-Tol", weap: "Rocket-VTOL-LtA-TMk1" }, // Sarissa Viper VTOL
 plllanv: { body: "Body1REC", prop: "V-Tol", weap: "Rocket-VTOL-LtA-T" }, // Lancer Viper VTOL
 pllbombv: { body: "Body1REC", prop: "V-Tol", weap: "Bomb1-VTOL-LtHE" }, // Cluster Bomb Viper VTOL
+pllagv: { body: "Body1REC", prop: "V-Tol", weap: "MG4ROTARY-VTOL" }, // Assault Gun Viper VTOL
+pllbbv: { body: "Body1REC", prop: "V-Tol", weap: "Rocket-VTOL-BB" }, // Bunker Buster Viper VTOL
+plmbbv: { body: "Body5REC", prop: "V-Tol", weap: "Rocket-VTOL-BB" }, // Bunker Buster Cobra VTOL
+plmhatv: { body: "Body5REC", prop: "V-Tol", weap: "Rocket-VTOL-HvyA-T" }, // Tank Killer Cobra VTOL
+plmacanv: { body: "Body5REC", prop: "V-Tol", weap: "Cannon5Vulcan-VTOL" }, // Assault Cannon Cobra VTOL
+plmbombv: { body: "Body5REC", prop: "V-Tol", weap: "Bomb1-VTOL-LtHE" }, // Cluster Bomb Cobra VTOL
+plmphosv: { body: "Body5REC", prop: "V-Tol", weap: "Bomb3-VTOL-LtINC" }, // Phosphor Bomb Cobra VTOL
+plmhbombv: { body: "Body5REC", prop: "V-Tol", weap: "Bomb2-VTOL-HvHE" }, // HEAP Bomb Cobra VTOL
+plmtbombv: { body: "Body5REC", prop: "V-Tol", weap: "Bomb4-VTOL-HvyINC" }, // Thermite Bomb Cobra VTOL
+plhhbombv: { body: "Body11ABT", prop: "V-Tol", weap: "Bomb2-VTOL-HvHE" }, // HEAP Bomb Python VTOL
 
 // Cyborgs:
 cybrp: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "CyborgRepair" }, // Mechanic Cyborg
@@ -272,7 +315,7 @@ colagv: { body: "Body2SUP", prop: "V-Tol", weap: "MG4ROTARY-VTOL" }, // Assault 
 
 combombv: { body: "Body6SUPP", prop: "V-Tol", weap: "Bomb1-VTOL-LtHE" }, // Cluster Bomb Panther VTOL
 comhbombv: { body: "Body6SUPP", prop: "V-Tol", weap: "Bomb2-VTOL-HvHE" }, // HEAP Bomb Panther VTOL
-comtbombv: { body: "Body6SUPP", prop: "V-Tol", weap: "Bomb4-VTOL-HvyINC" }, // Thermite Bomb Panther VTOL
+comthermv: { body: "Body6SUPP", prop: "V-Tol", weap: "Bomb4-VTOL-HvyINC" }, // Thermite Bomb Panther VTOL
 comhatv: { body: "Body6SUPP", prop: "V-Tol", weap: "Rocket-VTOL-HvyA-T" }, // Tank Killer Panther VTOL
 comacanv: { body: "Body6SUPP", prop: "V-Tol", weap: "Cannon5Vulcan-VTOL" }, // Assault Cannon Panther VTOL
 

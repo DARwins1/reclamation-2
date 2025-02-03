@@ -262,7 +262,7 @@ function sendCollectiveTransporter()
 	// Next, add grab some droids for the transport
 	const TRANSPORT_SIZE = ((difficulty <= MEDIUM) ? 8 : 10);
 	const droids = [];
-	// Push drois from the queue into the transporter
+	// Push droids from the queue into the transporter
 	for (let i = 0; i < Math.min(droidQueue.length, TRANSPORT_SIZE); i++)
 	{
 		droids.push(droidQueue[i]);

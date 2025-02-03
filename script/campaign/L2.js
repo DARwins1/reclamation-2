@@ -307,9 +307,9 @@ function eventStartLevel()
 		"cScavFactory2": {
 			assembly: "cScavAssembly2",
 			order: CAM_ORDER_ATTACK,
-			groupSize: 4,
+			groupSize: 3,
 			maxSize: 8,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(20)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(25)),
 			data: {
 				morale: 50,
 				fallback: camMakePos("cScavAssembly2"),
@@ -317,7 +317,7 @@ function eventStartLevel()
 				count: -1,
 				targetPlayer: CAM_HUMAN_PLAYER
 			},
-			templates: [cTempl.buscan, cTempl.kevbloke, cTempl.bjeep, cTempl.rbjeep, cTempl.firetruck] // Mostly vehicles
+			templates: [cTempl.buscan, cTempl.bjeep, cTempl.kevbloke, cTempl.bjeep, cTempl.rbjeep, cTempl.firetruck] // Mostly vehicles
 		},
 	});
 

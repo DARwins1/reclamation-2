@@ -1,4 +1,3 @@
-include("script/campaign/transitionTech.js");
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 include("script/campaign/structSets.js");
@@ -307,14 +306,13 @@ function eventTransporterLaunch(transporter)
 function checkIfLaunched()
 {
 	// Set the player's power to whatever they've managed to stash
-	setPower(savedPower, CAM_HUMAN_PLAYER);
+	// setPower(savedPower, CAM_HUMAN_PLAYER);
 
 	if (allowWin)
 	{
 		// camCallOnce("playLastVideo");
 		return true;
 	}
-	return false;
 }
 
 // This entire mission is basically just sending attack waves over and over until the player loses/evacuates all of their stuff.

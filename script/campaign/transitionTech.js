@@ -224,6 +224,7 @@ const camAct4StartResearch = camA3L9EnemyResearch.concat([
 	"R-Wpn-Bomb02", // Artifact
 	"R-Wpn-Rocket06-IDF", // Artifact
 	"R-Defense-IDFRocket",
+	"R-Sys-Sensor-Upgrade01", // Artifact
 ]);
 
 //...
