@@ -482,7 +482,7 @@ function eventStartLevel()
 	// An artifact for the Heavy Machinegun is added later, once the Collective start building their LZ
 	camSetArtifacts({
 		"redFactory2": { tech: "R-Vehicle-Prop-Halftracks" }, // Half-Tracks
-		"orangeFactory3": { tech: "R-Wpn-Mortar-Damage02" }, // HE Mortar Shells Mk2
+		"orangeFactory3": { tech: "R-Wpn-Mortar-Damage03" }, // HE Mortar Shells Mk3
 		"redFactory5": { tech: "R-Wpn-Flamer-Damage03" }, // High Temperature Flamer Gel Mk3
 	});
 

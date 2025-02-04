@@ -79,7 +79,7 @@
         "buildPoints": 75,
         "buildPower": 75,
         "designable": 1,
-        "hitpointPctOfBody": 215,
+        "hitpointPctOfBody": 250,
         "id": "HalfTrack",
         "model": "prlhtr1.PIE",
         "name": "Half-tracks",

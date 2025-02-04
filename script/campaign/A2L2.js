@@ -5,7 +5,7 @@ include("script/campaign/templates.js");
 const MIS_TEAM_DELTA = 1;
 
 const mis_collectiveResearch = [
-	"R-Wpn-MG-Damage03", "R-Wpn-Rocket-Damage02", "R-Wpn-Mortar-Damage02", 
+	"R-Wpn-MG-Damage03", "R-Wpn-Rocket-Damage03", "R-Wpn-Mortar-Damage03", 
 	"R-Wpn-Flamer-Damage02", "R-Wpn-Cannon-Damage02", "R-Wpn-MG-ROF02",
 	"R-Wpn-Rocket-ROF02", "R-Wpn-Mortar-ROF01", "R-Wpn-Flamer-ROF02",
 	"R-Wpn-Cannon-ROF02", "R-Vehicle-Metals02", "R-Struc-Materials02", 
@@ -645,7 +645,7 @@ function eventStartLevel()
 		"colVtolFactory": { tech: "R-Wpn-Bomb01" }, // Cluster Bomb Bay
 		"colResearch1": { tech: "R-Wpn-Rocket-Accuracy02" }, // Improved Rocket Wire Guidance
 		"colResearch2": { tech: "R-Wpn-MG-ROF02" }, // Rapid Fire Chaingun Upgrade
-		"colFactory1": { tech: "R-Wpn-Rocket-Damage03" }, // HE Rockets Mk3
+		"colFactory1": { tech: "R-Wpn-Rocket-Damage04" }, // HEAT Rocket Warhead
 		"colFactory2": { tech: "R-Struc-Factory-Upgrade01" }, // Automated Manufacturing
 	});
 

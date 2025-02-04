@@ -440,6 +440,7 @@ const CAM_INFESTED_PREDAMAGE_EXCLUSIONS = [
 	{ body: "CrawlerBody", prop: "CyborgLegs", weap: "StingerTail" }, // Stinger
 	{ body: "CrawlerBody", prop: "CyborgLegs", weap: "VileStingerTail" }, // Vile Stinger
 	{ body: "BoomTickBody", prop: "BoomTickLegs", weap: "BoomTickSac" }, // Boom Tick
+	{ body: "BasherBody", prop: "BoomTickLegs", weap: "BasherMelee" }, // Basher
 ];
 
 //tactics

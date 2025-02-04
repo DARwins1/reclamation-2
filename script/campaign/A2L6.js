@@ -9,8 +9,8 @@ const MIS_TEAM_GOLF = 6;
 const transportEntryPosCharlie = { x: 2, y: 2 };
 const transportEntryPosGolf = { x: 30, y: 2 };
 const mis_collectiveResearch = [
-	"R-Wpn-MG-Damage04", "R-Wpn-Rocket-Damage03", "R-Wpn-Mortar-Damage03", 
-	"R-Wpn-Flamer-Damage03", "R-Wpn-Cannon-Damage03", "R-Wpn-MG-ROF02",
+	"R-Wpn-MG-Damage04", "R-Wpn-Rocket-Damage05", "R-Wpn-Mortar-Damage04", 
+	"R-Wpn-Flamer-Damage03", "R-Wpn-Cannon-Damage04", "R-Wpn-MG-ROF02",
 	"R-Wpn-Rocket-ROF02", "R-Wpn-Mortar-ROF02", "R-Wpn-Flamer-ROF02",
 	"R-Wpn-Cannon-ROF02", "R-Vehicle-Metals03", "R-Struc-Materials03", 
 	"R-Defense-WallUpgrade03", "R-Sys-Engineering02", "R-Cyborg-Metals03",
@@ -19,7 +19,7 @@ const mis_collectiveResearch = [
 	"R-Struc-RprFac-Upgrade01",
 ];
 const mis_infestedResearch = [
-	"R-Wpn-MG-Damage04", "R-Wpn-Rocket-Damage03", "R-Wpn-Mortar-Damage03", 
+	"R-Wpn-MG-Damage04", "R-Wpn-Rocket-Damage03", "R-Wpn-Mortar-Damage04", 
 	"R-Wpn-Flamer-Damage03", "R-Wpn-Cannon-Damage03", "R-Wpn-MG-ROF02",
 	"R-Wpn-Rocket-ROF02", "R-Wpn-Mortar-ROF02", "R-Wpn-Flamer-ROF02",
 	"R-Wpn-Cannon-ROF02", "R-Vehicle-Metals03", "R-Struc-Materials03", 
@@ -873,7 +873,7 @@ function eventStartLevel()
 	setAlliance(MIS_LZ_SCAVS, CAM_THE_COLLECTIVE, true);
 
 	camSetArtifacts({
-		"colResearch": { tech: "R-Wpn-Rocket-ROF02" }, // Rocket Autoloader Mk2
+		"colResearch": { tech: "R-Wpn-Rocket-Accuracy03" }, // Rocket Laser Designator
 		"colFactory3": { tech: "R-Wpn-Cannon4AMk1" }, // Hyper Velocity Cannon
 		"colCybFactory4": { tech: "R-Cyb-Hvywpn-Grenade" }, // Super Heavy Grenadier
 		"colCC2": { tech: "R-Sys-Engineering02" }, // Improved Engineering

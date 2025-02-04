@@ -111,7 +111,7 @@ function sendInfestedReinforcements()
 	const southwestEntrance = getObject(seEntrances[camRand(seEntrances.length)]);
 	camSendReinforcement(CAM_INFESTED, southwestEntrance, camRandInfTemplates(coreDroids, CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND);
 
-	if (phase < 1) // Disable these once Foxtrot becomes active
+	if (phase < 2) // Disable these once Foxtrot becomes active
 	{
 		// South canal entrances
 		const canalEntrances = ["infEntry6", "infEntry7"];
@@ -127,7 +127,7 @@ function sendInfestedReinforcements()
 	// South large trench entrance
 	camSendReinforcement(CAM_INFESTED, getObject("infEntry10"), camRandInfTemplates(coreDroids, CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND);
 
-	if (phase < 2) // Disable these once Golf becomes active
+	if (phase < 3) // Disable these once Golf becomes active
 	{
 		// Southwest corner entrances
 		const swEntrances = ["infEntry11", "infEntry12", "infEntry13"];
@@ -194,11 +194,11 @@ function sendFoxtrotGroundReinforcements()
 	const lz1MissingTrucks = getMissingTrucks(foxtrotLz1TruckJobs);
 	const lz2MissingTrucks = getMissingTrucks(foxtrotLz2TruckJobs);
 
-	if (!camBaseIsEliminated("foxtrotLz1") || lz1MissingTrucks.length > 0)
+	if (!camBaseIsEliminated("foxtrotLz1") || lz1MissingTrucks.length === foxtrotLz1TruckJobs.length)
 	{
 		jobList = lz1MissingTrucks;
 	}
-	else if (!camBaseIsEliminated("foxtrotLz2") || lz2MissingTrucks.length > 0)
+	else if (!camBaseIsEliminated("foxtrotLz2") || lz2MissingTrucks.length === foxtrotLz2TruckJobs.length)
 	{
 		jobList = lz2MissingTrucks;
 	}
@@ -233,15 +233,17 @@ function sendFoxtrotGroundReinforcements()
 	// const MANY_FOXTROT_UNITS = countDroid(DROID_ANY, MIS_TEAM_FOXTROT).length >= 0; // Don't order droids to repair if there's already a bunch of units around
 	const data = {order: CAM_ORDER_ATTACK, data: {targetPlayer: CAM_HUMAN_PLAYER}};
 	const attackEntrances = (phase > 3) ? entrances.concat(mis_flankEntrances) : entrances;
-	for (const entrance of attackEntrances)
+	const NUM_SPAWNS = 3;
+	for (let i = 0; i < NUM_SPAWNS; i++)
 	{
-		camSendReinforcement(MIS_TEAM_FOXTROT, getObject(entrance), templates, CAM_REINFORCE_GROUND, data);
+		entrance = getObject(entrances[camRand(entrances.length)]);
+		camSendReinforcement(MIS_TEAM_FOXTROT, entrance, templates, CAM_REINFORCE_GROUND, data);
 	}
 
 	if (phase > 3 && foxtrotIdx % 10 === 0)
 	{
 		// Increase the number of ground attacks every 10 waves in phase 4
-		setTimer("sendFoxtrotGroundReinforcements", camChangeOnDiff(camSecondsToMilliseconds(1.75)));
+		setTimer("sendFoxtrotGroundReinforcements", camChangeOnDiff(camMinutesToMilliseconds(1.75)));
 	}
 	foxtrotIdx++;
 }
@@ -273,7 +275,7 @@ function sendFoxtrotTransporter()
 	{
 		// Commander doesn't exist and enough time has passed since it died, bring in a new commander
 		droidQueue.push(cTempl.plhcomw);
-		let commanderSent = true;
+		commanderSent = true;
 	}
 	if (COMMANDER_ALIVE || commanderSent)
 	{
@@ -318,11 +320,11 @@ function sendGolfGroundReinforcements()
 	const lz1MissingTrucks = getMissingTrucks(golfLz1TruckJobs);
 	const lz2MissingTrucks = getMissingTrucks(golfLz2TruckJobs);
 
-	if (!camBaseIsEliminated("golfLz1") || lz1MissingTrucks.length > 0)
+	if (!camBaseIsEliminated("golfLz1") || lz1MissingTrucks.length === golfLz1TruckJobs.length)
 	{
 		jobList = lz1MissingTrucks;
 	}
-	else if (!camBaseIsEliminated("golfLz2") || lz2MissingTrucks.length > 0)
+	else if (!camBaseIsEliminated("golfLz2") || lz2MissingTrucks.length === golfLz2TruckJobs.length)
 	{
 		jobList = lz2MissingTrucks;
 	}
@@ -339,7 +341,7 @@ function sendGolfGroundReinforcements()
 	{
 		// Bring in the trucks!
 		const tPos = camMakePos(entrances[camRand(entrances.length)]);
-		const tTemp = (phase >= 3 || difficulty >= HARD) ? cTempl.plhtruckt : cTempl.plmtruckt;
+		const tTemp = (phase > 3 || difficulty >= HARD) ? cTempl.plhtruckt : cTempl.plmtruckt;
 		const newTruck = addDroid(MIS_TEAM_GOLF, tPos.x, tPos.y, 
 			camNameTemplate(tTemp.weap, tTemp.body, tTemp.prop), 
 			tTemp.body, tTemp.prop, "", "", tTemp.weap);
@@ -355,15 +357,17 @@ function sendGolfGroundReinforcements()
 	// const MANY_GOLF_UNITS = countDroid(DROID_ANY, MIS_TEAM_GOLF).length >= 0; // Don't order droids to repair if there's already a bunch of units around
 	const data = {order: CAM_ORDER_ATTACK, data: {targetPlayer: CAM_HUMAN_PLAYER}};
 	const attackEntrances = (phase > 3) ? entrances.concat(mis_flankEntrances) : entrances;
-	for (const entrance of attackEntrances)
+	const NUM_SPAWNS = 1;
+	for (let i = 0; i < NUM_SPAWNS; i++)
 	{
-		camSendReinforcement(MIS_TEAM_GOLF, getObject(entrance), templates, CAM_REINFORCE_GROUND, data);
+		entrance = getObject(entrances[camRand(entrances.length)]);
+		camSendReinforcement(MIS_TEAM_GOLF, entrance, templates, CAM_REINFORCE_GROUND, data);
 	}
 
 	if (phase > 3 && golfIdx % 10 === 0)
 	{
 		// Increase the number of ground attacks every 10 waves in phase 4
-		setTimer("sendGolfGroundReinforcements", camChangeOnDiff(camSecondsToMilliseconds(1.75)));
+		setTimer("sendGolfGroundReinforcements", camChangeOnDiff(camMinutesToMilliseconds(1.75)));
 	}
 	golfIdx++;
 }
@@ -475,33 +479,43 @@ function eventTransporterLanded(transport)
 	{
 		// Assign Golf reinforcements
 		const transDroids = camGetTransporterDroids(transport.player);
-		const transSensor = transDroids.filter((droid) => (droid.droidType == DROID_SENSOR))[0];
-		const transOther = transDroids.filter((droid) => (droid.droidType != DROID_SENSOR));
+		// const transSensor = transDroids.filter((droid) => (droid.droidType == DROID_SENSOR))[0];
+		let transOther = transDroids.filter((droid) => (droid.droidType != DROID_SENSOR));
 
 		// Assign other units to their refillable groups
 		transOther = camAssignToRefillableGroups(transOther, golfPatrolGroup); // Hold onto any leftovers
 
-		if (camDef(transSensor))
-		{
-			// Add a label to this sensor
-			const sensorLabel = "golfSensor" + golfSensorIdx++;
-			addLabel(transSensor, sensorLabel);
+		// if (camDef(transSensor))
+		// {
+		// 	// Add a label to this sensor
+		// 	const sensorLabel = "golfSensor" + golfSensorIdx++;
+		// 	addLabel(transSensor, sensorLabel);
 
-			// Take any remaining leftovers and assign them to follow the sensor
-			camManageGroup(transOther, CAM_ORDER_FOLLOW, {
-				leader: sensorLabel,
-				leaderOrder: CAM_ORDER_ATTACK,
-				data: {
-					targetPlayer: CAM_ORDER_ATTACK,
-					repair: 50
-				},
-				suborder: CAM_ORDER_ATTACK,
-				targetPlayer: CAM_HUMAN_PLAYER
-			})
-		}
+		// 	// Take any remaining leftovers and assign them to follow the sensor
+		// 	camManageGroup(transOther, CAM_ORDER_FOLLOW, {
+		// 		leader: sensorLabel,
+		// 		leaderOrder: CAM_ORDER_ATTACK,
+		// 		data: {
+		// 			targetPlayer: CAM_HUMAN_PLAYER,
+		// 			repair: 50
+		// 		},
+		// 		suborder: CAM_ORDER_ATTACK,
+		// 		targetPlayer: CAM_HUMAN_PLAYER
+		// 	})
+		// }
 	}
 
 }
+
+function eventDestroyed(obj)
+{
+	if (obj.type === DROID && obj.player === MIS_TEAM_FOXTROT && obj.droidType === DROID_COMMAND)
+	{
+		// Prevent team Foxtrot from bringing in another commander for some time...
+		foxtrotCommanderDeathTime = gameTime;
+	}
+}
+
 // Loops through a truck job list, and returns a list of all the jobs with missing trucks
 function getMissingTrucks(jobList)
 {
@@ -813,7 +827,6 @@ function eventStartLevel()
 
 	golfPatrolGroup = camMakeRefillableGroup(undefined, {
 		templates: [
-			cTempl.plhsenst, // 1 Sensor
 			cTempl.plhhrat, cTempl.plhhrat, cTempl.plhhrat, cTempl.plhhrat, cTempl.plhhrat, cTempl.plhhrat, cTempl.plhhrat, cTempl.plhhrat, // 8 HRAs
 			cTempl.plmhpvt, cTempl.plmhpvt, cTempl.plmhpvt, cTempl.plmhpvt, cTempl.plmhpvt, cTempl.plmhpvt, // 6 HVCs
 			cTempl.plhhaat, cTempl.plhhaat, cTempl.plhhaat, cTempl.plhhaat, // 4 Cyclones
