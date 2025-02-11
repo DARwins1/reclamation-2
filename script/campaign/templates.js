@@ -278,9 +278,9 @@ comagt: { body: "Body6SUPP", prop: "tracked01", weap: "MG4ROTARYMk1" }, // Assau
 colcanht: { body: "Body2SUP", prop: "HalfTrack", weap: "Cannon1Mk1" }, // Light Cannon Leopard Half-tracks
 colmcant: { body: "Body2SUP", prop: "tracked01", weap: "Cannon2A-TMk1" }, // Medium Cannon Leopard Tracks
 commcant: { body: "Body6SUPP", prop: "tracked01", weap: "Cannon2A-TMk1" }, // Medium Cannon Panther Tracks
+comhpvht: { body: "Body6SUPP", prop: "HalfTrack", weap: "Cannon5VulcanMk1" }, // Hyper Velocity Cannon Panther Half-tracks
 comhpvt: { body: "Body6SUPP", prop: "tracked01", weap: "Cannon4AUTOMk1" }, // Hyper Velocity Cannon Panther Tracks
 comhpvh: { body: "Body6SUPP", prop: "hover01", weap: "Cannon4AUTOMk1" }, // Hyper Velocity Cannon Panther Hover
-comacanht: { body: "Body6SUPP", prop: "HalfTrack", weap: "Cannon5VulcanMk1" }, // Assault Cannon Panther Half-tracks
 comacant: { body: "Body6SUPP", prop: "tracked01", weap: "Cannon5VulcanMk1" }, // Assault Cannon Panther Tracks
 cohhpvt: { body: "Body9REC", prop: "tracked01", weap: "Cannon4AUTOMk1" }, // Hyper Velocity Cannon Tiger Tracks
 cohacant: { body: "Body9REC", prop: "tracked01", weap: "Cannon5VulcanMk1" }, // Assault Cannon Tiger Tracks

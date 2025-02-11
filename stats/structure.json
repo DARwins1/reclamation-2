@@ -8,7 +8,7 @@
         "hitpoints": 200,
         "id": "A0ADemolishStructure",
         "name": "Demolish Structure",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "SOFT",
         "structureModel": [
@@ -28,7 +28,7 @@
         "hitpoints": 400,
         "id": "InfBunker",
         "name": "Infested Scavenger Bunker",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
@@ -53,7 +53,7 @@
         "name": "Infested Scavenger Factory",
         "productionPoints": 10,
         "moduleProductionPoints": 10,
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "ZNULLSENSOR",
         "strength": "MEDIUM",
         "structureModel": [
@@ -73,7 +73,7 @@
         "hitpoints": 200,
         "id": "InfFlameTower",
         "name": "Infested Scavenger Flame Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -96,7 +96,7 @@
         "hitpoints": 200,
         "id": "InfGunTower",
         "name": "Infested Scavenger Gun Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -119,7 +119,7 @@
         "hitpoints": 200,
         "id": "InfGunTowerEND",
         "name": "Infested Scavenger End Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -161,7 +161,7 @@
         "hitpoints": 250,
         "id": "InfMortarPit",
         "name": "Infested Scavenger Mortar Pit",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -186,7 +186,7 @@
         "name": "Infested Scavenger Power Generator",
         "powerPoints": 50,
         "modulePowerPoints": 25,
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "BaBaSensor",
         "strength": "MEDIUM",
         "structureModel": [
@@ -206,7 +206,7 @@
         "hitpoints": 250,
         "id": "InfRocketPit",
         "name": "Infested Scavenger Rocket Pit",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -229,7 +229,7 @@
         "hitpoints": 250,
         "id": "InfRocketPitAT",
         "name": "Infested Scavenger AT-Rocket Pit",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -271,7 +271,7 @@
         "hitpoints": 200,
         "id": "InfCannonTower",
         "name": "Infested Cannon Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -313,7 +313,7 @@
         "hitpoints": 400,
         "id": "A0BaBaBunker",
         "name": "Scavenger Bunker",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
@@ -338,7 +338,7 @@
         "name": "Scavenger Factory",
         "productionPoints": 10,
         "moduleProductionPoints": 10,
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "ZNULLSENSOR",
         "strength": "MEDIUM",
         "structureModel": [
@@ -358,7 +358,7 @@
         "hitpoints": 200,
         "id": "A0BaBaFlameTower",
         "name": "Scavenger Flame Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -381,7 +381,7 @@
         "hitpoints": 200,
         "id": "A0BaBaGunTower",
         "name": "Scavenger Gun Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -404,7 +404,7 @@
         "hitpoints": 200,
         "id": "A0BaBaGunTowerEND",
         "name": "*Scavenger End Tower*",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -446,7 +446,7 @@
         "hitpoints": 250,
         "id": "A0BaBaMortarPit",
         "name": "*BaBaMortarPit*",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -471,7 +471,7 @@
         "name": "Scavenger Power Generator",
         "powerPoints": 50,
         "modulePowerPoints": 25,
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "BaBaSensor",
         "strength": "MEDIUM",
         "structureModel": [
@@ -491,7 +491,7 @@
         "hitpoints": 250,
         "id": "A0BaBaRocketPit",
         "name": "Scavenger Rocket Pit",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -514,7 +514,7 @@
         "hitpoints": 250,
         "id": "A0BaBaRocketPitAT",
         "name": "Scavenger AT-Rocket Pit",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -537,7 +537,7 @@
         "hitpoints": 250,
         "id": "A0BaBaRocketPitAT-2",
         "name": "Scavenger AT-Rocket Pit 2",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -560,7 +560,7 @@
         "hitpoints": 250,
         "id": "InfRocketPitAT-2",
         "name": "Infested Scavenger AT-Rocket Pit 2",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -583,7 +583,7 @@
         "hitpoints": 250,
         "id": "A0BaBaCannonPit",
         "name": "Scavenger Cannon Pit",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -606,7 +606,7 @@
         "hitpoints": 250,
         "id": "InfCannonPit",
         "name": "Infested Scavenger Cannon Pit",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -629,7 +629,7 @@
         "hitpoints": 250,
         "id": "A0BaBaMRAPit",
         "name": "Scavenger MRA Pit",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -652,7 +652,7 @@
         "hitpoints": 250,
         "id": "InfMRAPit",
         "name": "Infested Scavenger MRA Pit",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -694,7 +694,7 @@
         "hitpoints": 200,
         "id": "A0CannonTower",
         "name": "Cannon Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -718,7 +718,7 @@
         "hitpoints": 1000,
         "id": "A0ComDroidControl",
         "name": "Command Relay Center",
-        "resistance": 300,
+        "resistance": 600,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -739,7 +739,7 @@
         "hitpoints": 1000,
         "id": "A0CommandCentre",
         "name": "Command Center",
-        "resistance": 300,
+        "resistance": 600,
         "sensorID": "CCSensor",
         "strength": "HARD",
         "structureModel": [
@@ -760,7 +760,7 @@
         "hitpoints": 1000,
         "id": "InfCommandCentre",
         "name": "Infested Command Center",
-        "resistance": 300,
+        "resistance": 600,
         "sensorID": "InfCCSensor",
         "strength": "HARD",
         "structureModel": [
@@ -781,7 +781,7 @@
         "hitpoints": 1000,
         "id": "A0CommandCentreCO",
         "name": "Collective Command Center",
-        "resistance": 300,
+        "resistance": 600,
         "sensorID": "CCSensor",
         "strength": "HARD",
         "structureModel": [
@@ -802,7 +802,7 @@
         "hitpoints": 1000,
         "id": "InfCommandCentreCO",
         "name": "Infested Collective Command Center",
-        "resistance": 300,
+        "resistance": 600,
         "sensorID": "InfCCSensor",
         "strength": "HARD",
         "structureModel": [
@@ -823,7 +823,7 @@
         "hitpoints": 1000,
         "id": "A0CommandCentreNE",
         "name": "*CommandCenterNE*",
-        "resistance": 300,
+        "resistance": 600,
         "sensorID": "CCSensor",
         "strength": "HARD",
         "structureModel": [
@@ -844,7 +844,7 @@
         "hitpoints": 1000,
         "id": "A0CommandCentreNP",
         "name": "New Paradigm Command Center",
-        "resistance": 300,
+        "resistance": 600,
         "sensorID": "CCSensor",
         "strength": "HARD",
         "structureModel": [
@@ -867,7 +867,7 @@
         "name": "Cyborg Factory",
         "productionPoints": 10,
         "moduleProductionPoints": 10,
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -890,7 +890,7 @@
         "name": "Infested Cyborg Factory",
         "productionPoints": 10,
         "moduleProductionPoints": 10,
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -911,7 +911,7 @@
         "id": "A0FacMod1",
         "name": "Factory Module",
         "productionPoints": 10,
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1074,7 +1074,7 @@
         "name": "Factory",
         "productionPoints": 10,
         "moduleProductionPoints": 0,
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "BaBaSensor",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1101,7 +1101,7 @@
         "name": "Infested Factory",
         "productionPoints": 10,
         "moduleProductionPoints": 0,
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "BaBaSensor",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1124,7 +1124,7 @@
         "hitpoints": 1000,
         "id": "A0PowMod1",
         "name": "Power Module",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1147,7 +1147,7 @@
         "name": "Power Generator",
         "powerPoints": 55,
         "modulePowerPoints": 28,
-        "resistance": 300,
+        "resistance": 600,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1172,7 +1172,7 @@
         "name": "Infested Power Generator",
         "powerPoints": 55,
         "modulePowerPoints": 28,
-        "resistance": 300,
+        "resistance": 600,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1196,7 +1196,7 @@
         "id": "A0RepairCentre3",
         "name": "Repair Facility",
         "repairPoints": 40,
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1219,7 +1219,7 @@
         "name": "Research Facility",
         "researchPoints": 14,
         "moduleResearchPoints": 7,
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1244,7 +1244,7 @@
         "name": "Infested Research Facility",
         "researchPoints": 14,
         "moduleResearchPoints": 7,
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1266,7 +1266,7 @@
         "hitpoints": 800,
         "id": "A0ResearchModule1",
         "name": "Research Module",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1285,7 +1285,7 @@
         "hitpoints": 600,
         "id": "A0ResourceExtractor",
         "name": "Oil Derrick",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1327,7 +1327,7 @@
         "name": "VTOL Factory",
         "productionPoints": 10,
         "moduleProductionPoints": 0,
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1354,7 +1354,7 @@
         "name": "VTOL Rearming Pad",
         "rearmPoints": 100,
         "repairPoints": 10,
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1374,7 +1374,7 @@
         "hitpoints": 400,
         "id": "AASite-QuadBof",
         "name": "Cyclone AA Flak Site",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1397,7 +1397,7 @@
         "hitpoints": 400,
         "id": "InfAASite-QuadBof",
         "name": "Infested Cyclone AA Flak Site",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1420,7 +1420,7 @@
         "hitpoints": 400,
         "id": "AASite-RustQuadBof",
         "name": "Rusty Cyclone AA Flak Site",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1443,7 +1443,7 @@
         "hitpoints": 400,
         "id": "AASite-QuadMg1",
         "name": "Hurricane AA Site",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1466,7 +1466,7 @@
         "hitpoints": 400,
         "id": "InfAASite-QuadMg1",
         "name": "Infested Hurricane AA Site",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1489,7 +1489,7 @@
         "hitpoints": 400,
         "id": "AASite-QuadRotMg",
         "name": "Whirlwind AA Site",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1512,7 +1512,7 @@
         "hitpoints": 400,
         "id": "InfAASite-QuadRotMg",
         "name": "Infested Whirlwind AA Site",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1592,7 +1592,7 @@
         "hitpoints": 400,
         "id": "Sys-InfLure",
         "name": "Infested Lure",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "LureSensor",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1612,7 +1612,7 @@
         "hitpoints": 400,
         "id": "Emplacement-HPVcannon",
         "name": "Hyper Velocity Cannon Emplacement",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1635,7 +1635,7 @@
         "hitpoints": 400,
         "id": "Emplacement-Howitzer105",
         "name": "Howitzer Emplacement",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1658,7 +1658,7 @@
         "hitpoints": 400,
         "id": "Emplacement-Howitzer150",
         "name": "Ground Shaker Emplacement",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1681,7 +1681,7 @@
         "hitpoints": 400,
         "id": "Emplacement-HvART-pit",
         "name": "Archangel Missile Emplacement",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1704,7 +1704,7 @@
         "hitpoints": 400,
         "id": "Emplacement-HvyATrocket",
         "name": "Tank Killer Emplacement",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1727,7 +1727,7 @@
         "hitpoints": 400,
         "id": "Emplacement-Ballista",
         "name": "Ballista Emplacement",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -1750,7 +1750,7 @@
         "hitpoints": 400,
         "id": "Emplacement-MRL-pit",
         "name": "Mini-Rocket Battery",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1773,7 +1773,7 @@
         "hitpoints": 400,
         "id": "InfEmplacement-MRL-pit",
         "name": "Infested Mini-Rocket Battery",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1795,7 +1795,7 @@
         "hitpoints": 400,
         "id": "Emplacement-MRLHvy-pit",
         "name": "Heavy Rocket Battery",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1817,7 +1817,7 @@
         "hitpoints": 400,
         "id": "InfEmplacement-MRLHvy-pit",
         "name": "Infested Heavy Rocket Battery",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1840,7 +1840,7 @@
         "hitpoints": 400,
         "id": "Emplacement-MdART-pit",
         "name": "Seraph Missile Battery",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1863,7 +1863,7 @@
         "hitpoints": 300,
         "id": "Emplacement-MortarPit01",
         "name": "Mortar Pit",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1886,7 +1886,7 @@
         "hitpoints": 300,
         "id": "Emplacement-MortarPit02",
         "name": "Bombard Pit",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1909,7 +1909,7 @@
         "hitpoints": 400,
         "id": "Emplacement-PrisLas",
         "name": "Flashlight Emplacement",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1932,7 +1932,7 @@
         "hitpoints": 400,
         "id": "Emplacement-PulseLaser",
         "name": "Pulse Laser Emplacement",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1955,7 +1955,7 @@
         "hitpoints": 400,
         "id": "Emplacement-Rail2",
         "name": "Railgun Emplacement",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -1978,7 +1978,7 @@
         "hitpoints": 400,
         "id": "Emplacement-Rail3",
         "name": "Gauss Cannon Emplacement",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -2001,7 +2001,7 @@
         "hitpoints": 400,
         "id": "Emplacement-Rocket06-IDF",
         "name": "Ripple Rocket Battery",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -2024,7 +2024,7 @@
         "hitpoints": 400,
         "id": "Emplacement-RotHow",
         "name": "Hellstorm Emplacement",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -2047,7 +2047,7 @@
         "hitpoints": 300,
         "id": "Emplacement-RotMor",
         "name": "Pepperpot Pit",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -2070,7 +2070,7 @@
         "hitpoints": 600,
         "id": "GuardTower-ATMiss",
         "name": "Scourge Missile Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -2093,7 +2093,7 @@
         "hitpoints": 600,
         "id": "GuardTower-BeamLas",
         "name": "Pulse Laser Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -2116,7 +2116,7 @@
         "hitpoints": 600,
         "id": "GuardTower-Rail1",
         "name": "Needle Gun Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -2139,7 +2139,7 @@
         "hitpoints": 600,
         "id": "InfGuardTower-Rail1",
         "name": "Infested Needle Gun Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -2162,7 +2162,7 @@
         "hitpoints": 600,
         "id": "GuardTower-RotMg",
         "name": "Assault Gun Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -2185,7 +2185,7 @@
         "hitpoints": 600,
         "id": "InfGuardTower-RotMg",
         "name": "Infested Assault Gun Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -2208,7 +2208,7 @@
         "hitpoints": 450,
         "id": "GuardTower1",
         "name": "Heavy Machinegun Guard Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -2231,7 +2231,7 @@
         "hitpoints": 450,
         "id": "InfGuardTower1",
         "name": "Infested Heavy Machinegun Guard Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -2254,7 +2254,7 @@
         "hitpoints": 450,
         "id": "GuardTower2",
         "name": "Twin Machinegun Guard Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -2277,7 +2277,7 @@
         "hitpoints": 600,
         "id": "GuardTower3",
         "name": "Heavy Machinegun Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -2300,7 +2300,7 @@
         "hitpoints": 600,
         "id": "InfGuardTower3",
         "name": "Infested Heavy Machinegun Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -2323,7 +2323,7 @@
         "hitpoints": 600,
         "id": "RustGuardTower3",
         "name": "Rusty Heavy Machinegun Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -2346,7 +2346,7 @@
         "hitpoints": 600,
         "id": "GuardTower4",
         "name": "Flamer Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -2369,7 +2369,7 @@
         "hitpoints": 600,
         "id": "GuardTower5",
         "name": "Lancer Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -2392,7 +2392,7 @@
         "hitpoints": 600,
         "id": "InfGuardTower5",
         "name": "Infested Lancer Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -2415,7 +2415,7 @@
         "hitpoints": 450,
         "id": "GuardTower6",
         "name": "Mini-Rocket Guard Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -2438,7 +2438,7 @@
         "hitpoints": 450,
         "id": "InfGuardTower6",
         "name": "Infested Mini-Rocket Guard Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -2461,7 +2461,7 @@
         "hitpoints": 600,
         "id": "GuardTower6H",
         "name": "Mini-Rocket Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -2484,7 +2484,7 @@
         "hitpoints": 600,
         "id": "InfGuardTower6H",
         "name": "Infested Mini-Rocket Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -2507,7 +2507,7 @@
         "hitpoints": 600,
         "id": "RustGuardTower6",
         "name": "Rusty Mini-Rocket Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -2625,7 +2625,7 @@
         "hitpoints": 400,
         "id": "NX-Emp-MedArtMiss-Pit",
         "name": "*NX-Emp-MedArtMiss-Pit*",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "NavGunSensor",
         "strength": "HARD",
         "structureModel": [
@@ -2648,7 +2648,7 @@
         "hitpoints": 400,
         "id": "NX-Emp-MultiArtMiss-Pit",
         "name": "*NX-Emp-MultiArtMiss-Pit*",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "NavGunSensor",
         "strength": "HARD",
         "structureModel": [
@@ -2671,7 +2671,7 @@
         "hitpoints": 400,
         "id": "NX-Emp-Plasma-Pit",
         "name": "*NX-Emp-Plasma-Pit*",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "NavGunSensor",
         "strength": "HARD",
         "structureModel": [
@@ -2694,7 +2694,7 @@
         "hitpoints": 600,
         "id": "NX-Tower-ATMiss",
         "name": "*NX-Tower-ATMiss*",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "NavGunSensor",
         "strength": "HARD",
         "structureModel": [
@@ -2717,7 +2717,7 @@
         "hitpoints": 600,
         "id": "NX-Tower-PulseLas",
         "name": "*NX-Tower-PulseLas*",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "NavGunSensor",
         "strength": "HARD",
         "structureModel": [
@@ -2740,7 +2740,7 @@
         "hitpoints": 600,
         "id": "NX-Tower-Rail1",
         "name": "*NX-Tower-Rail1*",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "NavGunSensor",
         "strength": "HARD",
         "structureModel": [
@@ -2763,7 +2763,7 @@
         "hitpoints": 800,
         "id": "NX-WallTower-BeamLas",
         "name": "*NX-WallTower-BeamLas*",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "NavGunSensor",
         "strength": "HARD",
         "structureModel": [
@@ -2786,7 +2786,7 @@
         "hitpoints": 800,
         "id": "NX-WallTower-Rail2",
         "name": "*NX-WallTower-Rail2*",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "NavGunSensor",
         "strength": "HARD",
         "structureModel": [
@@ -2809,7 +2809,7 @@
         "hitpoints": 800,
         "id": "NX-WallTower-Rail3",
         "name": "*NX-WallTower-Rail3*",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "NavGunSensor",
         "strength": "HARD",
         "structureModel": [
@@ -2851,7 +2851,7 @@
         "hitpoints": 400,
         "id": "P0-AASite-SAM1",
         "name": "Avenger SAM Site",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "NavGunSensor",
         "strength": "HARD",
         "structureModel": [
@@ -2874,7 +2874,7 @@
         "hitpoints": 600,
         "id": "P0-AASite-SAM2",
         "name": "Vindicator SAM Site",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "NavGunSensor",
         "strength": "HARD",
         "structureModel": [
@@ -2897,7 +2897,7 @@
         "hitpoints": 700,
         "id": "PillBox1",
         "name": "Heavy Machinegun Bunker",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
@@ -2920,7 +2920,7 @@
         "hitpoints": 700,
         "id": "InfPillBox1",
         "name": "Infested Heavy Machinegun Bunker",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
@@ -2943,7 +2943,7 @@
         "hitpoints": 700,
         "id": "OldPillBox1",
         "name": "Old Heavy Machinegun Bunker",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
@@ -2966,7 +2966,7 @@
         "hitpoints": 700,
         "id": "PillBox2",
         "name": "Twin Machinegun Bunker",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
@@ -2989,7 +2989,7 @@
         "hitpoints": 700,
         "id": "PillBox3",
         "name": "HMG Bunker",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
@@ -3012,7 +3012,7 @@
         "hitpoints": 700,
         "id": "PillBox4",
         "name": "Light Cannon Bunker",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
@@ -3035,7 +3035,7 @@
         "hitpoints": 700,
         "id": "InfPillBox4",
         "name": "Infested Light Cannon Bunker",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
@@ -3058,7 +3058,7 @@
         "hitpoints": 700,
         "id": "PillBox5",
         "name": "Flamer Bunker",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
@@ -3081,7 +3081,7 @@
         "hitpoints": 700,
         "id": "InfPillBox5",
         "name": "Infested Flamer Bunker",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
@@ -3104,7 +3104,7 @@
         "hitpoints": 700,
         "id": "PillBox6",
         "name": "Lancer Bunker",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
@@ -3127,7 +3127,7 @@
         "hitpoints": 700,
         "id": "InfPillBox6",
         "name": "Infested Lancer Bunker",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
@@ -3150,7 +3150,7 @@
         "hitpoints": 700,
         "id": "PillBoxHPC",
         "name": "Hyper Velocity Cannon Bunker",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
@@ -3173,7 +3173,7 @@
         "hitpoints": 700,
         "id": "InfPillBoxHPC",
         "name": "Infested Hyper Velocity Cannon Bunker",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
@@ -3196,7 +3196,7 @@
         "hitpoints": 700,
         "id": "PillBoxTK",
         "name": "Tank Killer Bunker",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
@@ -3219,7 +3219,7 @@
         "hitpoints": 700,
         "id": "InfPillBoxTK",
         "name": "Infested Tank Killer Bunker",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
@@ -3242,7 +3242,7 @@
         "hitpoints": 700,
         "id": "PillBoxFlash",
         "name": "Flashlight Bunker",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
@@ -3265,7 +3265,7 @@
         "hitpoints": 700,
         "id": "Pillbox-RotMG",
         "name": "Rotary MG Bunker",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
@@ -3288,7 +3288,7 @@
         "hitpoints": 700,
         "id": "InfPillbox-RotMG",
         "name": "Infested Rotary MG Bunker",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
@@ -3311,7 +3311,7 @@
         "hitpoints": 600,
         "id": "Sys-CB-Tower01",
         "name": "CB Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "Sys-CBTower01",
         "strength": "HARD",
         "structureModel": [
@@ -3353,7 +3353,7 @@
         "hitpoints": 600,
         "id": "Sys-NX-CBTower",
         "name": "*Sys-NX-CBTower*",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "Sys-CBTower01",
         "strength": "HARD",
         "structureModel": [
@@ -3373,7 +3373,7 @@
         "hitpoints": 600,
         "id": "Sys-NX-SensorTower",
         "name": "*Sys-NX-SensorTower*",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "SensorTower1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -3393,7 +3393,7 @@
         "hitpoints": 600,
         "id": "Sys-NX-VTOL-CB-Tow",
         "name": "*Sys-NX-VTOL-CB-Tow*",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "Sys-VTOLCBTower01",
         "strength": "HARD",
         "structureModel": [
@@ -3413,7 +3413,7 @@
         "hitpoints": 600,
         "id": "Sys-NX-VTOL-RadTow",
         "name": "*Sys-NX-VTOL-RadTow*",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "Sys-VTOLRadarTower01",
         "strength": "HARD",
         "structureModel": [
@@ -3433,7 +3433,7 @@
         "hitpoints": 450,
         "id": "Sys-SensoTower01",
         "name": "Sensor Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "SensorTower1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -3453,7 +3453,7 @@
         "hitpoints": 450,
         "id": "Sys-RustSensoTower01",
         "name": "Rusty Sensor Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "RustySensorTower1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -3473,7 +3473,7 @@
         "hitpoints": 600,
         "id": "Sys-SensoTower02",
         "name": "Hardened Sensor Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "SensorTower1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -3493,7 +3493,7 @@
         "hitpoints": 600,
         "id": "Sys-VTOL-CB-Tower01",
         "name": "VTOL CB Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "Sys-VTOLCBTower01",
         "strength": "HARD",
         "structureModel": [
@@ -3513,7 +3513,7 @@
         "hitpoints": 450,
         "id": "Sys-VTOL-RadarTower01",
         "name": "VTOL Radar Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "Sys-VTOLRadarTower01",
         "strength": "MEDIUM",
         "structureModel": [
@@ -3533,7 +3533,7 @@
         "hitpoints": 450,
         "id": "Sys-VTOL-RustyRadarTower01",
         "name": "Rusty VTOL Radar Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "Sys-RustyVTOLRadarTower01",
         "strength": "MEDIUM",
         "structureModel": [
@@ -3553,7 +3553,7 @@
         "hitpoints": 600,
         "id": "Sys-VTOL-RadarTower02",
         "name": "Hardened VTOL Radar Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "Sys-VTOLRadarTower01",
         "strength": "HARD",
         "structureModel": [
@@ -3592,7 +3592,7 @@
         "hitpoints": 700,
         "id": "Tower-Projector",
         "name": "Inferno Bunker",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
@@ -3615,7 +3615,7 @@
         "hitpoints": 700,
         "id": "InfTower-Projector",
         "name": "Infested Inferno Bunker",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
@@ -3638,7 +3638,7 @@
         "hitpoints": 700,
         "id": "Tower-RotMg",
         "name": "Assault Gun Emplacement",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "BUNKER",
         "structureModel": [
@@ -3661,7 +3661,7 @@
         "hitpoints": 600,
         "id": "Tower-VulcanCan",
         "name": "Assault Cannon Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -3704,7 +3704,7 @@
         "hitpoints": 800,
         "id": "Wall-RotMg",
         "name": "Assault Gun Hardpoint",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -3728,7 +3728,7 @@
         "hitpoints": 800,
         "id": "InfWall-RotMg",
         "name": "Infested Assault Gun Hardpoint",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -3752,7 +3752,7 @@
         "hitpoints": 800,
         "id": "Wall-VulcanCan",
         "name": "Assault Cannon Hardpoint",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -3776,7 +3776,7 @@
         "hitpoints": 800,
         "id": "InfWall-VulcanCan",
         "name": "Infested Assault Cannon Hardpoint",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -3800,7 +3800,7 @@
         "hitpoints": 800,
         "id": "WallTower-Atmiss",
         "name": "Scourge Missile Hardpoint",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -3824,7 +3824,7 @@
         "hitpoints": 800,
         "id": "WallTower-HPVcannon",
         "name": "Hyper Velocity Cannon Hardpoint",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -3848,7 +3848,7 @@
         "hitpoints": 800,
         "id": "InfWallTower-HPVcannon",
         "name": "Infested Hyper Velocity Cannon Hardpoint",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -3872,7 +3872,7 @@
         "hitpoints": 800,
         "id": "WallTower-HvATrocket",
         "name": "Tank Killer Hardpoint",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -3896,7 +3896,7 @@
         "hitpoints": 800,
         "id": "InfWallTower-HvATrocket",
         "name": "Infested Tank Killer Hardpoint",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -3919,7 +3919,7 @@
         "hitpoints": 400,
         "id": "WallTower-Projector",
         "name": "Inferno Emplacement",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -3942,7 +3942,7 @@
         "hitpoints": 400,
         "id": "InfWallTower-Projector",
         "name": "Infested Inferno Emplacement",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -3966,7 +3966,7 @@
         "hitpoints": 800,
         "id": "WallTower-PulseLas",
         "name": "Flashlight Hardpoint",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -3990,7 +3990,7 @@
         "hitpoints": 800,
         "id": "WallTower-Rail2",
         "name": "Rail Gun Hardpoint",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -4014,7 +4014,7 @@
         "hitpoints": 800,
         "id": "WallTower-Rail3",
         "name": "Gauss Cannon Hardpoint",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -4038,7 +4038,7 @@
         "hitpoints": 800,
         "id": "WallTower01",
         "name": "Heavy Machinegun Hardpoint",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -4062,7 +4062,7 @@
         "hitpoints": 800,
         "id": "InfWallTower01",
         "name": "Infested Heavy Machinegun Hardpoint",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -4086,7 +4086,7 @@
         "hitpoints": 800,
         "id": "WallTower02",
         "name": "Light Cannon Hardpoint",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -4110,7 +4110,7 @@
         "hitpoints": 800,
         "id": "InfWallTower02",
         "name": "Infested Light Cannon Hardpoint",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -4134,7 +4134,7 @@
         "hitpoints": 800,
         "id": "WallTower03",
         "name": "Medium Cannon Hardpoint",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -4158,7 +4158,7 @@
         "hitpoints": 800,
         "id": "InfWallTower03",
         "name": "Infested Medium Cannon Hardpoint",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -4182,7 +4182,7 @@
         "hitpoints": 800,
         "id": "RustWallTower03",
         "name": "Rusty Medium Cannon Hardpoint",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -4206,7 +4206,7 @@
         "hitpoints": 800,
         "id": "WallTower04",
         "name": "Heavy Cannon Hardpoint",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -4230,7 +4230,7 @@
         "hitpoints": 800,
         "id": "InfWallTower04",
         "name": "Infested Heavy Cannon Hardpoint",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -4254,7 +4254,7 @@
         "hitpoints": 800,
         "id": "WallTower05",
         "name": "Flamer Hardpoint",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -4278,7 +4278,7 @@
         "hitpoints": 800,
         "id": "WallTower06",
         "name": "Lancer Hardpoint",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -4302,7 +4302,7 @@
         "hitpoints": 800,
         "id": "InfWallTower06",
         "name": "Infested Lancer Hardpoint",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
@@ -4344,7 +4344,7 @@
         "hitpoints": 400,
         "id": "Flamer-Emplacement",
         "name": "Flamer Emplacement",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -4367,7 +4367,7 @@
         "hitpoints": 400,
         "id": "InfFlamer-Emplacement",
         "name": "Infested Flamer Emplacement",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -4390,7 +4390,7 @@
         "hitpoints": 400,
         "id": "Cannon-Emplacement",
         "name": "Light Cannon Emplacement",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -4413,7 +4413,7 @@
         "hitpoints": 400,
         "id": "InfCannon-Emplacement",
         "name": "Infested Light Cannon Emplacement",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -4436,7 +4436,7 @@
         "hitpoints": 450,
         "id": "Sarissa-Tower",
         "name": "Sarissa Guard Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [
@@ -4459,7 +4459,7 @@
         "hitpoints": 450,
         "id": "InfSarissa-Tower",
         "name": "Infested Sarissa Guard Tower",
-        "resistance": 150,
+        "resistance": 300,
         "sensorID": "DefaultSensor1Mk1",
         "strength": "MEDIUM",
         "structureModel": [

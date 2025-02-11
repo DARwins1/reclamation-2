@@ -104,7 +104,6 @@
             "BabaJeepMG:InfJeepMG",
             "AAGun2Mk1:InfAAGun2Mk1",
             "BabaCannon:InfBabaCannon",
-            "JeepMG:InfJeepMG",
             "BabaRocket:InfBabaRocket",
             "Cannon1Mk1:InfCannon1Mk1",
             "RustCannon1Mk1:InfRustCannon1Mk1",
@@ -1764,6 +1763,9 @@
         "id": "R-Defense-RotMG",
         "msgName": "RES_DEF_ASSTOW",
         "name": "Assault Gun Tower",
+        "redStructures": [
+            "GuardTower3"
+        ],
         "requiredResearch": [
             "R-Wpn-MG4"
         ],
@@ -2316,7 +2318,7 @@
         "requiredResearch": [
             "R-Struc-PowerModuleMk1"
         ],
-        "researchPoints": 6000,
+        "researchPoints": 1800,
         "researchPower": 187,
         "results": [
             {

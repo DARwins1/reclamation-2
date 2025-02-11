@@ -40,6 +40,11 @@ function camSendReinforcement(playerId, position, templates, kind, data)
 			order_data = data.data;
 		}
 	}
+	if (playerId === CAM_INFESTED)
+	{
+		// Simplify order logic for Infested groups
+		order_data.simplified = true; 
+	}
 	switch (kind)
 	{
 		case CAM_REINFORCE_GROUND:

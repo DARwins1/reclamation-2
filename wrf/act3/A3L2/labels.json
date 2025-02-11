@@ -220,6 +220,13 @@
 	},
 
 
+	"object_10": {
+		"label": "colPower",
+		"id": 175,
+		"player": 2,
+		"type": 1
+	},
+
 	"radius_0": {
 		"label": "vtolRemoveZone",
 		"pos": [10686, 7293],

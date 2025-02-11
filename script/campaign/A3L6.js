@@ -159,10 +159,10 @@ function sendInfestedReinforcements()
 			cTempl.infminitruck, // MRP Trucks
 			cTempl.infsartruck, // Sarissa Trucks
 			cTempl.infbuscan, cTempl.infbuscan, // School Buses
-			cTempl.firetruck, // Fire Trucks
+			cTempl.inffiretruck, // Fire Trucks
 			cTempl.infbjeep, cTempl.infbjeep, cTempl.infbjeep, // Jeeps
 			cTempl.infrbjeep, cTempl.infrbjeep, // Rocket Jeeps
-			cTempl.infrbjeep, cTempl.infrbjeep, // Grenade Jeeps
+			cTempl.infgbjeep, cTempl.infgbjeep, // Grenade Jeeps
 			cTempl.infbuggy, // Buggies
 			cTempl.infrbuggy, // Rocket Buggies
 			cTempl.infbloke,  cTempl.infbloke, cTempl.infbloke, // Blokes
@@ -176,6 +176,7 @@ function sendInfestedReinforcements()
 			cTempl.infcybhg, cTempl.infcybhg, // Heavy Machinegunners
 			cTempl.infcolpodt, cTempl.infcolpodt, // MRPs
 			cTempl.infcolhmght, cTempl.infcolhmght, // HMGs
+			cTempl.infcolcanht, cTempl.infcolcanht, // Light Cannons
 			cTempl.infcommcant, // Medium Cannons
 			cTempl.infcomatt, // Lancers
 			cTempl.infbuggy, cTempl.infbuggy, cTempl.infbuggy, // Buggies
@@ -252,6 +253,7 @@ function eventStartLevel()
 		"colFactory1": { tech: "R-Struc-Factory-Upgrade02" }, // Robotic Manufacturing
 		"colFactory3": { tech: "R-Wpn-Rocket07-Tank-Killer" }, // Tank Killer
 		"colCC": { tech: "R-Defense-WallUpgrade05" }, // Supercrete Mk2
+		"colAAEmp": { tech: "R-Wpn-AAGun-Damage02" }, // AA HE Flak Mk2
 	});
 
 	camCompleteRequiredResearch(mis_collectiveResearch, CAM_THE_COLLECTIVE);
@@ -349,7 +351,7 @@ function eventStartLevel()
 			groupSize: 5,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(80)),
 			// Half-tracked stuff
-			templates: [ cTempl.comhatht, cTempl.commraht, cTempl.comaght, cTempl.comacanht, cTempl.comhatht ]
+			templates: [ cTempl.comhatht, cTempl.commraht, cTempl.comaght, cTempl.comhpvht, cTempl.comhatht ]
 		},
 		"colCybFactory1": {
 			assembly: "colCybAssembly1",

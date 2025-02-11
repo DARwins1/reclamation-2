@@ -42,10 +42,10 @@ function sendInfestedReinforcements()
 			cTempl.infminitruck, // MRP Trucks
 			cTempl.infsartruck, // Sarissa Trucks
 			cTempl.infbuscan, cTempl.infbuscan, // School Buses
-			cTempl.firetruck, // Fire Trucks
+			cTempl.inffiretruck, // Fire Trucks
 			cTempl.infbjeep, cTempl.infbjeep, cTempl.infbjeep, // Jeeps
 			cTempl.infrbjeep, cTempl.infrbjeep, // Rocket Jeeps
-			cTempl.infrbjeep, // Grenade Jeeps
+			cTempl.infgbjeep, // Grenade Jeeps
 			cTempl.infbuggy, cTempl.infbuggy, // Buggies
 			cTempl.infrbuggy, cTempl.infrbuggy, // Rocket Buggies
 			cTempl.inftrike, // Trikes
@@ -53,13 +53,14 @@ function sendInfestedReinforcements()
 			cTempl.infkevbloke, cTempl.infkevbloke,
 			cTempl.inflance, // Lances
 			cTempl.infkevlance, cTempl.infkevlance,
-		].push((difficulty >= EASY) ? cTempl.vilestinger : undefined), // Add a Vile Stinger
+		].concat((difficulty >= EASY) ? cTempl.vilestinger : undefined), // Add a Vile Stinger
 		[ // Light tanks & cyborgs + some scav stuff
 			cTempl.stinger, cTempl.stinger, cTempl.stinger, // Stingers
 			cTempl.infcybca, cTempl.infcybca, // Heavy Gunners
 			cTempl.infcybhg, // Heavy Machinegunners
 			cTempl.infcolpodt, // MRPs
 			cTempl.infcolhmght, // HMGs
+			cTempl.infcolcanht, // Light Cannons
 			cTempl.infbuggy, cTempl.infbuggy, cTempl.infbuggy, cTempl.infbuggy, // Buggies
 			cTempl.infrbuggy, cTempl.infrbuggy, cTempl.infrbuggy, // Rocket Buggies
 			cTempl.inftrike, cTempl.inftrike, cTempl.inftrike, // Trikes
@@ -67,7 +68,7 @@ function sendInfestedReinforcements()
 			cTempl.infkevbloke, cTempl.infkevbloke, cTempl.infkevbloke,
 			cTempl.inflance, cTempl.inflance, cTempl.inflance, // Lances
 			cTempl.infkevlance, cTempl.infkevlance,
-		].push((difficulty >= EASY) ? cTempl.infcommcant : undefined), // Add a Medium Cannon tank
+		].concat((difficulty >= EASY) ? cTempl.infcommcant : undefined), // Add a Medium Cannon tank
 		[ // Bashers, Stingers, and Infantry
 			cTempl.stinger, cTempl.stinger, cTempl.stinger, cTempl.stinger, // Stingers
 			cTempl.basher, cTempl.basher, cTempl.basher, cTempl.basher, cTempl.basher, cTempl.basher, // Bashers
@@ -75,7 +76,7 @@ function sendInfestedReinforcements()
 			cTempl.infbloke,  cTempl.infbloke, cTempl.infbloke, // Blokes
 			cTempl.infkevbloke, cTempl.infkevbloke,
 			cTempl.inflance, // Lances
-		].push((difficulty >= EASY) ? cTempl.vilestinger : undefined), // Add a Vile Stinger
+		].concat((difficulty >= EASY) ? cTempl.vilestinger : undefined), // Add a Vile Stinger
 	];
 	const CORE_SIZE = 2;
 	const FODDER_SIZE = 8;
@@ -89,7 +90,7 @@ function sendInfestedReinforcements()
 	// North trench entrances
 	// Choose one to spawn from...
 	let northTrenchEntrances = [infEntry7, infEntry8];
-	camSendReinforcement(CAM_INFESTED, camRandFrom(northTrenchEntrance), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND);
+	camSendReinforcement(CAM_INFESTED, camRandFrom(northTrenchEntrances), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND);
 }
 
 function eventStartLevel()

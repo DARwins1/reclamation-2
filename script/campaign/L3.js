@@ -508,6 +508,6 @@ function eventStartLevel()
 	// Restrict the map to the original level for now
 	setScrollLimits(0, 0, 64, 64);
 
-	// Shift the sun towards the east
-	camSetSunPos(-450.0, -400.0, 225.0);
+	// Shift the sun towards the west
+	camSetSunPos(450.0, -400.0, 225.0);
 }

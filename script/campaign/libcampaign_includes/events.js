@@ -188,7 +188,11 @@ function cam_eventDroidBuilt(droid, structure)
 		if (!camDef(__camInfestedGlobalAttackGroup))
 		{
 			__camInfestedGlobalAttackGroup = camMakeGroup(droid);
-			camManageGroup(__camInfestedGlobalAttackGroup, CAM_ORDER_ATTACK, {removable: false, targetPlayer: CAM_HUMAN_PLAYER})
+			camManageGroup(__camInfestedGlobalAttackGroup, CAM_ORDER_ATTACK, {
+				simplified: true,
+				removable: false,
+				targetPlayer: CAM_HUMAN_PLAYER
+			});
 		}
 		else
 		{
@@ -544,6 +548,8 @@ function cam_eventObjectTransfer(obj, from)
 	}
 	else if (obj.player === CAM_INFESTED)
 	{
+		// TODO: add logic for captured factories
+
 		// Swap to infested structure/droid variant
 		__camInfestObj(obj);
 

@@ -76,10 +76,10 @@ function sendInfestedReinforcements()
 			cTempl.infminitruck, // MRP Trucks
 			cTempl.infsartruck, // Sarissa Trucks
 			cTempl.infbuscan, cTempl.infbuscan, // School Buses
-			cTempl.firetruck, // Fire Trucks
+			cTempl.inffiretruck, // Fire Trucks
 			cTempl.infbjeep, cTempl.infbjeep, cTempl.infbjeep, // Jeeps
 			cTempl.infrbjeep, cTempl.infrbjeep, // Rocket Jeeps
-			cTempl.infrbjeep, cTempl.infrbjeep, // Grenade Jeeps
+			cTempl.infgbjeep, cTempl.infgbjeep, // Grenade Jeeps
 			cTempl.infbloke,  cTempl.infbloke, cTempl.infbloke, // Blokes
 			cTempl.infkevbloke, cTempl.infkevbloke,
 			cTempl.inflance, // Lances
@@ -91,6 +91,7 @@ function sendInfestedReinforcements()
 			cTempl.infcybhg, cTempl.infcybhg, cTempl.infcybhg, // Heavy Machinegunners
 			cTempl.infcolpodt, cTempl.infcolpodt, cTempl.infcolpodt, // MRPs
 			cTempl.infcolhmght, cTempl.infcolhmght, cTempl.infcolhmght, // HMGs
+			cTempl.infcolcanht, cTempl.infcolcanht, cTempl.infcolcanht, // Light Cannons
 			cTempl.infcommcant, cTempl.infcommcant, // Medium Cannons
 			cTempl.infcomatt, // Lancers
 			cTempl.infbuggy, cTempl.infbuggy, // Buggies
@@ -100,7 +101,7 @@ function sendInfestedReinforcements()
 			cTempl.infkevbloke, cTempl.infkevbloke, cTempl.infkevbloke,
 			cTempl.inflance, cTempl.inflance, cTempl.inflance, // Lances
 			cTempl.infkevlance, cTempl.infkevlance,
-		].push((difficulty >= MEDIUM) ? cTempl.infcohhcant : undefined), // Add a Heavy Cannon tank 
+		].concat((difficulty >= MEDIUM) ? cTempl.infcohhcant : undefined), // Add a Heavy Cannon tank 
 		[ // Bashers, Stingers, and Infantry
 			cTempl.vilestinger, // Vile Stingers
 			cTempl.stinger, cTempl.stinger, cTempl.stinger, cTempl.stinger, // Stingers
@@ -109,7 +110,7 @@ function sendInfestedReinforcements()
 			cTempl.infbloke,  cTempl.infbloke, cTempl.infbloke, // Blokes
 			cTempl.infkevbloke, cTempl.infkevbloke,
 			cTempl.inflance, // Lances
-		].push((difficulty >= MEDIUM) ? cTempl.infcomtruckt : undefined), // Add an Infested Truck
+		].concat((difficulty >= MEDIUM) ? cTempl.infcomtruckt : undefined), // Add an Infested Truck
 	];
 	const CORE_SIZE = 4;
 	const FODDER_SIZE = 12;
@@ -227,7 +228,7 @@ function activateNorthwestBases()
 	camEnableFactory("colFactory1");
 
 	sendCollectiveTransporter();
-	setTimer("sendCollectiveTransporter", camChangeOnDiff(camMinutesToMilliseconds(6)));
+	setTimer("sendCollectiveTransporter", camChangeOnDiff(camMinutesToMilliseconds(8)));
 }
 
 function sendCollectiveTransporter()
@@ -362,7 +363,7 @@ function eventStartLevel()
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(85)),
 			// Half-tracks
-			templates: [ cTempl.comhatht, cTempl.comaght, cTempl.comaght, cTempl.comhrepht, cTempl.comhaaht, cTempl.comacanht ]
+			templates: [ cTempl.comhatht, cTempl.comaght, cTempl.comaght, cTempl.comhrepht, cTempl.comhaaht, cTempl.comhpvht ]
 		},
 		"colFactory2": {
 			assembly: "colAssembly2",
@@ -452,9 +453,9 @@ function eventStartLevel()
 				targetPlayer: CAM_HUMAN_PLAYER
 			},
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(45)),
-			// Tank Killers + Assault Cannons
-			templates: [ cTempl.comhatv, cTempl.comacanv ]
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(55)),
+			// Lancers + Assault Cannons
+			templates: [ cTempl.colatv, cTempl.comacanv ]
 		},
 		"colVtolFactory2": {
 			assembly: "colVtolAssembly",
@@ -463,7 +464,7 @@ function eventStartLevel()
 				targetPlayer: CAM_HUMAN_PLAYER
 			},
 			groupSize: 3,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(75)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(95)),
 			// Bomber spam
 			templates: [ cTempl.comhbombv ]
 		},

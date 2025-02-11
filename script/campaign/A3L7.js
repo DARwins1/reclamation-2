@@ -76,10 +76,10 @@ function sendInfestedReinforcements()
 			cTempl.infminitruck, // MRP Trucks
 			cTempl.infsartruck, // Sarissa Trucks
 			cTempl.infbuscan, cTempl.infbuscan, // School Buses
-			cTempl.firetruck, // Fire Trucks
+			cTempl.inffiretruck, // Fire Trucks
 			cTempl.infbjeep, cTempl.infbjeep, cTempl.infbjeep, // Jeeps
 			cTempl.infrbjeep, cTempl.infrbjeep, // Rocket Jeeps
-			cTempl.infrbjeep, cTempl.infrbjeep, // Grenade Jeeps
+			cTempl.infgbjeep, cTempl.infgbjeep, // Grenade Jeeps
 			cTempl.infbuggy, // Buggies
 			cTempl.infrbuggy, // Rocket Buggies
 			cTempl.infbloke,  cTempl.infbloke, cTempl.infbloke, // Blokes
@@ -93,6 +93,7 @@ function sendInfestedReinforcements()
 			cTempl.infcybhg, cTempl.infcybhg, // Heavy Machinegunners
 			cTempl.infcolpodt, cTempl.infcolpodt, // MRPs
 			cTempl.infcolhmght, cTempl.infcolhmght, // HMGs
+			cTempl.infcolcanht, cTempl.infcolcanht, // Light Cannons
 			cTempl.infcommcant, // Medium Cannons
 			cTempl.infcomatt, // Lancers
 			cTempl.infbuggy, cTempl.infbuggy, cTempl.infbuggy, // Buggies
@@ -119,20 +120,29 @@ function sendInfestedReinforcements()
 	// If there's an onslaught occurring, target the player instead of the Collective
 	const data = {order: CAM_ORDER_ATTACK, data: {targetPlayer: (infestedOnslaught) ? CAM_HUMAN_PLAYER : CAM_THE_COLLECTIVE}};
 
-	// South entrance
-	camSendReinforcement(CAM_INFESTED, getObject("infEntry1"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND, data);
+	if (!camBaseIsEliminated("colEastOutpost"))
+	{
+		// South entrance
+		camSendReinforcement(CAM_INFESTED, getObject("infEntry1"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND, data);
 
-	// Southeast entrance
-	camSendReinforcement(CAM_INFESTED, getObject("infEntry2"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND, data);
+		// Southeast entrance
+		camSendReinforcement(CAM_INFESTED, getObject("infEntry2"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND, data);
+	}
 
-	// Canal entrance
-	camSendReinforcement(CAM_INFESTED, getObject("infEntry3"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND, data);
+	if (!camBaseIsEliminated("colNorthBase"))
+	{
+		// Canal entrance
+		camSendReinforcement(CAM_INFESTED, getObject("infEntry3"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND, data);
+	}
 
-	// Southwest entrance
-	camSendReinforcement(CAM_INFESTED, getObject("infEntry4"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND, data);
+	if (!camBaseIsEliminated("colWestOutpost"))
+	{
+		// Southwest entrance
+		camSendReinforcement(CAM_INFESTED, getObject("infEntry4"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND, data);
+	}
 
 	// West entrance (only if west base is destroyed)
-	if (camBaseIsEliminated("colWestOutpost"))
+	if (camBaseIsEliminated("colWestOutpost") && !camBaseIsEliminated("colTrenchOutpost"))
 	{
 		camSendReinforcement(CAM_INFESTED, getObject("infEntry5"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND, data);
 	}
@@ -511,7 +521,7 @@ function eventStartLevel()
 
 	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "A3L8", {
 		message: "RET_LZ",
-		reinforcements: camMinutesToSeconds(4),
+		reinforcements: camMinutesToSeconds(3.5),
 		area: "compromiseZone",
 		callback: "uplinkSecure",
 		enableLastAttack: false,
@@ -542,7 +552,7 @@ function eventStartLevel()
 		"colResearch": { tech: "R-Wpn-MG-ROF03" }, // Hyper Fire Chaingun Upgrade
 		"colFactory1": { tech: "R-Wpn-Flamer-Damage05" }, // Superhot Flamer Gel Mk2
 		"colFactory3": { tech: "R-Wpn-HowitzerMk1" }, // Howitzer
-		"colAAEmp": { tech: "R-Wpn-AAGun-Damage02" }, // AA HE Flak Mk2
+		// "colAAEmp": { tech: "R-Wpn-AAGun-Damage02" }, // AA HE Flak Mk2
 	});
 
 	camSetEnemyBases({
@@ -661,8 +671,8 @@ function eventStartLevel()
 			assembly: "colVtolAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 2,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(45)),
-			templates: [ cTempl.comhatv, cTempl.comhatv, cTempl.comhbombv, cTempl.comhbombv ]
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(75)),
+			templates: [ cTempl.colatv, cTempl.colatv, cTempl.comhbombv, cTempl.comhbombv ]
 		},
 	});
 
@@ -810,7 +820,7 @@ function eventStartLevel()
 			cTempl.scygr, cTempl.scygr, cTempl.scygr, cTempl.scygr, // 4 Super Grenadiers
 			cTempl.plmhrept, cTempl.plmhrept, // 2 Heavy Repair Turrets
 		]}, CAM_ORDER_COMPROMISE, {
-			pos: camMakePos("colUplinkBase"),
+			pos: camMakePos("colBase5"),
 			radius: 20,
 			targetPlayer: CAM_THE_COLLECTIVE
 	});
@@ -820,7 +830,7 @@ function eventStartLevel()
 			cTempl.scygr, cTempl.scygr, cTempl.scygr, cTempl.scygr, // 4 Super Grenadiers
 			cTempl.plmhrept, cTempl.plmhrept, // 2 Heavy Repair Turrets
 		]}, CAM_ORDER_COMPROMISE, {
-			pos: camMakePos("colUplinkBase"),
+			pos: camMakePos("colBase5"),
 			radius: 20,
 			targetPlayer: CAM_THE_COLLECTIVE
 	});

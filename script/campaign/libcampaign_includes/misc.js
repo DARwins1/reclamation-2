@@ -1589,7 +1589,11 @@ function __camInfestObj(obj)
 			if (!camDef(__camInfestedGlobalAttackGroup))
 			{
 				__camInfestedGlobalAttackGroup = camMakeGroup(obj);
-				camManageGroup(__camInfestedGlobalAttackGroup, CAM_ORDER_ATTACK, {removable: false, targetPlayer: CAM_HUMAN_PLAYER})
+				camManageGroup(__camInfestedGlobalAttackGroup, CAM_ORDER_ATTACK, {
+					simplified: true,
+					removable: false,
+					targetPlayer: CAM_HUMAN_PLAYER
+				});
 			}
 			else
 			{

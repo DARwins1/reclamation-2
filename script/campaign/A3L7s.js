@@ -46,10 +46,10 @@ function sendInfestedReinforcements()
 			cTempl.infminitruck, // MRP Trucks
 			cTempl.infsartruck, // Sarissa Trucks
 			cTempl.infbuscan, cTempl.infbuscan, // School Buses
-			cTempl.firetruck, // Fire Trucks
+			cTempl.inffiretruck, // Fire Trucks
 			cTempl.infbjeep, cTempl.infbjeep, cTempl.infbjeep, // Jeeps
 			cTempl.infrbjeep, cTempl.infrbjeep, // Rocket Jeeps
-			cTempl.infrbjeep, cTempl.infrbjeep, // Grenade Jeeps
+			cTempl.infgbjeep, cTempl.infgbjeep, // Grenade Jeeps
 			cTempl.infbuggy, // Buggies
 			cTempl.infrbuggy, // Rocket Buggies
 			cTempl.infbloke,  cTempl.infbloke, cTempl.infbloke, // Blokes
@@ -63,6 +63,7 @@ function sendInfestedReinforcements()
 			cTempl.infcybhg, cTempl.infcybhg, // Heavy Machinegunners
 			cTempl.infcolpodt, cTempl.infcolpodt, // MRPs
 			cTempl.infcolhmght, cTempl.infcolhmght, // HMGs
+			cTempl.infcolcanht, cTempl.infcolcanht, // Light Cannons
 			cTempl.infcommcant, // Medium Cannons
 			cTempl.infcomatt, // Lancers
 			cTempl.infbuggy, cTempl.infbuggy, cTempl.infbuggy, // Buggies
@@ -118,7 +119,7 @@ function eventStartLevel()
 	setNoGoArea(192, 72, 194, 74, CAM_HUMAN_PLAYER);
 	if (!tweakOptions.rec_timerlessMode)
 	{
-		setMissionTime(camChangeOnDiff(camHoursToSeconds(1.5)));
+		setMissionTime(camChangeOnDiff(camHoursToSeconds(2)));
 	}
 	else
 	{

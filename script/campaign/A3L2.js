@@ -83,7 +83,7 @@ function sendInfestedReinforcements()
 			cTempl.infbuscan, cTempl.infbuscan, // School Buses
 			cTempl.infbjeep, cTempl.infbjeep, cTempl.infbjeep, // Jeeps
 			cTempl.infrbjeep, cTempl.infrbjeep, // Rocket Jeeps
-			cTempl.infrbjeep, // Grenade Jeeps
+			cTempl.infgbjeep, // Grenade Jeeps
 			cTempl.infbuggy, cTempl.infbuggy, // Buggies
 			cTempl.infrbuggy, cTempl.infrbuggy, // Rocket Buggies
 			cTempl.inftrike, // Trikes
@@ -91,13 +91,14 @@ function sendInfestedReinforcements()
 			cTempl.infkevbloke,
 			cTempl.inflance, cTempl.inflance, // Lances
 			cTempl.infkevlance,
-		].push((difficulty >= MEDIUM) ? cTempl.vilestinger : undefined), // Add a Vile Stinger
+		].concat((difficulty >= MEDIUM) ? cTempl.vilestinger : undefined), // Add a Vile Stinger
 		[ // Light tanks & cyborgs + some scav stuff
 			cTempl.stinger, cTempl.stinger, cTempl.stinger, // Stingers
 			cTempl.infcybca, cTempl.infcybca, // Heavy Gunners
 			cTempl.infcybhg, // Heavy Machinegunners
 			cTempl.infcolpodt, // MRPs
 			cTempl.infcolhmght, // HMGs
+			cTempl.infcolcanht, // Light Cannons
 			cTempl.infbuggy, cTempl.infbuggy, cTempl.infbuggy, cTempl.infbuggy, // Buggies
 			cTempl.infrbuggy, cTempl.infrbuggy, cTempl.infrbuggy, // Rocket Buggies
 			cTempl.inftrike, cTempl.inftrike, cTempl.inftrike, // Trikes
@@ -105,16 +106,12 @@ function sendInfestedReinforcements()
 			cTempl.infkevbloke, cTempl.infkevbloke, cTempl.infkevbloke,
 			cTempl.inflance, cTempl.inflance, cTempl.inflance, // Lances
 			cTempl.infkevlance, cTempl.infkevlance,
-		].push((difficulty >= MEDIUM) ? cTempl.infcommcant : undefined), // Add a Medium Cannon tank
+		].concat((difficulty >= MEDIUM) ? cTempl.infcommcant : undefined), // Add a Medium Cannon tank
 	];
 	const CORE_SIZE = 4;
 	const FODDER_SIZE = 14;
 
 	// North east entrance
-	const neDroids = camRandInfTemplates(
-		[cTempl.stinger, cTempl.infbloke, cTempl.infkevbloke, cTempl.infminitruck, cTempl.infbuggy, cTempl.infrbuggy, cTempl.infcybhg, cTempl.infcybca, cTempl.infcolpodt], 
-		CORE_SIZE / 2, FODDER_SIZE * 2/3
-	);
 	camSendReinforcement(CAM_INFESTED, getObject("infEntry2"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND);
 
 	// South canal entrance
@@ -172,6 +169,7 @@ function eventStartLevel()
 
 	camSetArtifacts({
 		"colFactory": { tech: "R-Wpn-Rocket02-MRLHvy" }, // Heavy Rocket Array
+		"colPower": { tech: "R-Struc-Power-Upgrade01" }, // Gas Turbine Generator
 		"convoyCrate": { tech: "R-Wpn-Mortar3" }, // Pepperpot
 	});
 

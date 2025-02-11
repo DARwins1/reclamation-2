@@ -101,10 +101,10 @@ function sendInfestedReinforcements()
 			cTempl.infminitruck, // MRP Trucks
 			cTempl.infsartruck, // Sarissa Trucks
 			cTempl.infbuscan, cTempl.infbuscan, // School Buses
-			cTempl.firetruck, // Fire Trucks
+			cTempl.inffiretruck, // Fire Trucks
 			cTempl.infbjeep, cTempl.infbjeep, cTempl.infbjeep, // Jeeps
 			cTempl.infrbjeep, cTempl.infrbjeep, // Rocket Jeeps
-			cTempl.infrbjeep, cTempl.infrbjeep, // Grenade Jeeps
+			cTempl.infgbjeep, cTempl.infgbjeep, // Grenade Jeeps
 			cTempl.infbloke,  cTempl.infbloke, cTempl.infbloke, // Blokes
 			cTempl.infkevbloke, cTempl.infkevbloke,
 			cTempl.inflance, // Lances
@@ -116,6 +116,7 @@ function sendInfestedReinforcements()
 			cTempl.infcybhg, cTempl.infcybhg, cTempl.infcybhg, // Heavy Machinegunners
 			cTempl.infcolpodt, cTempl.infcolpodt, cTempl.infcolpodt, // MRPs
 			cTempl.infcolhmght, cTempl.infcolhmght, cTempl.infcolhmght, // HMGs
+			cTempl.infcolcanht, cTempl.infcolcanht, cTempl.infcolcanht, // Light Cannons
 			cTempl.infcommcant, cTempl.infcommcant, // Medium Cannons
 			cTempl.infcomatt, // Lancers
 			cTempl.infbuggy, cTempl.infbuggy, // Buggies
@@ -125,7 +126,7 @@ function sendInfestedReinforcements()
 			cTempl.infkevbloke, cTempl.infkevbloke, cTempl.infkevbloke,
 			cTempl.inflance, cTempl.inflance, cTempl.inflance, // Lances
 			cTempl.infkevlance, cTempl.infkevlance,
-		].push((difficulty >= EASY) ? cTempl.infcohhcant : undefined), // Add a Heavy Cannon tank 
+		].concat((difficulty >= EASY) ? cTempl.infcohhcant : undefined), // Add a Heavy Cannon tank 
 		[ // Bashers, Stingers, and Infantry
 			cTempl.vilestinger, // Vile Stingers
 			cTempl.stinger, cTempl.stinger, cTempl.stinger, cTempl.stinger, // Stingers
@@ -134,7 +135,7 @@ function sendInfestedReinforcements()
 			cTempl.infbloke,  cTempl.infbloke, cTempl.infbloke, // Blokes
 			cTempl.infkevbloke, cTempl.infkevbloke,
 			cTempl.inflance, // Lances
-		].push((difficulty >= EASY) ? cTempl.infcomtruckt : undefined), // Add an Infested Truck
+		].concat((difficulty >= EASY) ? cTempl.infcomtruckt : undefined), // Add an Infested Truck
 	];
 	const CORE_SIZE = 4;
 	const FODDER_SIZE = 12;
@@ -892,6 +893,9 @@ function eventStartLevel()
 	golfSensorIdx = 1;
 	foxtrotIdx = 0;
 	golfIdx = 0;
+
+	// Most Infested units start out pre-damaged
+	camSetPreDamageModifier(CAM_INFESTED, [50, 80], [60, 90], CAM_INFESTED_PREDAMAGE_EXCLUSIONS);
 
 	heliAttack();
 	queue("setPhaseTwo", camMinutesToMilliseconds(5)); // Foxtrot units start arriving

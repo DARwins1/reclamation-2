@@ -307,7 +307,7 @@ function __camCheckArtifactObject(aLabel)
 {
 	const ai = __camArtifacts[aLabel];
 	const obj = getObject(ai.pos.x, ai.pos.y);
-	if (!camDef(obj))
+	if (obj === null)
 	{
 		// Nothing on in the artifact position, simply replace the artifact object
 		const acrate = addFeature("Crate", obj.x, obj.y);

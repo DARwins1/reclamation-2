@@ -112,7 +112,9 @@ function startPhaseThree()
 	setMissionTime(-1);
 
 	// Change the win conditions, this basically makes it so the player can't die normally
-	camSetStandardWinLossConditions(CAM_VICTORY_SCRIPTED, "THE_END");
+	camSetStandardWinLossConditions(CAM_VICTORY_SCRIPTED, "THE_END", {
+		defeatOnDeath: false
+	});
 
 	// Give one last (very short) break before going absolutely ballistic
 	removeTimer("infestedAttackWaves");

@@ -34,7 +34,7 @@ function sendInfestedReinforcements()
 			cTempl.infbuscan, cTempl.infbuscan, // School Buses
 			cTempl.infbjeep, cTempl.infbjeep, cTempl.infbjeep, // Jeeps
 			cTempl.infrbjeep, cTempl.infrbjeep, // Rocket Jeeps
-			cTempl.infrbjeep, // Grenade Jeeps
+			cTempl.infgbjeep, // Grenade Jeeps
 			cTempl.infbuggy, cTempl.infbuggy, // Buggies
 			cTempl.infrbuggy, cTempl.infrbuggy, // Rocket Buggies
 			cTempl.inftrike, // Trikes
@@ -42,13 +42,14 @@ function sendInfestedReinforcements()
 			cTempl.infkevbloke,
 			cTempl.inflance, cTempl.inflance, // Lances
 			cTempl.infkevlance,
-		].push((difficulty >= MEDIUM) ? cTempl.vilestinger : undefined), // Add a Vile Stinger
+		].concat((difficulty >= MEDIUM) ? cTempl.vilestinger : undefined), // Add a Vile Stinger
 		[ // Light tanks & cyborgs + some scav stuff
 			cTempl.stinger, cTempl.stinger, cTempl.stinger, // Stingers
 			cTempl.infcybca, cTempl.infcybca, // Heavy Gunners
 			cTempl.infcybhg, // Heavy Machinegunners
 			cTempl.infcolpodt, // MRPs
 			cTempl.infcolhmght, // HMGs
+			cTempl.infcolcanht, // Light Cannons
 			cTempl.infbuggy, cTempl.infbuggy, cTempl.infbuggy, cTempl.infbuggy, // Buggies
 			cTempl.infrbuggy, cTempl.infrbuggy, cTempl.infrbuggy, // Rocket Buggies
 			cTempl.inftrike, cTempl.inftrike, cTempl.inftrike, // Trikes
@@ -56,7 +57,7 @@ function sendInfestedReinforcements()
 			cTempl.infkevbloke, cTempl.infkevbloke, cTempl.infkevbloke,
 			cTempl.inflance, cTempl.inflance, cTempl.inflance, // Lances
 			cTempl.infkevlance, cTempl.infkevlance,
-		].push((difficulty >= MEDIUM) ? cTempl.infcommcant : undefined), // Add a Medium Cannon tank
+		].concat((difficulty >= MEDIUM) ? cTempl.infcommcant : undefined), // Add a Medium Cannon tank
 	];
 	const CORE_SIZE = 2;
 	const FODDER_SIZE = 8;

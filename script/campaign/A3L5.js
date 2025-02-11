@@ -63,10 +63,10 @@ function sendInfestedReinforcements()
 			cTempl.infminitruck, // MRP Trucks
 			cTempl.infsartruck, // Sarissa Trucks
 			cTempl.infbuscan, cTempl.infbuscan, // School Buses
-			cTempl.firetruck, // Fire Trucks
+			cTempl.inffiretruck, // Fire Trucks
 			cTempl.infbjeep, cTempl.infbjeep, cTempl.infbjeep, // Jeeps
 			cTempl.infrbjeep, cTempl.infrbjeep, // Rocket Jeeps
-			cTempl.infrbjeep, cTempl.infrbjeep, // Grenade Jeeps
+			cTempl.infgbjeep, cTempl.infgbjeep, // Grenade Jeeps
 			cTempl.infbuggy, cTempl.infbuggy, // Buggies
 			cTempl.infrbuggy, cTempl.infrbuggy, // Rocket Buggies
 			cTempl.inftrike, // Trikes
@@ -81,6 +81,7 @@ function sendInfestedReinforcements()
 			cTempl.infcybhg, // Heavy Machinegunners
 			cTempl.infcolpodt, // MRPs
 			cTempl.infcolhmght, // HMGs
+			cTempl.infcolcanht, // Light Cannons
 			cTempl.infcommcant, // Medium Cannons
 			cTempl.infbuggy, cTempl.infbuggy, cTempl.infbuggy, cTempl.infbuggy, // Buggies
 			cTempl.infrbuggy, cTempl.infrbuggy, cTempl.infrbuggy, // Rocket Buggies
@@ -89,7 +90,7 @@ function sendInfestedReinforcements()
 			cTempl.infkevbloke, cTempl.infkevbloke, cTempl.infkevbloke,
 			cTempl.inflance, cTempl.inflance, cTempl.inflance, // Lances
 			cTempl.infkevlance, cTempl.infkevlance,
-		].push((difficulty >= MEDIUM) ? cTempl.infcomatt : undefined), // Add a Lancer tank
+		].concat((difficulty >= MEDIUM) ? cTempl.infcomatt : undefined), // Add a Lancer tank
 		[ // Bashers, Stingers, and Infantry
 			cTempl.vilestinger, // Vile Stingers
 			cTempl.stinger, cTempl.stinger, cTempl.stinger, cTempl.stinger, // Stingers
@@ -384,7 +385,7 @@ function eventStartLevel()
 
 	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "A3L6", {
 		message: "RET_LZ",
-		reinforcements: camMinutesToSeconds(1.5),
+		reinforcements: camMinutesToSeconds(1),
 		retlz: true,
 		area: "compromiseZone",
 		callback: "artifactReachable",

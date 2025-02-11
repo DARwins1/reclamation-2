@@ -242,7 +242,7 @@ function infestedAmbush3()
 	}
 	if (difficulty >= HARD) // Add a single Boom Tick on Hard+
 	{
-		dorids.push(cTempl.boomtick);
+		droids.push(cTempl.boomtick);
 	}
 	camSendReinforcement(CAM_INFESTED, camMakePos("infestedEntryPos6"), droids, CAM_REINFORCE_GROUND, 
 		{order: CAM_ORDER_ATTACK, data: {targetPlayer: CAM_HUMAN_PLAYER}}
@@ -322,9 +322,10 @@ function enableReinforcements()
 	playSound(cam_sounds.reinforcementsAreAvailable); // Reinforcements are available.
 	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "L5S", {
 		area: "compromiseZone",
-		reinforcements: camMinutesToSeconds(1.5),
+		reinforcements: camMinutesToSeconds(1),
 		callback: "checkResearchFacility",
-		annihilate: true
+		annihilate: true,
+		enableLastAttack: false
 	});
 
 	camEnableFactory("scavFactory");
@@ -391,7 +392,8 @@ function eventStartLevel()
 		area: "compromiseZone",
 		reinforcements: -1, // will override later
 		callback: "checkResearchFacility",
-		annihilate: true
+		annihilate: true,
+		enableLastAttack: false
 	});
 	camSetExtraObjectiveMessage(_("Investigate the Research Facility"));
 
