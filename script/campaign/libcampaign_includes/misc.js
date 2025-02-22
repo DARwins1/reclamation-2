@@ -1558,24 +1558,12 @@ function __camWeatherCycle()
 
 // Replaces structures and components with "Infested" ones.
 // Called when something is absorbed by the Infested.
-function __camInfestObj(obj)
+function __camInfestObj(obj, fromPlayer)
 {
 	if (obj.type === DROID)
 	{
-		// Droid absorbed; check if it is an illegal type:
-		// Constructors (Trucks & Engineers)
-		// Repair Turrets
-		// Sensors
-		// VTOLs
-		// Weapons with more range than a Mortar (18 tiles)
-
-		// All other units are acceptable...
-		if (obj.droidType === DROID_CONSTRUCT 
-			|| obj.droidType === DROID_REPAIR 
-			|| obj.droidType === DROID_SENSOR 
-			|| obj.isVTOL
-			|| (obj.droidType === DROID_WEAPON && camGetCompStats(obj.weapons[0].fullname, "Weapon").MaxRange > (18 * 128)) // NOTE: "MaxRange" is correct here!
-			)
+		// Droid absorbed; check if it is an illegal type
+		if (!__camIsLegalInfDroid(obj))
 		{
 			// Illegal Infested unit; blow it up!
 			camSafeRemoveObject(obj, true);
@@ -1605,6 +1593,7 @@ function __camInfestObj(obj)
 	{
 		// Structure absorbed; replace it with an infested variant if applicable
 		const structId = camGetCompStats(obj.name, "Building").Id;
+		const __IS_FACTORY = obj.stattype === FACTORY || obj.stattype === CYBORG_FACTORY; // Ignore VTOL Factories...
 
 		let infStructId;
 		if (structId === "A0PowerGenerator")
@@ -1638,11 +1627,145 @@ function __camInfestObj(obj)
 			const structInfo = {
 				x: obj.x * 128,
 				y: obj.y * 128,
-				direction: obj.direction
+				direction: obj.direction,
+				modules: obj.modules
 			};
 
 			camSafeRemoveObject(obj, false);
-			__camPreDamageStruct(addStructure(infStructId, CAM_INFESTED, structInfo.x, structInfo.y, structInfo.direction));
+			const newStruct = addStructure(infStructId, CAM_INFESTED, structInfo.x, structInfo.y, structInfo.direction);
+			__camPreDamageStruct(newStruct);
+
+			// Add modules if applicable
+			if (structId !== "A0PowerGenerator")
+			{
+				for (let i = 0; i < structInfo.modules; i++)
+				{
+					if (__IS_FACTORY)
+					{
+						addStructure("A0FacMod1", CAM_INFESTED, structInfo.x, structInfo.y);
+					}
+					else // Assume it's a Research Facility
+					{
+						addStructure("A0ResearchModule1", CAM_INFESTED, structInfo.x, structInfo.y);
+					}
+				}
+			}
+
+			// If a factory was infested, start managing it
+			// Select templates based on the type of factory that was captured
+			// NOTE: Infested can't use VTOL factories!
+			if (__IS_FACTORY)
+			{
+				let templates;
+				let throttle;
+				// Manage the factory depending on the type and the faction it was taken from
+				// NOTE: New Paradigm and NEXUS factories are not supported!
+				if (infStructId === "InfFactory") // Scavenger factory
+				{
+					throttle = camChangeOnDiff(camSecondsToMilliseconds(12));
+					templates = [ // TODO: Move these to libcampaign?
+						cTempl.infbloke, cTempl.infbjeep, cTempl.inftrike,
+						cTempl.infkevlance, cTempl.infbuscan, cTempl.infminitruck,
+						cTempl.infmoncan, cTempl.infrbjeep, cTempl.infbuggy,
+						cTempl.infkevbloke, cTempl.monhmg, cTempl.infbjeep,
+					];
+				}
+				else if (fromPlayer === CAM_THE_COLLECTIVE) // Collective factory
+				{
+					if (infStructId === "InfLightFactory") // Standard factory
+					{
+						throttle = camChangeOnDiff(camSecondsToMilliseconds(40));
+						templates = [ // (light templates only)
+							cTempl.infcolpodt, cTempl.infcolhmght, cTempl.infcolcanht,
+							cTempl.infcolmrat,
+						];
+						if (structInfo.modules >= 1)
+						{
+							templates = templates.concat([
+								cTempl.infcommcant, cTempl.infcomatt,
+							]);
+						}
+						if (structInfo.modules >= 2)
+						{
+							templates = templates.concat([
+								cTempl.infcohhcant,
+							]);
+						}
+					}
+					else // Cyborg factory
+					{
+						throttle = camChangeOnDiff(camSecondsToMilliseconds(20));
+						templates = [
+							cTempl.infcybhg, cTempl.infcybca, cTempl.infcybhg,
+							cTempl.infscymc,
+						]
+					}
+				}
+				else if (fromPlayer === CAM_HUMAN_PLAYER) // Player factory
+				{
+					// Instead of a pre-defined list, sample all of the player's units on the map...
+					const droids = enumDroid(CAM_HUMAN_PLAYER);
+					templates = [];
+					for (const droid of droids)
+					{
+						if (__camIsLegalInfDroid(droid) && droid.droidType !== DROID_COMMAND)
+						{
+							// NOTE: Technically, command droids are legal, but we don't want the Infested to spam useless commanders if the player has them
+							let newBody = droid.body;
+							if (droid.body === "Body1REC" || // Viper
+								droid.body === "Body2SUP" || // Leopard
+								droid.body === "Body5REC" || // Cobra
+								droid.body === "Body6SUPP" || // Panther
+								droid.body === "Body11ABT" || // Python
+								droid.body === "Body9REC") // Tiger
+							{
+								newBody = "Inf" + droid.body;
+							}
+
+							// NOTE: This assumes that the player doesn't have any multi-weapon units!
+							templates.push({body: newBody, prop: droid.propulsion, weap: "Inf" + droid.weapons[0].name})
+						}
+					}
+					// templates = camRemoveDuplicates(templates);
+
+					if (infStructId === "InfLightFactory") // Standard factory
+					{
+						throttle = camChangeOnDiff(camSecondsToMilliseconds(40));
+						templates = templates.filter((temp) => (temp.prop !== "CyborgLegs")); // Filter out all cyborgs
+						// NOTE: We can assume this list doesn't include any VTOLs, since they're an "illegal" unit
+						if (structInfo.modules < 2)
+						{
+							templates = templates.filter((temp) => (temp.body !== "InfBody11ABT" && temp.body !== "InfBody9REC")); // Filter out all heavy bodies
+						}
+						if (structInfo.modules < 1)
+						{
+							templates = templates.filter((temp) => (temp.body !== "InfBody5REC" && temp.body !== "InfBody6SUPP")); // Filter out all medium bodies
+						}
+					}
+					else // Cyborg factory
+					{
+						throttle = camChangeOnDiff(camSecondsToMilliseconds(20));
+						templates = templates.filter((temp) => (temp.prop === "CyborgLegs")); // Filter out all non-cyborgs
+					}
+				}
+				else
+				{
+					// Whose factory is this???
+					throttle = camChangeOnDiff(camSecondsToMilliseconds(30));
+					templates = []; // Empty
+					// TODO: Handle factories from other NARS teams?
+				}
+
+				// Start managing the factory!
+				const flabel = "infCapturedFactory" + __camCapturedFactoryIdx++;
+				addLabel(newStruct, flabel);
+				camSetFactoryData(flabel, {
+					order: CAM_ORDER_ATTACK,
+					throttle: throttle,
+					templates: templates
+				});
+				camEnableFactory(flabel);
+			}
 		}
 		else
 		{
@@ -1651,4 +1774,23 @@ function __camInfestObj(obj)
 			return; // Nothing else to do...
 		}
 	}
+}
+
+// Returns true if the given droid is "legal" for the Infested to use
+// Illegal droids are:
+// Constructors (Trucks & Engineers)
+// Repair Turrets
+// Sensors
+// VTOLs
+// Weapons with more range than a Mortar (18 tiles)
+
+// All other units are acceptable...
+function __camIsLegalInfDroid(droid)
+{
+	return !(droid.droidType === DROID_CONSTRUCT 
+		|| droid.droidType === DROID_REPAIR 
+		|| droid.droidType === DROID_SENSOR 
+		|| droid.isVTOL
+		|| (droid.droidType === DROID_WEAPON && camGetCompStats(droid.weapons[0].fullname, "Weapon").MaxRange > (18 * 128)) // NOTE: "MaxRange" is correct here!
+	);
 }

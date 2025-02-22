@@ -148,6 +148,7 @@ function cam_eventStartLevel()
 	__camBonusPowerGranted = false;
 	__camPreDamageModifier = [];
 	__camDisableFactoryAutoManagement = false;
+	__camCapturedFactoryIdx = 0;
 	camSetPropulsionTypeLimit(); //disable the propulsion changer by default
 	__camAiPowerReset(); //grant power to the AI
 	camSetFog(); // Set fog to it's default color
@@ -551,7 +552,7 @@ function cam_eventObjectTransfer(obj, from)
 		// TODO: add logic for captured factories
 
 		// Swap to infested structure/droid variant
-		__camInfestObj(obj);
+		__camInfestObj(obj, from);
 
 		if (from === CAM_HUMAN_PLAYER)
 		{

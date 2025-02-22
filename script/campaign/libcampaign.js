@@ -430,6 +430,7 @@ const __camArizonaSkyTexture = "texpages/page-25-sky-arizona.png";
 const __camUrbanSkyTexture = "texpages/page-25-sky-urban.png";
 const __camNightSkyTexture = "texpages/night-sky.png";
 var __camSkyboxType;
+var __camCapturedFactoryIdx;
 
 //nexus
 var __camLastNexusAttack;

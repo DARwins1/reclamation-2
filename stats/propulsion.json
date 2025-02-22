@@ -124,8 +124,8 @@
         "name": "VTOL",
         "skidDeceleration": 1600,
         "speed": 700,
-        "spinSpeed": 20,
-        "turnSpeed": 10,
+        "spinSpeed": 100,
+        "turnSpeed": 50,
         "type": "Lift",
         "weight": 50
     },

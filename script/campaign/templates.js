@@ -220,6 +220,7 @@ infscyac: { body: "CyborgHeavyBody", prop: "CyborgLegs", weap: "InfCyb-Hvywpn-Ac
 infcolcanht: { body: "InfBody2SUP", prop: "HalfTrack", weap: "InfCannon1Mk1" }, // Infested Light Cannon Leopard Half-tracks
 infcolpodt: { body: "InfBody2SUP", prop: "tracked01", weap: "InfRocket-Pod" }, // Infested Mini-Rocket Pod Leopard Tracks
 infcolhmght: { body: "InfBody2SUP", prop: "HalfTrack", weap: "InfMG3Mk1" }, // Infested Heavy Machinegun Leopard Half-tracks
+infcolmrat: { body: "InfBody2SUP", prop: "tracked01", weap: "InfRocket-MRL" }, // Infested Mini-Rocket Array Leopard Tracks
 infcomhmgt: { body: "InfBody6SUPP", prop: "tracked01", weap: "InfMG3Mk1" }, // Infested Heavy Machinegun Panther Tracks
 infcomatt: { body: "InfBody6SUPP", prop: "tracked01", weap: "InfRocket-LtA-T" }, // Infested Lancer Panther Tracks
 infcommcant: { body: "InfBody6SUPP", prop: "tracked01", weap: "InfCannon2A-TMk1" }, // Infested Medium Cannon Panther Tracks
