@@ -491,7 +491,7 @@ function __camTacticsTickForGroup(group)
 	}
 
 	const __SIMPLIFIED = (camDef(gi.data.simplified) && gi.data.simplified);
-	let healthyDroids = [];
+	let healthyDroids = rawDroids;
 	const __CLOSE_Z = 1;
 	if (!__SIMPLIFIED)
 	{
@@ -517,6 +517,7 @@ function __camTacticsTickForGroup(group)
 		//repair
 		if (repair.hasFacility || camDef(repair.pos))
 		{
+			healthyDroids = [];
 			for (let i = 0, len = rawDroids.length; i < len; ++i)
 			{
 				const droid = rawDroids[i];
@@ -552,10 +553,6 @@ function __camTacticsTickForGroup(group)
 					healthyDroids.push(droid);
 				}
 			}
-		}
-		else
-		{
-			healthyDroids = rawDroids;
 		}
 
 		if (camDef(gi.data.regroup) && gi.data.regroup && healthyDroids.length > 0)
