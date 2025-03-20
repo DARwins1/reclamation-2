@@ -296,12 +296,6 @@ function eventStartLevel()
 			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
 			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
 		},
-		"cScavTrenchBase": {
-			cleanup: "cScavBase",
-			detectMsg: "CSCAV_BASE",
-			detectSnd: cam_sounds.baseDetection.scavengerBaseDetected,
-			eliminateSnd: cam_sounds.baseElimination.scavengerBaseEradicated,
-		},
 		"infEastBase": {
 			cleanup: "infBase1",
 			detectMsg: "INF_BASE1",
@@ -388,16 +382,6 @@ function eventStartLevel()
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(45)),
 			// Rocket/MG Cyborgs
 			templates: [ cTempl.cybla, cTempl.cybth, cTempl.cybla, cTempl.scytk ]
-		},
-		"cScavFactory": {
-			assembly: "cScavAssembly",
-			order: CAM_ORDER_ATTACK,
-			data: {
-				targetPlayer: CAM_HUMAN_PLAYER
-			},
-			groupSize: 8,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(22)),
-			templates: [ cTempl.monlan, cTempl.buscan, cTempl.gbjeep, cTempl.minitruck, cTempl.kevlance, cTempl.kevbloke, cTempl.monlan, cTempl.rbjeep, cTempl.monhmg]
 		},
 		"infFactory1": {
 			assembly: "infAssembly1",
@@ -553,7 +537,6 @@ function eventStartLevel()
 	// Start these factories immediately...
 	camEnableFactory("infFactory1");
 	camEnableFactory("infFactory2");
-	camEnableFactory("cScavFactory");
 	camEnableFactory("colCybFactory2");
 
 	queue("groupAttack1", camChangeOnDiff(camMinutesToMilliseconds(4)));

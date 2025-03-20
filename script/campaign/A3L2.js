@@ -255,7 +255,7 @@ function eventStartLevel()
 			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(12)),
 			// Light scav vehicles
-			templates: [cTempl.infbloke, cTempl.inftrike, cTempl.infrbuggy, cTempl.inflance, cTempl.infgbjeep, cTempl.infbjeep, cTempl.buggy, cTempl.infbuscan]
+			templates: [cTempl.infbloke, cTempl.inftrike, cTempl.infrbuggy, cTempl.inflance, cTempl.infgbjeep, cTempl.infbjeep, cTempl.infbuggy, cTempl.infbuscan]
 		},
 		"infFactory2": {
 			assembly: "infAssembly2",
@@ -264,7 +264,7 @@ function eventStartLevel()
 			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(22)),
 			// Heavy scav vehicles
-			templates: [cTempl.infmoncan, cTempl.infkevlance, cTempl.infmonsar, cTempl.infkevbloke, cTempl.infflatmrl, cTempl.buscan, cTempl.infkevbloke]
+			templates: [cTempl.infmoncan, cTempl.infkevlance, cTempl.infmonsar, cTempl.infkevbloke, cTempl.infflatmrl, cTempl.infbuscan, cTempl.infkevbloke]
 		},
 	});
 
@@ -315,7 +315,7 @@ function eventStartLevel()
 
 	// Rank and assign the Collective commander
 	// Set the commander's rank (ranges from Professional to Elite)
-	const COMMANDER_RANK = (difficulty <= EASY) ? 4 : (difficulty + 2);
+	const COMMANDER_RANK = (difficulty <= EASY) ? 5 : (difficulty + 3);
 	camSetDroidRank(getObject("colCommander"), COMMANDER_RANK);
 	camManageGroup(camMakeGroup("colCommander"), CAM_ORDER_PATROL, {
 		pos: [
@@ -348,7 +348,7 @@ function eventStartLevel()
 		templates: [
 			cTempl.cohript, cTempl.cohript, // 2 Ripple Rockets
 		],
-		factories: ["colFactory"],
+		factories: (difficulty >= HARD) ? ["colFactory"] : undefined, // Only refill on Hard+
 		obj: "colSensorTower" // Stop refilling this group if the sensor is destroyed
 	}, CAM_ORDER_FOLLOW, {
 		leader: "colSensorTower",

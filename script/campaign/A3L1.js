@@ -94,9 +94,7 @@ function eventTransporterLanded(transport)
 				donateObject(obj, CAM_HUMAN_PLAYER);
 			}
 
-			camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, "A3L2", {
-				ignoreInfestedUnits: true // The Infested never stop spawning; their units don't need to be wiped out to win
-			});
+			queue("setVictory", camSecondsToMilliseconds(1));
 		}
 
 		if (startedFromMenu)
@@ -116,6 +114,15 @@ function eventTransporterLanded(transport)
 
 		firstTransport = false;
 	}
+}
+
+// Set victory data
+// Called on a delay to avoid failing the player if Zulu's units aren't transferred fast enough
+function setVictory()
+{
+	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, "A3L2", {
+		ignoreInfestedUnits: true // The Infested never stop spawning; their units don't need to be wiped out to win
+	});
 }
 
 // Enable the main Collective factory and all Infested factories

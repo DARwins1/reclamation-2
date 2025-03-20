@@ -781,7 +781,7 @@ function __camTacticsTickForGroup(group)
 				let closeByObj;
 				const __ARTILLERY_LIKE = (droid.isCB || droid.hasIndirect || droid.isSensor);
 				const __HAS_WEAPON = camDef(droid.weapons[0]);
-				const __ANTI_AIR = droid.canHitAir && droid.canHitGround;
+				const __ANTI_AIR = droid.canHitAir && !droid.canHitGround;
 				const ignorePlayers = gi.data.ignorePlayers;
 				let weapon;
 				if (__HAS_WEAPON)

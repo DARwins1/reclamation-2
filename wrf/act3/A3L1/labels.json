@@ -68,105 +68,97 @@
 
 
 	"area_2": {
-		"label": "infEntry1",
-		"pos1": [18816, 9728],
-		"pos2": [19072, 9984]
-	},
-
-
-	"area_3": {
-		"label": "infEntry2",
-		"pos1": [20096, 9728],
-		"pos2": [20608, 9984]
-	},
-
-
-	"area_4": {
-		"label": "infEntry3",
-		"pos1": [25088, 5120],
-		"pos2": [25344, 5376]
-	},
-
-
-	"area_5": {
-		"label": "infEntry4",
-		"pos1": [25088, 2688],
-		"pos2": [25344, 3328]
-	},
-
-
-	"area_6": {
-		"label": "infEntry5",
-		"pos1": [25088, 896],
-		"pos2": [25344, 1408]
-	},
-
-
-	"area_7": {
 		"label": "infBase1",
 		"pos1": [18432, 9216],
 		"pos2": [19456, 9856]
 	},
 
 
-	"area_8": {
-		"label": "infBase2",
-		"pos1": [24704, 4480],
-		"pos2": [25216, 5120]
-	},
-
-
-	"area_9": {
-		"label": "infBase3",
-		"pos1": [24576, 640],
-		"pos2": [25216, 1024]
-	},
-
-
-	"area_10": {
+	"area_3": {
 		"label": "colRoadblock1",
 		"pos1": [18304, 3584],
 		"pos2": [19712, 4992]
 	},
 
 
-	"area_11": {
+	"area_4": {
 		"label": "colRoadblock2",
 		"pos1": [20736, 512],
 		"pos2": [22272, 2432]
 	},
 
 
-	"area_12": {
+	"area_5": {
 		"label": "colBase",
 		"pos1": [18048, 1024],
 		"pos2": [19968, 3200]
 	},
 
 
-	"area_13": {
+	"area_6": {
 		"label": "colLZ",
 		"pos1": [18688, 384],
 		"pos2": [19328, 1024]
 	},
 
 
+	"area_7": {
+		"label": "infEntry1",
+		"pos1": [18688, 9856],
+		"pos2": [19200, 10112]
+	},
+
+
+	"area_8": {
+		"label": "infEntry2",
+		"pos1": [20096, 9856],
+		"pos2": [20608, 10112]
+	},
+
+
+	"area_9": {
+		"label": "infEntry3",
+		"pos1": [25216, 4864],
+		"pos2": [25472, 5504]
+	},
+
+
+	"area_10": {
+		"label": "infEntry4",
+		"pos1": [25216, 2688],
+		"pos2": [25472, 3328]
+	},
+
+
+	"area_11": {
+		"label": "infEntry5",
+		"pos1": [25216, 768],
+		"pos2": [25472, 1280]
+	},
+
+
+	"area_12": {
+		"label": "infBase2",
+		"pos1": [24704, 4224],
+		"pos2": [25216, 4864]
+	},
+
+
+	"area_13": {
+		"label": "infBase3",
+		"pos1": [24192, 512],
+		"pos2": [25216, 1792]
+	},
+
+
 	"area_14": {
 		"label": "infIntroGroup",
-		"pos1": [23936, 896],
-		"pos2": [24576, 1664]
+		"pos1": [23680, 768],
+		"pos2": [24576, 1536]
 	},
 
 
 	"object_0": {
-		"label": "infFactory1",
-		"id": 90,
-		"player": 4,
-		"type": 1
-	},
-
-
-	"object_1": {
 		"label": "colCybFactory",
 		"id": 22,
 		"player": 2,
@@ -174,7 +166,7 @@
 	},
 
 
-	"object_2": {
+	"object_1": {
 		"label": "cScavFactory1",
 		"id": 57,
 		"player": 2,
@@ -182,7 +174,23 @@
 	},
 
 
+	"object_2": {
+		"label": "colCC",
+		"id": 24,
+		"player": 2,
+		"type": 1
+	},
+
+
 	"object_3": {
+		"label": "infFactory1",
+		"id": 90,
+		"player": 4,
+		"type": 1
+	},
+
+
+	"object_4": {
 		"label": "infFactory2",
 		"id": 91,
 		"player": 4,
@@ -190,55 +198,7 @@
 	},
 
 
-	"object_4": {
-		"label": "colFactory",
-		"id": 23,
-		"player": 2,
-		"type": 1
-	},
-
-
 	"object_5": {
-		"label": "infFactory3",
-		"id": 92,
-		"player": 4,
-		"type": 1
-	},
-
-
-	"object_6": {
-		"label": "cScavFactory2",
-		"id": 131,
-		"player": 2,
-		"type": 1
-	},
-
-
-	"object_7": {
-		"label": "colTruck3",
-		"id": 275,
-		"player": 2,
-		"type": 0
-	},
-
-
-	"object_8": {
-		"label": "colTruck1",
-		"id": 274,
-		"player": 2,
-		"type": 0
-	},
-
-
-	"object_9": {
-		"label": "colTruck2",
-		"id": 273,
-		"player": 2,
-		"type": 0
-	},
-
-
-	"object_10": {
 		"label": "heliTower",
 		"id": 278,
 		"player": 2,
@@ -246,14 +206,54 @@
 	},
 
 
-	"object_11": {
-		"label": "colCC",
-		"id": 24,
+	"object_6": {
+		"label": "colTruck3",
+		"id": 275,
+		"player": 2,
+		"type": 0
+	},
+
+
+	"object_7": {
+		"label": "cScavFactory2",
+		"id": 131,
 		"player": 2,
 		"type": 1
 	},
 
-	
+
+	"object_8": {
+		"label": "colFactory",
+		"id": 23,
+		"player": 2,
+		"type": 1
+	},
+
+
+	"object_9": {
+		"label": "colTruck1",
+		"id": 274,
+		"player": 2,
+		"type": 0
+	},
+
+
+	"object_10": {
+		"label": "colTruck2",
+		"id": 273,
+		"player": 2,
+		"type": 0
+	},
+
+
+	"object_11": {
+		"label": "infFactory3",
+		"id": 92,
+		"player": 4,
+		"type": 1
+	},
+
+
 	"radius_0": {
 		"label": "vtolRemoveZone",
 		"pos": [17472, 4672],

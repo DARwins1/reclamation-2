@@ -221,6 +221,7 @@ const camA3L7AllyResearch = camAct3StartResearch.concat([
 	"R-Struc-RprFac-Upgrade02", "R-Struc-VTOLPad-Upgrade02",
 	"R-Defense-WallUpgrade05", // Artifact
 	"R-Struc-Materials05",
+	"R-Wpn-AAGun-Damage02", // Artifact
 ]);
 
 // Used to grant research to teams Foxtrot and Golf on A3L9
@@ -229,8 +230,7 @@ const camA3L9EnemyResearch = camA3L7AllyResearch.concat([
 	// A3L7
 	"R-Wpn-HowitzerMk1", // Artifact
 	"R-Defense-Howitzer", "R-Wpn-Howitzer-Damage01", "R-Wpn-Howitzer-ROF01",
-	"R-Wpn-Mortar-Damage05", ,
-	"R-Wpn-AAGun-Damage02", // Artifact
+	"R-Wpn-Mortar-Damage05",
 	"R-Wpn-MG-ROF03", // Artifact
 	"R-Wpn-MG-Damage06",
 	"R-Wpn-Flamer-Damage05", // Artifact
@@ -265,7 +265,10 @@ const camAct4RemainingResearch = [
 	"R-Wpn-Flamer-ROF03", // Flamer Autoloader Mk3
 	"R-Wpn-Flamer-Damage06", // Superhot Flamer Gel Mk3
 	// A4L4
-
+	// None???
+	// A4L5
+	"R-Wpn-HvyHowitzer", // Ground Shaker
+	"R-Defense-HvyHowitzer", // Ground Shaker Emplacement
 	// ???
 	"R-Wpn-Rocket-Damage07", // HESH Rocket Warhead
 	"R-Wpn-Cannon-Damage07", // HVAPFSDS Cannon Rounds
@@ -291,6 +294,8 @@ const camAct4RemainingResearch = [
 	"R-Struc-RprFac-Upgrade03", // Advanced Repairing
 	"R-Struc-VTOLPad-Upgrade03", // Advanced VTOL Rearming
 	"R-Wpn-Howitzer-Accuracy02", // Target Prediction Artillery Shells
+	
+	"R-Wpn-Bomb04", // Thermite Bomb Bay
 ]
 
 //...

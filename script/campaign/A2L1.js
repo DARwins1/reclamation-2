@@ -125,7 +125,7 @@ function eventTransporterLanded(transport)
 				donateObject(obj, CAM_HUMAN_PLAYER);
 			}
 
-			camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, "A2L2S");
+			queue("setVictory", camSecondsToMilliseconds(1));
 		}
 
 		if (startedFromMenu)
@@ -145,6 +145,13 @@ function eventTransporterLanded(transport)
 
 		firstTransport = false;
 	}
+}
+
+// Set victory data
+// Called on a delay to avoid failing the player if Charlie's units aren't transferred fast enough
+function setVictory()
+{
+	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, "A2L2S");
 }
 
 // Attack the player with Collective Cyborgs
