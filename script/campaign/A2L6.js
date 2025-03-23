@@ -1001,7 +1001,7 @@ function eventStartLevel()
 			},
 			groupSize: 3,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(42)),
-			templates: [ cTempl.cybla, cTempl.cybgr ] // Lancers and Grenadiers
+			templates: [ cTempl.cybla, cTempl.cybfl ] // Lancers and Flamers
 		},
 		"colCybFactory3": {
 			assembly: "colCybAssembly3",

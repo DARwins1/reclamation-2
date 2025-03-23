@@ -5250,7 +5250,6 @@
         "lightWorld": 1,
         "longHit": 65,
         "longRange": 1920,
-        "maxElevation": 90,
         "minElevation": -30,
         "minRange": 256,
         "minimumDamage": 33,

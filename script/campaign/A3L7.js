@@ -520,11 +520,7 @@ function sendDeltaReinforcements()
 		if (deltaDroids1.length > 0) // Don't send anything if the group is already full
 		{
 			const reinforcements1 = camSendReinforcement(MIS_TEAM_DELTA, getObject("deltaEntry1"), deltaDroids1, CAM_REINFORCE_GROUND);
-			// Assign the reinforcement droids to the refillable group
-			for (const droid of enumGroup(reinforcements1))
-			{
-				camGroupAdd(deltaGroup1, droid);
-			}
+			camAssignToRefillableGroups(enumGroup(reinforcements1), deltaGroup1);
 		}
 	}
 
@@ -536,11 +532,7 @@ function sendDeltaReinforcements()
 		if (deltaDroids2.length > 0) // Don't send anything if the group is already full
 		{
 			const reinforcements2 = camSendReinforcement(MIS_TEAM_DELTA, getObject("deltaEntry2"), deltaDroids2, CAM_REINFORCE_GROUND);
-			// Assign the reinforcement droids to the refillable group
-			for (const droid of enumGroup(reinforcements2))
-			{
-				camGroupAdd(deltaGroup2, droid);
-			}
+			camAssignToRefillableGroups(enumGroup(reinforcements2), deltaGroup2);
 		}
 	}
 }

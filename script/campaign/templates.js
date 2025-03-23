@@ -272,6 +272,7 @@ cohript: { body: "Body9REC", prop: "tracked01", weap: "Rocket-IDF" }, // Ripple 
 
 colhmght: { body: "Body2SUP", prop: "HalfTrack", weap: "MG3Mk1" }, // Heavy Machinegun Leopard Half-tracks
 colhmgt: { body: "Body2SUP", prop: "tracked01", weap: "MG3Mk1" }, // Heavy Machinegun Leopard Tracks
+comhmght: { body: "Body6SUPP", prop: "HalfTrack", weap: "MG3Mk1" }, // Heavy Machinegun Panther Half-tracks
 comhmgt: { body: "Body6SUPP", prop: "tracked01", weap: "MG3Mk1" }, // Heavy Machinegun Panther Tracks
 comaght: { body: "Body6SUPP", prop: "HalfTrack", weap: "MG4ROTARYMk1" }, // Assault Gun Panther Half-tracks
 comagt: { body: "Body6SUPP", prop: "tracked01", weap: "MG4ROTARYMk1" }, // Assault Gun Panther Tracks

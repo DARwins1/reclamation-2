@@ -602,32 +602,13 @@ function checkIfLaunched()
 
 function dumpStructSets()
 {
-	dumpStructSet("foxtrotDefenses", "camA3L9FoxtrotDefenseStructs");
-	dumpStructSet("foxtrotLzStructs1", "camA3L9FoxtrotLZ1Structs");
-	dumpStructSet("foxtrotLzStructs2", "camA3L9FoxtrotLZ2Structs");
+	camDumpStructSet("foxtrotDefenses", "camA3L9FoxtrotDefenseStructs");
+	camDumpStructSet("foxtrotLzStructs1", "camA3L9FoxtrotLZ1Structs");
+	camDumpStructSet("foxtrotLzStructs2", "camA3L9FoxtrotLZ2Structs");
 
-	dumpStructSet("golfDefenses", "camA3L9GolfDefenseStructs");
-	dumpStructSet("golfLzStructs1", "camA3L9GolfLZ1Structs");
-	dumpStructSet("golfLzStructs2", "camA3L9GolfLZ2Structs");
-}
-
-function dumpStructSet(area, name)
-{
-	dump(name + " = [");
-	const structSet = camAreaToStructSet(area);
-	for (const obj of structSet)
-	{
-		// {stat: "AASite-QuadBof", x: 104, y: 33, rot: 1}
-		let string = "{stat: \"" + obj.stat + "\", x: " + obj.x + ", y: " + obj.y;
-		if (obj.rot !== 0)
-		{
-			string = string + ", rot: " + obj.rot;
-		}
-		string = string + "},";
-
-		dump(string);
-	}
-	dump("]");
+	camDumpStructSet("golfDefenses", "camA3L9GolfDefenseStructs");
+	camDumpStructSet("golfLzStructs1", "camA3L9GolfLZ1Structs");
+	camDumpStructSet("golfLzStructs2", "camA3L9GolfLZ2Structs");
 }
 
 // This mission is mostly sending Infested attack waves that eventually shift over to Foxtrot/Golf attack waves

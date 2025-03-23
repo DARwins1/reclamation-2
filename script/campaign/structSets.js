@@ -97,6 +97,60 @@ const camA1L6ColLZ4Structs = [
 
 // A2L7
 // Collective LZ defenses
+const camA2L7ColLZ1Structs = [
+	{stat: "TankTrapC", x: 75, y: 29},
+	{stat: "TankTrapC", x: 74, y: 30},
+	{stat: "AASite-QuadBof", x: 75, y: 30, rot: 3},
+	{stat: "TankTrapC", x: 75, y: 31},
+	{stat: "TankTrapC", x: 77, y: 27},
+	{stat: "TankTrapC", x: 78, y: 26},
+	{stat: "AASite-QuadBof", x: 78, y: 27, rot: 2},
+	{stat: "TankTrapC", x: 79, y: 27},
+	{stat: "Sys-SensoTower02", x: 80, y: 29},
+	{stat: "WallTower-HPVcannon", x: 80, y: 31},
+	{stat: "GuardTower5", x: 76, y: 32},
+	{stat: "PillBox1", x: 79, y: 32},
+];
+const camA2L7ColLZ2Structs = [
+	{stat: "WallTower-HPVcannon", x: 42, y: 63},
+	{stat: "AASite-QuadBof", x: 44, y: 61, rot: 2},
+	{stat: "AASite-QuadBof", x: 46, y: 61, rot: 2},
+	{stat: "WallTower-HvATrocket", x: 48, y: 63},
+	{stat: "A0HardcreteMk1Wall", x: 42, y: 64, rot: 1},
+	{stat: "WallTower-HPVcannon", x: 42, y: 65},
+	{stat: "GuardTower6H", x: 43, y: 66},
+	{stat: "Sys-SensoTower02", x: 47, y: 66},
+	{stat: "PillBox1", x: 47, y: 67},
+	{stat: "PillBox1", x: 48, y: 66},
+];
+const camA2L7ColLZ3Structs = [
+	{stat: "Emplacement-MortarPit02", x: 24, y: 95},
+	{stat: "AASite-QuadBof", x: 26, y: 94, rot: 2},
+	{stat: "AASite-QuadBof", x: 21, y: 96},
+	{stat: "Emplacement-MortarPit02", x: 21, y: 99},
+	{stat: "Emplacement-MortarPit02", x: 23, y: 96},
+	{stat: "Sys-CB-Tower01", x: 23, y: 98},
+	{stat: "AASite-QuadBof", x: 21, y: 101},
+	{stat: "Emplacement-MortarPit02", x: 23, y: 100},
+	{stat: "Sys-SensoTower02", x: 25, y: 101},
+	{stat: "AASite-QuadBof", x: 25, y: 102},
+	{stat: "PillBoxHPC", x: 26, y: 101},
+	{stat: "WallTower-HPVcannon", x: 28, y: 96},
+	{stat: "Tower-Projector", x: 29, y: 98},
+];
+const camA2L7ColLZ4Structs = [
+	{stat: "PillBox6", x: 91, y: 60},
+	{stat: "AASite-QuadBof", x: 93, y: 57},
+	{stat: "PillBox1", x: 92, y: 58},
+	{stat: "AASite-QuadBof", x: 95, y: 56},
+	{stat: "Sys-SensoTower02", x: 95, y: 58},
+	{stat: "WallTower-HPVcannon", x: 93, y: 62},
+	{stat: "AASite-QuadBof", x: 97, y: 57},
+	{stat: "Emplacement-MRLHvy-pit", x: 97, y: 59},
+	{stat: "Emplacement-MRLHvy-pit", x: 98, y: 58},
+	{stat: "WallTower-HPVcannon", x: 97, y: 62},
+	{stat: "Tower-Projector", x: 99, y: 61},
+];
 
 // A3L4
 // Collective LZ defenses

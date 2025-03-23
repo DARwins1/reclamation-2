@@ -201,6 +201,11 @@ dataset		REC_2
 game		"wrf/act2/A2L6.gam"
 data		"wrf/act2/A2L6.wrf"
 
+expand		A2L7
+dataset		REC_2
+game		"wrf/act2/A2L7.gam"
+data		"wrf/act2/A2L7.wrf"
+
 /* act 3 */
 
 camstart	A3L1

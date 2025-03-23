@@ -371,6 +371,28 @@ function camIsScavStruct(struct)
 	return __camScavStructList.includes(struct);
 }
 
+//;; ## camDumpStructSet(area, name)
+//;; A helpful function that dumps a structure set to the logs.
+//;; Useful for making pre-defined structure sets when mapping.
+function camDumpStructSet(area, name)
+{
+	dump(name + " = [");
+	const structSet = camAreaToStructSet(area);
+	for (const obj of structSet)
+	{
+		// ex: {stat: "AASite-QuadBof", x: 104, y: 33, rot: 1}
+		let string = "{stat: \"" + obj.stat + "\", x: " + obj.x + ", y: " + obj.y;
+		if (obj.rot !== 0)
+		{
+			string = string + ", rot: " + obj.rot;
+		}
+		string = string + "},";
+
+		dump(string);
+	}
+	dump("]");
+}
+
 //////////// privates
 
 // Check if a truck is busy doing a building-related action

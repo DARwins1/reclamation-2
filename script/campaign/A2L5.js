@@ -314,7 +314,7 @@ function eventStartLevel()
 			},
 			groupSize: 6,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
-			templates: [ cTempl.cybla, cTempl.cybhg ]
+			templates: [ cTempl.cybla, cTempl.cybfl ]
 		},
 		"colVtolFactory": {
 			assembly: "colVtolAssembly",

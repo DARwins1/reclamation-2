@@ -143,13 +143,6 @@ function activateFirstFactories()
 	allowExtraWaves = true;
 }
 
-// // Enable the scavenger factories
-// function activateSecondFactories()
-// {
-// 	camEnableFactory("cScavFactory1");
-// 	camEnableFactory("cScavFactory2");
-// }
-
 // Enable the Collective's cyborg factory and start bringing in transports
 function startCollectiveTransports()
 {
@@ -377,6 +370,14 @@ function adaptColors()
 	changePlayerColour(CAM_THE_COLLECTIVE, (playerColour !== 2) ? 2 : 10); // Set to gray or white
 	changePlayerColour(CAM_INFESTED, (playerColour !== 9) ? 9 : 4); // Infested to purple or red
 	changePlayerColour(MIS_TEAM_ZULU, (playerColour !== 15) ? 15 : 0); // Zulu to brown or green
+}
+
+function trackTransporter()
+{
+	// Get the camera to follow the transporter
+	// Transporter is the only droid of the player's on the map at this point
+	const transporter = enumDroid();
+	cameraTrack(transporter[0]);
 }
 
 function eventStartLevel()
@@ -763,10 +764,7 @@ function eventStartLevel()
 	// 	{text: "CLAYDE: Secure the area, and hold for further instructions once the base site is secure.", delay: 3, sound: CAM_RCLICK},
 	// ]);
 
-	// Get the camera to follow the transporter
-	// Transporter is the only droid of the player's on the map at this point
-	const transporter = enumDroid();
-	cameraTrack(transporter[0]);
+	queue("trackTransporter", camSecondsToMilliseconds(0.25));
 
 	// Most Infested units start out pre-damaged
 	camSetPreDamageModifier(CAM_INFESTED, [50, 80], [60, 90], CAM_INFESTED_PREDAMAGE_EXCLUSIONS);

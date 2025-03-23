@@ -16,12 +16,13 @@ const mis_collectiveResearch = [
 	"R-Wpn-Cannon-ROF02", "R-Vehicle-Metals02", "R-Struc-Materials02", 
 	"R-Defense-WallUpgrade02", "R-Sys-Engineering01", "R-Vehicle-Engine01",
 ];
-const vtolRemovePos = {x: 16, y: 2};
+const MIS_GROUND_WAVE_DELAY = camSecondsToMilliseconds(60);
+const mis_vtolRemovePos = {x: 16, y: 2};
 
 //Remove enemy vtols when in the remove zone area.
 function checkEnemyVtolArea()
 {
-	const vtols = enumRange(vtolRemovePos.x, vtolRemovePos.y, 2, CAM_THE_COLLECTIVE, false).filter((obj) => (isVTOL(obj)));
+	const vtols = enumRange(mis_vtolRemovePos.x, mis_vtolRemovePos.y, 2, CAM_THE_COLLECTIVE, false).filter((obj) => (isVTOL(obj)));
 
 	for (let i = 0, l = vtols.length; i < l; ++i)
 	{
@@ -40,7 +41,7 @@ function heliAttack()
 		limit: [1, 1, 1],
 		alternate: true
 	};
-	camSetVtolData(CAM_THE_COLLECTIVE, undefined, vtolRemovePos, list, camChangeOnDiff(camSecondsToMilliseconds(25)), undefined, ext);
+	camSetVtolData(CAM_THE_COLLECTIVE, undefined, mis_vtolRemovePos, list, camChangeOnDiff(camSecondsToMilliseconds(25)), undefined, ext);
 }
 
 // Hit-and-run VTOLs
@@ -66,16 +67,13 @@ function vtolAttack()
 		maxRandomVTOLs: (difficulty >= MEDIUM) ? ((difficulty >= HARD) ? 2 : 1) : 0
 	};
 
-	camSetVtolData(CAM_THE_COLLECTIVE, vtolPositions, vtolRemovePos, list, camChangeOnDiff(camSecondsToMilliseconds(60)), undefined, ext);
+	camSetVtolData(CAM_THE_COLLECTIVE, vtolPositions, mis_vtolRemovePos, list, camChangeOnDiff(camSecondsToMilliseconds(60)), undefined, ext);
 }
 
 // Bring in Collective and C-Scav units.
 function collectiveAttackWaves()
 {
 	waveIndex++;
-
-	// There are 10 entrances on the map, every 2 waves enables a new entrace, with each getting progressively closer 
-	// to the player's LZ.
 
 	// Each entrance shares a C-Scav and a Collective pool.
 	// Each attack wave can draw from either pool.
@@ -96,15 +94,6 @@ function collectiveAttackWaves()
 		cTempl.monhmg,
 		cTempl.flatmrl,
 	];
-	// cTempl.colpodt // MRP
-	// cTempl.colaaht // Hurricane
-	// cTempl.colmrat // MRA
-	// cTempl.colhmght // HMG
-	// cTempl.colcanht // Light Cannon
-	// cTempl.colflamt // Flamer
-	// cTempl.colmortht // Mortar
-	// cTempl.commcant // Medium Cannon
-	// cTempl.comatt // Lancer
 	const colDroidPool = [
 		cTempl.colpodt, cTempl.colpodt, // MRP
 		cTempl.colmrat, cTempl.colmrat, // MRA
@@ -115,6 +104,7 @@ function collectiveAttackWaves()
 		cTempl.comatt, // Lancer
 	];
 
+	// There are 10 entrances on the map, with each getting progressively closer to the player's LZ.
 	// This block handles activating new entrances
 	const waveEntrances = [];
 	if (waveIndex >= 1)
@@ -238,7 +228,7 @@ function collectiveAttackWaves()
 	if (waveIndex % 20 === 0)
 	{
 		// Increase the number of ground attacks every 20 waves
-		setTimer("collectiveAttackWaves", camChangeOnDiff(camSecondsToMilliseconds(45)));
+		setTimer("collectiveAttackWaves", camChangeOnDiff(MIS_GROUND_WAVE_DELAY));
 		// NOTE: Since the above increases are based on the number of ground waves, not only will the
 		// number of enemies increase over time, but the RATE that they increase will get faster too!
 	}
@@ -394,7 +384,7 @@ function eventStartLevel()
 
 	queue("heliAttack", camChangeOnDiff(camMinutesToMilliseconds(2)));
 	queue("vtolAttack", camChangeOnDiff(camMinutesToMilliseconds(6)));
-	setTimer("collectiveAttackWaves", camChangeOnDiff(camSecondsToMilliseconds(60)));
+	setTimer("collectiveAttackWaves", camChangeOnDiff(MIS_GROUND_WAVE_DELAY));
 	setTimer("checkEnemyVtolArea", camSecondsToMilliseconds(1));
 	setTimer("sendCollectiveTransporter", camChangeOnDiff(camMinutesToMilliseconds(2)));
 
