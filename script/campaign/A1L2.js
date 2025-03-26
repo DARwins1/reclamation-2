@@ -101,7 +101,7 @@ camAreaEvent("uplinkCaptureZone", function(droid)
 		camQueueDialogue([
 			{text: "CLAYDE: Well look at that. NASDA Central.", delay: 4, sound: CAM_RCLICK},
 			{text: "LIEUTENANT: From the outside, it seems to be in decent condition.", delay: 3, sound: CAM_RCLICK},
-			{text: "LIEUTENANT: But we won't know more until we can get a look inside.", delay: 3, sound: CAM_RCLICK},
+			{text: "LIEUTENANT: But we won't know if it's operational until we can get a look at its interior.", delay: 3, sound: CAM_RCLICK},
 			{text: "CLAYDE: Don't worry.", delay: 4, sound: CAM_RCLICK},
 			{text: "CLAYDE: Once these scavengers are cleared out, we'll have all the time in the world.", delay: 3, sound: CAM_RCLICK},
 		]);
@@ -574,6 +574,7 @@ function isNasdaStructure(struct)
 		struct.name == "Old Hardcrete Wall" ||
 		struct.name == "Old Hardcrete Corner Wall" ||
 		struct.name == "Old Heavy Machinegun Bunker" ||
+		truct.name == "Repair Facility" ||
 		struct.name == "VTOL Rearming Pad");
 }
 
@@ -665,6 +666,7 @@ function eventStartLevel()
 		"scavInnerFactory1": { tech: "R-Wpn-MG3Mk1" }, // Heavy Machinegun
 		"scavInnerFactory2": { tech: "R-Wpn-Cannon-Accuracy01" }, // Cannon Laser Rangefinder
 		"scavInnerFactory3": { tech: "R-Wpn-Rocket-Accuracy01" }, // Stabilized Rockets
+		"repairFacility": { tech: "R-Struc-RepairFacility" }, // Repair Facility
 	});
 
 	camSetEnemyBases({
@@ -787,6 +789,9 @@ function eventStartLevel()
 		"scavInnerFactory1": {
 			assembly: "scavInnerAssembly1",
 			order: CAM_ORDER_ATTACK,
+			data: {
+				repair: 15 // This is the only mission in the game where scavenger can repair
+			}
 			groupSize: 6,
 			maxSize: 3,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(16)),
@@ -795,6 +800,9 @@ function eventStartLevel()
 		"scavInnerFactory2": {
 			assembly: "scavInnerAssembly2",
 			order: CAM_ORDER_ATTACK,
+			data: {
+				repair: 15
+			}
 			groupSize: 3,
 			maxSize: 3,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(30)),
@@ -806,7 +814,8 @@ function eventStartLevel()
 			data: {
 				// This factory targets the player specifically
 				targetPlayer: CAM_HUMAN_PLAYER,
-				regroup: true
+				regroup: true,
+				repair: 15
 			},
 			groupSize: 4,
 			maxSize: 3,

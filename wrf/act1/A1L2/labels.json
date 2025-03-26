@@ -264,6 +264,7 @@
 		"pos2": [7936, 7296]
 	},
 
+
 	"area_20": {
 		"label": "scavCraneZone",
 		"pos1": [768, 384],
@@ -362,6 +363,14 @@
 	"object_11": {
 		"label": "scavInnerFactory3",
 		"id": 4287,
+		"player": 6,
+		"type": 1
+	},
+
+
+	"object_12": {
+		"label": "repairFacility",
+		"id": 4787,
 		"player": 6,
 		"type": 1
 	},

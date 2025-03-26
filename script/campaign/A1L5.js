@@ -247,7 +247,7 @@ function camEnemyBaseDetected_colMainBase()
 	camQueueDialogue([
 		{text: "LIEUTENANT: How did we not notice the Collective before?", delay: 2, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Were we so focused on our goal that we..?", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Hopefully there's still time to fix things.", delay: 8, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Hopefully there's still time to fix this.", delay: 8, sound: CAM_RCLICK},
 	]);
 }
 
@@ -279,7 +279,7 @@ function eventStartLevel()
 		"colResearchFacility": { tech: "R-Wpn-Rocket01-LtAT" }, // Lancer
 		"colCommandRelay": { tech: "R-Struc-CommandRelay" }, // Command Relay Post
 		"colAASite": { tech: "R-Wpn-AAGun03" }, // Hurricane AA
-		"colRepairFacility": { tech: "R-Struc-RepairFacility" }, // Repair Facility
+		// "colRepairFacility": { tech: "R-Struc-RepairFacility" }, // Repair Facility
 	});
 
 	camSetEnemyBases({

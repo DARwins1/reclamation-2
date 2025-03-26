@@ -102,6 +102,7 @@ const camA1L4AllyResearch = camA1L2AllyResearch.concat([
 	"R-Sys-VTOLStrike-Tower01",
 	"R-Wpn-MG3Mk1", // Artifact
 	"R-Wpn-MG-Damage03", "R-Cyborg-Wpn-HvyMG", "R-Defense-Tower01",
+	"R-Struc-RepairFacility", // Artifact
 	// A1L3
 	"R-Vehicle-Prop-Halftracks", // Artifact
 	"R-Wpn-Flamer-Damage03", // Artifact
@@ -126,7 +127,6 @@ const camAct2StartResearch = camA1L4AllyResearch.concat([
 	"R-Defense-Pillbox04", "R-Defense-Pillbox05", "R-Defense-WallTower01", 
 	"R-Defense-WallTower02", "R-Defense-WallUpgrade01", "R-Defense-WallUpgrade02", 
 	"R-Struc-Materials01", "R-Struc-Materials02",
-	"R-Struc-RepairFacility", // Artifact
 ]);
 
 // Used to grant research to team Delta on A2L2

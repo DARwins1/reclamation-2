@@ -363,6 +363,7 @@ function loadTruck1()
 			// Move the civs back into their holdout
 			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
 		}
+		resetLabel("civZone1", CAM_HUMAN_PLAYER);
 		return;
 	}
 	else
@@ -431,6 +432,7 @@ function loadTruck2()
 		{
 			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
 		}
+		resetLabel("civZone2", CAM_HUMAN_PLAYER);
 		return;
 	}
 	else
@@ -495,6 +497,7 @@ function loadTruck3()
 		{
 			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
 		}
+		resetLabel("civZone3", CAM_HUMAN_PLAYER);
 		return;
 	}
 	else
@@ -559,6 +562,7 @@ function loadTruck4()
 		{
 			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
 		}
+		resetLabel("civZone4", CAM_HUMAN_PLAYER);
 		return;
 	}
 	else

@@ -34,7 +34,6 @@ var zuluVtolPos2;
 var zuluVtolPos3;
 // Refillable Groups...
 var deltaPatrolGroup;
-var deltaRepairGroup;
 var deltaMortarGroup;
 var deltaVtolGroup;
 var zuluPatrolGroup;
@@ -120,12 +119,12 @@ function weakenZuluDefenses()
 function sendDeltaTransporter()
 {
 	// Make a list of droids to bring in in order of importance
-	// Truck -> Repair -> Mortar -> VTOL -> Patrol
+	// Truck -> Mortar -> VTOL -> Patrol
 	let droidQueue = [];
 
 	if (!camDef(camGetTruck(deltaTruckJob))) droidQueue.push(cTempl.plltruckt);
 
-	droidQueue = droidQueue.concat(camGetRefillableGroupTemplates([deltaRepairGroup, deltaMortarGroup, deltaVtolGroup, deltaPatrolGroup]));
+	droidQueue = droidQueue.concat(camGetRefillableGroupTemplates([deltaMortarGroup, deltaVtolGroup, deltaPatrolGroup]));
 
 	const droids = [];
 	// Get (up to) the first 10 units in the queue
@@ -251,7 +250,7 @@ function eventTransporterLanded(transport)
 		}
 
 		// Assign other units to their refillable groups
-		camAssignToRefillableGroups(transOther, [deltaRepairGroup, deltaMortarGroup, deltaVtolGroup, deltaPatrolGroup]);
+		camAssignToRefillableGroups(transOther, [deltaMortarGroup, deltaVtolGroup, deltaPatrolGroup]);
 	}
 	else if (phaseTwo)
 	{
@@ -309,19 +308,22 @@ function collectiveAttackWaves()
 	// Each entrance has a unit set composition, mostly of C-Scavs. 
 	const nwRidgeDroids = [cTempl.bloke, cTempl.buggy, cTempl.buscan, cTempl.lance, cTempl.rbuggy];
 
-	const northCityDroids = [cTempl.moncan, cTempl.rbjeep, cTempl.bloke, cTempl.bjeep, cTempl.lance];
+	const northCityDroids = [cTempl.rbjeep, cTempl.bloke, cTempl.bjeep, cTempl.lance];
 
-	const neValleyDroids = [cTempl.firetruck, cTempl.gbjeep, cTempl.lance, cTempl.trike, cTempl.monsar, cTempl.kevbloke, cTempl.kevlance];
+	const neValleyDroids = [cTempl.firetruck, cTempl.gbjeep, cTempl.lance, cTempl.trike, cTempl.kevbloke, cTempl.kevlance];
 
-	const nePlateauDroids = [cTempl.bjeep, cTempl.minitruck, cTempl.buscan, cTempl.monhmg, cTempl.sartruck, cTempl.kevbloke];
+	const nePlateauDroids = [cTempl.bjeep, cTempl.minitruck, cTempl.buscan, cTempl.sartruck, cTempl.kevbloke];
 
-	const eastPlateauDroids = [cTempl.flatmrl, cTempl.gbjeep, cTempl.kevbloke, cTempl.kevlance, cTempl.buggy, cTempl.rbuggy];
+	const eastPlateauDroids = [cTempl.gbjeep, cTempl.kevbloke, cTempl.kevlance, cTempl.buggy, cTempl.rbuggy];
 
-	const nwCraterDroids = [cTempl.monmrl, cTempl.gbjeep, cTempl.minitruck, cTempl.kevlance, cTempl.bjeep, cTempl.bloke];
+	const nwCraterDroids = [cTempl.gbjeep, cTempl.minitruck, cTempl.kevlance, cTempl.bjeep, cTempl.bloke];
 
-	const eastValleyDroids = [cTempl.flatat, cTempl.minitruck, cTempl.gbjeep, cTempl.trike, cTempl.moncan, cTempl.bloke];
+	const eastValleyDroids = [cTempl.minitruck, cTempl.gbjeep, cTempl.trike, cTempl.bloke];
 
-	const southDroids = [cTempl.moncan, cTempl.bjeep, cTempl.bloke, cTempl.minitruck, cTempl.flatmrl, cTempl.buggy];
+	const southDroids = [cTempl.bjeep, cTempl.bloke, cTempl.minitruck, cTempl.buggy];
+
+	// Special scavenger templates
+	const scavSpecialDroids = [cTempl.flatmrl, cTempl.flatat, cTempl.moncan, cTempl.monhmg, cTempl.monsar, cTempl.monmrl];
 
 	// Occasionally, entrance templates will be overwritten with these purely Collective units.
 	const colOverrideDroids = [
@@ -331,7 +333,6 @@ function collectiveAttackWaves()
 		cTempl.colcanht, cTempl.colcanht, cTempl.colcanht, // Light Cannon
 		cTempl.colflamt, cTempl.colflamt, // Flamer
 	];
-	if (difficulty >= MEDIUM) colOverrideDroids.push(cTempl.colaaht); // Add another chance for Hurricane
 	if (waveIndex >= 10) colOverrideDroids.push(cTempl.colmcant); // Add chance for Medium Cannon (Leopard)
 	if (difficulty >= HARD) colOverrideDroids.push(cTempl.colmcant); // Add another chance for Medium Cannon (Leopard)
 	if (phaseTwo && difficulty >= HARD) colOverrideDroids.push(cTempl.commcant); // Add chance for Medium Cannon (Panther)
@@ -403,8 +404,11 @@ function collectiveAttackWaves()
 	{
 		// Don't spawn Collective override groups for about 1.5 minutes when the player is told to evac
 		// This should give the player enough breathing room to destroy the power systems and regroup
+
 		numColOverrides = 0;
 	}
+
+	const COLLECTIVE_ACTIVE = numColOverrides > 0;
 
 	// Choose from among the active entrances and spawn units
 	// NOTE: The south entrance is always active
@@ -438,6 +442,16 @@ function collectiveAttackWaves()
 		{
 			const templateList = chosenTemplates[i];
 			droids.push(camRandFrom(templateList));
+		}
+		// Chance of inserting a tough scavenger unit
+		if (camRand(6 - difficulty) === 0)
+		{
+			droids.push(camRandFrom(scavSpecialDroids));
+		}
+		// Chance of inserting a Hurricane
+		if (difficulty >= MEDIUM && COLLECTIVE_ACTIVE && camRand(10 - difficulty) === 0)
+		{
+			droids.push(cTempl.colaaht);
 		}
 
 		camSendReinforcement(CAM_THE_COLLECTIVE, getObject(chosenEntrances[i]), droids, CAM_REINFORCE_GROUND, {
@@ -485,7 +499,7 @@ function collectiveDialogue()
 		{text: "FOXTROT: They look a lot tougher than scavengers, sir.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: The Collective.", delay: 4, sound: CAM_RCLICK},
 		{text: "CLAYDE: Why are they here?", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: The Collective must be leading this assault, sir.", delay: 4, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: The Collective may be organizing this assault, sir.", delay: 4, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: But how are they leading these scavengers?", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: However they're doing it, I'm sure it has to do with this site.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: Which means they're not going to get it.", delay: 3, sound: CAM_RCLICK},
@@ -554,7 +568,6 @@ function evacuateAllies()
 
 	// Lock refillable groups (don't assign any more units)
 	camLockRefillableGroup(deltaPatrolGroup);
-	camLockRefillableGroup(deltaRepairGroup);
 	camLockRefillableGroup(deltaMortarGroup);
 	camLockRefillableGroup(deltaVtolGroup);
 	camLockRefillableGroup(zuluPatrolGroup);
@@ -767,9 +780,7 @@ function eventStartLevel()
 		interval: camSecondsToMilliseconds(28),
 		count: 10,
 		morale: 80,
-		fallback: camMakePos("deltaRepairPos"),
-		repair: 50,
-		repairPos: camMakePos("deltaRepairPos") // Wait here for repairs
+		repair: 50
 	});
 	// Delta Mortar group
 	deltaMortarGroup = camMakeRefillableGroup(camMakeGroup("deltaMortarGroup"), {templates: [
@@ -777,12 +788,8 @@ function eventStartLevel()
 		]}, CAM_ORDER_FOLLOW, {
 		leader: "deltaSensorTower",
 		suborder: CAM_ORDER_DEFEND,
-		pos: camMakePos("deltaRepairPos") // Defend this position if the tower is destroyed.
+		pos: camMakePos("deltaMortarGroup") // Defend this position if the tower is destroyed.
 	});
-	// Delta repair group
-	deltaRepairGroup = camMakeRefillableGroup(camMakeGroup("deltaRepairGroup"), {templates: [
-		cTempl.pllrept, cTempl.pllrept,
-		]}, CAM_ORDER_DEFEND, {pos: camMakePos("deltaRepairPos")});
 	// Delta VTOL group (3 Light Cannons, 2 HMGs)
 	deltaVtolGroup = camMakeRefillableGroup(camMakeGroup("deltaVtolGroup"), {templates: [
 		cTempl.pllcanv, cTempl.pllcanv, cTempl.pllcanv,
@@ -815,6 +822,7 @@ function eventStartLevel()
 			camMakePos("patrolPos3"), camMakePos("patrolPos4"), camMakePos("patrolPos5")
 		],
 		interval: camSecondsToMilliseconds(20),
+		repair: 50
 	});
 	// Zulu northwest VTOL group (2 Mini-Rockets, 2 Heavy Machineguns)
 	zuluVtolGroupNW = camMakeRefillableGroup(camMakeGroup("zuluVtolGroup1"), {templates: [
@@ -908,7 +916,7 @@ function eventStartLevel()
 
 	// Dialogue when arriving
 	camQueueDialogue([
-		{text: "CLAYDE: Commander Bravo.", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: Commander Bravo, not a moment too soon.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: My engineers have set up an LZ for you outside of NASDA Central.", delay: 2, sound: CAM_RCLICK},
 		{text: "CLAYDE: Teams Foxtrot and Delta have already taken up positions to the southwest and southeast.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: Use your forces and defend the northern approach.", delay: 3, sound: CAM_RCLICK},
