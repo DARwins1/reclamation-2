@@ -501,6 +501,16 @@
             "CommandTurret1"
         ]
     },
+    "INF-CO-M-COM-Track-Broken": {
+        "body": "Body6SUPPBroken",
+        "id": "INF-CO-M-COM-Track-Broken",
+        "name": "Infested Derelict Command Turret Panther Tracks",
+        "propulsion": "tracked01",
+        "type": "DROID",
+        "weapons": [
+            "InfCommandTurret1"
+        ]
+    },
     "CO-H-COM-H": {
         "body": "Body9REC",
         "brain": "CommandBrain01",
@@ -532,6 +542,16 @@
             "Rocket-MRL-Hvy"
         ]
     },
+    "INF-CO-H-HRA-T-Broken": {
+        "body": "Body9RECBroken",
+        "id": "INF-CO-H-HRA-T-Broken",
+        "name": "Infested Derelict Heavy Rocket Array Tiger Tracks",
+        "propulsion": "tracked01",
+        "type": "DROID",
+        "weapons": [
+            "InfRocket-MRL-Hvy"
+        ]
+    },
     "CO-H-Command-Track": {
         "body": "Body9REC",
         "brain": "CommandBrain01",
@@ -541,6 +561,16 @@
         "type": "DROID_COMMAND",
         "weapons": [
             "CommandTurret1"
+        ]
+    },
+    "INF-CO-H-Command-Track-Broken": {
+        "body": "Body9RECBroken",
+        "id": "INF-CO-H-Command-Track-Broken",
+        "name": "Infested Derelict Command Turret Tiger Tracks",
+        "propulsion": "tracked01",
+        "type": "DROID",
+        "weapons": [
+            "InfCommandTurret1"
         ]
     },
     "CO-H-HPVCannon-Tracks": {
@@ -641,6 +671,16 @@
         "type": "DROID",
         "weapons": [
             "QuadRotAAGun"
+        ]
+    },
+    "INF-CO-H-QuadRotAA-T-Broken": {
+        "body": "Body9RECBroken",
+        "id": "INF-CO-H-QuadRotAA-T-Broken",
+        "name": "Infested Derelict Whirlwind Tiger Tracks",
+        "propulsion": "tracked01",
+        "type": "DROID",
+        "weapons": [
+            "InfQuadRotAAGun"
         ]
     },
     "CO-H-Rkt-BB-T": {
@@ -797,6 +837,16 @@
         "propulsion": "tracked01",
         "type": "CONSTRUCT"
     },
+    "INF-CO-M-Con-T-Broken": {
+        "body": "Body6SUPPBroken",
+        "id": "INF-CO-M-Con-T-Broken",
+        "name": "Infested Derelict Transport Truck Panther Tracks",
+        "propulsion": "tracked01",
+        "type": "DROID",
+        "weapons": [
+            "InfestedSpade1Trans"
+        ]
+    },
     "CO-M-Con-HT": {
         "body": "Body6SUPP",
         "construct": "Spade1Mk1",
@@ -935,6 +985,16 @@
             "Rocket-MRL"
         ]
     },
+    "INF-CO-M-MRA-Tracks-Broken": {
+        "body": "Body6SUPPBroken",
+        "id": "INF-CO-M-MRA-Tracks-Broken",
+        "name": "Infested Derelict MRA Panther Tracks",
+        "propulsion": "tracked01",
+        "type": "DROID",
+        "weapons": [
+            "InfRocket-MRL"
+        ]
+    },
     "CO-M-MedCan-Tracks": {
         "body": "Body6SUPP",
         "id": "CO-M-MedCan-Tracks",
@@ -1039,6 +1099,16 @@
         "sensor": "SensorTurret1Mk1",
         "type": "DROID"
     },
+    "INF-CO-M-Sensor-T-Broken": {
+        "body": "Body6SUPPBroken",
+        "id": "INF-CO-M-Sensor-T-Broken",
+        "name": "Infested Derelict Sensor Panther Tracks",
+        "propulsion": "tracked01",
+        "weapons": [
+            "InfSensorTower1Mk1"
+        ],
+        "type": "DROID"
+    },
     "CO-M-VTOLCBS-T": {
         "body": "Body6SUPP",
         "id": "CO-M-VTOLCBS-T",
@@ -1053,6 +1123,16 @@
         "name": "*CO-M-Vstrike-T*",
         "propulsion": "tracked01",
         "sensor": "Sys-VstrikeTurret01",
+        "type": "DROID"
+    },
+    "INF-CO-M-Vstrike-T-Broken": {
+        "body": "Body6SUPPBroken",
+        "id": "INF-CO-M-Vstrike-T-Broken",
+        "name": "Infested Derelict VTOL Strike Panther Tracks",
+        "propulsion": "tracked01",
+        "weapons": [
+            "InfSys-VTOLRadarTower01"
+        ],
         "type": "DROID"
     },
     "ViperStrikeHalftrack": {
@@ -1237,8 +1317,16 @@
         "body": "Body5REC",
         "construct": "Spade1Mk1",
         "id": "CobraSpadeTracks",
-        "name": "Cobra Truck",
+        "name": "Truck Cobra Tracks",
         "propulsion": "tracked01",
+        "type": "CONSTRUCT"
+    },
+    "CobraSpadeHalfTracks": {
+        "body": "Body5REC",
+        "construct": "Spade1Mk1",
+        "id": "CobraSpadeHalfTracks",
+        "name": "Truck Cobra Half-tracks",
+        "propulsion": "HalfTrack",
         "type": "CONSTRUCT"
     },
     "ConstructionDroid": {
@@ -2403,6 +2491,16 @@
             "MG4ROTARYMk1"
         ]
     },
+    "P0PyAsltGnHT": {
+        "body": "Body11ABT",
+        "id": "P0PyAsltGnHT",
+        "name": "Assault Gun Python Half-tracks",
+        "propulsion": "HalfTrack",
+        "type": "DROID",
+        "weapons": [
+            "MG4ROTARYMk1"
+        ]
+    },
     "P0cam3PyFlakHT": {
         "body": "Body11ABT",
         "id": "P0cam3PyFlakHT",
@@ -2423,6 +2521,16 @@
             "Cannon4AUTOMk1"
         ]
     },
+    "P0PyAsltCanHT": {
+        "body": "Body11ABT",
+        "id": "P0PyAsltCanHT",
+        "name": "Assault Cannon Python Half-tracks",
+        "propulsion": "HalfTrack",
+        "type": "DROID",
+        "weapons": [
+            "Cannon5VulcanMk1"
+        ]
+    },
     "P0cam3PyHvyATTrk": {
         "body": "Body11ABT",
         "id": "P0cam3PyHvyATTrk",
@@ -2431,6 +2539,64 @@
         "type": "DROID",
         "weapons": [
             "Rocket-HvyA-T"
+        ]
+    },
+    "P0PyHvyATHT": {
+        "body": "Body11ABT",
+        "id": "P0PyHvyATHT",
+        "name": "Tank Killer Python Half-tracks",
+        "propulsion": "HalfTrack",
+        "type": "DROID",
+        "weapons": [
+            "Rocket-HvyA-T"
+        ]
+    },
+    "PythonHvyRepairHalftrack": {
+        "body": "Body11ABT",
+        "id": "PythonHvyRepairHalftrack",
+        "name": "Heavy Repair Turret Python Half-tracks",
+        "propulsion": "HalfTrack",
+        "repair": "HeavyRepair",
+        "type": "DROID"
+    },
+    "P0-M-PBomb-V": {
+        "body": "Body5REC",
+        "id": "P0-M-PBomb-V",
+        "name": "Phosphor Bomb Bay Cobra VTOL",
+        "propulsion": "V-Tol",
+        "type": "DROID",
+        "weapons": [
+            "Bomb3-VTOL-LtINC"
+        ]
+    },
+    "P0-M-HBomb-V": {
+        "body": "Body5REC",
+        "id": "P0-M-HBomb-V",
+        "name": "HEAP Bomb Bay Cobra VTOL",
+        "propulsion": "V-Tol",
+        "type": "DROID",
+        "weapons": [
+            "Bomb2-VTOL-HvHE"
+        ]
+    },
+    "P0-M-HvAT-V": {
+        "body": "Body5REC",
+        "id": "P0-M-HvAT-V",
+        "name": "Tank Killer Cobra VTOL",
+        "propulsion": "V-Tol",
+        "type": "DROID",
+        "weapons": [
+            "Rocket-VTOL-HvyA-T"
+        ]
+    },
+    "P0-M-AGun-V": {
+        "body": "Body5REC",
+        "id": "P0-M-AGun-V",
+        "name": "Assault Gun Cobra VTOL",
+        "propulsion": "V-Tol",
+        "type": "DROID",
+        "weapons": [
+            "MG4ROTARY-VTOL"
         ]
     },
     "P6-L-Bomb1-V": {

@@ -761,13 +761,16 @@
         "id": "InfCommandCentre",
         "name": "Infested Command Center",
         "resistance": 600,
-        "sensorID": "InfCCSensor",
+        "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
             "blinfhqalt.pie"
         ],
         "thermal": 10,
-        "type": "HQ",
+        "type": "DEFENSE",
+        "weapons": [
+            "InfCCSensor"
+        ],
         "width": 2
     },
     "A0CommandCentreCO": {
@@ -803,13 +806,16 @@
         "id": "InfCommandCentreCO",
         "name": "Infested Collective Command Center",
         "resistance": 600,
-        "sensorID": "InfCCSensor",
+        "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
             "blinfhq3.pie"
         ],
         "thermal": 10,
-        "type": "HQ",
+        "type": "DEFENSE",
+        "weapons": [
+            "InfCCSensor"
+        ],
         "width": 2
     },
     "A0CommandCentreNE": {
@@ -1227,6 +1233,30 @@
         "type": "REPAIR FACILITY",
         "width": 1
     },
+    "InfRepairCentre3": {
+        "armour": 10,
+        "baseModel": "BLBGEN.PIE",
+        "breadth": 1,
+        "buildPoints": 500,
+        "buildPower": 100,
+        "height": 2,
+        "hitpoints": 1000,
+        "id": "InfA0RepairCentre3",
+        "name": "Infested Repair Facility",
+        "repairPoints": 40,
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "BLINFRPAIR3.PIE"
+        ],
+        "thermal": 10,
+        "type": "DEFENSE",
+        "weapons": [
+          "InfRepairCentre"  
+        ],
+        "width": 1
+    },
     "A0ResearchFacility": {
         "armour": 10,
         "baseModel": "blbresch.pie",
@@ -1311,6 +1341,25 @@
         "strength": "MEDIUM",
         "structureModel": [
             "BLDERIK.PIE"
+        ],
+        "thermal": 5,
+        "type": "RESOURCE EXTRACTOR",
+        "width": 1
+    },
+    "InfResourceExtractor": {
+        "armour": 5,
+        "breadth": 1,
+        "buildPoints": 100,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 600,
+        "id": "InfResourceExtractor",
+        "name": "Infested Oil Derrick",
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "BLINFDERIK.PIE"
         ],
         "thermal": 5,
         "type": "RESOURCE EXTRACTOR",
@@ -1897,6 +1946,29 @@
         ],
         "width": 1
     },
+    "InfEmplacement-MortarPit01": {
+        "armour": 10,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 125,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 300,
+        "id": "InfEmplacement-MortarPit01",
+        "name": "Infested Mortar Pit",
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "BLINFMRTPIT_COL.PIE"
+        ],
+        "thermal": 10,
+        "type": "DEFENSE",
+        "weapons": [
+            "InfMortar1Mk1"
+        ],
+        "width": 1
+    },
     "Emplacement-MortarPit02": {
         "armour": 10,
         "breadth": 1,
@@ -1917,6 +1989,29 @@
         "type": "DEFENSE",
         "weapons": [
             "Mortar2Mk1"
+        ],
+        "width": 1
+    },
+    "InfEmplacement-MortarPit02": {
+        "armour": 10,
+        "breadth": 1,
+        "buildPoints": 450,
+        "buildPower": 150,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 300,
+        "id": "InfEmplacement-MortarPit02",
+        "name": "Infested Bombard Pit",
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "BLINFMRTPIT_COL.PIE"
+        ],
+        "thermal": 10,
+        "type": "DEFENSE",
+        "weapons": [
+            "InfMortar2Mk1"
         ],
         "width": 1
     },
@@ -2078,6 +2173,29 @@
         "type": "DEFENSE",
         "weapons": [
             "Mortar3ROTARYMk1"
+        ],
+        "width": 1
+    },
+    "InfEmplacement-RotMor": {
+        "armour": 10,
+        "breadth": 1,
+        "buildPoints": 500,
+        "buildPower": 325,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 300,
+        "id": "InfEmplacement-RotMor",
+        "name": "Infested Pepperpot Pit",
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "BLINFMRTPIT_COL.PIE"
+        ],
+        "thermal": 10,
+        "type": "DEFENSE",
+        "weapons": [
+            "InfMortar3ROTARYMk1"
         ],
         "width": 1
     },
@@ -3342,6 +3460,29 @@
         "type": "DEFENSE",
         "width": 1
     },
+    "InfSys-CB-Tower01": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 100,
+        "ecmID": "ZNULLECM",
+        "height": 3,
+        "hitpoints": 600,
+        "id": "InfSys-CB-Tower01",
+        "name": "Infested CB Tower",
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLINFGUARDN.pie"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "InfSys-CBTower01"
+        ],
+        "width": 1
+    },
     "Sys-NEXUSLinkTOW": {
         "armour": 15,
         "breadth": 1,
@@ -3464,6 +3605,29 @@
         "type": "DEFENSE",
         "width": 1
     },
+    "InfSys-SensoTower01": {
+        "armour": 10,
+        "breadth": 1,
+        "buildPoints": 250,
+        "buildPower": 60,
+        "ecmID": "ZNULLECM",
+        "height": 3,
+        "hitpoints": 450,
+        "id": "InfSys-SensoTower01",
+        "name": "Infested Sensor Tower",
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "BLINFGUARDM.PIE"
+        ],
+        "thermal": 10,
+        "type": "DEFENSE",
+        "weapons": [
+            "InfSensorTower1Mk1"
+        ],
+        "width": 1
+    },
     "Sys-RustSensoTower01": {
         "armour": 10,
         "breadth": 1,
@@ -3482,6 +3646,29 @@
         ],
         "thermal": 10,
         "type": "DEFENSE",
+        "width": 1
+    },
+    "InfSys-RustSensoTower01": {
+        "armour": 10,
+        "breadth": 1,
+        "buildPoints": 250,
+        "buildPower": 60,
+        "ecmID": "ZNULLECM",
+        "height": 3,
+        "hitpoints": 450,
+        "id": "InfSys-RustSensoTower01",
+        "name": "Infested Rusty Sensor Tower",
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "BLINFGUARDM.PIE"
+        ],
+        "thermal": 10,
+        "type": "DEFENSE",
+        "weapons": [
+            "InfRustySensorTower1Mk1"
+        ],
         "width": 1
     },
     "Sys-SensoTower02": {
@@ -3504,6 +3691,29 @@
         "type": "DEFENSE",
         "width": 1
     },
+    "InfSys-SensoTower02": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 100,
+        "ecmID": "ZNULLECM",
+        "height": 3,
+        "hitpoints": 600,
+        "id": "InfSys-SensoTower02",
+        "name": "Infested Hardened Sensor Tower",
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLINFGUARDN.pie"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "InfSensorTower1Mk1"
+        ],
+        "width": 1
+    },
     "Sys-VTOL-CB-Tower01": {
         "armour": 15,
         "breadth": 1,
@@ -3522,6 +3732,29 @@
         ],
         "thermal": 15,
         "type": "DEFENSE",
+        "width": 1
+    },
+    "InfSys-VTOL-CB-Tower01": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 100,
+        "ecmID": "ZNULLECM",
+        "height": 3,
+        "hitpoints": 600,
+        "id": "InfSys-VTOL-CB-Tower01",
+        "name": "Infested VTOL CB Tower",
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLINFGUARDN.pie"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "InfSys-VTOLCBTower01"
+        ],
         "width": 1
     },
     "Sys-VTOL-RadarTower01": {
@@ -3544,6 +3777,29 @@
         "type": "DEFENSE",
         "width": 1
     },
+    "InfSys-VTOL-RadarTower01": {
+        "armour": 10,
+        "breadth": 1,
+        "buildPoints": 300,
+        "buildPower": 60,
+        "ecmID": "ZNULLECM",
+        "height": 3,
+        "hitpoints": 450,
+        "id": "InfSys-VTOL-RadarTower01",
+        "name": "Infested VTOL Radar Tower",
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "BLINFGUARDM.pie"
+        ],
+        "thermal": 10,
+        "type": "DEFENSE",
+        "weapons": [
+            "InfSys-VTOLRadarTower01"
+        ],
+        "width": 1
+    },
     "Sys-VTOL-RustyRadarTower01": {
         "armour": 10,
         "breadth": 1,
@@ -3564,6 +3820,29 @@
         "type": "DEFENSE",
         "width": 1
     },
+    "InfSys-VTOL-RustyRadarTower01": {
+        "armour": 10,
+        "breadth": 1,
+        "buildPoints": 300,
+        "buildPower": 60,
+        "ecmID": "ZNULLECM",
+        "height": 3,
+        "hitpoints": 450,
+        "id": "InfSys-VTOL-RustyRadarTower01",
+        "name": "Infested Rusty VTOL Radar Tower",
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "MEDIUM",
+        "structureModel": [
+            "BLINFGUARDM.pie"
+        ],
+        "thermal": 10,
+        "type": "DEFENSE",
+        "weapons": [
+            "InfSys-RustyVTOLRadarTower01"
+        ],
+        "width": 1
+    },
     "Sys-VTOL-RadarTower02": {
         "armour": 15,
         "breadth": 1,
@@ -3582,6 +3861,29 @@
         ],
         "thermal": 15,
         "type": "DEFENSE",
+        "width": 1
+    },
+    "InfSys-VTOL-RadarTower02": {
+        "armour": 15,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 100,
+        "ecmID": "ZNULLECM",
+        "height": 3,
+        "hitpoints": 600,
+        "id": "InfSys-VTOL-RadarTower02",
+        "name": "Infested Hardened VTOL Radar Tower",
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLINFGUARDN.pie"
+        ],
+        "thermal": 15,
+        "type": "DEFENSE",
+        "weapons": [
+            "InfSys-VTOLRadarTower01"
+        ],
         "width": 1
     },
     "TankTrapC": {

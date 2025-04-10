@@ -64,6 +64,7 @@ plmhpvt: { body: "Body5REC", prop: "tracked01", weap: "Cannon4AUTOMk1" }, // Hyp
 plmacant: { body: "Body5REC", prop: "tracked01", weap: "Cannon5VulcanMk1" }, // Assault Cannon Cobra Tracks
 plhhpvt: { body: "Body11ABT", prop: "tracked01", weap: "Cannon4AUTOMk1" }, // Hyper Velocity Cannon Python Tracks
 plhacant: { body: "Body11ABT", prop: "tracked01", weap: "Cannon5VulcanMk1" }, // Assault Cannon Python Tracks
+plhacanht: { body: "Body11ABT", prop: "HalfTrack", weap: "Cannon5VulcanMk1" }, // Assault Cannon Python Half-tracks
 plhhct: { body: "Body11ABT", prop: "tracked01", weap: "Cannon375mmMk1" }, // Heavy Cannon Python Tracks
 
 pllmortw: { body: "Body1REC", prop: "wheeled01", weap: "Mortar1Mk1" }, // Mortar Viper Wheels
@@ -71,6 +72,7 @@ pllmortt: { body: "Body1REC", prop: "tracked01", weap: "Mortar1Mk1" }, // Mortar
 plmhmortw: { body: "Body5REC", prop: "wheeled01", weap: "Mortar2Mk1" }, // Bombard Cobra Wheels
 plmhmortt: { body: "Body5REC", prop: "tracked01", weap: "Mortar2Mk1" }, // Bombard Cobra Tracks
 plmrmortt: { body: "Body5REC", prop: "tracked01", weap: "Mortar3ROTARYMk1" }, // Pepperpot Cobra Tracks
+plhrmortht: { body: "Body11ABT", prop: "HalfTrack", weap: "Mortar3ROTARYMk1" }, // Pepperpot Python Half-tracks
 plhrmortt: { body: "Body11ABT", prop: "tracked01", weap: "Mortar3ROTARYMk1" }, // Pepperpot Python Tracks
 plhhowt: { body: "Body11ABT", prop: "tracked01", weap: "Howitzer105Mk1" }, // Howitzer Python Tracks
 plhript: { body: "Body11ABT", prop: "tracked01", weap: "Rocket-IDF" }, // Ripple Rocket Python Tracks
@@ -82,6 +84,8 @@ plmmraht: { body: "Body5REC", prop: "HalfTrack", weap: "Rocket-MRL" }, // Mini-R
 plmmrat: { body: "Body5REC", prop: "tracked01", weap: "Rocket-MRL" }, // Mini-Rocket Array Cobra Tracks
 plhhraht: { body: "Body11ABT", prop: "HalfTrack", weap: "Rocket-MRL-Hvy" }, // Heavy Rocket Array Python Half-tracks
 plhhrat: { body: "Body11ABT", prop: "tracked01", weap: "Rocket-MRL-Hvy" }, // Heavy Rocket Array Python Tracks
+
+plhbalht: { body: "Body11ABT", prop: "HalfTrack", weap: "Rocket-Ballista" }, // Ballista Python Half-tracks
 
 pllpodw: { body: "Body1REC", prop: "wheeled01", weap: "Rocket-Pod" }, // Mini-Rocket Pod Viper Wheels
 pllpodht: { body: "Body1REC", prop: "HalfTrack", weap: "Rocket-Pod" }, // Mini-Rocket Pod Viper Half-tracks
@@ -115,6 +119,7 @@ plhhrept: { body: "Body11ABT", prop: "HalfTrack", weap: "HeavyRepair" }, // Heav
 plltmgt: { body: "Body1REC", prop: "tracked01", weap: "MG2Mk1" }, // Twin Machinegun Viper Tracks
 pllhmght: { body: "Body1REC", prop: "HalfTrack", weap: "MG3Mk1" }, // Heavy Machinegun Viper Half-tracks
 plmhmght: { body: "Body5REC", prop: "HalfTrack", weap: "MG3Mk1" }, // Heavy Machinegun Cobra Half-tracks
+plhasgnht: { body: "Body11ABT", prop: "HalfTrack", weap: "MG4ROTARYMk1" }, // Assault Gun Python Half-tracks
 plhasgnt: { body: "Body11ABT", prop: "tracked01", weap: "MG4ROTARYMk1" }, // Assault Gun Python Tracks
 
 pllcomht: { body: "Body1REC", prop: "HalfTrack", weap: "CommandBrain01" }, // Command Turret Viper Half-tracks
@@ -158,6 +163,7 @@ pllagv: { body: "Body1REC", prop: "V-Tol", weap: "MG4ROTARY-VTOL" }, // Assault 
 pllbbv: { body: "Body1REC", prop: "V-Tol", weap: "Rocket-VTOL-BB" }, // Bunker Buster Viper VTOL
 plmbbv: { body: "Body5REC", prop: "V-Tol", weap: "Rocket-VTOL-BB" }, // Bunker Buster Cobra VTOL
 plmhatv: { body: "Body5REC", prop: "V-Tol", weap: "Rocket-VTOL-HvyA-T" }, // Tank Killer Cobra VTOL
+plmagv: { body: "Body5REC", prop: "V-Tol", weap: "MG4ROTARY-VTOL" }, // Assault Gun Cobra VTOL
 plmacanv: { body: "Body5REC", prop: "V-Tol", weap: "Cannon5Vulcan-VTOL" }, // Assault Cannon Cobra VTOL
 plmbombv: { body: "Body5REC", prop: "V-Tol", weap: "Bomb1-VTOL-LtHE" }, // Cluster Bomb Cobra VTOL
 plmphosv: { body: "Body5REC", prop: "V-Tol", weap: "Bomb3-VTOL-LtINC" }, // Phosphor Bomb Cobra VTOL
@@ -221,12 +227,20 @@ infcolcanht: { body: "InfBody2SUP", prop: "HalfTrack", weap: "InfCannon1Mk1" }, 
 infcolpodt: { body: "InfBody2SUP", prop: "tracked01", weap: "InfRocket-Pod" }, // Infested Mini-Rocket Pod Leopard Tracks
 infcolhmght: { body: "InfBody2SUP", prop: "HalfTrack", weap: "InfMG3Mk1" }, // Infested Heavy Machinegun Leopard Half-tracks
 infcolmrat: { body: "InfBody2SUP", prop: "tracked01", weap: "InfRocket-MRL" }, // Infested Mini-Rocket Array Leopard Tracks
+infcolaaht: { body: "InfBody2SUP", prop: "HalfTrack", weap: "InfQuadMg1AAGun" }, // Infested Hurricane Leopard Half-tracks
 infcomhmgt: { body: "InfBody6SUPP", prop: "tracked01", weap: "InfMG3Mk1" }, // Infested Heavy Machinegun Panther Tracks
 infcomatt: { body: "InfBody6SUPP", prop: "tracked01", weap: "InfRocket-LtA-T" }, // Infested Lancer Panther Tracks
+infcommrat: { body: "InfBody6SUPP", prop: "tracked01", weap: "InfRocket-MRL" }, // Infested Mini-Rocket Array Panther Tracks
 infcommcant: { body: "InfBody6SUPP", prop: "tracked01", weap: "InfCannon2A-TMk1" }, // Infested Medium Cannon Panther Tracks
+infcomhpvt: { body: "InfBody6SUPP", prop: "tracked01", weap: "InfCannon4AUTOMk1" }, // Infested Hyper Velocity Cannon Panther Tracks
+infcomacant: { body: "InfBody6SUPP", prop: "tracked01", weap: "InfCannon5VulcanMk1" }, // Infested Assault Cannon Panther Tracks
+infcomagt: { body: "InfBody6SUPP", prop: "tracked01", weap: "InfMG4ROTARYMk1" }, // Infested Assault Gun Panther Tracks
+infcominft: { body: "InfBody6SUPP", prop: "tracked01", weap: "InfFlame2" }, // Infested Inferno Panther Tracks
 infcomtruckht: { body: "InfBody6SUPP", prop: "HalfTrack", weap: "InfestedSpade1Trans" }, // Infested Truck Panther Half-tracks
 infcomtruckt: { body: "InfBody6SUPP", prop: "tracked01", weap: "InfestedSpade1Trans" }, // Infested Truck Panther Tracks
+infcomhaat: { body: "InfBody6SUPP", prop: "tracked01", weap: "InfAAGun2Mk1" }, // Infested Cyclone Panther Tracks
 infcohhcant: { body: "InfBody9REC", prop: "tracked01", weap: "InfCannon375mmMk1" }, // Infested Heavy Cannon Tiger Tracks
+infcohhrat: { body: "InfBody9REC", prop: "tracked01", weap: "InfRocket-MRL-Hvy" }, // Infested Heavy Rocket Array Tiger Tracks
 
 basher: { body: "BasherBody", prop: "BoomTickLegs", weap: "BasherMelee" }, // Basher
 

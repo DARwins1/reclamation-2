@@ -75,6 +75,11 @@ function camSetFactoryData(factoryLabel, factoryData)
 	}
 	__camFactoryInfo[factoryLabel] = factoryData;
 	const fi = __camFactoryInfo[factoryLabel];
+	if (!camDef(fi.order))
+	{
+		// Default to attack if no order is given
+		fi.order = CAM_ORDER_ATTACK;
+	}
 	if (!camDef(fi.data))
 	{
 		fi.data = {};

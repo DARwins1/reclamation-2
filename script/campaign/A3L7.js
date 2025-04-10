@@ -207,7 +207,7 @@ function eventDestroyed(obj)
 	}
 }
 
-// Disable Collective if these bases are destroyed after the lures are disabled
+// Disable Collective trucks if these bases are destroyed after the lures are disabled
 function camEnemyBaseEliminated_colEastOutpost()
 {
 	if (!luresActive) camDisableTruck("colEastOutpost", true);
@@ -479,7 +479,7 @@ function spawnOnslaughtWaves()
 
 	for (const entrance of entrances)
 	{
-		const data = {order: CAM_ORDER_ATTACK, data: {targetPlayer: CAM_THE_COLLECTIVE}}
+		const data = {order: CAM_ORDER_ATTACK, data: {targetPlayer: CAM_THE_COLLECTIVE}};
 		// Extra position data for specific entrances
 		if (entrance === "infEntry1") data.data.pos = camMakePos("colBase1");
 		if (entrance === "infEntry6" && !camBaseIsEliminated("colNorthBase")) data.data.pos = camMakePos("colBase3");

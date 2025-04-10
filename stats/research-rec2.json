@@ -5135,7 +5135,7 @@
         "keyTopic": 1,
         "name": "Rocket Autoloader Mk3",
         "requiredResearch": [
-            "R-Wpn-Rocket-ROF02",
+            "R-Wpn-Rocket-ROF02"
         ],
         "researchPoints": 2400,
         "researchPower": 225,

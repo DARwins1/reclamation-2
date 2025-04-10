@@ -25,20 +25,6 @@
         "type": "STANDARD",
         "weight": 1
     },
-    "InfCCSensor": {
-        "buildPoints": 1,
-        "buildPower": 1,
-        "hitpoints": 200,
-        "id": "InfCCSensor",
-        "location": "TURRET",
-        "mountModel": "TRLSNSR1.PIE",
-        "name": "*Infested CC Sensor*",
-        "power": 500,
-        "range": 1024,
-        "sensorModel": "misensor.PIE",
-        "type": "STANDARD",
-        "weight": 1
-    },
     "DefaultSensor1Mk1": {
         "id": "DefaultSensor1Mk1",
         "location": "DEFAULT",
@@ -184,7 +170,7 @@
         "name": "VTOL Radar Tower",
         "power": 1000,
         "range": 2048,
-        "sensorModel": "RUGNMSNSR2.PIE",
+        "sensorModel": "GNMSNSR2.PIE",
         "type": "VTOL INTERCEPT",
         "weight": 100
     },

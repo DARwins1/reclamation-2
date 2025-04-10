@@ -270,3 +270,16 @@ expand		A3L9
 dataset		REC_2
 game		"wrf/act3/A3L9.gam"
 data		"wrf/act3/A3L9.wrf"
+
+/* act 4 */
+
+camstart	A4L1
+dataset		REC_2
+game		"wrf/act4/A4L1.gam"
+data		"wrf/act4/A4L1.wrf"
+
+camchange	A4L1
+dataset		REC_2
+data		"wrf/rec2change.wrf"
+game		"wrf/act4/A4L1.gam"
+data		"wrf/act4/A4L1.wrf"
