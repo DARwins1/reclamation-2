@@ -255,48 +255,46 @@ const camAct4StartResearch = camA3L9EnemyResearch.concat([
 // For documentation purposes only
 const camAct4RemainingResearch = [
 	// A4L1
-	"R-Wpn-Cannon3Mk1", // Heavy Cannon
+	"R-Wpn-Cannon3Mk1", // Artifact
 	"R-Wpn-Cannon-Damage06", "R-Wpn-Cannon-ROF03", "R-Wpn-AAGun-ROF02",
 	"R-Defense-WallTower04", 
 	// A4L2
-	"R-Wpn-AAGun04", // Whirlwind
-	"R-Wpn-AAGun-Damage03", // AA HE Flak Mk3
-	"R-Wpn-AAGun-ROF03", // AA Ammunition Hopper Mk3
+	"R-Wpn-AAGun04", // Artifact
+	"R-Wpn-AAGun-Damage03", "R-Wpn-AAGun-ROF03",
+	"R-Wpn-MG-Damage07", // Artifact
 	// A4L3
 	"R-Wpn-Flamer-ROF03", // Flamer Autoloader Mk3
 	"R-Wpn-Flamer-Damage06", // Superhot Flamer Gel Mk3
-	// A4L4
-	// None???
-	// A4L5
-	"R-Wpn-HvyHowitzer", // Ground Shaker
-	"R-Defense-HvyHowitzer", // Ground Shaker Emplacement
-	// ???
-	"R-Wpn-Rocket-Damage07", // HESH Rocket Warhead
-	"R-Wpn-Cannon-Damage07", // HVAPFSDS Cannon Rounds
-	"R-Wpn-Cannon-ROF04", // Cannon Rapid Loader
-	"R-Wpn-Mortar-ROF04", // Mortar Fast Loader
-	"R-Wpn-MG-Damage07", // Tungsten-Tipped MG Bullets Mk3
-	"R-Wpn-AAGun-ROF04", // AA Chainfeed Loader
 	"R-Wpn-Mortar-Damage06", // HEAP Mortar Shells Mk3
-	"R-Wpn-Howitzer-Damage03", // HE Howitzer Shells Mk3
-	"R-Wpn-Howitzer-Damage04", // HEAP Howitzer Shells
-	"R-Wpn-Bomb-Damage02", // Improved Bomb Warhead
 	"R-Wpn-Howitzer-ROF02", // Howitzer Autoloader Mk2
-	"R-Wpn-Howitzer-ROF03", // Howitzer Autoloader Mk3
-	"R-Wpn-Howitzer-ROF04", // Howitzer Fast Loader
-	"R-Wpn-Mortar-Damage06", // HEAP Mortar Shells Mk3
-	"R-Cyborg-Metals06", // Dense Cyborg Composite Alloys Mk3
-	"R-Cyborg-Armor-Heat03", // Cyborg Thermal Armor Mk3
-	"R-Vehicle-Metals06", // Dense Composite Alloys Mk3
-	"R-Vehicle-Armor-Heat03", // Thermal Armor Mk3
-	"R-Struc-Materials06", // Hardened Base Structure Materials Mk3
-	"R-Defense-WallUpgrade06", // Supercrete Mk3
+	"R-Wpn-Bomb-Damage02", // Improved Bomb Warhead
 	"R-Struc-Factory-Upgrade03", // Advanced Manufacturing
 	"R-Struc-RprFac-Upgrade03", // Advanced Repairing
 	"R-Struc-VTOLPad-Upgrade03", // Advanced VTOL Rearming
+	"R-Wpn-Bomb04", // Thermite Bomb Bay
+	// A4L4
+	"R-Vehicle-Metals06", // Dense Composite Alloys Mk3
+	"R-Cyborg-Metals06", // Dense Cyborg Composite Alloys Mk3
+	"R-Vehicle-Armor-Heat03", // Thermal Armor Mk3
+	"R-Cyborg-Armor-Heat03", // Cyborg Thermal Armor Mk3
+	"R-Defense-WallUpgrade06", // Supercrete Mk3
+	"R-Struc-Materials06", // Hardened Base Structure Materials Mk3
+	"R-Wpn-Rocket-Damage07", // HESH Rocket Warhead
+	"R-Wpn-Cannon-Damage07", // HVAPFSDS Cannon Rounds
+	"R-Wpn-Cannon-ROF04", // Cannon Rapid Loader
+	"R-Wpn-AAGun-ROF04", // AA Chainfeed Loader
+	"R-Wpn-Mortar-ROF04", // Mortar Fast Loader
+	// A4L5
+	"R-Wpn-HvyHowitzer", // Ground Shaker
+	"R-Defense-HvyHowitzer", // Ground Shaker Emplacement
+	"R-Wpn-Howitzer-Damage03", // HE Howitzer Shells Mk3
+	"R-Wpn-Howitzer-ROF03", // Howitzer Autoloader Mk3
+	// ???
+	
+	"R-Wpn-Howitzer-Damage04", // HEAP Howitzer Shells
+	"R-Wpn-Howitzer-ROF04", // Howitzer Fast Loader	
 	"R-Wpn-Howitzer-Accuracy02", // Target Prediction Artillery Shells
 	
-	"R-Wpn-Bomb04", // Thermite Bomb Bay
 ]
 
 //...

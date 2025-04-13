@@ -283,3 +283,12 @@ dataset		REC_2
 data		"wrf/rec2change.wrf"
 game		"wrf/act4/A4L1.gam"
 data		"wrf/act4/A4L1.wrf"
+
+between		A4L2S
+dataset		REC_2
+data		"wrf/act4/A4L2s.wrf"
+
+miss_keep	A4L2
+dataset		REC_2
+game		"wrf/act4/A4L2.gam"
+data		"wrf/act4/A4L2.wrf"

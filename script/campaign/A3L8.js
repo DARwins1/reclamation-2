@@ -11,6 +11,7 @@ const mis_collectiveResearch = [
 	"R-Wpn-Cannon-Accuracy02", "R-Wpn-Rocket-Accuracy03", "R-Wpn-AAGun-ROF02",
 	"R-Wpn-AAGun-Damage02", "R-Vehicle-Engine05", "R-Wpn-AAGun-Accuracy01",
 	"R-Struc-RprFac-Upgrade02", "R-Struc-VTOLPad-Upgrade01", "R-Sys-Sensor-Upgrade01",
+	"R-Vehicle-Armor-Heat01", "R-Cyborg-Armor-Heat01",
 ];
 const mis_infestedResearch = [
 	"R-Wpn-MG-Damage04", "R-Wpn-Rocket-Damage04", "R-Wpn-Mortar-Damage04",
@@ -754,7 +755,7 @@ function eventStartLevel()
 			suborder: CAM_ORDER_ATTACK,
 			data: {
 				targetPlayer: CAM_HUMAN_PLAYER
-		}
+			}
 	});
 	camMakeRefillableGroup(undefined, {
 		templates: [ // 4 Tank Killers, 2 Phosphor Bombs
@@ -768,7 +769,7 @@ function eventStartLevel()
 			suborder: CAM_ORDER_ATTACK,
 			data: {
 				targetPlayer: CAM_HUMAN_PLAYER
-		}
+			}
 	});
 	camMakeRefillableGroup(undefined, {
 		templates: [ // 4 Assault Cannons, 2 Tank Killers
@@ -782,7 +783,7 @@ function eventStartLevel()
 			suborder: CAM_ORDER_ATTACK,
 			data: {
 				targetPlayer: CAM_HUMAN_PLAYER
-		}
+			}
 	});
 	camMakeRefillableGroup(undefined, {
 		templates: [ // 2 Tank Killers, 2 Assault Cannons
@@ -796,7 +797,7 @@ function eventStartLevel()
 			suborder: CAM_ORDER_ATTACK,
 			data: {
 				targetPlayer: CAM_HUMAN_PLAYER
-		}
+			}
 	});
 	camMakeRefillableGroup(undefined, {
 		templates: [ // 2 Tank Killers, 2 Assault Cannons
@@ -810,7 +811,7 @@ function eventStartLevel()
 			suborder: CAM_ORDER_ATTACK,
 			data: {
 				targetPlayer: CAM_HUMAN_PLAYER
-		}
+			}
 	});
 	camMakeRefillableGroup(undefined, {
 		templates: [ // 2 Tank Killers, 4 Assault Cannons
@@ -824,7 +825,7 @@ function eventStartLevel()
 			suborder: CAM_ORDER_ATTACK,
 			data: {
 				targetPlayer: CAM_HUMAN_PLAYER
-		}
+			}
 	});
 	camMakeRefillableGroup(undefined, {
 		templates: [ // 4 Tank Killers, 2 Assault Cannons, 4 Thermite Bombs
@@ -838,7 +839,7 @@ function eventStartLevel()
 			suborder: CAM_ORDER_ATTACK,
 			data: {
 				targetPlayer: CAM_HUMAN_PLAYER
-		}
+			}
 	});
 
 	camAutoReplaceObjectLabel("heliTower");

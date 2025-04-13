@@ -601,8 +601,8 @@ function eventTransporterLanded(transport)
 	}
 
 	const transDroids = camGetTransporterDroids(transport.player);
-	var truckJobs;
-	var other = [];
+	let truckJobs = [];
+	let otherGroups = [];
 	switch (transport.player)
 	{
 		case MIS_TEAM_CHARLIE:

@@ -263,7 +263,7 @@ function infestedGroupDroids(onslaught)
 			cTempl.inflance, // Lances
 		].concat((difficulty >= HARD) ? cTempl.infcomhaat : undefined), // Add a Cyclone tank
 	];
-	const CORE_SIZE = (camDef(onslaught) && onslaught) ? 8 : 4; // Onslaught waves are much larger!
+	const CORE_SIZE = (camDef(onslaught) && onslaught) ? 10 : 4; // Onslaught waves are much larger!
 	const FODDER_SIZE = (camDef(onslaught) && onslaught) ? 18 : 14;
 
 	return camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE);
@@ -960,8 +960,8 @@ function eventStartLevel()
 
 	queue("activateFirstFactories", camChangeOnDiff(camMinutesToMilliseconds(1)));
 	queue("activateAllFactories", camChangeOnDiff(camMinutesToMilliseconds(16)));
-	setTimer("startInfestedOnslaught", camChangeOnDiff(camMinutesToMilliseconds(10)));
-	setTimer("sendInfestedReinforcements", camChangeOnDiff(camSecondsToMilliseconds(90)));
+	setTimer("startInfestedOnslaught", camChangeOnDiff(camMinutesToMilliseconds(8)));
+	setTimer("sendInfestedReinforcements", camChangeOnDiff(camSecondsToMilliseconds(80)));
 	if (!startedFromMenu)
 	{
 		// Prevent the player from bringing recycled unit EXP from Act 3

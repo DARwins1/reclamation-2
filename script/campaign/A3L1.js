@@ -268,10 +268,13 @@ function sendInfestedReinforcements()
 
 	// East road entrance
 	// (Stops entirely when factory is destroyed)
-	const TARGET = (camBaseIsEliminated("colEastRoadblock")) ? CAM_HUMAN_PLAYER : CAM_THE_COLLECTIVE;
-	camSendReinforcement(CAM_INFESTED, getObject("infEntry5"), camRandInfTemplates(coreDroids, CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND,
-		{order: CAM_ORDER_ATTACK, data: {targetPlayer: TARGET}}
-	);
+	if (getObject("infFactory3") !== null)
+	{
+		const TARGET = (camBaseIsEliminated("colEastRoadblock")) ? CAM_HUMAN_PLAYER : CAM_THE_COLLECTIVE;
+		camSendReinforcement(CAM_INFESTED, getObject("infEntry5"), camRandInfTemplates(coreDroids, CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND,
+			{order: CAM_ORDER_ATTACK, data: {targetPlayer: TARGET}}
+		);
+	}
 }
 
 // Spawns a player unit at the LZ, and then removes it.

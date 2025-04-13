@@ -1234,7 +1234,7 @@ function camFactoryCanProduceTemplate(template, factory)
 	}
 }
 
-//;; ## camAutoReplaceObjectLabel(label)
+//;; ## camAutoReplaceObjectLabel(label[, data])
 //;; Mark an object for automatic label replacement.
 //;; If the object with this label is destroyed and then rebuilt, this label will automatically
 //;; be reapplied.
@@ -1246,7 +1246,7 @@ function camFactoryCanProduceTemplate(template, factory)
 //;; @param {string|string[]} label
 //;; @returns {void}
 //;;
-function camAutoReplaceObjectLabel(label)
+function camAutoReplaceObjectLabel(label, data)
 {
 	if (!camIsString(label)) // Array of labels?
 	{
@@ -1257,19 +1257,44 @@ function camAutoReplaceObjectLabel(label)
 		return;
 	}
 
+	let player;
+	let x;
+	let y;
+	let stattype;
 	const obj = getObject(label);
-
-	if (!camDef(obj) || obj.type !== STRUCTURE)
+	
+	if (camDef(data))
 	{
-		return;
+		player = data.player;
+		x = data.x;
+		y = data.y;
+		stattype = data.stattype;
+	}
+	else
+	{
+		if ((obj === null || obj.type !== STRUCTURE))
+		{
+			// No data
+			camTrace("camAutoReplaceObjectLabel: No data for label \"" + label + "\"!");
+			return;
+		}
+		else 
+		{
+			// Get data from the structure object
+			player = obj.player;
+			x = obj.x;
+			y = obj.y;
+			stattype = obj.stattype;
+		}
 	}
 
-	__camLabelInfo.push({label: label, player: obj.player, x: obj.x, y: obj.y, stattype: obj.stattype});
+	__camLabelInfo.push({label: label, player: player, x: x, y: y, stattype: stattype});
 }
 
 //;; ## camAreaSecure(area[, player])
 //;; Returns true if the area contains no units or structures hostile to the given player.
 //;; If no player is provided, defaults to CAM_HUMAN_PLAYER.
+//;; NOTE: This function ignores VTOL-like droids when considering if an area is secure
 //;;
 //;; @param {string|Object} area
 //;; @param {number} player
@@ -1293,7 +1318,7 @@ function camAreaSecure(area, player)
 	}
 
 	return enumArea(x1, y1, x2, y2, ALL_PLAYERS, false).filter((obj) => (
-		(obj.type === STRUCTURE || obj.type === DROID) && allianceExistsBetween(obj.player, player))
+		(obj.type === STRUCTURE || (obj.type === DROID && !obj.isVTOL)) && !allianceExistsBetween(obj.player, player))
 	).length === 0;
 }
 

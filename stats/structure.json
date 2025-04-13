@@ -767,7 +767,7 @@
             "blinfhqalt.pie"
         ],
         "thermal": 10,
-        "type": "DEFENSE",
+        "type": "GENERIC",
         "weapons": [
             "InfCCSensor"
         ],
@@ -812,7 +812,7 @@
             "blinfhq3.pie"
         ],
         "thermal": 10,
-        "type": "DEFENSE",
+        "type": "GENERIC",
         "weapons": [
             "InfCCSensor"
         ],
@@ -1251,7 +1251,7 @@
             "BLINFRPAIR3.PIE"
         ],
         "thermal": 10,
-        "type": "DEFENSE",
+        "type": "GENERIC",
         "weapons": [
           "InfRepairCentre"  
         ],

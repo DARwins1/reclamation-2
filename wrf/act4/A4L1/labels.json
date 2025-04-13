@@ -428,6 +428,14 @@
 
 
 	"object_1": {
+		"label": "infFactory13",
+		"id": 841,
+		"player": 4,
+		"type": 1
+	},
+
+
+	"object_2": {
 		"label": "infHvyFactory1",
 		"id": 37,
 		"player": 4,
@@ -435,7 +443,7 @@
 	},
 
 
-	"object_2": {
+	"object_3": {
 		"label": "infFactory24",
 		"id": 50,
 		"player": 4,
@@ -443,7 +451,7 @@
 	},
 
 
-	"object_3": {
+	"object_4": {
 		"label": "infFactory12",
 		"id": 104,
 		"player": 4,
@@ -451,7 +459,7 @@
 	},
 
 
-	"object_4": {
+	"object_5": {
 		"label": "infFactory20",
 		"id": 108,
 		"player": 4,
@@ -459,7 +467,7 @@
 	},
 
 
-	"object_5": {
+	"object_6": {
 		"label": "infFactory14",
 		"id": 109,
 		"player": 4,
@@ -467,7 +475,7 @@
 	},
 
 
-	"object_6": {
+	"object_7": {
 		"label": "infFactory7",
 		"id": 114,
 		"player": 4,
@@ -475,7 +483,7 @@
 	},
 
 
-	"object_7": {
+	"object_8": {
 		"label": "infFactory5",
 		"id": 606,
 		"player": 4,
@@ -483,7 +491,7 @@
 	},
 
 
-	"object_8": {
+	"object_9": {
 		"label": "infResearch",
 		"id": 294,
 		"player": 4,
@@ -491,7 +499,7 @@
 	},
 
 
-	"object_9": {
+	"object_10": {
 		"label": "infFactory2",
 		"id": 48,
 		"player": 4,
@@ -499,7 +507,7 @@
 	},
 
 
-	"object_10": {
+	"object_11": {
 		"label": "infCybFactory1",
 		"id": 52,
 		"player": 4,
@@ -507,7 +515,7 @@
 	},
 
 
-	"object_11": {
+	"object_12": {
 		"label": "infFactory16",
 		"id": 116,
 		"player": 4,
@@ -515,7 +523,7 @@
 	},
 
 
-	"object_12": {
+	"object_13": {
 		"label": "infHvyFactory2",
 		"id": 38,
 		"player": 4,
@@ -523,7 +531,7 @@
 	},
 
 
-	"object_13": {
+	"object_14": {
 		"label": "infHvyFactory5",
 		"id": 42,
 		"player": 4,
@@ -531,7 +539,7 @@
 	},
 
 
-	"object_14": {
+	"object_15": {
 		"label": "infCybFactory2",
 		"id": 119,
 		"player": 4,
@@ -539,7 +547,7 @@
 	},
 
 
-	"object_15": {
+	"object_16": {
 		"label": "infHvyFactory3",
 		"id": 39,
 		"player": 4,
@@ -547,7 +555,7 @@
 	},
 
 
-	"object_16": {
+	"object_17": {
 		"label": "infCybFactory4",
 		"id": 118,
 		"player": 4,
@@ -555,7 +563,7 @@
 	},
 
 
-	"object_17": {
+	"object_18": {
 		"label": "infHvyFactory4",
 		"id": 117,
 		"player": 4,
@@ -563,7 +571,7 @@
 	},
 
 
-	"object_18": {
+	"object_19": {
 		"label": "infCybFactory5",
 		"id": 115,
 		"player": 4,
@@ -571,7 +579,7 @@
 	},
 
 
-	"object_19": {
+	"object_20": {
 		"label": "infFactory3",
 		"id": 36,
 		"player": 4,
@@ -579,7 +587,7 @@
 	},
 
 
-	"object_20": {
+	"object_21": {
 		"label": "infFactory4",
 		"id": 101,
 		"player": 4,
@@ -587,7 +595,7 @@
 	},
 
 
-	"object_21": {
+	"object_22": {
 		"label": "infFactory6",
 		"id": 608,
 		"player": 4,
@@ -595,7 +603,7 @@
 	},
 
 
-	"object_22": {
+	"object_23": {
 		"label": "infFactory9",
 		"id": 112,
 		"player": 4,
@@ -603,7 +611,7 @@
 	},
 
 
-	"object_23": {
+	"object_24": {
 		"label": "infFactory8",
 		"id": 609,
 		"player": 4,
@@ -611,17 +619,9 @@
 	},
 
 
-	"object_24": {
+	"object_25": {
 		"label": "infFactory10",
 		"id": 768,
-		"player": 4,
-		"type": 1
-	},
-
-
-	"object_25": {
-		"label": "infFactory13",
-		"id": 841,
 		"player": 4,
 		"type": 1
 	},
@@ -644,22 +644,6 @@
 
 
 	"object_28": {
-		"label": "infFactory19",
-		"id": 46,
-		"player": 4,
-		"type": 1
-	},
-
-
-	"object_29": {
-		"label": "infFactory17",
-		"id": 110,
-		"player": 4,
-		"type": 1
-	},
-
-
-	"object_30": {
 		"label": "infFactory18",
 		"id": 43,
 		"player": 4,
@@ -667,7 +651,7 @@
 	},
 
 
-	"object_31": {
+	"object_29": {
 		"label": "infFactory21",
 		"id": 607,
 		"player": 4,
@@ -675,7 +659,7 @@
 	},
 
 
-	"object_32": {
+	"object_30": {
 		"label": "infFactory23",
 		"id": 105,
 		"player": 4,
@@ -683,7 +667,7 @@
 	},
 
 
-	"object_33": {
+	"object_31": {
 		"label": "infFactory22",
 		"id": 47,
 		"player": 4,
@@ -691,9 +675,25 @@
 	},
 
 
-	"object_34": {
+	"object_32": {
+		"label": "infFactory19",
+		"id": 46,
+		"player": 4,
+		"type": 1
+	},
+
+
+	"object_33": {
 		"label": "infCybFactory3",
 		"id": 40,
+		"player": 4,
+		"type": 1
+	},
+
+
+	"object_34": {
+		"label": "infFactory17",
+		"id": 110,
 		"player": 4,
 		"type": 1
 	},

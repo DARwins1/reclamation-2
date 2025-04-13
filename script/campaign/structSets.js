@@ -339,3 +339,44 @@ const camA3L9GolfLZ2Structs = [
 	{stat: "Emplacement-Howitzer105", x: 13, y: 48},
 	{stat: "A0RepairCentre3", x: 13, y: 53},
 ];
+
+// A4L2
+// Delta forward base structures
+const camA4L2DeltaUplinkStructs = [
+	{stat: "Wall-VulcanCan", x: 72, y: 61}, {stat: "A0HardcreteMk1Wall", x: 73, y: 61}, {stat: "A0HardcreteMk1Wall", x: 72, y: 62, rot: 1},
+	{stat: "Wall-RotMg", x: 72, y: 63}, {stat: "A0HardcreteMk1Wall", x: 74, y: 61}, {stat: "Wall-RotMg", x: 75, y: 61},
+	{stat: "PillBoxHPC", x: 78, y: 59}, {stat: "AASite-QuadBof", x: 78, y: 62, rot: 2}, {stat: "Wall-RotMg", x: 80, y: 59},
+	{stat: "A0HardcreteMk1Wall", x: 81, y: 59}, {stat: "A0HardcreteMk1Wall", x: 82, y: 59}, {stat: "Wall-VulcanCan", x: 83, y: 59},
+	{stat: "AASite-QuadBof", x: 81, y: 62, rot: 2}, {stat: "Pillbox-RotMG", x: 84, y: 61}, {stat: "A0HardcreteMk1Wall", x: 72, y: 64, rot: 1},
+	{stat: "Wall-VulcanCan", x: 72, y: 65}, {stat: "Sys-SensoTower02", x: 73, y: 64}, {stat: "PillBoxHPC", x: 74, y: 67},
+	{stat: "Wall-VulcanCan", x: 74, y: 70}, {stat: "A0HardcreteMk1Wall", x: 74, y: 71, rot: 1}, {stat: "AASite-QuadBof", x: 76, y: 64, rot: 3},
+	{stat: "AASite-QuadBof", x: 76, y: 67, rot: 3}, {stat: "Sys-CB-Tower01", x: 78, y: 64}, {stat: "AASite-QuadBof", x: 78, y: 69},
+	{stat: "Wall-VulcanCan", x: 74, y: 72}, {stat: "A0HardcreteMk1Wall", x: 75, y: 72}, {stat: "Wall-RotMg", x: 76, y: 72},
+	{stat: "A0HardcreteMk1Wall", x: 77, y: 72}, {stat: "Wall-VulcanCan", x: 78, y: 72},
+	{stat: "Sys-VTOL-RadarTower02", x: 81, y: 67}, {stat: "Emplacement-RotMor", x: 83, y: 64}, {stat: "Emplacement-RotMor", x: 83, y: 66},
+	{stat: "AASite-QuadBof", x: 81, y: 69}, {stat: "GuardTower-RotMg", x: 83, y: 70}, {stat: "Emplacement-RotMor", x: 84, y: 65},
+	{stat: "Emplacement-RotMor", x: 84, y: 67}, {stat: "Sys-SensoTower02", x: 86, y: 66}, {stat: "Wall-VulcanCan", x: 84, y: 69},
+	{stat: "A0HardcreteMk1Wall", x: 84, y: 70, rot: 1}, {stat: "A0HardcreteMk1Wall", x: 84, y: 71, rot: 1}, {stat: "Wall-VulcanCan", x: 81, y: 72},
+	{stat: "A0HardcreteMk1Wall", x: 82, y: 72}, {stat: "A0HardcreteMk1Wall", x: 83, y: 72}, {stat: "Wall-VulcanCan", x: 84, y: 72},
+];
+const camA4L2DeltaOutpostStructs = [
+	{stat: "Wall-RotMg", x: 55, y: 46}, {stat: "A0HardcreteMk1Wall", x: 55, y: 47, rot: 1}, {stat: "Wall-VulcanCan", x: 58, y: 42},
+	{stat: "A0HardcreteMk1Wall", x: 59, y: 42}, {stat: "Emplacement-RotMor", x: 59, y: 45}, {stat: "A0HardcreteMk1Wall", x: 60, y: 42},
+	{stat: "Wall-VulcanCan", x: 61, y: 42}, {stat: "PillBoxHPC", x: 62, y: 43}, {stat: "Emplacement-RotMor", x: 60, y: 47},
+	{stat: "GuardTower-RotMg", x: 63, y: 44}, {stat: "A0HardcreteMk1Wall", x: 55, y: 48, rot: 1}, {stat: "Wall-VulcanCan", x: 55, y: 49},
+	{stat: "AASite-QuadBof", x: 54, y: 51, rot: 3}, {stat: "AASite-QuadBof", x: 53, y: 53, rot: 3}, {stat: "GuardTower-RotMg", x: 54, y: 56},
+	{stat: "Emplacement-Howitzer105", x: 56, y: 53}, {stat: "Emplacement-RotMor", x: 56, y: 55}, {stat: "Emplacement-Howitzer105", x: 58, y: 52},
+	{stat: "Emplacement-Howitzer105", x: 58, y: 54}, {stat: "AASite-QuadBof", x: 60, y: 50, rot: 3}, {stat: "Sys-CB-Tower01", x: 61, y: 50},
+	{stat: "AASite-QuadBof", x: 61, y: 51}, {stat: "Emplacement-RotMor", x: 62, y: 48}, {stat: "Emplacement-Howitzer105", x: 60, y: 53},
+	{stat: "Emplacement-RotMor", x: 60, y: 55}, {stat: "Sys-VTOL-RadarTower02", x: 63, y: 54}, {stat: "Pillbox-RotMG", x: 56, y: 57},
+	{stat: "Sys-SensoTower02", x: 60, y: 57}, {stat: "GuardTower-RotMg", x: 62, y: 56}, {stat: "PillBoxHPC", x: 64, y: 45},
+	{stat: "Wall-VulcanCan", x: 65, y: 47}, {stat: "A0HardcreteMk1Wall", x: 65, y: 48, rot: 1}, {stat: "A0HardcreteMk1Wall", x: 65, y: 49, rot: 1},
+	{stat: "Wall-RotMg", x: 65, y: 50}, {stat: "Wall-RotMg", x: 64, y: 53}, {stat: "A0HardcreteMk1Wall", x: 64, y: 54, rot: 1},
+	{stat: "Wall-VulcanCan", x: 64, y: 55}, {stat: "Pillbox-RotMG", x: 65, y: 54},
+];
+const camA4L2DeltaOverlookStructs = [
+	{stat: "Pillbox-RotMG", x: 93, y: 5}, {stat: "Emplacement-RotMor", x: 94, y: 7}, {stat: "PillBoxHPC", x: 90, y: 8},
+	{stat: "Pillbox-RotMG", x: 91, y: 11}, {stat: "Emplacement-RotMor", x: 92, y: 8}, {stat: "Emplacement-RotMor", x: 93, y: 10},
+	{stat: "Emplacement-RotMor", x: 95, y: 9}, {stat: "GuardTower-RotMg", x: 96, y: 7}, {stat: "AASite-QuadBof", x: 96, y: 11},
+	{stat: "PillBoxHPC", x: 97, y: 10},
+];

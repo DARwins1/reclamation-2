@@ -2521,6 +2521,34 @@
             "Cannon4AUTOMk1"
         ]
     },
+    "P0PyAsltCanT": {
+        "body": "Body11ABT",
+        "id": "P0PyAsltCanT",
+        "name": "Assault Cannon Python Tracks",
+        "propulsion": "tracked01",
+        "type": "DROID",
+        "weapons": [
+            "Cannon5VulcanMk1"
+        ]
+    },
+    "P0PyCycloneT": {
+        "body": "Body11ABT",
+        "id": "P0PyCycloneT",
+        "name": "Cyclone AA Python Tracks",
+        "propulsion": "tracked01",
+        "type": "DROID",
+        "weapons": [
+            "AAGun2Mk1"
+        ]
+    },
+    "P0PyVStrikeHT": {
+        "body": "Body11ABT",
+        "id": "P0PyVStrikeHT",
+        "name": "VTOL Strike Turret Python Tracks",
+        "propulsion": "tracked01",
+        "sensor": "Sys-VstrikeTurret01",
+        "type": "DROID"
+    },
     "P0PyAsltCanHT": {
         "body": "Body11ABT",
         "id": "P0PyAsltCanHT",
@@ -2597,6 +2625,26 @@
         "type": "DROID",
         "weapons": [
             "MG4ROTARY-VTOL"
+        ]
+    },
+    "P0-M-ACan-V": {
+        "body": "Body5REC",
+        "id": "P0-M-ACan-V",
+        "name": "Assault Cannon Cobra VTOL",
+        "propulsion": "V-Tol",
+        "type": "DROID",
+        "weapons": [
+            "Cannon5Vulcan-VTOL"
+        ]
+    },
+    "P0-M-HVC-V": {
+        "body": "Body5REC",
+        "id": "P0-M-HVC-V",
+        "name": "Hyper Velocity Cannon Cobra VTOL",
+        "propulsion": "V-Tol",
+        "type": "DROID",
+        "weapons": [
+            "Cannon4AUTO-VTOL"
         ]
     },
     "P6-L-Bomb1-V": {

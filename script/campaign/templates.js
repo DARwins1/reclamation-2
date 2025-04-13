@@ -114,7 +114,8 @@ pllrepw: { body: "Body1REC", prop: "wheeled01", weap: "LightRepair1" }, // Repai
 pllrept: { body: "Body1REC", prop: "tracked01", weap: "LightRepair1" }, // Repair Turret Viper Tracks
 plmrept: { body: "Body5REC", prop: "tracked01", weap: "LightRepair1" }, // Repair Turret Cobra Tracks
 plmhrept: { body: "Body5REC", prop: "tracked01", weap: "HeavyRepair" }, // Heavy Repair Turret Cobra Tracks
-plhhrept: { body: "Body11ABT", prop: "HalfTrack", weap: "HeavyRepair" }, // Heavy Repair Turret Python Half-tracks
+plhhrepht: { body: "Body11ABT", prop: "HalfTrack", weap: "HeavyRepair" }, // Heavy Repair Turret Python Half-tracks
+plhhrept: { body: "Body11ABT", prop: "tracked01", weap: "HeavyRepair" }, // Heavy Repair Turret Python Tracks
 
 plltmgt: { body: "Body1REC", prop: "tracked01", weap: "MG2Mk1" }, // Twin Machinegun Viper Tracks
 pllhmght: { body: "Body1REC", prop: "HalfTrack", weap: "MG3Mk1" }, // Heavy Machinegun Viper Half-tracks
@@ -138,6 +139,7 @@ pllsenst: { body: "Body1REC", prop: "tracked01", weap: "SensorTurret1Mk1" }, // 
 pllstrikeht: { body: "Body1REC", prop: "HalfTrack", weap: "Sys-VstrikeTurret01" }, // VTOL Strike Turret Viper Half-tracks
 plmsenst: { body: "Body5REC", prop: "tracked01", weap: "SensorTurret1Mk1" }, // Sensor Cobra Tracks
 plhsenst: { body: "Body11ABT", prop: "tracked01", weap: "SensorTurret1Mk1" }, // Sensor Python Tracks
+plhstriket: { body: "Body11ABT", prop: "tracked01", weap: "Sys-VstrikeTurret01" }, // VTOL Strike Turret Python Tracks
 
 plltruckt: { body: "Body1REC", prop: "tracked01", weap: "Spade1Mk1" }, // Truck Viper Tracks
 plmtruckht: { body: "Body5REC", prop: "HalfTrack", weap: "Spade1Mk1" }, // Truck Cobra Half-tracks
@@ -164,6 +166,7 @@ pllbbv: { body: "Body1REC", prop: "V-Tol", weap: "Rocket-VTOL-BB" }, // Bunker B
 plmbbv: { body: "Body5REC", prop: "V-Tol", weap: "Rocket-VTOL-BB" }, // Bunker Buster Cobra VTOL
 plmhatv: { body: "Body5REC", prop: "V-Tol", weap: "Rocket-VTOL-HvyA-T" }, // Tank Killer Cobra VTOL
 plmagv: { body: "Body5REC", prop: "V-Tol", weap: "MG4ROTARY-VTOL" }, // Assault Gun Cobra VTOL
+plmhpvv: { body: "Body5REC", prop: "V-Tol", weap: "Cannon4AUTO-VTOL" }, // Hyper Velocity Cannon Cobra VTOL
 plmacanv: { body: "Body5REC", prop: "V-Tol", weap: "Cannon5Vulcan-VTOL" }, // Assault Cannon Cobra VTOL
 plmbombv: { body: "Body5REC", prop: "V-Tol", weap: "Bomb1-VTOL-LtHE" }, // Cluster Bomb Cobra VTOL
 plmphosv: { body: "Body5REC", prop: "V-Tol", weap: "Bomb3-VTOL-LtINC" }, // Phosphor Bomb Cobra VTOL

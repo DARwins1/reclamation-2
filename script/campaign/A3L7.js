@@ -778,11 +778,10 @@ function eventStartLevel()
 		obj: "colVtolTower1", // Southeast tower
 		}, CAM_ORDER_FOLLOW, {
 			leader: "colVtolTower1",
-			suborder: CAM_ORDER_DEFEND, // Tower groups defend until tower is rebuilt
+			suborder: CAM_ORDER_ATTACK,
 			data: {
-				pos: camMakePos("colVtolAssembly"),
-				radius: 12
-		}
+				targetPlayer: CAM_HUMAN_PLAYER
+			}
 	});
 	camMakeRefillableGroup(undefined, {
 		templates: [ // 2 Tank Killers, 2 HEAP Bombs
@@ -793,11 +792,10 @@ function eventStartLevel()
 		obj: "colVtolTower2", // North outpost tower
 		}, CAM_ORDER_FOLLOW, {
 			leader: "colVtolTower2",
-			suborder: CAM_ORDER_DEFEND,
+			suborder: CAM_ORDER_ATTACK,
 			data: {
-				pos: camMakePos("colVtolAssembly"),
-				radius: 12
-		}
+				targetPlayer: CAM_HUMAN_PLAYER
+			}
 	});
 	camMakeRefillableGroup(undefined, {
 		templates: [ // 2 Assault Guns, 2 Phosphor Bombs
@@ -808,11 +806,10 @@ function eventStartLevel()
 		obj: "colVtolTower3", // LZ tower
 		}, CAM_ORDER_FOLLOW, {
 			leader: "colVtolTower3",
-			suborder: CAM_ORDER_DEFEND,
+			suborder: CAM_ORDER_ATTACK,
 			data: {
-				pos: camMakePos("colVtolAssembly"),
-				radius: 12
-		}
+				targetPlayer: CAM_HUMAN_PLAYER
+			}
 	});
 	camMakeRefillableGroup(undefined, {
 		templates: [ // 2 Assault Guns, 2 Assault Cannons
@@ -823,11 +820,10 @@ function eventStartLevel()
 		obj: "colVtolTower4", // Trench outpost tower
 		}, CAM_ORDER_FOLLOW, {
 			leader: "colVtolTower4",
-			suborder: CAM_ORDER_DEFEND,
+			suborder: CAM_ORDER_ATTACK,
 			data: {
-				pos: camMakePos("colVtolAssembly"),
-				radius: 12
-		}
+				targetPlayer: CAM_HUMAN_PLAYER
+			}
 	});
 	camMakeRefillableGroup(undefined, {
 		templates: [ // 2 Tank Killers, 2 Assault Cannons
@@ -838,11 +834,10 @@ function eventStartLevel()
 		obj: "colVtolCBTower", // Howitzer VTOL CB tower
 		}, CAM_ORDER_FOLLOW, {
 			leader: "colVtolCBTower",
-			suborder: CAM_ORDER_DEFEND,
+			suborder: CAM_ORDER_ATTACK,
 			data: {
-				pos: camMakePos("colVtolAssembly"),
-				radius: 12
-		}
+				targetPlayer: CAM_HUMAN_PLAYER
+			}
 	});
 
 	// Rank and assign the Collective commander...
