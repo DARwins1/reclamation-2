@@ -565,7 +565,7 @@ function __camTacticsTickForGroup(group)
 			else // Rearm VTOLs
 			{
 				const __ARM = droid.weapons[0].armed;
-				const __IS_REARMING = (droid.order === DORDER_REARM || droid.action === 35); // DACTION_WAITDURINGREARM
+				const __IS_REARMING = (droid.action === 35); // DACTION_WAITDURINGREARM
 
 				if ((__ARM < 1) // Out of ammo
 					|| (__IS_REARMING && (__ARM < 100 || droid.health < 100)) // Rearming

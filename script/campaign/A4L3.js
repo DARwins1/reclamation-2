@@ -781,7 +781,7 @@ function eventStartLevel()
 	camSetDroidRank(getObject("foxtrotCommander"), MIS_FOXTROT_RANK);
 	camMakeRefillableGroup(camMakeGroup("foxtrotCommander"), {
 		templates: [cTempl.plhcomw],
-		factories: ["foxtrotFactory1", "foxtrotFactory2"]
+		factories: ["foxtrotFactory1", "foxtrotFactory2"],
 		callback: "allowFoxtrotCommanderRebuild"
 		}, CAM_ORDER_ATTACK, {
 		repair: 75,
