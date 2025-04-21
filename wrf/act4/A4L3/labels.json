@@ -527,10 +527,10 @@
 
 
 	"object_11": {
-		"label": "foxtrotEngineer2",
-		"id": 2328,
-		"player": 5,
-		"type": 0
+		"label": "golfVtolFactory3",
+		"id": 1138,
+		"player": 6,
+		"type": 1
 	},
 
 
@@ -623,14 +623,6 @@
 
 
 	"object_23": {
-		"label": "golfTruck8",
-		"id": 2327,
-		"player": 6,
-		"type": 0
-	},
-
-
-	"object_24": {
 		"label": "infFactory2",
 		"id": 857,
 		"player": 4,
@@ -638,7 +630,7 @@
 	},
 
 
-	"object_25": {
+	"object_24": {
 		"label": "infFactory3",
 		"id": 59,
 		"player": 4,
@@ -646,7 +638,7 @@
 	},
 
 
-	"object_26": {
+	"object_25": {
 		"label": "foxtrotCybFactory3",
 		"id": 51,
 		"player": 5,
@@ -654,7 +646,7 @@
 	},
 
 
-	"object_27": {
+	"object_26": {
 		"label": "foxtrotCybFactory4",
 		"id": 55,
 		"player": 5,
@@ -662,7 +654,7 @@
 	},
 
 
-	"object_28": {
+	"object_27": {
 		"label": "foxtrotFactory3",
 		"id": 56,
 		"player": 5,
@@ -670,7 +662,7 @@
 	},
 
 
-	"object_29": {
+	"object_28": {
 		"label": "foxtrotFactory2",
 		"id": 47,
 		"player": 5,
@@ -678,7 +670,7 @@
 	},
 
 
-	"object_30": {
+	"object_29": {
 		"label": "infFactory5",
 		"id": 61,
 		"player": 4,
@@ -686,7 +678,7 @@
 	},
 
 
-	"object_31": {
+	"object_30": {
 		"label": "golfFactory3",
 		"id": 57,
 		"player": 6,
@@ -694,7 +686,7 @@
 	},
 
 
-	"object_32": {
+	"object_31": {
 		"label": "foxtrotResearch2",
 		"id": 1648,
 		"player": 5,
@@ -702,7 +694,7 @@
 	},
 
 
-	"object_33": {
+	"object_32": {
 		"label": "foxtrotFactory1",
 		"id": 44,
 		"player": 5,
@@ -710,7 +702,7 @@
 	},
 
 
-	"object_34": {
+	"object_33": {
 		"label": "foxtrotCybFactory1",
 		"id": 50,
 		"player": 5,
@@ -718,15 +710,7 @@
 	},
 
 
-	"object_35": {
-		"label": "foxtrotEngineer1",
-		"id": 2315,
-		"player": 5,
-		"type": 0
-	},
-
-
-	"object_36": {
+	"object_34": {
 		"label": "foxtrotTruck3",
 		"id": 2316,
 		"player": 5,
@@ -734,7 +718,7 @@
 	},
 
 
-	"object_37": {
+	"object_35": {
 		"label": "foxtrotCommander",
 		"id": 1037,
 		"player": 5,
@@ -742,15 +726,7 @@
 	},
 
 
-	"object_38": {
-		"label": "golfTruck7",
-		"id": 2325,
-		"player": 6,
-		"type": 0
-	},
-
-
-	"object_39": {
+	"object_36": {
 		"label": "golfCBTower1",
 		"id": 930,
 		"player": 6,
@@ -758,7 +734,7 @@
 	},
 
 
-	"object_40": {
+	"object_37": {
 		"label": "golfTruck1",
 		"id": 2320,
 		"player": 6,
@@ -766,15 +742,7 @@
 	},
 
 
-	"object_41": {
-		"label": "golfTruck3",
-		"id": 2323,
-		"player": 6,
-		"type": 0
-	},
-
-
-	"object_42": {
+	"object_38": {
 		"label": "golfTruck2",
 		"id": 2321,
 		"player": 6,
@@ -782,15 +750,7 @@
 	},
 
 
-	"object_43": {
-		"label": "golfTruck6",
-		"id": 2326,
-		"player": 6,
-		"type": 0
-	},
-
-
-	"object_44": {
+	"object_39": {
 		"label": "golfTruck5",
 		"id": 2324,
 		"player": 6,
@@ -798,15 +758,15 @@
 	},
 
 
-	"object_45": {
-		"label": "golfTruck4",
-		"id": 2322,
+	"object_40": {
+		"label": "golfTruck3",
+		"id": 2323,
 		"player": 6,
 		"type": 0
 	},
 
 
-	"object_46": {
+	"object_41": {
 		"label": "foxtrotTruck4",
 		"id": 2317,
 		"player": 5,
@@ -814,11 +774,11 @@
 	},
 
 
-	"object_47": {
-		"label": "golfVtolFactory3",
-		"id": 1138,
+	"object_42": {
+		"label": "golfTruck4",
+		"id": 2322,
 		"player": 6,
-		"type": 1
+		"type": 0
 	},
 
 

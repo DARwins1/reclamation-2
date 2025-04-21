@@ -31,7 +31,7 @@ const mis_teamExtraResearch = [ // Added on top of everything the player starts 
 	"R-Wpn-Mortar-Damage06", "R-Wpn-Howitzer-ROF02", "R-Struc-RprFac-Upgrade03",
 	"R-Struc-VTOLPad-Upgrade03", "R-Wpn-Flamer-ROF03", "R-Wpn-Flamer-Damage06",
 	"R-Struc-RprFac-Upgrade03", "R-Struc-VTOLPad-Upgrade03",
-	"R-Wpn-Bomb-Damage02", "R-Defense-WallUpgrade06", "R-Struc-Materials06",
+	"R-Wpn-Bomb-Damage02",
 ];
 
 camAreaEvent("heliRemoveZone", function(droid)
@@ -216,8 +216,8 @@ function camEnemyBaseEliminated_golfVtolBase()
 // If all main bases are destroyed, surrender.
 function checkTeamBases()
 {
-	if (camBaseIsEliminated("foxtrotMainBase") && camBaseIsEliminated("foxtrotAltBase")
-		|| camBaseIsEliminated("golfMainBase") && camBaseIsEliminated("golfBridgeBase") && camBaseIsEliminated("golfVtolBase"))
+	if ((camBaseIsEliminated("foxtrotMainBase") && camBaseIsEliminated("foxtrotAltBase")) 
+		|| (camBaseIsEliminated("golfMainBase") && camBaseIsEliminated("golfBridgeBase") && camBaseIsEliminated("golfVtolBase")))
 	{
 		camCallOnce("boostTeams");
 	}
@@ -632,20 +632,6 @@ function eventStartLevel()
 		structset: camAreaToStructSet("foxtrotBase1")
 	});
 	camManageTrucks(MIS_TEAM_FOXTROT, {
-		label: "foxtrotMainBase",
-		respawnDelay: ENGINEER_TIME,
-		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > EASY),
-		truckDroid: getObject("foxtrotEngineer1"),
-		structset: camAreaToStructSet("foxtrotBase1")
-	});
-	camManageTrucks(MIS_TEAM_FOXTROT, {
-		label: "foxtrotMainBase",
-		respawnDelay: ENGINEER_TIME,
-		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > EASY),
-		truckDroid: getObject("foxtrotEngineer2"),
-		structset: camAreaToStructSet("foxtrotBase1")
-	});
-	camManageTrucks(MIS_TEAM_FOXTROT, {
 		label: "foxtrotAltBase",
 		respawnDelay: TRUCK_TIME,
 		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > EASY),
@@ -694,6 +680,26 @@ function eventStartLevel()
 		template: cTempl.cyben,
 		structset: camA4L3FoxtrotForwardStructs5
 	});
+	if (difficulty >= HARD || tweakOptions.rec_timerlessMode)
+	{
+		camManageTrucks(MIS_TEAM_FOXTROT, {
+			label: "foxtrotMainBase",
+			respawnDelay: ENGINEER_TIME,
+			rebuildBase: true,
+			template: cTempl.cyben,
+			structset: camAreaToStructSet("foxtrotBase1")
+		});
+		if (difficulty === INSANE)
+		{
+			camManageTrucks(MIS_TEAM_FOXTROT, {
+				label: "foxtrotMainBase",
+				respawnDelay: ENGINEER_TIME,
+				rebuildBase: true,
+				template: cTempl.cyben,
+				structset: camAreaToStructSet("foxtrotBase1")
+			});
+		}
+	}
 
 	// Golf...
 	camManageTrucks(MIS_TEAM_GOLF, {
@@ -711,18 +717,18 @@ function eventStartLevel()
 		structset: camAreaToStructSet("golfBase1")
 	});
 	camManageTrucks(MIS_TEAM_GOLF, {
-		label: "golfMainBase",
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > EASY),
-		truckDroid: getObject("golfTruck3"),
-		structset: camAreaToStructSet("golfBase1")
-	});
-	camManageTrucks(MIS_TEAM_GOLF, {
 		label: "golfBridgeBase",
 		respawnDelay: TRUCK_TIME,
 		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > EASY),
-		truckDroid: getObject("golfTruck4"),
+		truckDroid: getObject("golfTruck3"),
 		structset: camAreaToStructSet("golfBase2")
+	});
+	camManageTrucks(MIS_TEAM_GOLF, {
+		label: "golfVtolBase",
+		respawnDelay: TRUCK_TIME,
+		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > EASY),
+		truckDroid: getObject("golfTruck4"),
+		structset: camAreaToStructSet("golfBase3")
 	});
 	camManageTrucks(MIS_TEAM_GOLF, {
 		label: "golfVtolBase",
@@ -730,28 +736,7 @@ function eventStartLevel()
 		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > EASY),
 		truckDroid: getObject("golfTruck5"),
 		structset: camAreaToStructSet("golfBase3")
-	});
-	camManageTrucks(MIS_TEAM_GOLF, {
-		label: "golfVtolBase",
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > EASY),
-		truckDroid: getObject("golfTruck6"),
-		structset: camAreaToStructSet("golfBase3")
-	});
-	camManageTrucks(MIS_TEAM_GOLF, {
-		label: "golfVtolBase",
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > EASY),
-		truckDroid: getObject("golfTruck7"),
-		structset: camAreaToStructSet("golfBase3")
-	});
-	camManageTrucks(MIS_TEAM_GOLF, {
-		label: "golfVtolBase",
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > EASY),
-		truckDroid: getObject("golfTruck8"),
-		structset: camAreaToStructSet("golfBase3")
-	});
+	});	
 	camManageTrucks(MIS_TEAM_GOLF, {
 		label: "golfForwardBase",
 		respawnDelay: TRUCK_TIME,
@@ -766,12 +751,35 @@ function eventStartLevel()
 		template: cTempl.plhtruckt,
 		structset: camA4L3GolfForwardBaseStructs
 	});
-
-	if (tweakOptions.rec_timerlessMode)
+	if (difficulty >= HARD || tweakOptions.rec_timerlessMode)
 	{
-		// TODO: Add more trucks???
+		camManageTrucks(MIS_TEAM_GOLF, {
+			label: "golfMainBase",
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: true,
+			template: cTempl.plhtruckt,
+			structset: camAreaToStructSet("golfBase1")
+		});
+		camManageTrucks(MIS_TEAM_GOLF, {
+			label: "golfVtolBase",
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: true,
+			template: cTempl.plhtruckt,
+			structset: camAreaToStructSet("golfBase3")
+		});
+		if (difficulty === INSANE)
+		{
+			camManageTrucks(MIS_TEAM_GOLF, {
+				label: "golfVtolBase",
+				respawnDelay: TRUCK_TIME,
+				rebuildBase: true,
+				template: cTempl.plhtruckt,
+				structset: camAreaToStructSet("golfBase3")
+			});
+		}
 	}
-	else
+
+	if (!tweakOptions.rec_timerlessMode)
 	{
 		setMissionTime(camChangeOnDiff(camHoursToSeconds(2)));
 	}
@@ -895,8 +903,6 @@ function eventStartLevel()
 		factories: ["golfFactory1", "golfFactory3"]
 		}, CAM_ORDER_ATTACK, {
 		targetPlayer: CAM_HUMAN_PLAYER,
-		count: -1,
-		regroup: true,
 		repair: 50
 	});
 	golfSensorsGroup = camMakeRefillableGroup(camMakeGroup("golfSensor"), {
@@ -1080,7 +1086,7 @@ function eventStartLevel()
 
 	queue("activateInfested", camChangeOnDiff(camMinutesToMilliseconds(2)));
 	queue("activateFactories", camChangeOnDiff(camMinutesToMilliseconds(3)));
-	queue("boostTeams", camChangeOnDiff(camMinutesToMilliseconds(40)));
+	// queue("boostTeams", camChangeOnDiff(camMinutesToMilliseconds(60)));
 
 	// // Placeholder for the actual briefing sequence
 	// // camQueueDialogue([
