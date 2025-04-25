@@ -106,7 +106,7 @@ function eventDroidBuilt(droid, structure)
 			// Halftracked commander rebuilt
 			addLabel(droid, "zuluCommander2");
 		}
-		else if (camDroidMatchesTemplate(droid, mis_zuluComHTTempl))
+		else if (camDroidMatchesTemplate(droid, mis_zuluComHovTempl))
 		{
 			// Hover commander rebuilt
 			addLabel(droid, "zuluCommander3");
