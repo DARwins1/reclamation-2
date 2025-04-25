@@ -1824,7 +1824,7 @@
         "sensorID": "DefaultSensor1Mk1",
         "strength": "HARD",
         "structureModel": [
-            "Blhowmnt.PIE"
+            "Blinfhowmnt.PIE"
         ],
         "thermal": 10,
         "type": "DEFENSE",
@@ -2357,6 +2357,98 @@
         "type": "DEFENSE",
         "weapons": [
             "InfMG4ROTARYMk1"
+        ],
+        "width": 1
+    },
+    "GuardTower-HVC": {
+        "armour": 20,
+        "breadth": 1,
+        "buildPoints": 300,
+        "buildPower": 150,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 600,
+        "id": "GuardTower-HVC",
+        "name": "Hyper Velocity Cannon Tower",
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLGUARDN.pie"
+        ],
+        "thermal": 20,
+        "type": "DEFENSE",
+        "weapons": [
+            "Cannon4AUTOMk1"
+        ],
+        "width": 1
+    },
+    "InfGuardTower-HVC": {
+        "armour": 20,
+        "breadth": 1,
+        "buildPoints": 300,
+        "buildPower": 150,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 600,
+        "id": "InfGuardTower-HVC",
+        "name": "Infested Hyper Velocity Cannon Tower",
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLINFGUARDN.pie"
+        ],
+        "thermal": 20,
+        "type": "DEFENSE",
+        "weapons": [
+            "InfCannon4AUTOMk1"
+        ],
+        "width": 1
+    },
+    "GuardTower-TK": {
+        "armour": 20,
+        "breadth": 1,
+        "buildPoints": 300,
+        "buildPower": 200,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 600,
+        "id": "GuardTower-TK",
+        "name": "Tank Killer Tower",
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLGUARDN.pie"
+        ],
+        "thermal": 20,
+        "type": "DEFENSE",
+        "weapons": [
+            "Rocket-HvyA-T"
+        ],
+        "width": 1
+    },
+    "InfGuardTower-TK": {
+        "armour": 20,
+        "breadth": 1,
+        "buildPoints": 300,
+        "buildPower": 200,
+        "ecmID": "ZNULLECM",
+        "height": 2,
+        "hitpoints": 600,
+        "id": "InfGuardTower-TK",
+        "name": "Infested Tank Killer Tower",
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "HARD",
+        "structureModel": [
+            "BLINFGUARDN.pie"
+        ],
+        "thermal": 20,
+        "type": "DEFENSE",
+        "weapons": [
+            "InfRocket-HvyA-T"
         ],
         "width": 1
     },

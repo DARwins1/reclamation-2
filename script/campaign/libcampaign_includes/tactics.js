@@ -60,7 +60,7 @@
 //;;   * `leader` the leader droid or structure to follow.
 //;;   * `suborder` The order for the group if the leader dies.
 //;;   * `leaderOrder` The order to give to the leader (if any).
-//;;   * `data` Data of the leader's order (if a droid).
+//;;   * `data` Data of the leader's order (if a droid), also used as the data for the group's suborder.
 //;;   * `repair` Health percentage to fall back to repair facility, if any.
 //;; * `CAM_ORDER_STRIKE` Focused attack on a list of targets defined by a given callback function.
 //;;   The following data object fields are REQUIRED:
@@ -76,7 +76,7 @@
 //;; @param {string} group
 //;; @param {number} order
 //;; @param {Object} data
-//;; @returns {void}
+//;; @returns {string}
 //;;
 function camManageGroup(group, order, data)
 {
@@ -127,7 +127,7 @@ function camManageGroup(group, order, data)
 		if (!camDef(data.leader))
 		{
 			camDebug("Group", group, "was ordered to follow, but was not given a leader!");
-			return;
+			return group;
 		}
 
 		const leaderObj = getObject(data.leader);
@@ -152,6 +152,8 @@ function camManageGroup(group, order, data)
 	}
 	// apply orders instantly
 	queue("__camTacticsTickForGroup", __CAM_TICKS_PER_FRAME, group);
+
+	return group;
 }
 
 //;; ## camStopManagingGroup(group)

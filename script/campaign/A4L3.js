@@ -31,7 +31,7 @@ const mis_teamExtraResearch = [ // Added on top of everything the player starts 
 	"R-Wpn-Mortar-Damage06", "R-Wpn-Howitzer-ROF02", "R-Struc-RprFac-Upgrade03",
 	"R-Struc-VTOLPad-Upgrade03", "R-Wpn-Flamer-ROF03", "R-Wpn-Flamer-Damage06",
 	"R-Struc-RprFac-Upgrade03", "R-Struc-VTOLPad-Upgrade03",
-	"R-Wpn-Bomb-Damage02",
+	"R-Wpn-Bomb-Damage02", "R-Wpn-AAGun-Damage03"
 ];
 
 camAreaEvent("heliRemoveZone", function(droid)
@@ -338,7 +338,7 @@ function sendInfestedReinforcements()
 // Delay when Foxtrot can rebuild their commander
 function allowFoxtrotCommanderRebuild()
 {
-	return (gameTime >= foxtrotCommanderDeathTime + MIS_FOXTROT_COMMANDER_DELAY);
+	return (gameTime >= foxtrotCommanderDeathTime + MIS_FOXTROT_COMMANDER_DELAY) && (enumStruct(MIS_TEAM_FOXTROT, COMMAND_CONTROL).length > 0);
 }
 
 // Returns a list of targets that should be focused by team Golf's bomber squadron
@@ -353,7 +353,7 @@ function golfStrikeTargets()
 
 	if (targets.length === 0)
 	{
-		// Second, target any Command Centers and Repair Facilities, 
+		// Second, target any Command Centers and Repair Facilities
 		targets = enumStruct(CAM_HUMAN_PLAYER).filter((struct) => (
 			struct.stattype === HQ || struct.stattype === REPAIR_FACILITY
 			|| struct.stattype === VTOL_FACTORY || struct.stattype === POWER_GEN
@@ -385,13 +385,6 @@ function eventStartLevel()
 
 	changePlayerColour(MIS_TEAM_FOXTROT, (playerData[0].colour !== 13) ? 13 : 4); // Foxtrot to infrared or red
 	changePlayerColour(MIS_TEAM_GOLF, (playerData[0].colour !== 7) ? 7 : 0); // Golf to cyan or green
-
-	camDumpStructSet("golfBase4", "camA4L3GolfForwardBaseStructs");
-	camDumpStructSet("foxtrotBase3", "camA4L3FoxtrotForwardStructs1");
-	camDumpStructSet("foxtrotBase4", "camA4L3FoxtrotForwardStructs2");
-	camDumpStructSet("foxtrotBase5", "camA4L3FoxtrotForwardStructs3");
-	camDumpStructSet("foxtrotBase6", "camA4L3FoxtrotForwardStructs4");
-	camDumpStructSet("foxtrotBase7", "camA4L3FoxtrotForwardStructs5");
 
 	camSetArtifacts({
 		"foxtrotResearch1": { tech: "R-Wpn-Flamer-ROF03" }, // Flamer Autoloader Mk3
@@ -607,7 +600,7 @@ function eventStartLevel()
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(28)),
 			templates: [ cTempl.infcybhg, cTempl.infcybfl, cTempl.infcybgr, cTempl.infcybla ]
 		},
-		"infCybFactory1": {
+		"infCybFactory2": {
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(28)),
 			templates: [ cTempl.infscymc, cTempl.infcybca, cTempl.infcybhg ]
 		},
@@ -620,28 +613,28 @@ function eventStartLevel()
 	camManageTrucks(MIS_TEAM_FOXTROT, {
 		label: "foxtrotMainBase",
 		respawnDelay: TRUCK_TIME,
-		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > EASY),
+		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > MEDIUM),
 		truckDroid: getObject("foxtrotTruck1"),
 		structset: camAreaToStructSet("foxtrotBase1")
 	});
 	camManageTrucks(MIS_TEAM_FOXTROT, {
 		label: "foxtrotMainBase",
 		respawnDelay: TRUCK_TIME,
-		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > EASY),
+		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > MEDIUM),
 		truckDroid: getObject("foxtrotTruck2"),
 		structset: camAreaToStructSet("foxtrotBase1")
 	});
 	camManageTrucks(MIS_TEAM_FOXTROT, {
 		label: "foxtrotAltBase",
 		respawnDelay: TRUCK_TIME,
-		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > EASY),
+		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > MEDIUM),
 		truckDroid: getObject("foxtrotTruck3"),
 		structset: camAreaToStructSet("foxtrotBase2")
 	});
 	camManageTrucks(MIS_TEAM_FOXTROT, {
 		label: "foxtrotAltBase",
 		respawnDelay: TRUCK_TIME,
-		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > EASY),
+		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > MEDIUM),
 		truckDroid: getObject("foxtrotTruck4"),
 		structset: camAreaToStructSet("foxtrotBase2")
 	});
@@ -705,35 +698,35 @@ function eventStartLevel()
 	camManageTrucks(MIS_TEAM_GOLF, {
 		label: "golfMainBase",
 		respawnDelay: TRUCK_TIME,
-		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > EASY),
+		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > MEDIUM),
 		truckDroid: getObject("golfTruck1"),
 		structset: camAreaToStructSet("golfBase1")
 	});
 	camManageTrucks(MIS_TEAM_GOLF, {
 		label: "golfMainBase",
 		respawnDelay: TRUCK_TIME,
-		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > EASY),
+		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > MEDIUM),
 		truckDroid: getObject("golfTruck2"),
 		structset: camAreaToStructSet("golfBase1")
 	});
 	camManageTrucks(MIS_TEAM_GOLF, {
 		label: "golfBridgeBase",
 		respawnDelay: TRUCK_TIME,
-		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > EASY),
+		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > MEDIUM),
 		truckDroid: getObject("golfTruck3"),
 		structset: camAreaToStructSet("golfBase2")
 	});
 	camManageTrucks(MIS_TEAM_GOLF, {
 		label: "golfVtolBase",
 		respawnDelay: TRUCK_TIME,
-		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > EASY),
+		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > MEDIUM),
 		truckDroid: getObject("golfTruck4"),
 		structset: camAreaToStructSet("golfBase3")
 	});
 	camManageTrucks(MIS_TEAM_GOLF, {
 		label: "golfVtolBase",
 		respawnDelay: TRUCK_TIME,
-		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > EASY),
+		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty > MEDIUM),
 		truckDroid: getObject("golfTruck5"),
 		structset: camAreaToStructSet("golfBase3")
 	});	

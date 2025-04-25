@@ -177,7 +177,7 @@ const __cam_act1Levels = [
 	"A1L2S", "A1L2", // ALLIED ASSAULT
 	"A1L3", // RISING
 	"A1L4S", "A1L4", // THE COLLECTIVE
-	"A1L5S", "A1L5", // A FRIEND IN NEED
+	"A1L5S", "A1L5", // IN CHECK
 	"A1L6", // ONSLAUGHT
 ]; // 6 missions
 const __cam_act2Levels = [
@@ -192,7 +192,7 @@ const __cam_act2Levels = [
 const __cam_act3Levels = [
 	"A3L1", // OUTBREAK
 	"A3L2", // MALIGNANT
-	"A3L3S", "A3L3", // SEARCH AND DESIST
+	"A3L3S", "A3L3", // SEARCH AND DESTROY
 	"A3L4", // FEVER PITCH
 	"A3L5S", "A3L5", // ARMS RACE
 	"A3L6", // TIGER'S DEN
@@ -203,28 +203,12 @@ const __cam_act3Levels = [
 const __cam_act4Levels = [
 	"A4L1", // DEAD CENTER
 	"A4L2S", "A4L2", // UPLINK
-	"A4L3", // ROCK AND A HARD PLACE
-	"A4L4S", "A4L4", // SHOWDOWN
-	"A4L5S", "A4L5", // EXODUS
-]; // 5 missions
-// total missions: 36
-
-// const __cam_act4RouteALevels = [
-// 	"A4L1A", // DEAD CENTER
-// 	"A4L2AS", "A4L2A", // UPLINK
-// 	"A4L3A", // HUNTED
-// 	"A4L4AS", "A4L4A", // SHOWDOWN
-// 	"A4L5AS", "A4L5A", // EXODUS
-// ];
-// const __cam_act4RouteBLevels = [
-// 	"A4L1BS", "A4L1B", // ARMS RACE
-// 	"A4L2BS", "A4L2B", // TIGER'S DEN
-// 	"A4L3BS", "A4L3B", // APPREHENSION
-// 	"A4L4BS", "A4L4B", // PREMONITION
-// 	"A4L5BS", "A4L5B", // MIGHT OF THE MACHINE
-// 	"A4L6BS", "A4L6B", // ASUNDER
-// 	"A4L7BS", // FINAL STAND
-// ];
+	"A4L3", // SHOWDOWN
+	"A4L4S", "A4L4", // THE USURPER
+	"A4L5", // MIGHT OF THE MACHINE
+	"A4L6", // EXODUS
+]; // 6 missions
+// total missions: 37
 
 // Holds all the sounds the campaign uses. Try to name things as they are said.
 const cam_sounds = {
@@ -324,9 +308,12 @@ const cam_sounds = {
 	primObjectiveCompleted: "pcv626.ogg",
 	enemyEscaping: "pcv632.ogg",
 	powerTransferred: "power-transferred.ogg",
+	technologyTransferred: "pcv485.ogg",
+	unitsTransferred: "pcv486.ogg",
 	laserSatelliteFiring: "pcv650.ogg",
 	artifactRecovered: "pcv352.ogg",
 	enemyVtolsDetected: "pcv388.ogg",
+	beacon: "beacon.ogg",
 	tracker: "pcv657.ogg", // Used to place a red dot on the minimap
 	soundIdentifier: ".ogg", //Used by video.js to check for sound before a video.
 };
@@ -428,6 +415,8 @@ const CAM_WEATHER_SNOWSTORM = 5; // Constant snow
 var __camWeatherType;
 const CAM_SKY_DAY = 0;
 const CAM_SKY_NIGHT = 1;
+const CAM_SKY_ARIZONA = 2;
+const CAM_SKY_URBAN = 3;
 const __camArizonaSkyTexture = "texpages/page-25-sky-arizona.png";
 const __camUrbanSkyTexture = "texpages/page-25-sky-urban.png";
 const __camNightSkyTexture = "texpages/night-sky.png";

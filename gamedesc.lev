@@ -297,3 +297,12 @@ expand		A4L3
 dataset		REC_2
 game		"wrf/act4/A4L3.gam"
 data		"wrf/act4/A4L3.wrf"
+
+between		A4L4S
+dataset		REC_2
+data		"wrf/act4/A4L4s.wrf"
+
+miss_keep	A4L4
+dataset		REC_2
+game		"wrf/act4/A4L4.gam"
+data		"wrf/act4/A4L4.wrf"

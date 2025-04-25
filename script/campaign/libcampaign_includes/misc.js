@@ -769,7 +769,17 @@ function camSetSkyType(skyType)
 		// Night-time skybox
 		setSky(__camNightSkyTexture, 0.5, 10000.0);
 	}
-	else
+	else if (__camSkyboxType === CAM_SKY_ARIZONA)
+	{
+		// Arid skybox
+		setSky(__camArizonaSkyTexture, 0.5, 10000.0);
+	}
+	else if (__camSkyboxType === CAM_SKY_URBAN)
+	{
+		// Blue skies & clouds
+		setSky(__camUrbanSkyTexture, 0.5, 10000.0);
+	}
+	else // Automatically set daytime skybox based on tileset
 	{
 		if (tilesetType === "ARIZONA")
 		{
@@ -778,6 +788,7 @@ function camSetSkyType(skyType)
 		}
 		else
 		{
+			// Blue skies & clouds
 			setSky(__camUrbanSkyTexture, 0.5, 10000.0);
 		}
 	}

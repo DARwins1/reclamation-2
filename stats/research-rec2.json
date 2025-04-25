@@ -457,6 +457,9 @@
         "id": "R-Cyborg-Hvywpn-TK",
         "msgName": "RES_CYW_H_TK",
         "name": "Super Tank-Killer Cyborg",
+        "redComponents": [
+            "CyborgRocket"
+        ],
         "requiredResearch": [
             "R-Cyborg-Hvywpn-Mcannon",
             "R-Wpn-Rocket07-Tank-Killer"
@@ -1257,11 +1260,11 @@
     "R-Vehicle-Armor-Heat03": {
         "iconID": "IMAGE_RES_DROIDTECH",
         "id": "R-Vehicle-Armor-Heat03",
-        "keyTopic": 1,
         "imdName": "icamrhot.pie",
         "name": "Thermal Armor Mk3",
         "requiredResearch": [
-            "R-Vehicle-Armor-Heat02"
+            "R-Vehicle-Armor-Heat02",
+            "R-Vehicle-Metals06"
         ],
         "researchPoints": 2500,
         "researchPower": 281,
@@ -1647,7 +1650,7 @@
         "requiredResearch": [
             "R-Wpn-Cannon4AMk1"
         ],
-        "researchPoints": 450,
+        "researchPoints": 550,
         "researchPower": 182,
         "resultStructures": [
             "PillBoxHPC"
@@ -1656,6 +1659,22 @@
             "PillBox4"  
         ],
         "statID": "PillBoxHPC"
+    },
+    "R-Defense-HVCTower": {
+        "iconID": "IMAGE_RES_DEFENCE",
+        "id": "R-Defense-HVCTower",
+        "msgName": "RES_EMP_HVCTOW",
+        "name": "Hyper Velocity Cannon Tower",
+        "requiredResearch": [
+            "R-Defense-HardcreteWall",
+            "R-Wpn-Cannon4AMk1"
+        ],
+        "researchPoints": 450,
+        "researchPower": 126,
+        "resultStructures": [
+            "GuardTower-HVC"
+        ],
+        "statID": "GuardTower-HVC"
     },
     "R-Defense-Howitzer": {
         "iconID": "IMAGE_RES_DEFENCE",
@@ -1840,7 +1859,7 @@
         "requiredResearch": [
             "R-Wpn-Cannon4AMk1"
         ],
-        "researchPoints": 400,
+        "researchPoints": 600,
         "researchPower": 120,
         "resultStructures": [
             "WallTower-HPVcannon"
@@ -1879,6 +1898,25 @@
             "PillBoxTK"
         ],
         "statID": "PillBoxTK"
+    },
+    "R-Defense-HvyAT-Tower": {
+        "iconID": "IMAGE_RES_DEFENCE",
+        "id": "R-Defense-HvyAT-Tower",
+        "msgName": "RES_EMP_TKTOW",
+        "name": "Tank Killer Tower",
+        "redStructures": [
+            "GuardTower5",
+            "GuardTower6H"
+        ],
+        "requiredResearch": [
+            "R-Wpn-Rocket07-Tank-Killer"
+        ],
+        "researchPoints": 900,
+        "researchPower": 136,
+        "resultStructures": [
+            "GuardTower-TK"
+        ],
+        "statID": "GuardTower-TK"
     },
     "R-Defense-Ballista": {
         "iconID": "IMAGE_RES_DEFENCE",
@@ -3980,10 +4018,10 @@
     "R-Wpn-MG-Damage07": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-MG-Damage07",
-        "keyTopic": 1,
         "name": "Tungsten-Tipped MG Bullets Mk3",
         "requiredResearch": [
-            "R-Wpn-MG-Damage06"
+            "R-Wpn-MG-Damage06",
+            "R-Wpn-Cannon-Damage07"
         ],
         "researchPoints": 2700,
         "researchPower": 250,
@@ -5791,10 +5829,9 @@
     "R-Wpn-Howitzer-Damage03": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Howitzer-Damage03",
-        "keyTopic": 1,
         "name": "HE Howitzer Shells Mk3",
         "requiredResearch": [
-            "R-Wpn-HvyHowitzer",
+            "R-Wpn-Cannon-Damage07",
             "R-Wpn-Howitzer-Damage02"
         ],
         "researchPoints": 2200,

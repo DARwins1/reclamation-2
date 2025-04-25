@@ -195,7 +195,7 @@ function sendInfestedReinforcements()
 	}
 }
 
-// Send in allied forces if the player has cleared enough of the defensive structures
+// Reinforce Delta's forces
 function sendDeltaTransporter()
 {
 	if (camBaseIsEliminated("deltaLZBase"))

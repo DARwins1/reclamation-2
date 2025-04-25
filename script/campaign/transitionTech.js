@@ -179,7 +179,7 @@ const camAct3StartResearch = camA2L6AllyResearch.concat([
 	// A2L6
 	"R-Wpn-Cannon4AMk1", // Artifact
 	"R-Defense-Emplacement-HPVcannon", "R-Defense-WallTower-HPVcannon", "R-Cyborg-Hvywpn-HPV", 
-	"R-Wpn-Cannon-Accuracy02", "R-Wpn-Cannon-Damage04",
+	"R-Wpn-Cannon-Accuracy02", "R-Wpn-Cannon-Damage04", "R-Defense-HVCTower",
 	"R-Wpn-Rocket-Accuracy03", // Artifact
 	"R-Cyb-Hvywpn-Grenade", // Artifact
 	"R-Sys-Engineering02", // Artifact
@@ -235,6 +235,7 @@ const camA3L9EnemyResearch = camA3L7AllyResearch.concat([
 	"R-Wpn-MG-Damage06",
 	"R-Wpn-Rocket07-Tank-Killer", // Artifact
 	"R-Cyborg-Hvywpn-TK", "R-Defense-WallTower-HvyA-Trocket", "R-Defense-HvyA-Trocket",
+	"R-Defense-HvyAT-Tower",
 ]);
 
 const camAct4StartResearch = camA3L9EnemyResearch.concat([
@@ -250,10 +251,8 @@ const camAct4StartResearch = camA3L9EnemyResearch.concat([
 	"R-Wpn-Mortar-Acc03", "R-Wpn-AAGun-Accuracy03", "R-Wpn-Howitzer-Damage02"
 ]);
 
-
-// Contains all research after A4L1
-// For documentation purposes only
-const camAct4RemainingResearch = [
+// Used to grant research to team Charlie (and Zulu) on A4L4
+const camA4L4AllyResearch = camAct4StartResearch.concat([
 	// A4L1
 	"R-Wpn-Cannon3Mk1", // Artifact
 	"R-Wpn-Cannon-Damage06", "R-Wpn-Cannon-ROF03", "R-Wpn-AAGun-ROF02",
@@ -271,20 +270,22 @@ const camAct4RemainingResearch = [
 	"R-Wpn-Bomb-Damage02", // Artifact
 	"R-Defense-WallUpgrade06", // Artifact
 	"R-Struc-Materials06",
+]);
+
+// Used to grant research to team Delta on A4L5
+const camA4L5AllyResearch = camA4L4AllyResearch.concat([
 	// A4L4
-	"R-Vehicle-Metals06", // Dense Composite Alloys Mk3
-	"R-Cyborg-Metals06", // Dense Cyborg Composite Alloys Mk3
-	"R-Vehicle-Armor-Heat03", // Thermal Armor Mk3
-	"R-Cyborg-Armor-Heat03", // Cyborg Thermal Armor Mk3
+	"R-Wpn-Cannon-Damage07", // Artifact
+	"R-Wpn-Howitzer-Damage03", "R-Wpn-MG-Damage07",
+	"R-Vehicle-Metals06", // Artifact
+	"R-Cyborg-Metals06", "R-Vehicle-Armor-Heat03", "R-Cyborg-Armor-Heat03",
+	"R-Wpn-Cannon-ROF04", // Artifact
+	"R-Wpn-AAGun-ROF04", "R-Wpn-Mortar-ROF04", "R-Wpn-Howitzer-ROF03",
+]);
 
-	"R-Wpn-Cannon-Damage07", // HVAPFSDS Cannon Rounds
-	"R-Wpn-Howitzer-Damage03", // HE Howitzer Shells Mk3
-	"R-Wpn-MG-Damage07", // Tungsten-Tipped MG Bullets Mk3
-
-	"R-Wpn-Cannon-ROF04", // Cannon Rapid Loader
-	"R-Wpn-AAGun-ROF04", // AA Chainfeed Loader
-	"R-Wpn-Mortar-ROF04", // Mortar Fast Loader
-	"R-Wpn-Howitzer-ROF03", // Howitzer Autoloader Mk3
+// Contains all research after A4L4
+// For documentation purposes only
+const camAct4RemainingResearch = [
 	// A4L5
 	// Nothing here...
 	// A4L6
@@ -295,7 +296,6 @@ const camAct4RemainingResearch = [
 	"R-Wpn-Howitzer-Damage04", // HEAP Howitzer Shells
 	"R-Wpn-Howitzer-ROF04", // Howitzer Fast Loader	
 	"R-Wpn-Howitzer-Accuracy02", // Target Prediction Artillery Shells
-	
-]
+];
 
 //...

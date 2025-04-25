@@ -142,6 +142,31 @@ function camEnableFactory(factoryLabel)
 	__camFactoryUpdateTactics(factoryLabel);
 }
 
+//;; ## camDisableFactory(factoryLabel)
+//;;
+//;; Disable a managed factory by the given label.
+//;;
+//;; @param {string} factoryLabel
+//;; @returns {void}
+//;;
+function camDisableFactory(factoryLabel)
+{
+	const fi = __camFactoryInfo[factoryLabel];
+	if (!camDef(fi) || !fi)
+	{
+		camDebug("Factory not managed", factoryLabel);
+		return;
+	}
+	if (!fi.enabled)
+	{
+		// safe, no error
+		camTrace("Factory", factoryLabel, "disabled again");
+		return;
+	}
+	camTrace("Disabling", factoryLabel);
+	fi.enabled = false;
+}
+
 //;; ## camQueueDroidProduction(playerId, template[, position])
 //;;
 //;; Queues up an extra droid template for production.
@@ -225,11 +250,8 @@ function camUpgradeOnMapTemplates(template1, template2, playerId, excluded)
 		{
 			continue; //don't handle systems
 		}
-		const __BODY = dr.body;
-		const __PROP = dr.propulsion;
-		const __WEAP = dr.weapons[0].name;
 		let skip = false;
-		if (__BODY === template1.body && __PROP === template1.prop && __WEAP === template1.weap)
+		if (camDroidMatchesTemplate(dr, template1))
 		{
 			//Check if this object should be excluded from the upgrades
 			if (camDef(excluded))

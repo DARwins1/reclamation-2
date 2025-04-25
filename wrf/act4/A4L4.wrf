@@ -1,0 +1,16 @@
+/*
+ * A4L4.wrf
+ *
+ */
+
+/* Directory for Proximity messages and mission briefs */
+directory	"messages"
+
+file		SMSG		"briefA4L4.txt"
+file		SMSG		"proxA4L4.txt"
+
+directory "script"
+file JAVASCRIPT "rules.js"
+
+directory "script/campaign"
+file JAVASCRIPT "A4L4.js"

@@ -34,13 +34,13 @@ function camQueueDialogue(text, delay, sound, callback)
 		return;
 	}
 
-	if (!camIsString(text))
+	if (camDef(text) && !camIsString(text))
 	{
 		// Got an object instead of 3 different inputs
 		sound = text.sound;
 		delay = text.delay;
-		text = text.text;
 		callback = text.callback;
+		text = text.text;
 	}
 
 	// Keep track of when the last dialogue is scheduled to play
@@ -63,6 +63,7 @@ function camQueueDialogue(text, delay, sound, callback)
 function camInterruptDialogue()
 {
 	__camQueuedDialogue = [];
+	__camLatestDialogueTime = gameTime;
 }
 
 //;; ## camDialogueDone()
@@ -90,7 +91,12 @@ function __camPlayScheduledDialogues()
 		if (diaInfo.time <= gameTime)
 		{
 			// Play the dialogue (and then forget it)
-			console(diaInfo.text);
+			if (camDef(diaInfo.text))
+			{
+				console(diaInfo.text);
+			}
+			
+			// If there's any associated sound(s), play it
 			if (camDef(diaInfo.sound))
 			{
 				if (diaInfo.sound instanceof Array)

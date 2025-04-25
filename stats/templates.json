@@ -2476,17 +2476,6 @@
         "propulsion": "tracked01",
         "type": "CONSTRUCT"
     },
-    "P0PythonComTracks": {
-        "body": "Body11ABT",
-        "brain": "CommandBrain01",
-        "id": "P0PythonComTracks",
-        "name": "Command Turret Python Tracks",
-        "propulsion": "HalfTrack",
-        "type": "DROID_COMMAND",
-        "weapons": [
-            "CommandTurret1"
-        ]
-    },
     "P0PythonHvyCnTrks": {
         "body": "Body11ABT",
         "id": "P0PythonHvyCnTrks",
@@ -2625,6 +2614,26 @@
             "AAGun2Mk1"
         ]
     },
+    "P0cam3PyRotFlakT": {
+        "body": "Body11ABT",
+        "id": "P0cam3PyRotFlakT",
+        "name": "Whirlwind AA Python Tracks",
+        "propulsion": "tracked01",
+        "type": "DROID",
+        "weapons": [
+            "QuadRotAAGun"
+        ]
+    },
+    "P0cam3PyRotFlakHT": {
+        "body": "Body11ABT",
+        "id": "P0cam3PyRotFlakHT",
+        "name": "Whirlwind AA Python Half-tracks",
+        "propulsion": "HalfTrack",
+        "type": "DROID",
+        "weapons": [
+            "QuadRotAAGun"
+        ]
+    },
     "P0cam3PyHPVcanTrk": {
         "body": "Body11ABT",
         "id": "P0cam3PyHPVcanTrk",
@@ -2718,6 +2727,14 @@
         "id": "PythonHvyRepairHalftrack",
         "name": "Heavy Repair Turret Python Half-tracks",
         "propulsion": "HalfTrack",
+        "repair": "HeavyRepair",
+        "type": "DROID"
+    },
+    "PythonHvyRepairTrack": {
+        "body": "Body11ABT",
+        "id": "PythonHvyRepairTrack",
+        "name": "Heavy Repair Turret Python Tracks",
+        "propulsion": "tracked01",
         "repair": "HeavyRepair",
         "type": "DROID"
     },
@@ -2854,11 +2871,32 @@
             "CommandTurret1"
         ]
     },
+    "PythonComHover": {
+        "body": "Body11ABT",
+        "brain": "CommandBrain01",
+        "id": "PythonComHover",
+        "name": "Command Turret Python Hover",
+        "propulsion": "hover01",
+        "type": "DROID_COMMAND",
+        "weapons": [
+            "CommandTurret1"
+        ]
+    },
     "PythonHvyCnTrks": {
         "body": "Body11ABT",
         "id": "PythonHvyCnTrks",
         "name": "Heavy Cannon Python Tracks",
         "propulsion": "tracked01",
+        "type": "DROID",
+        "weapons": [
+            "Cannon375mmMk1"
+        ]
+    },
+    "PythonHvyCnHov": {
+        "body": "Body11ABT",
+        "id": "PythonHvyCnHov",
+        "name": "Heavy Cannon Python Hover",
+        "propulsion": "hover01",
         "type": "DROID",
         "weapons": [
             "Cannon375mmMk1"

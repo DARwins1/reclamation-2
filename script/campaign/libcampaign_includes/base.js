@@ -104,7 +104,7 @@ function camSetEnemyBases(bases)
 			}
 			bi.group = camNewGroup();
 			addLabel({ type: GROUP, id: bi.group }, baseLabel);
-			const structs = enumArea(bi.cleanup, ENEMIES, false);
+			const structs = enumArea(bi.cleanup, ALL_PLAYERS, false);
 			for (let idx = 0, len = structs.length; idx < len; ++idx)
 			{
 				const s = structs[idx];
@@ -384,7 +384,7 @@ function __camCheckBaseEliminated(group)
 				const leftover = leftovers[i];
 				camSafeRemoveObject(leftover, true);
 			}
-			if (camDef(bi.eliminateSnd) && !__FRIENDLY)
+			if (camDef(bi.eliminateSnd) && bi.detected && !__FRIENDLY)
 			{
 				// play sound
 				const pos = camMakePos(bi.cleanup);

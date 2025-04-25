@@ -537,5 +537,27 @@
             "Automatically targets enemies in range",
             "Defensive Strength: Medium"
         ]
+    },
+    "RES_EMP_HVCTOW": {
+        "id": "RES_EMP_HVCTOW",
+        "imdName": "MICAPSUL.pie",
+        "sequenceName": "res_struttech.ogg",
+        "text": [
+            "New Defensive Structure Available",
+            "Armored guard tower with Hyper Velocity Cannon",
+            "Automatically targets enemies within sensor range",
+            "Defensive Strength: Hard"
+        ]
+    },
+    "RES_EMP_TKTOW": {
+        "id": "RES_EMP_TKTOW",
+        "imdName": "MICAPSUL.pie",
+        "sequenceName": "res_struttech.ogg",
+        "text": [
+            "New Defensive Structure Available",
+            "Armored guard tower with Tank Killer Rocket",
+            "Automatically targets enemies within sensor range",
+            "Defensive Strength: Hard"
+        ]
     }
 }

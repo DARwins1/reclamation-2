@@ -326,6 +326,20 @@ function __camGetMissingGroupTemplates(group, returnFirst, factory)
 	const templateList = __camRefillableGroupInfo[group].templates;
 	const missingList = [];
 
+	// First, check if any new members of this group are currently being built in a factory
+	// Even if they aren't in the group yet, we should avoid refilling a group with copies of the same unit
+	// FIXME: This can cause units to be wrongly skipped!
+	// (i.e. If a Factory & Cyborg Factory both try to refill the same group and tick at about the same time,
+	// a tank template could be skipped if a cyborg is in production, or vise versa)
+	let numProduced = 0;
+	for (const flabel in __camFactoryInfo)
+	{
+		if (__camFactoryInfo[flabel].assignGroup === group)
+		{
+			numProduced++;
+		}
+	}
+
 	// FIXME: Roughly O(n^2) loop here (can this be improved?)
 	for (let i = 0; i < templateList.length; i++)
 	{
@@ -358,15 +372,23 @@ function __camGetMissingGroupTemplates(group, returnFirst, factory)
 			}
 		}
 
-		if (!foundMatch)
+		if (!foundMatch) // Template is missing from the group
 		{
-			// If we never found a matching droid, add this template to the list of missing templates
-			if (camDef(returnFirst) && returnFirst)
+			if (numProduced > 0)
+			{
+				// This unit currently is being produced; skip it
+				numProduced--;
+			}
+			else if (camDef(returnFirst) && returnFirst)
 			{
 				// Return the first missing template we find
 				return templateList[i];
 			}
-			missingList.push(templateList[i]);
+			else
+			{
+				// If we never found a matching droid, add this template to the list of missing templates
+				missingList.push(templateList[i]);
+			}
 		}
 	}
 
