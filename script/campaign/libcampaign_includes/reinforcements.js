@@ -89,7 +89,7 @@ function camSendReinforcement(playerId, position, templates, kind, data)
 		{
 			__camTransporterQueue.push({
 				player: playerId,
-				position: position,
+				position: pos,
 				list: templates,
 				data: data,
 				order: order,

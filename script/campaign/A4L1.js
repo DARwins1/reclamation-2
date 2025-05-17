@@ -547,8 +547,6 @@ function eventStartLevel()
 	const lz = getObject("landingZone"); //player lz
 	const transportEntryPos = { x: 48, y: 58 };
 
-	setReinforcementTime(LZ_COMPROMISED_TIME);
-
 	centreView(startPos.x, startPos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 	startTransporterEntry(transportEntryPos.x, transportEntryPos.y, CAM_HUMAN_PLAYER);

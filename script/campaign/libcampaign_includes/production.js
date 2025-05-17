@@ -423,6 +423,42 @@ function camDisableInfAutoManagement()
 	__camDisableFactoryAutoManagement = true;
 }
 
+//;; ## camAddDroid(playerId, position, template[, droidName])
+//;;
+//;; Wrapper function for addDroid().
+//;; Takes a player ID, position object, template, and an optional name.
+//;; If no name is provided, the template will be named automatically based on its components.
+//;; `position` can be a label for a position or a position object.
+//;; Returns the created droid on success, or null on failure.
+//;;
+//;; @param {number} playerId
+//;; @param {Object|string} pos
+//;; @param {Object} template
+//;; @param {string} [name]
+//;; @returns {Object}
+//;;
+function camAddDroid(playerId, position, template, droidName)
+{
+	pos = camMakePos(position);
+	name = (camDef(droidName) ? droidName : camNameTemplate(template));
+	const __PROP = __camChangePropulsion(template.prop, playerId);
+	let droid;
+	if (typeof template.weap === "object" && camDef(template.weap[2]))
+	{
+		droid = addDroid(playerId, pos.x, pos.y, name, template.body, __PROP, "", "", template.weap[0], template.weap[1], template.weap[2]);
+	}
+	else if (typeof template.weap === "object" && camDef(template.weap[1]))
+	{
+		droid = addDroid(playerId, pos.x, pos.y, name, template.body, __PROP, "", "", template.weap[0], template.weap[1]);
+	}
+	else
+	{
+		droid = addDroid(playerId, pos.x, pos.y, name, template.body, __PROP, "", "", template.weap);
+	}
+	
+	return droid;
+}
+
 //////////// privates
 
 function __camFactoryUpdateTactics(flabel)

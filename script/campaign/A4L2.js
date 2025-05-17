@@ -13,7 +13,7 @@ const mis_collectiveResearch = [
 	"R-Wpn-AAGun-Damage02", "R-Vehicle-Engine06", "R-Wpn-AAGun-Accuracy01",
 	"R-Struc-RprFac-Upgrade02", "R-Struc-VTOLPad-Upgrade01", "R-Sys-Sensor-Upgrade01",
 	"R-Vehicle-Armor-Heat02", "R-Cyborg-Armor-Heat02", "R-Wpn-Howitzer-Damage02",
-	"R-Wpn-Howitzer-ROF02", "R-Wpn-Howitzer-Accuracy01",
+	"R-Wpn-Howitzer-ROF02", "R-Wpn-Howitzer-Accuracy01", "R-Wpn-Mortar-Acc01",
 ];
 const mis_infestedResearch = [
 	"R-Wpn-MG-Damage05", "R-Wpn-Rocket-Damage05", "R-Wpn-Mortar-Damage05", 
@@ -38,6 +38,11 @@ var colCommanderGroup;
 var colKillGroup;
 var deltaCommander;
 var deltaCommandGroup;
+var deltaVtolSensGroup;
+var deltaVtolCbGroup;
+var deltaVtolTowerGroup1;
+var deltaVtolTowerGroup2;
+var deltaVtolTowerGroup3;
 
 var deltaTruckJob1;
 var deltaTruckJob2;

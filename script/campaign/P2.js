@@ -608,7 +608,7 @@ function convertToTransport(truck, transportLabel)
 	{
 		// The player hasn't renamed this truck.
 		// Give it the default template name
-		newName = camNameTemplate("Spade1Trans", tBody, tProp)
+		newName = camNameTemplate("Spade1Trans", tBody, tProp);
 	}
 	else
 	{
@@ -908,6 +908,7 @@ function eventDestroyed(obj)
 				"Don't lose " + MIS_LOST_THRESHOLD + " Transport Trucks (" + trucksLost + " LOST)"]
 		);
 
+		checkTrucksLost();
 		checkCivsDone();
 	}
 }

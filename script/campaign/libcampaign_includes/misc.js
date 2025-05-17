@@ -616,7 +616,11 @@ function camSetFog(r, g, b)
 		}
 	}
 
-	__camFogRGB = {r: r, g: g, b: b};
+	__camFogRGB = {
+		r: r, 
+		g: g, 
+		b: b
+	};
 
 	setFogColour(r, g, b);
 }
@@ -719,6 +723,112 @@ function camSetSunIntensity(ar, ag, ab, dr, dg, db, sr, sg, sb)
 		__camSunStats.dr, __camSunStats.dg, __camSunStats.db,
 		__camSunStats.sr, __camSunStats.sg, __camSunStats.sb
 	);
+}
+
+//;; ## camGradualFog(time, r, g, b)
+//;; Gradually changes the current color of the fog towards the given values over the given timespan (in milliseconds).
+//;; If no arguments are provided, sets the fog to its default RGB values.
+//;;
+//;; @param {number} time
+//;; @param {number} r
+//;; @param {number} g
+//;; @param {number} b
+//;; @returns {void}
+//;;
+function camGradualFog(time, r, g, b)
+{
+	if (!camDef(r))
+	{
+		// No color arguments provided; set fog to default color based on tileset
+		if (tilesetType === "ARIZONA")
+		{
+			r = __camArizonaFogRGB.r;
+			g = __camArizonaFogRGB.g;
+			b = __camArizonaFogRGB.b;
+		}
+		else if (tilesetType === "URBAN")
+		{
+			r = __camUrbanFogRGB.r;
+			g = __camUrbanFogRGB.g;
+			b = __camUrbanFogRGB.b;
+		}
+		else if (tilesetType === "ROCKIES")
+		{
+			r = __camRockyFogRGB.r;
+			g = __camRockyFogRGB.g;
+			b = __camRockyFogRGB.b;
+		}
+	}
+
+	__camFogTargetRGB = {
+		time: gameTime + time,
+		r: r,
+		g: g,
+		b: b
+	};
+}
+
+//;; ## camGradualSunIntensity(time, ar, ag, ab[, dr, dg, db[, sr, sg, sb]])
+//;; Gradually changes the intensity of the sun towards the given values over the given timespan (in milliseconds).
+//;; If no arguments are provided, sets the sun to its default RGB values.
+//;;
+//;; @param {number} time
+//;; @param {number} ar
+//;; @param {number} ag
+//;; @param {number} ab
+//;; @param {number} dr
+//;; @param {number} dg
+//;; @param {number} db
+//;; @param {number} sr
+//;; @param {number} sg
+//;; @param {number} sb
+//;; @returns {void}
+//;;
+function camGradualSunIntensity(time, ar, ag, ab, dr, dg, db, sr, sg, sb)
+{
+	if (!camDef(ar))
+	{
+		// No intensity arguments provided; set sun to default intensity
+		ar = __camDefaultSunStats.ar;
+		ag = __camDefaultSunStats.ag;
+		ab = __camDefaultSunStats.ab;
+		dr = __camDefaultSunStats.dr;
+		dg = __camDefaultSunStats.dg;
+		db = __camDefaultSunStats.db;
+		sr = __camDefaultSunStats.sr;
+		sg = __camDefaultSunStats.sg;
+		sb = __camDefaultSunStats.sb;
+	}
+	else if (!camDef(dr))
+	{
+		// Only ambient values provided
+		dr = ar * 2;
+		dg = ag * 2;
+		db = ab * 2;
+		sr = ar * 2;
+		sg = ag * 2;
+		sb = ab * 2;
+	}
+	else if (!camDef(sr))
+	{
+		// Ambient and diffuse values provided
+		sr = dr;
+		sg = dg;
+		sb = db;
+	}
+
+	__camSunTargetIntensity = {
+		time: gameTime + time,
+		ar: ar,
+		ag: ag,
+		ab: ab,
+		dr: dr,
+		dg: dg,
+		db: db,
+		sr: sr,
+		sg: sg,
+		sb: sb
+	};
 }
 
 //;; ## camSetWeather(weatherType)
@@ -1361,6 +1471,23 @@ function camRandInfTemplates(coreTemplates, coreSize, fodderSize)
 	return droids;
 }
 
+//;; ## camSetObjectVision(playerId[, state])
+//;; Makes objects belonging to the specified player grant vision to the player.
+//;; `state` defaults to true if undefined.
+//;;
+//;; @param {number} playerId
+//;; @param {boolean} state
+//;; @returns {void}
+//;;
+function camSetObjectVision(playerId, state)
+{
+	if (!camDef(state))
+	{
+		state = true;
+	}
+	__camPlayerVisibilities[playerId] = state;
+}
+
 //////////// privates
 
 function __camGlobalContext()
@@ -1535,7 +1662,7 @@ function __camResetPower()
 	let powerProductionRate = 100 + (15 * (difficulty - 2));
 	
 	let powerLimit;
-	if (!tweakOptions.rec_timerlessMode)
+	if (!tweakOptions.rec_timerlessMode || (camDef(__camNextLevel) && __camNextLevel === "THE_END"))
 	{
 		powerLimit = __camPowerLimits[difficulty];
 	}
@@ -1819,7 +1946,6 @@ function __camInfestObj(obj, fromPlayer)
 // Sensors
 // VTOLs
 // Weapons with more range than a Mortar (18 tiles)
-
 // All other units are acceptable...
 function __camIsLegalInfDroid(droid)
 {
@@ -1829,4 +1955,76 @@ function __camIsLegalInfDroid(droid)
 		|| droid.isVTOL
 		|| (droid.droidType === DROID_WEAPON && camGetCompStats(droid.weapons[0].fullname, "Weapon").MaxRange > (18 * 128)) // NOTE: "MaxRange" is correct here!
 	);
+}
+
+// Move the current fog color/sun intensity towards the desired values
+function __camGradualEffectsTick()
+{
+	// Adjust fog
+	if (__camFogTargetRGB.time > gameTime)
+	{
+		// Calculate the remaining number of times the color can be incremented before the deadline
+		const INCREMENTS_REMAINING = Math.floor((__camFogTargetRGB.time - gameTime) / __CAM_GRADUAL_TICK_RATE);
+
+		// Calculate the new fog color by adding the difference between the target color and the current color, divided by the number of increments remaining
+		const DELTA_R = (__camFogTargetRGB.r - __camFogRGB.r) / INCREMENTS_REMAINING;
+		const DELTA_G = (__camFogTargetRGB.g - __camFogRGB.g) / INCREMENTS_REMAINING;
+		const DELTA_B = (__camFogTargetRGB.b - __camFogRGB.b) / INCREMENTS_REMAINING;
+
+		camSetFog(
+			__camFogRGB.r + DELTA_R,
+			__camFogRGB.g + DELTA_G,
+			__camFogRGB.b + DELTA_B
+		);
+	}
+
+	// Adjust sun intensity
+	if (__camSunTargetIntensity.time > gameTime)
+	{
+		// Calculate the remaining number of times the intensity can be incremented before the deadline
+		const INCREMENTS_REMAINING = Math.floor((__camFogTargetRGB.time - gameTime) / __CAM_GRADUAL_TICK_RATE);
+
+		// Calculate the new fog color by adding the difference between the target color and the current color, divided by the number of increments remaining
+		const DELTA_AR = (__camSunTargetIntensity.ar - __camSunStats.ar) / INCREMENTS_REMAINING;
+		const DELTA_AG = (__camSunTargetIntensity.ag - __camSunStats.ag) / INCREMENTS_REMAINING;
+		const DELTA_AB = (__camSunTargetIntensity.ab - __camSunStats.ab) / INCREMENTS_REMAINING;
+		const DELTA_DR = (__camSunTargetIntensity.dr - __camSunStats.dr) / INCREMENTS_REMAINING;
+		const DELTA_DG = (__camSunTargetIntensity.dg - __camSunStats.dg) / INCREMENTS_REMAINING;
+		const DELTA_DB = (__camSunTargetIntensity.db - __camSunStats.db) / INCREMENTS_REMAINING;
+		const DELTA_SR = (__camSunTargetIntensity.sr - __camSunStats.sr) / INCREMENTS_REMAINING;
+		const DELTA_SG = (__camSunTargetIntensity.sg - __camSunStats.sg) / INCREMENTS_REMAINING;
+		const DELTA_SB = (__camSunTargetIntensity.sb - __camSunStats.sb) / INCREMENTS_REMAINING;
+
+		camSetSunIntensity(
+			__camSunStats.ar + DELTA_AR, 
+			__camSunStats.ag + DELTA_AG, 
+			__camSunStats.ab + DELTA_AB, 
+			__camSunStats.dr + DELTA_DR, 
+			__camSunStats.dg + DELTA_DG, 
+			__camSunStats.db + DELTA_DB, 
+			__camSunStats.sr + DELTA_SR, 
+			__camSunStats.sg + DELTA_SG, 
+			__camSunStats.sb + DELTA_SB
+		);
+	}
+}
+
+// Grant the player momentary vision of all objects specified by camSetObjectVision()
+function __camViewObjects()
+{
+	let objList = [];
+
+	for (const player in __camPlayerVisibilities)
+	{
+		if (__camPlayerVisibilities[player])
+		{
+			objList = objList.concat(enumStruct(player).filter((struct) => (struct.stattype !== WALL)));
+			objList = objList.concat(enumDroid(player));
+		}
+	}
+
+	for (let i = 0; i < objList.length; i++)
+	{
+		addSpotter(objList[i].x, objList[i].y, CAM_HUMAN_PLAYER, __CAM_OBJ_VISION_RANGE, false, gameTime + camSecondsToMilliseconds(1));
+	}
 }

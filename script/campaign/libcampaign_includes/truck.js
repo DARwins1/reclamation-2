@@ -52,7 +52,7 @@ function camManageTrucks(player, data)
 		enabled: true // If set to false, do not rebuild or manage
 	});
 
-	if (!camDef(data.truckDroid))
+	if (!camDef(data.truckDroid) && (data.rebuildTruck !== false))
 	{
 		// Build the new truck
 		camRebuildTruck(__LENGTH - 1, false);
@@ -223,6 +223,11 @@ function camRebuildTruck(index, force)
 	if (!ti.enabled)
 	{
 		return false; // Truck management is disabled
+	}
+
+	if (!camDef(ti.template))
+	{
+		return false; // No template to rebuild
 	}
 
 	if (!camDef(force))

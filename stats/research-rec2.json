@@ -6302,5 +6302,90 @@
         "statID": "RailGun1Mk1",
         "subgroupIconID": "IMAGE_RES_GRPROF",
         "techCode": 1
+    },
+    "R-Wpn-Missile-Accuracy01": {
+        "iconID": "IMAGE_RES_WEAPONTECH",
+        "id": "R-Wpn-Missile-Accuracy01",
+        "msgName": "RES_W_MS_AC1",
+        "name": "Target Prediction Missiles",
+        "requiredResearch": [
+            "R-Wpn-Missile-Damage01"
+        ],
+        "researchPoints": 1800,
+        "researchPower": 450,
+        "results": [
+            {
+                "class": "Weapon",
+                "filterParameter": "ImpactClass",
+                "filterValue": "MISSILE",
+                "parameter": "HitChance",
+                "value": 10
+            },
+            {
+                "class": "Weapon",
+                "filterParameter": "ImpactClass",
+                "filterValue": "MISSILE",
+                "parameter": "ShortHitChance",
+                "value": 10
+            }
+        ],
+        "statID": "Missile-LtSAM",
+        "subgroupIconID": "IMAGE_RES_GRPACC"
+    },
+    "R-Wpn-Missile-Damage01": {
+        "iconID": "IMAGE_RES_WEAPONTECH",
+        "id": "R-Wpn-Missile-Damage01",
+        "keyTopic": 1,
+        "msgName": "RES_W_MS_D1",
+        "name": "Advanced Missile Warhead",
+        "researchPoints": 2400,
+        "researchPower": 450,
+        "results": [
+            {
+                "class": "Weapon",
+                "filterParameter": "ImpactClass",
+                "filterValue": "MISSILE",
+                "parameter": "Damage",
+                "value": 40
+            },
+            {
+                "class": "Weapon",
+                "filterParameter": "ImpactClass",
+                "filterValue": "MISSILE",
+                "parameter": "RadiusDamage",
+                "value": 40
+            }
+        ],
+        "statID": "Missile-LtSAM",
+        "subgroupIconID": "IMAGE_RES_GRPDAM"
+    },
+    "R-Wpn-Missile-ROF01": {
+        "iconID": "IMAGE_RES_WEAPONTECH",
+        "id": "R-Wpn-Missile-ROF01",
+        "msgName": "RES_W_MS_ROF1",
+        "name": "Advanced Missile Allocation System",
+        "requiredResearch": [
+            "R-Wpn-Missile-Damage01"
+        ],
+        "researchPoints": 2800,
+        "researchPower": 450,
+        "results": [
+            {
+                "class": "Weapon",
+                "filterParameter": "ImpactClass",
+                "filterValue": "MISSILE",
+                "parameter": "FirePause",
+                "value": -25
+            },
+            {
+                "class": "Weapon",
+                "filterParameter": "ImpactClass",
+                "filterValue": "MISSILE",
+                "parameter": "ReloadTime",
+                "value": -25
+            }
+        ],
+        "statID": "Missile-LtSAM",
+        "subgroupIconID": "IMAGE_RES_GRPROF"
     }
 }

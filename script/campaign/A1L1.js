@@ -409,7 +409,6 @@ function eventStartLevel()
 	const lz = getObject("landingZone"); //player lz
 
 	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, "A1L2S");
-	setReinforcementTime(LZ_COMPROMISED_TIME);
 
 	centreView(startPos.x, startPos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);

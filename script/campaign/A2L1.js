@@ -67,7 +67,7 @@ function vtolAttack()
 		alternate: true,
 		targetPlayer: CAM_HUMAN_PLAYER,
 		pos: camMakePos("landingZone"),
-		dynamic: true
+		dynamic: true // Change attack rate based on how many VTOLs are shot down
 	};
 	camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos", "vtolRemoveZone", templates, camChangeOnDiff(camMinutesToMilliseconds(2)), "colCC", ext);
 }
@@ -296,7 +296,7 @@ function vtolDialogue1()
 	// Dialogue on Collective VTOLs and their HQ...
 	camQueueDialogue([
 		{text: "LIEUTENANT: Commander Bravo, the Collective are likely coordinating those VTOLs through a local relay.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Look for some sort of headquarters or command center.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Look for some sort of headquarters or command center structure.", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: If you destroy it, you'll likely cut off the Collective's air support.", delay: 3, sound: CAM_RCLICK}
 	]);
 }
@@ -414,8 +414,6 @@ function eventStartLevel()
 {
 	const startPos = camMakePos("landingZone");
 	const lz = getObject("landingZone"); //player lz
-
-	setReinforcementTime(LZ_COMPROMISED_TIME);
 
 	centreView(startPos.x, startPos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);

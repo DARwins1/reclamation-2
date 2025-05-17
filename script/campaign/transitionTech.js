@@ -272,7 +272,7 @@ const camA4L4AllyResearch = camAct4StartResearch.concat([
 	"R-Struc-Materials06",
 ]);
 
-// Used to grant research to team Delta on A4L5
+// Used to grant research to team Delta and team Charlie on A4L5 & A4L6
 const camA4L5AllyResearch = camA4L4AllyResearch.concat([
 	// A4L4
 	"R-Wpn-Cannon-Damage07", // Artifact

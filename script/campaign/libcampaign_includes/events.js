@@ -144,7 +144,11 @@ function cam_eventStartLevel()
 	__camExpLevel = 0;
 	__camQueuedDialogue = [];
 	__camLatestDialogueTime = 0;
+	__camFogRGB = {};
+	__camFogTargetRGB = {time: 0};
 	__camSunStats = {};
+	__camSunTargetIntensity = {time: 0};
+	__camPlayerVisibilities = [];
 	__camBonusPowerGranted = false;
 	__camPreDamageModifier = [];
 	__camDisableFactoryAutoManagement = false;
@@ -158,14 +162,16 @@ function cam_eventStartLevel()
 	camSetSkyType(CAM_SKY_DAY);
 	setTimer("__camSpawnVtols", camSecondsToMilliseconds(0.5));
 	setTimer("__camRetreatVtols", camSecondsToMilliseconds(0.9));
-	setTimer("__checkVtolSpawnObject", camSecondsToMilliseconds(5));
+	// setTimer("__checkVtolSpawnObject", camSecondsToMilliseconds(5));
 	setTimer("__checkEnemyFactoryProductionTick", camSecondsToMilliseconds(0.8));
 	setTimer("__camTick", camSecondsToMilliseconds(1)); // campaign pollers
 	setTimer("__camTruckTick", camSecondsToMilliseconds(5));
 	setTimer("__camAiPowerReset", camMinutesToMilliseconds(3)); //reset AI power every so often
 	setTimer("__camShowVictoryConditions", camMinutesToMilliseconds(5));
+	setTimer("__camViewObjects", camSecondsToMilliseconds(1));
 	setTimer("__camTacticsTick", camSecondsToMilliseconds(0.1));
 	setTimer("__camPlayScheduledDialogues", camSecondsToMilliseconds(.1));
+	setTimer("__camGradualEffectsTick", __CAM_GRADUAL_TICK_RATE);
 	queue("__camGrantSpecialResearch", camSecondsToMilliseconds(6));
 	queue("__camEnableGuideTopics", camSecondsToMilliseconds(0.1)); // delayed to handle when mission scripts add research
 	queue("__camResetPower", camSecondsToMilliseconds(1));
@@ -416,57 +422,64 @@ function cam_eventAttacked(victim, attacker)
 {
 	if (camDef(victim) && victim)
 	{
-		if (victim.type === DROID && victim.player !== CAM_HUMAN_PLAYER && !allianceExistsBetween(CAM_HUMAN_PLAYER, victim.player))
+		if (victim.type === DROID)
 		{
-			//Try dynamically creating a group of nearby droids not part
-			//of a group. Only supports those who can hit ground units.
-			if (victim.group === null)
+			if (victim.player !== CAM_HUMAN_PLAYER && !allianceExistsBetween(CAM_HUMAN_PLAYER, victim.player))
 			{
-				const __DEFAULT_RADIUS = 6;
-				const loc = {x: victim.x, y: victim.y};
-				const droids = enumRange(loc.x, loc.y, __DEFAULT_RADIUS, victim.player, false).filter((obj) => (
-					obj.type === DROID &&
-					obj.group === null &&
-					(obj.canHitGround || obj.isSensor) &&
-					obj.droidType !== DROID_CONSTRUCT &&
-					!camIsTransporter(obj) &&
-					!camInNeverGroup(obj) &&
-					obj.body.indexOf("Broken") == -1 // Do not autogroup "derelict" units
-				));
-				if (droids.length === 0)
+				//Try dynamically creating a group of nearby droids not part
+				//of a group. Only supports those who can hit ground units.
+				if (victim.group === null)
 				{
-					return;
-				}
-				camManageGroup(camMakeGroup(droids), CAM_ORDER_ATTACK, {
-					count: -1,
-					regroup: false,
-					repair: 70,
-					targetPlayer: CAM_HUMAN_PLAYER
-				});
-			}
-
-			if (camDef(__camGroupInfo[victim.group]))
-			{
-				__camGroupInfo[victim.group].lastHit = gameTime;
-
-				//Increased Nexus intelligence if struck on cam3-4
-				if (__camNextLevel === CAM_GAMMA_OUT)
-				{
-					if (__camGroupInfo[victim.group].order === CAM_ORDER_PATROL)
+					const __DEFAULT_RADIUS = 6;
+					const loc = {x: victim.x, y: victim.y};
+					const droids = enumRange(loc.x, loc.y, __DEFAULT_RADIUS, victim.player, false).filter((obj) => (
+						obj.type === DROID &&
+						obj.group === null &&
+						(obj.canHitGround || obj.isSensor) &&
+						obj.droidType !== DROID_CONSTRUCT &&
+						!camIsTransporter(obj) &&
+						!camInNeverGroup(obj) &&
+						obj.body.indexOf("Broken") == -1 // Do not autogroup "derelict" units
+					));
+					if (droids.length === 0)
 					{
-						__camGroupInfo[victim.group].order = CAM_ORDER_ATTACK;
+						return;
+					}
+					camManageGroup(camMakeGroup(droids), CAM_ORDER_ATTACK, {
+						count: -1,
+						regroup: false,
+						repair: 70,
+						targetPlayer: CAM_HUMAN_PLAYER
+					});
+				}
+
+				if (camDef(__camGroupInfo[victim.group]))
+				{
+					__camGroupInfo[victim.group].lastHit = gameTime;
+
+					//Increased Nexus intelligence if struck on cam3-4
+					if (__camNextLevel === CAM_GAMMA_OUT)
+					{
+						if (__camGroupInfo[victim.group].order === CAM_ORDER_PATROL)
+						{
+							__camGroupInfo[victim.group].order = CAM_ORDER_ATTACK;
+						}
 					}
 				}
 			}
-		}
 
-		if (victim.type === DROID && victim.id === attacker.id
-			&& victim.droidType === DROID_WEAPON && camDef(victim.weapons[0]) 
-			&& victim.weapons[0].name === "InfestedSpade1Trans")
+			if (victim.droidType === DROID_WEAPON && camDef(victim.weapons[0]) 
+				&& victim.weapons[0].name === "InfestedSpade1Trans")
+			{
+				// Release a group of Infested from the Infested Truck...
+				camSendReinforcement(victim.player, camMakePos(victim), 
+					camRandInfTemplates(__camInfTruckSummonTemplates, difficulty, __CAM_INFTRUCK_FODDER_COUNT), CAM_REINFORCE_GROUND);
+			}
+		}
+		else if (victim.type === STRUCTURE && __camPlayerVisibilities[attacker.player] && !attacker.hasIndirect)
 		{
-			// Release a group of Infested from the Infested Truck...
-			camSendReinforcement(victim.player, camMakePos(victim), 
-				camRandInfTemplates(__camInfTruckSummonTemplates, difficulty, __CAM_INFTRUCK_FODDER_COUNT), CAM_REINFORCE_GROUND);
+			// If we're sharing vision with a player, reveal bases that they hit with non-artillery attacks
+			__camCheckBaseSeen(victim);
 		}
 	}
 }

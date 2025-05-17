@@ -936,7 +936,7 @@ function __camTacticsTickForGroup(group)
 					}
 				}
 
-				if (!__DEFENDING && closeByObj)
+				if (closeByObj)
 				{
 					if (droid.droidType === DROID_SENSOR)
 					{

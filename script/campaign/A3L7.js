@@ -11,7 +11,7 @@ const mis_collectiveResearch = [
 	"R-Wpn-Cannon-Accuracy02", "R-Wpn-Rocket-Accuracy03", "R-Wpn-AAGun-ROF02",
 	"R-Wpn-AAGun-Damage02", "R-Vehicle-Engine05", "R-Wpn-AAGun-Accuracy01",
 	"R-Struc-RprFac-Upgrade02", "R-Struc-VTOLPad-Upgrade01", "R-Wpn-Howitzer-Damage01",
-	"R-Wpn-Howitzer-ROF01",
+	"R-Wpn-Howitzer-ROF01", "R-Wpn-Mortar-Acc01",
 ];
 const mis_infestedResearch = [
 	"R-Wpn-MG-Damage04", "R-Wpn-Rocket-Damage03", "R-Wpn-Mortar-Damage04", 

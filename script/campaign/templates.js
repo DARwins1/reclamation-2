@@ -290,6 +290,7 @@ comrmortht: { body: "Body6SUPP", prop: "HalfTrack", weap: "Mortar3ROTARYMk1" }, 
 comrmortt: { body: "Body6SUPP", prop: "tracked01", weap: "Mortar3ROTARYMk1" }, // Pepperpot Panther Tracks
 cohrmorth: { body: "Body9REC", prop: "hover01", weap: "Mortar3ROTARYMk1" }, // Pepperpot Tiger Hover
 cohhowt: { body: "Body9REC", prop: "tracked01", weap: "Howitzer105Mk1" }, // Howitzer Tiger Tracks
+cohhhowtt: { body: "Body9REC", prop: "tracked01", weap: "Howitzer150Mk1" }, // Ground Shaker Tiger Tracks
 
 colmrat: { body: "Body2SUP", prop: "tracked01", weap: "Rocket-MRL" }, // Mini-Rocket Array Leopard Tracks
 commraht: { body: "Body6SUPP", prop: "HalfTrack", weap: "Rocket-MRL" }, // Mini-Rocket Array Panther Half-tracks
@@ -312,7 +313,7 @@ cohasgnht: { body: "Body9REC", prop: "HalfTrack", weap: "MG4ROTARYMk1" }, // Ass
 colcanht: { body: "Body2SUP", prop: "HalfTrack", weap: "Cannon1Mk1" }, // Light Cannon Leopard Half-tracks
 colmcant: { body: "Body2SUP", prop: "tracked01", weap: "Cannon2A-TMk1" }, // Medium Cannon Leopard Tracks
 commcant: { body: "Body6SUPP", prop: "tracked01", weap: "Cannon2A-TMk1" }, // Medium Cannon Panther Tracks
-comhpvht: { body: "Body6SUPP", prop: "HalfTrack", weap: "Cannon5VulcanMk1" }, // Hyper Velocity Cannon Panther Half-tracks
+comhpvht: { body: "Body6SUPP", prop: "HalfTrack", weap: "Cannon4AUTOMk1" }, // Hyper Velocity Cannon Panther Half-tracks
 comhpvt: { body: "Body6SUPP", prop: "tracked01", weap: "Cannon4AUTOMk1" }, // Hyper Velocity Cannon Panther Tracks
 comhpvh: { body: "Body6SUPP", prop: "hover01", weap: "Cannon4AUTOMk1" }, // Hyper Velocity Cannon Panther Hover
 comacant: { body: "Body6SUPP", prop: "tracked01", weap: "Cannon5VulcanMk1" }, // Assault Cannon Panther Tracks
@@ -328,6 +329,7 @@ cohinfh: { body: "Body9REC", prop: "hover01", weap: "Flame2" }, // Inferno Tiger
 
 colrepht: { body: "Body2SUP", prop: "HalfTrack", weap: "LightRepair1" }, // Repair Turret Leopard Half-tracks
 colrept: { body: "Body2SUP", prop: "tracked01", weap: "LightRepair1" }, // Repair Turret Leopard Tracks
+comrepht: { body: "Body6SUPP", prop: "HalfTrack", weap: "LightRepair1" }, // Repair Turret Panther Half-tracks
 comrept: { body: "Body6SUPP", prop: "tracked01", weap: "LightRepair1" }, // Repair Turret Panther Tracks
 comhrepht: { body: "Body6SUPP", prop: "HalfTrack", weap: "HeavyRepair" }, // Heavy Repair Turret Panther Half-tracks
 comhrept: { body: "Body6SUPP", prop: "tracked01", weap: "HeavyRepair" }, // Heavy Repair Turret Panther Tracks
@@ -338,6 +340,8 @@ comaat: { body: "Body6SUPP", prop: "tracked01", weap: "QuadMg1AAGun" }, // Hurri
 comhaaht: { body: "Body6SUPP", prop: "HalfTrack", weap: "AAGun2Mk1" }, // Cyclone Panther Half-tracks
 comhaat: { body: "Body6SUPP", prop: "tracked01", weap: "AAGun2Mk1" }, // Cyclone Panther Tracks
 cohraat: { body: "Body9REC", prop: "tracked01", weap: "QuadRotAAGun" }, // Whirlwind Tiger Tracks
+
+comsamt: { body: "Body6SUPP", prop: "tracked01", weap: "Missile-LtSAM" }, // Avenger SAM Panther Tracks
 
 comcomt: { body: "Body6SUPP", prop: "tracked01", weap: "CommandBrain01" }, // Command Turret Panther Tracks
 cohcomt: { body: "Body9REC", prop: "tracked01", weap: "CommandBrain01" }, // Command Turret Tiger Tracks

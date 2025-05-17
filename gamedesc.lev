@@ -306,3 +306,29 @@ miss_keep	A4L4
 dataset		REC_2
 game		"wrf/act4/A4L4.gam"
 data		"wrf/act4/A4L4.wrf"
+
+expand		A4L5
+dataset		REC_2
+game		"wrf/act4/A4L5.gam"
+data		"wrf/act4/A4L5.wrf"
+
+/* switch back to the mountain tileset for A4L6 */
+
+campaign	EXODUS
+data		"wrf/vidmem3.wrf"
+data		"wrf/basic.wrf"
+data		"wrf/cam3.wrf"
+data		"wrf/audio.wrf"
+data		"wrf/stats.wrf"
+data		"wrf/camres2.wrf"
+
+camstart	A4L6
+dataset		EXODUS
+game		"wrf/act4/A4L6.gam"
+data		"wrf/act4/A4L6.wrf"
+
+camchange	A4L6
+dataset		REC_2
+data		"wrf/act4change.wrf"
+game		"wrf/act4/A4L6.gam"
+data		"wrf/act4/A4L6.wrf"

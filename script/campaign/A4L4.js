@@ -182,9 +182,8 @@ function eventChat(from, to, message)
 		camInterruptDialogue();
 
 		camQueueDialogue([
-			{text: "CLAYDE: Very well, then.", delay: 5, sound: CAM_RCLICK, callback: "endMonologue"},
-			{text: "CLAYDE: Your time is up, Commander Bravo.", delay: 2, sound: CAM_RCLICK},
-			{text: "CLAYDE: Goodbye-", delay: 3, sound: CAM_RCLICK, callback: "charlieRescue"},
+			{text: "CLAYDE: I suppose that will do.", delay: 5, sound: CAM_RCLICK, callback: "endMonologue"},
+			{text: "CLAYDE: Goodbye, Commander-", delay: 2, sound: CAM_RCLICK, callback: "charlieRescue"},
 		]);
 	}
 }
@@ -250,11 +249,11 @@ function sendInfestedReinforcements()
 			cTempl.infbloke,  cTempl.infbloke, cTempl.infbloke, // Blokes
 			cTempl.infkevbloke, cTempl.infkevbloke,
 			cTempl.inflance, // Lances
-			cTempl.infcomhaat,
+			cTempl.infcomhaat, // Cyclones
 		].concat((difficulty >= HARD) ? cTempl.vilestinger : undefined), // Add another Vile Stinger
 	];
-	const CORE_SIZE = 4;
-	const FODDER_SIZE = 12;
+	const CORE_SIZE = 8;
+	const FODDER_SIZE = 14;
 
 	const entrances = [
 		"infEntry1", "infEntry2", "infEntry3",

@@ -20,7 +20,7 @@ const mis_collectiveResearch = [
 	"R-Defense-WallUpgrade03", "R-Sys-Engineering02", "R-Cyborg-Metals03",
 	"R-Wpn-Cannon-Accuracy01", "R-Wpn-Rocket-Accuracy02", "R-Wpn-AAGun-ROF01",
 	"R-Wpn-AAGun-Damage01", "R-Vehicle-Engine04", "R-Wpn-AAGun-Accuracy01",
-	"R-Struc-RprFac-Upgrade01",
+	"R-Struc-RprFac-Upgrade01", "R-Wpn-Mortar-Acc01",
 ];
 const mis_infestedResearch = [
 	"R-Wpn-MG-Damage03", "R-Wpn-Rocket-Damage03", "R-Wpn-Mortar-Damage03", 
@@ -390,7 +390,6 @@ function eventStartLevel()
 	// const startPos = camMakePos("landingZone");
 	const lz = getObject("landingZone"); //player lz
 
-	setReinforcementTime(LZ_COMPROMISED_TIME);
 
 	// centreView(startPos.x, startPos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);

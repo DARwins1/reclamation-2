@@ -312,7 +312,9 @@ const cam_sounds = {
 	unitsTransferred: "pcv486.ogg",
 	laserSatelliteFiring: "pcv650.ogg",
 	artifactRecovered: "pcv352.ogg",
+	enemyUnitDetected: "pcv378.ogg",
 	enemyVtolsDetected: "pcv388.ogg",
+	incomingAirStrike: "pcv634.ogg",
 	beacon: "beacon.ogg",
 	tracker: "pcv657.ogg", // Used to place a red dot on the minimap
 	soundIdentifier: ".ogg", //Used by video.js to check for sound before a video.
@@ -406,6 +408,9 @@ const __camDefaultSunStats = {
 	sb: 1
 };
 var __camSunStats;
+const __CAM_GRADUAL_TICK_RATE = 100;
+var __camPlayerVisibilities;
+const __CAM_OBJ_VISION_RANGE = 8 * 128; // 8 tiles
 const CAM_WEATHER_DEFAULT = 0; // Set weather based on tileset
 const CAM_WEATHER_CLEAR = 1; // No weather
 const CAM_WEATHER_RAIN = 2; // Intermittent rain
