@@ -1047,7 +1047,7 @@ function allowDeltaCommanderRebuild()
 
 function allowCharlieGeneralVtolGroup()
 {
-	return (stage === 3);
+	return (stage >= 2);
 }
 
 // -------------------------------------
@@ -1916,7 +1916,7 @@ function setStageTwo()
 			camMakePos("southPatrolPos3"),
 			camMakePos("southPatrolPos4"),
 			camMakePos("southPatrolPos5"),
-			// camMakePos("southPatrolPos6"),
+			camMakePos("southPatrolPos6"),
 		],
 		interval: camSecondsToMilliseconds(35),
 		radius: 32,
@@ -1944,7 +1944,7 @@ function setStageTwo()
 			camMakePos("northPatrolPos3"),
 			camMakePos("northPatrolPos4"),
 			camMakePos("northPatrolPos5"),
-			// camMakePos("northPatrolPos6"),
+			camMakePos("northPatrolPos6"),
 		],
 		interval: camSecondsToMilliseconds(75),
 		radius: 20,

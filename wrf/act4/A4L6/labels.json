@@ -191,6 +191,18 @@
 	},
 
 
+	"position_32": {
+		"label": "southPatrolPos6",
+		"pos": [21921, 7503]
+	},
+
+
+	"position_33": {
+		"label": "northPatrolPos6",
+		"pos": [17106, 1636]
+	},
+
+
 	"area_0": {
 		"label": "landingZone",
 		"pos1": [1536, 6272],
@@ -444,184 +456,184 @@
 
 
 	"area_36": {
-		"label": "depositZone",
-		"pos1": [1280, 11136],
-		"pos2": [2304, 11904]
-	},
-
-
-	"area_37": {
 		"label": "colBase6",
 		"pos1": [18048, 5376],
 		"pos2": [20992, 8576]
 	},
 
 
-	"area_38": {
+	"area_37": {
 		"label": "groundEntry1",
 		"pos1": [6784, 128],
 		"pos2": [7552, 384]
 	},
 
 
-	"area_39": {
+	"area_38": {
 		"label": "groundEntry2",
 		"pos1": [8320, 128],
 		"pos2": [9088, 384]
 	},
 
 
-	"area_40": {
+	"area_39": {
 		"label": "groundEntry3",
 		"pos1": [11776, 128],
 		"pos2": [12544, 384]
 	},
 
 
-	"area_41": {
+	"area_40": {
 		"label": "groundEntry4",
 		"pos1": [7552, 11904],
 		"pos2": [8960, 12160]
 	},
 
 
-	"area_42": {
+	"area_41": {
 		"label": "groundEntry5",
 		"pos1": [12800, 11904],
 		"pos2": [13696, 12160]
 	},
 
 
-	"area_43": {
+	"area_42": {
 		"label": "groundEntry6",
 		"pos1": [14464, 11904],
 		"pos2": [15488, 12160]
 	},
 
 
-	"area_44": {
+	"area_43": {
 		"label": "groundEntry7",
 		"pos1": [16640, 11904],
 		"pos2": [17664, 12160]
 	},
 
 
-	"area_45": {
+	"area_44": {
 		"label": "groundEntry9",
 		"pos1": [20736, 11904],
 		"pos2": [21632, 12160]
 	},
 
 
-	"area_46": {
+	"area_45": {
 		"label": "groundEntry8",
 		"pos1": [17280, 128],
 		"pos2": [18432, 384]
 	},
 
 
-	"area_47": {
+	"area_46": {
 		"label": "groundEntry10",
 		"pos1": [22272, 11904],
 		"pos2": [22912, 12160]
 	},
 
 
-	"area_48": {
+	"area_47": {
 		"label": "groundEntry11",
 		"pos1": [22528, 128],
 		"pos2": [23424, 384]
 	},
 
 
-	"area_49": {
+	"area_48": {
 		"label": "groundEntry12",
 		"pos1": [24576, 11904],
 		"pos2": [25216, 12160]
 	},
 
 
-	"area_50": {
+	"area_49": {
 		"label": "groundEntry13",
 		"pos1": [27264, 9600],
 		"pos2": [27520, 10368]
 	},
 
 
-	"area_51": {
+	"area_50": {
 		"label": "groundEntry14",
 		"pos1": [27264, 8192],
 		"pos2": [27520, 8960]
 	},
 
 
-	"area_52": {
+	"area_51": {
 		"label": "groundEntry15",
 		"pos1": [27264, 5632],
 		"pos2": [27520, 6912]
 	},
 
 
-	"area_53": {
+	"area_52": {
 		"label": "groundEntry16",
 		"pos1": [27264, 1536],
 		"pos2": [27520, 2432]
 	},
 
 
-	"area_54": {
+	"area_53": {
 		"label": "hoverEntry1",
 		"pos1": [4864, 128],
 		"pos2": [5760, 384]
 	},
 
 
-	"area_55": {
+	"area_54": {
 		"label": "hoverEntry2",
 		"pos1": [10240, 11904],
 		"pos2": [11264, 12160]
 	},
 
 
-	"area_56": {
+	"area_55": {
 		"label": "hoverEntry3",
 		"pos1": [14976, 128],
 		"pos2": [15744, 384]
 	},
 
 
-	"area_57": {
+	"area_56": {
 		"label": "hoverEntry4",
 		"pos1": [18944, 11904],
 		"pos2": [19712, 12160]
 	},
 
 
-	"area_58": {
+	"area_57": {
 		"label": "hoverEntry5",
 		"pos1": [20736, 128],
 		"pos2": [21632, 384]
 	},
 
 
-	"area_59": {
+	"area_58": {
 		"label": "hoverEntry6",
 		"pos1": [25984, 11904],
 		"pos2": [26752, 12160]
 	},
 
 
-	"area_60": {
+	"area_59": {
 		"label": "charlieCommandGroup",
 		"pos1": [3200, 10624],
 		"pos2": [3712, 11136]
 	},
 
 
-	"area_61": {
+	"area_60": {
 		"label": "deltaReturnZone",
 		"pos1": [512, 1152],
 		"pos2": [3072, 4224]
+	},
+
+
+	"area_61": {
+		"label": "depositZone",
+		"pos1": [1280, 11136],
+		"pos2": [2304, 11904]
 	},
 
 
@@ -730,8 +742,8 @@
 
 
 	"object_13": {
-		"label": "colTruck5",
-		"id": 1573,
+		"label": "colTruck7",
+		"id": 1575,
 		"player": 2,
 		"type": 0
 	},
@@ -906,8 +918,8 @@
 
 
 	"object_35": {
-		"label": "colTruck8",
-		"id": 1576,
+		"label": "colTruck4",
+		"id": 1569,
 		"player": 2,
 		"type": 0
 	},
@@ -922,30 +934,22 @@
 
 
 	"object_37": {
-		"label": "colTruck7",
-		"id": 1575,
+		"label": "colTruck8",
+		"id": 1576,
 		"player": 2,
 		"type": 0
 	},
 
 
 	"object_38": {
-		"label": "colTruck6",
-		"id": 1574,
+		"label": "colTruck5",
+		"id": 1573,
 		"player": 2,
 		"type": 0
 	},
 
 
 	"object_39": {
-		"label": "colTruck1",
-		"id": 1571,
-		"player": 2,
-		"type": 0
-	},
-
-
-	"object_40": {
 		"label": "colTruck10",
 		"id": 1578,
 		"player": 2,
@@ -953,7 +957,7 @@
 	},
 
 
-	"object_41": {
+	"object_40": {
 		"label": "colTruck3",
 		"id": 1572,
 		"player": 2,
@@ -961,7 +965,7 @@
 	},
 
 
-	"object_42": {
+	"object_41": {
 		"label": "colTruck2",
 		"id": 1570,
 		"player": 2,
@@ -969,9 +973,17 @@
 	},
 
 
+	"object_42": {
+		"label": "colTruck1",
+		"id": 1571,
+		"player": 2,
+		"type": 0
+	},
+
+
 	"object_43": {
-		"label": "colTruck4",
-		"id": 1569,
+		"label": "colTruck6",
+		"id": 1574,
 		"player": 2,
 		"type": 0
 	},
