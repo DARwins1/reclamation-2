@@ -1912,11 +1912,11 @@ function setStageTwo()
 	// Move Charlie/Delta groups further up
 	camManageGroup(charlieCommander, CAM_ORDER_PATROL, {
 		pos: [
-			camMakePos("southPatrolPos1"),
 			camMakePos("southPatrolPos2"),
 			camMakePos("southPatrolPos3"),
 			camMakePos("southPatrolPos4"),
 			camMakePos("southPatrolPos5"),
+			// camMakePos("southPatrolPos6"),
 		],
 		interval: camSecondsToMilliseconds(35),
 		radius: 32,
@@ -1941,10 +1941,10 @@ function setStageTwo()
 	});
 	camManageGroup(deltaCommander, CAM_ORDER_PATROL, {
 		pos: [
-			camMakePos("northPatrolPos2"),
 			camMakePos("northPatrolPos3"),
 			camMakePos("northPatrolPos4"),
 			camMakePos("northPatrolPos5"),
+			// camMakePos("northPatrolPos6"),
 		],
 		interval: camSecondsToMilliseconds(75),
 		radius: 20,
