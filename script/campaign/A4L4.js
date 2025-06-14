@@ -862,7 +862,8 @@ function expandMap()
 			templates: [cTempl.plhcomht]
 		}, CAM_ORDER_ATTACK, {
 			targetPlayer: MIS_TEAM_ZULU,
-			repair: 75
+			repair: 75,
+			repairPos: camMakePos("landingZoneCharlie")
 	});
 	charlieCommandGroup = camMakeRefillableGroup(
 		undefined, {
@@ -885,7 +886,8 @@ function expandMap()
 			data: {
 				pos: camMakePos("landingZoneCharlie"),
 				radius: 20,
-				repair: 75
+				repair: 75,
+				repairPos: camMakePos("landingZoneCharlie")
 			}
 	});
 	charlieVtolGroup = camMakeRefillableGroup(
@@ -1091,6 +1093,7 @@ function expandMap()
 	camEnableFactory("zuluVtolFactory1");
 	camEnableFactory("zuluVtolFactory2");
 	camEnableFactory("zuluVtolFactory3");
+	camEnableFactory("zuluVtolFactory4");
 
 	// Start calling Charlie transports
 	sendCharlieTransporter();
@@ -1327,7 +1330,7 @@ function activateInfested()
 		{text: "CHARLIE: What the-", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Commanders, the General's just activated a Lure!", delay: 1, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: ...And it's inside his own base!", delay: 3, sound: CAM_RCLICK},
-		{text: "CHARLIE: Is he mad?!", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: Is he crazy?!", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: He's trying to slow us down.", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Watch your flanks!", delay: 3, sound: CAM_RCLICK},
 	]);
@@ -1421,6 +1424,7 @@ function zuluSurrender()
 	camDisableFactory("zuluVtolFactory1");
 	camDisableFactory("zuluVtolFactory2");
 	camDisableFactory("zuluVtolFactory3");
+	camDisableFactory("zuluVtolFactory4");
 
 	// Put every Zulu droid in one group (so they stop doing things)
 	camMakeGroup(enumDroid(MIS_TEAM_ZULU));
@@ -1654,6 +1658,11 @@ function eventStartLevel()
 			templates: []
 		},
 		"zuluVtolFactory3": {
+			assembly: "zuluVtolAssembly2",
+			throttle: VTOL_FACTORY_TIME,
+			templates: []
+		},
+		"zuluVtolFactory4": {
 			assembly: "zuluVtolAssembly2",
 			throttle: VTOL_FACTORY_TIME,
 			templates: []
