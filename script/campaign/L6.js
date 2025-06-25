@@ -29,9 +29,6 @@ var southAADestroyed;
 var nwAADestroyed;
 var eastAADestroyed;
 
-// All factory-produced infested units are automatically assigned to this group
-var infGlobalAttackGroup;
-
 //Remove scav helicopters.
 camAreaEvent("heliRemoveZone", function(droid)
 {

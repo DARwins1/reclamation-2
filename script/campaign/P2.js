@@ -882,18 +882,22 @@ function eventDestroyed(obj)
 		{
 			// Transport Truck destroyed before reaching the deposit zone
 			trucksLost++;
+			playSound(cam_sounds.objectiveDestroyed);
 		}
 		if (label === "civTruck2" && !truck2Safe)
 		{
 			trucksLost++;
+			playSound(cam_sounds.objectiveDestroyed);
 		}
 		if (label === "civTruck3" && !truck3Safe)
 		{
 			trucksLost++;
+			playSound(cam_sounds.objectiveDestroyed);
 		}
 		if (label === "civTruck4" && !truck4Safe)
 		{
 			trucksLost++;
+			playSound(cam_sounds.objectiveDestroyed);
 		}
 
 		if (getObject("civTruck1") === null && getObject("civTruck2") === null

@@ -36,8 +36,11 @@ var lz2BeaconPlaced;
 var lz3BeaconPlaced;
 var lz4BeaconPlaced;
 
-// All factory-produced infested units are automatically assigned to this group
-var infGlobalAttackGroup;
+// How many waves of infested units can be brought in
+// Once reserves are depleted, reinforcement waves stop and all factories are disabled
+// Reserves are added as the player progresses through the level
+var infestedReserves;
+const MIS_MAX_RESERVES = 12;
 
 // Triggered when the player approaches the first MRP emplacement
 camAreaEvent("attackTrigger1", function(droid)
@@ -217,6 +220,7 @@ function setStageOne()
 	}
 
 	stage = 1;
+	addInfestedReserves();
 	camEnableFactory("infFactory1");
 	// Start sending in additional infested
 	setTimer("sendInfestedReinforcements", camChangeOnDiff(camSecondsToMilliseconds(65)));
@@ -230,6 +234,7 @@ function setStageTwo()
 	}
 
 	stage = 2;
+	addInfestedReserves();
 	camEnableFactory("infFactory2");
 }
 
@@ -241,6 +246,7 @@ function setStageThree()
 	}
 
 	stage = 3;
+	addInfestedReserves();
 	camEnableFactory("infFactory3");
 }
 
@@ -252,6 +258,7 @@ function setStageFour()
 	}
 
 	stage = 4;
+	addInfestedReserves();
 	camEnableFactory("infFactory4");
 	camEnableFactory("infFactory5");
 }
@@ -274,9 +281,42 @@ function checkLZ1Tower()
 	}
 }
 
+// Allow more infested units to enter the map
+function addInfestedReserves()
+{
+	infestedReserves += ((difficulty * 2) + 2);
+	if (infestedReserves > MIS_MAX_RESERVES)
+	{
+		infestedReserves = MIS_MAX_RESERVES;
+	}
+}
+
+// Reduce reserves by 1
+// If reserves are depleted, disable all Infested factories
+function decrementInfestedReserves()
+{
+	infestedReserves--;
+
+	if (infestedReserves <= 0)
+	{
+		// NOTE: Some of these factories may already be destroyed or not activated in the first place
+		// That's OK
+		camDisableFactory("infFactory1");
+		camDisableFactory("infFactory2");
+		camDisableFactory("infFactory3");
+		camDisableFactory("infFactory4");
+		camDisableFactory("infFactory5");
+	}
+}
+
 // Off-map infested reinforcements from the entryway specified by the stage, disabled if the required factory is destroyed
 function sendInfestedReinforcements()
 {
+	if (infestedReserves <= 0)
+	{
+		return; // Don't do anything if reserves are depleted
+	}
+
 	let coreSize = camRand(3); // 0 - 2 core units.
 	if (stage >= 3) coreSize += 2; // 2 - 4 core units.
 	const FODDER_SIZE = 8 + camRand(5); // 8 - 12 extra Infested Civilians to the swarm.
@@ -313,6 +353,8 @@ function sendInfestedReinforcements()
 			{order: CAM_ORDER_ATTACK, data: {targetPlayer: CAM_HUMAN_PLAYER}}
 		);
 	}
+
+	decrementInfestedReserves();
 }
 
 // Give reinforcements to the player
@@ -334,9 +376,9 @@ function eventTransporterLanded(transport)
 function sendTransport1()
 {
 	// Update the player's droid list
-	playerTemplateList = [ // 2 Repair Turrets, 2 Light Cannons
+	playerTemplateList = [ // 4 Repair Turrets, 4 Light Cannons
 		cTempl.pllrepw, cTempl.pllrepw, cTempl.pllrepw, cTempl.pllrepw,
-		cTempl.pllcanw, cTempl.pllcanw,
+		cTempl.pllcanw, cTempl.pllcanw, cTempl.pllcanw, cTempl.pllcanw,
 	].concat(playerTemplateList);
 
 	let droids = getMissingPlayerDroids();
@@ -361,8 +403,8 @@ function sendTransport1()
 function sendTransport2()
 {
 	// Update the player's droid list
-	playerTemplateList = [ // 4 Flamers, 2 Twin Machineguns
-		cTempl.pllflamt, cTempl.pllflamt, cTempl.pllflamt, cTempl.pllflamt,
+	playerTemplateList = [ // 6 Flamers, 2 Twin Machineguns
+		cTempl.pllflamt, cTempl.pllflamt, cTempl.pllflamt, cTempl.pllflamt, cTempl.pllflamt, cTempl.pllflamt,
 		cTempl.plltmgt, cTempl.plltmgt,
 	].concat(playerTemplateList);
 
@@ -427,10 +469,9 @@ function sendTransport3()
 function sendTransport4()
 {
 	// Update the player's droid list
-	playerTemplateList = [ // 2 Repair Turrets, 2 Twin Machineguns, 2 Machinegunners
+	playerTemplateList = [ // 2 Repair Turrets, 4 Machinegunners
 		cTempl.pllrepw, cTempl.pllrepw,
-		cTempl.plltmgt, cTempl.plltmgt,
-		cTempl.cybmg, cTempl.cybmg,
+		cTempl.cybmg, cTempl.cybmg, cTempl.cybmg, cTempl.cybmg,
 	].concat(playerTemplateList);
 
 	let droids = getMissingPlayerDroids();
@@ -524,6 +565,10 @@ function eventDestroyed(obj)
 				addStructure("Sys-InfLure", MIS_CIVS, pos.x * 128, pos.y * 128);
 				disableWarehouseDestruction();
 				hackRemoveMessage("OLD_TOWN", PROX_MSG, CAM_HUMAN_PLAYER);
+
+				// Grant visibility of the Lure and move the camera to it
+				camSetObjectVision(MIS_CIVS, true);
+				cameraSlide(obj.x * 128, obj.y * 128);
 			}
 		}
 	else if (obj.type === STRUCTURE && obj.player === MIS_CIVS)
@@ -785,6 +830,8 @@ function eventStartLevel()
 	lz2BeaconPlaced = false;
 	lz3BeaconPlaced = false;
 	lz4BeaconPlaced = false;
+
+	infestedReserves = 0;
 
 	setTimer("checkLZ1Tower", camSecondsToMilliseconds(1));
 

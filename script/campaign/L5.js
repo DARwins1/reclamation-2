@@ -22,8 +22,6 @@ const MIS_YELLOW_SCAVS = 3;
 
 // ID of the scav monster bus used to trigger Boom Tick demonstration
 var showBus;
-// All factory-produced infested units are automatically assigned to this group
-var infGlobalAttackGroup;
 
 // Needed to ensure the Boom Tick showcase can be triggered after a save/load
 function eventGameLoaded()

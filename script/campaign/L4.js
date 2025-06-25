@@ -29,9 +29,6 @@ var infestedTier3;
 // Used to remember if the research blip was removed
 var researchDestroyed;
 
-// All factory-produced infested units are automatically assigned to this group
-var infGlobalAttackGroup;
-
 // Remove units exiting the map.
 camAreaEvent("exitRemoveZone", function(droid)
 {
