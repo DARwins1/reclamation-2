@@ -581,60 +581,67 @@ function eventStartLevel()
 		{
 			case INSANE:
 				// Cranes for the easternmost orange and pink bases
-				camManageTrucks(MIS_ORANGE_SCAVS, {
-					label: "orangeNorthBase", // Label of base to rebuild/maintain
-					rebuildBase: true,
-					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-					template: cTempl.crane, // Scavenger Crane unit exclusive to Timerless mode
-					structset: camAreaToStructSet("orangeScavBase2")
+				camManageTrucks(
+					MIS_ORANGE_SCAVS, {
+						label: "orangeNorthBase", // Label of base to rebuild/maintain
+						rebuildBase: true,
+						respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+						template: cTempl.crane, // Scavenger Crane unit exclusive to Timerless mode
+						structset: camAreaToStructSet("orangeScavBase2")
 				});
-				camManageTrucks(MIS_PINK_SCAVS, {
-					label: "pinkEastBase",
-					rebuildBase: true,
-					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-					template: cTempl.crane,
-					structset: camAreaToStructSet("pinkScavBase3")
+				camManageTrucks(
+					MIS_PINK_SCAVS, {
+						label: "pinkEastBase",
+						rebuildBase: true,
+						respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+						template: cTempl.crane,
+						structset: camAreaToStructSet("pinkScavBase3")
 				});
 			case HARD: // NOTE: Fall-through here! We still add Cranes from lower difficulties!
 				// Cranes for the westernmost scav bases
-				camManageTrucks(MIS_ORANGE_SCAVS, {
-					label: "orangeNWBase",
-					rebuildBase: true,
-					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-					template: cTempl.crane,
-					structset: camAreaToStructSet("orangeScavBase1")
+				camManageTrucks(
+					MIS_ORANGE_SCAVS, {
+						label: "orangeNWBase",
+						rebuildBase: true,
+						respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+						template: cTempl.crane,
+						structset: camAreaToStructSet("orangeScavBase1")
 				});
-				camManageTrucks(MIS_PINK_SCAVS, {
-					label: "pinkWestBase",
-					rebuildBase: true,
-					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-					template: cTempl.crane,
-					structset: camAreaToStructSet("pinkScavBase1")
+				camManageTrucks(
+					MIS_PINK_SCAVS, {
+						label: "pinkWestBase",
+						rebuildBase: true,
+						respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+						template: cTempl.crane,
+						structset: camAreaToStructSet("pinkScavBase1")
 				});
-				camManageTrucks(MIS_RED_SCAVS, {
-					label: "redSWBase",
-					rebuildBase: true,
-					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-					template: cTempl.crane,
-					structset: camAreaToStructSet("redScavBase1")
+				camManageTrucks(
+					MIS_RED_SCAVS, {
+						label: "redSWBase",
+						rebuildBase: true,
+						respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+						template: cTempl.crane,
+						structset: camAreaToStructSet("redScavBase1")
 				});
 			case MEDIUM:
 				// Crane for the central pink base
-				camManageTrucks(MIS_PINK_SCAVS, {
-					label: "pinkCentralBase",
-					rebuildBase: true,
-					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-					template: cTempl.crane,
-					structset: camAreaToStructSet("pinkScavBase2")
+				camManageTrucks(
+					MIS_PINK_SCAVS, {
+						label: "pinkCentralBase",
+						rebuildBase: true,
+						respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+						template: cTempl.crane,
+						structset: camAreaToStructSet("pinkScavBase2")
 				});
 			default:
 				// Crane for the final red base
-				camManageTrucks(MIS_RED_SCAVS, {
-					label: "redSEBase",
-					rebuildBase: true,
-					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-					template: cTempl.crane,
-					structset: camAreaToStructSet("redScavBase2")
+				camManageTrucks(
+					MIS_RED_SCAVS, {
+						label: "redSEBase",
+						rebuildBase: true,
+						respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+						template: cTempl.crane,
+						structset: camAreaToStructSet("redScavBase2")
 				});
 		}
 	}
@@ -666,8 +673,7 @@ function eventStartLevel()
 		for (const template of droids)
 		{
 			// Create the droid
-			addDroid(CAM_HUMAN_PLAYER, -1, -1, 
-				camNameTemplate(template), template.body, template.prop, "", "", template.weap);
+			camAddDroid(CAM_HUMAN_PLAYER, -1, template);
 			// NOTE: We can't give the offworld droid XP here, since the scripting API can't find it.
 			// Instead, we'll grant XP when the transport drops it off.
 		}

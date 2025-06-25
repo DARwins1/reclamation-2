@@ -93,46 +93,51 @@ function expandMap()
 		{
 			case INSANE:
 				// Cranes for the mortars on the ridge
-				camManageTrucks(MIS_CYAN_SCAVS, {
-					label: "mortarRidge",
-					rebuildBase: true,
-					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(100)),
-					template: cTempl.crane,
-					structset: camAreaToStructSet("cScavBase3")
+				camManageTrucks(
+					MIS_CYAN_SCAVS, {
+						label: "mortarRidge",
+						rebuildBase: true,
+						respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(100)),
+						template: cTempl.crane,
+						structset: camAreaToStructSet("cScavBase3")
 				});
 			case HARD: // NOTE: Fall-through here! We still add Cranes from lower difficulties!
 				// Crane for the ramp defenses
-				camManageTrucks(MIS_CYAN_SCAVS, {
-					label: "rampDefenses",
-					rebuildBase: (difficulty === INSANE),
-					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(90)),
-					template: cTempl.crane,
-					structset: camAreaToStructSet("cScavBase2")
+				camManageTrucks(
+					MIS_CYAN_SCAVS, {
+						label: "rampDefenses",
+						rebuildBase: (difficulty === INSANE),
+						respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(90)),
+						template: cTempl.crane,
+						structset: camAreaToStructSet("cScavBase2")
 				});
 			case MEDIUM:
 				// Crane for the west cyan base
-				camManageTrucks(MIS_CYAN_SCAVS, {
-					label: "factoryZone",
-					rebuildBase: true,
-					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-					template: cTempl.crane,
-					structset: camAreaToStructSet("cScavBase1")
+				camManageTrucks(
+					MIS_CYAN_SCAVS, {
+						label: "factoryZone",
+						rebuildBase: true,
+						respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+						template: cTempl.crane,
+						structset: camAreaToStructSet("cScavBase1")
 				});
 			default:
 				// Cranes for the southernmost cyan bases
-				camManageTrucks(MIS_CYAN_SCAVS, {
-					label: "mountainBase",
-					rebuildBase: (difficulty >= MEDIUM),
-					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-					template: cTempl.crane,
-					structset: camAreaToStructSet("cScavBase4")
+				camManageTrucks(
+					MIS_CYAN_SCAVS, {
+						label: "mountainBase",
+						rebuildBase: (difficulty >= MEDIUM),
+						respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+						template: cTempl.crane,
+						structset: camAreaToStructSet("cScavBase4")
 				});
-				camManageTrucks(MIS_CYAN_SCAVS, {
-					label: "cityBase",
-					rebuildBase: (difficulty >= MEDIUM),
-					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-					template: cTempl.crane,
-					structset: camAreaToStructSet("cScavBase5")
+				camManageTrucks(
+					MIS_CYAN_SCAVS, {
+						label: "cityBase",
+						rebuildBase: (difficulty >= MEDIUM),
+						respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+						template: cTempl.crane,
+						structset: camAreaToStructSet("cScavBase5")
 				});
 		}
 	}

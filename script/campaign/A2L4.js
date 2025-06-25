@@ -120,40 +120,44 @@ function enableAllFactories()
 
 	// Also set up more trucks
 	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds((tweakOptions.rec_timerlessMode) ? 60 : 120));
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colAABase1",
-		rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= HARD),
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		template: cTempl.coltruckht,
-		structset: colStructSet1
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colAABase1",
+			rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= HARD),
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			template: cTempl.coltruckht,
+			structset: colStructSet1
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colAABase2",
-		rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= HARD),
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		template: ((difficulty >= MEDIUM) ? cTempl.comtruckt : cTempl.coltruckht),
-		structset: colStructSet2
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colAABase2",
+			rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= HARD),
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			template: ((difficulty >= MEDIUM) ? cTempl.comtruckt : cTempl.coltruckht),
+			structset: colStructSet2
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colAABase3",
-		rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= MEDIUM),
-		respawnDelay: ((tweakOptions.rec_timerlessMode) ? (TRUCK_TIME / 2) : TRUCK_TIME),
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		template: cTempl.comtruckt,
-		structset: colStructSet3
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colAABase3",
+			rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= MEDIUM),
+			respawnDelay: ((tweakOptions.rec_timerlessMode) ? (TRUCK_TIME / 2) : TRUCK_TIME),
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			template: cTempl.comtruckt,
+			structset: colStructSet3
 	});
 
 	if (tweakOptions.rec_timerlessMode && difficulty >= HARD)
 	{
 		// Collective main base (again)
-		camManageTrucks(CAM_THE_COLLECTIVE, {
-			label: "colAABase3",
-			respawnDelay: TRUCK_TIME * 2,
-			rebuildBase: true,
-			template: cTempl.comtruckht,
-			structset: camAreaToStructSet("colBase3")
+		camManageTrucks(
+			CAM_THE_COLLECTIVE, {
+				label: "colAABase3",
+				respawnDelay: TRUCK_TIME * 2,
+				rebuildBase: true,
+				template: cTempl.comtruckht,
+				structset: camAreaToStructSet("colBase3")
 		});
 	}
 
@@ -375,25 +379,28 @@ function eventStartLevel()
 
 	// Set up trucks
 	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds((tweakOptions.rec_timerlessMode) ? 60 : 120));
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colHoverBase",
-		rebuildTruck: (tweakOptions.rec_timerlessMode),
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		template: cTempl.comtruckt,
-		structset: camAreaToStructSet("colBase4")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colHoverBase",
+			rebuildTruck: (tweakOptions.rec_timerlessMode),
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			template: cTempl.comtruckt,
+			structset: camAreaToStructSet("colBase4")
 	});
 
 	if (tweakOptions.rec_timerlessMode)
 	{
 		const CRANE_TIME = camChangeOnDiff(camSecondsToMilliseconds(70));
-		camManageTrucks(CAM_THE_COLLECTIVE, {
-			label: "cScavSEBase",
-			rebuildBase: true,
-			respawnDelay: CRANE_TIME,
-			template: cTempl.crane,
-			structset: camAreaToStructSet("cScavBase").filter((struct) => (camIsScavStruct(struct)))
-		});	}
+		camManageTrucks(
+			CAM_THE_COLLECTIVE, {
+				label: "cScavSEBase",
+				rebuildBase: true,
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("cScavBase").filter((struct) => (camIsScavStruct(struct)))
+		});
+	}
 
 	camManageGroup(camMakeGroup("cyborgPatrolGroup"), CAM_ORDER_PATROL, {
 		repair: 60,

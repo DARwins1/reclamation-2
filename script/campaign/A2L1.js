@@ -315,11 +315,10 @@ function vtolDialogue2()
 // Do this until the spawned unit has no EXP
 function drainPlayerExp()
 {
-	const pos = camMakePos("landingZone");
 	let droidExp = -1;
 	while (droidExp != 0)
 	{
-		const droid = addDroid(CAM_HUMAN_PLAYER, pos.x, pos.y, "EXP Sink", "Body1REC", "wheeled01", "", "", "MG1Mk1");
+		const droid = camAddDroid(CAM_HUMAN_PLAYER, "landingZone", cTempl.plmgw, "EXP Sink");
 		droidExp = droid.experience;
 		camSafeRemoveObject(droid);
 	}
@@ -559,31 +558,34 @@ function eventStartLevel()
 
 	// Set up Collective trucks...
 	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds((tweakOptions.rec_timerlessMode) ? 40 : 80));
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colNWBase",
-		rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= MEDIUM), // Don't rebuild this truck unless we're on timerless mode (or on Normal+)
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		template: cTempl.coltruckht,
-		structset: camAreaToStructSet("colBase1")
-	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colNEBase",
-		rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= MEDIUM), // Don't rebuild this truck unless we're on timerless mode (or on Normal+)
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		template: cTempl.coltruckht,
-		structset: camAreaToStructSet("colBase3")
-	});
-	if (tweakOptions.rec_timerlessMode || difficulty >= HARD)
-	{
-		camManageTrucks(CAM_THE_COLLECTIVE, {
-			label: "colCraterBase",
-			rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty === INSANE), // Don't rebuild this truck unless we're on timerless mode (or on Insane)
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colNWBase",
+			rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= MEDIUM), // Don't rebuild this truck unless we're on timerless mode (or on Normal+)
 			respawnDelay: TRUCK_TIME,
 			rebuildBase: tweakOptions.rec_timerlessMode,
 			template: cTempl.coltruckht,
-			structset: camAreaToStructSet("colBase2")
+			structset: camAreaToStructSet("colBase1")
+	});
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colNEBase",
+			rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= MEDIUM), // Don't rebuild this truck unless we're on timerless mode (or on Normal+)
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			template: cTempl.coltruckht,
+			structset: camAreaToStructSet("colBase3")
+	});
+	if (tweakOptions.rec_timerlessMode || difficulty >= HARD)
+	{
+		camManageTrucks(
+			CAM_THE_COLLECTIVE, {
+				label: "colCraterBase",
+				rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty === INSANE), // Don't rebuild this truck unless we're on timerless mode (or on Insane)
+				respawnDelay: TRUCK_TIME,
+				rebuildBase: tweakOptions.rec_timerlessMode,
+				template: cTempl.coltruckht,
+				structset: camAreaToStructSet("colBase2")
 		});
 	}
 
@@ -591,60 +593,66 @@ function eventStartLevel()
 	{
 		const CRANE_TIME = camChangeOnDiff(camSecondsToMilliseconds(70));
 		// Southwest scav base
-		camManageTrucks(MIS_CYAN_SCAVS, {
-			label: "scavSWBase",
-			rebuildBase: true,
-			respawnDelay: CRANE_TIME,
-			template: cTempl.crane,
-			structset: camAreaToStructSet("scavBase")
-		});
-		// C-scav west base
-		camManageTrucks(CAM_THE_COLLECTIVE, {
-			label: "cScavWestIsland",
-			rebuildBase: true,
-			respawnDelay: CRANE_TIME,
-			template: cTempl.crane,
-			structset: camAreaToStructSet("cScavBase1").filter((struct) => (camIsScavStruct(struct)))
-		});
-		// C-scav northeast base
-		camManageTrucks(CAM_THE_COLLECTIVE, {
-			label: "cScavNEBase",
-			rebuildBase: true,
-			respawnDelay: CRANE_TIME,
-			template: cTempl.crane,
-			structset: camAreaToStructSet("cScavBase4")
-		});
-		if (difficulty >= MEDIUM)
-		{
-			// C-scav east base
-			camManageTrucks(CAM_THE_COLLECTIVE, {
-				label: "cScavEastBase",
-				rebuildBase: true,
-				respawnDelay: CRANE_TIME,
-				template: cTempl.crane,
-				structset: camAreaToStructSet("cScavBase3")
-			});
-		}
-		if (difficulty >= HARD)
-		{
-			// C-scav outpost
-			camManageTrucks(CAM_THE_COLLECTIVE, {
-				label: "cScavIslandOutpost",
-				rebuildBase: true,
-				respawnDelay: CRANE_TIME,
-				template: cTempl.crane,
-				structset: camAreaToStructSet("cScavBase2")
-			});
-		}
-		if (difficulty === INSANE)
-		{
-			// Southwest scav base (again)
-			camManageTrucks(MIS_CYAN_SCAVS, {
+		camManageTrucks(
+			MIS_CYAN_SCAVS, {
 				label: "scavSWBase",
 				rebuildBase: true,
 				respawnDelay: CRANE_TIME,
 				template: cTempl.crane,
 				structset: camAreaToStructSet("scavBase")
+		});
+		// C-scav west base
+		camManageTrucks(
+			CAM_THE_COLLECTIVE, {
+				label: "cScavWestIsland",
+				rebuildBase: true,
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("cScavBase1").filter((struct) => (camIsScavStruct(struct)))
+		});
+		// C-scav northeast base
+		camManageTrucks(
+			CAM_THE_COLLECTIVE, {
+				label: "cScavNEBase",
+				rebuildBase: true,
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("cScavBase4")
+		});
+		if (difficulty >= MEDIUM)
+		{
+			// C-scav east base
+			camManageTrucks(
+				CAM_THE_COLLECTIVE, {
+					label: "cScavEastBase",
+					rebuildBase: true,
+					respawnDelay: CRANE_TIME,
+					template: cTempl.crane,
+					structset: camAreaToStructSet("cScavBase3")
+			});
+		}
+		if (difficulty >= HARD)
+		{
+			// C-scav outpost
+			camManageTrucks(
+				CAM_THE_COLLECTIVE, {
+					label: "cScavIslandOutpost",
+					rebuildBase: true,
+					respawnDelay: CRANE_TIME,
+					template: cTempl.crane,
+					structset: camAreaToStructSet("cScavBase2")
+			});
+		}
+		if (difficulty === INSANE)
+		{
+			// Southwest scav base (again)
+			camManageTrucks(
+				MIS_CYAN_SCAVS, {
+					label: "scavSWBase",
+					rebuildBase: true,
+					respawnDelay: CRANE_TIME,
+					template: cTempl.crane,
+					structset: camAreaToStructSet("scavBase")
 			});
 		}
 	}
@@ -727,8 +735,7 @@ function eventStartLevel()
 			}
 
 			// Create the droid
-			addDroid(CAM_HUMAN_PLAYER, -1, -1, 
-				camNameTemplate(template), template.body, template.prop, "", "", template.weap);
+			camAddDroid(CAM_HUMAN_PLAYER, -1, template);
 			// NOTE: We can't give the offworld droid XP here, since the scripting API can't find it.
 			// Instead, we'll grant XP when the transport drops it off.
 		}

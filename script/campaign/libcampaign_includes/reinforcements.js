@@ -55,10 +55,7 @@ function camSendReinforcement(playerId, position, templates, kind, data)
 				if (camDef(position.x2))
 				{
 					// If position is an area, choose random coordinates inside of it
-					pos = {
-						x: position.x + camRand(position.x2 - position.x),
-						y: position.y + camRand(position.y2 - position.y)
-					};
+					pos = camRandPosIn(position);
 				}
 
 				const template = templates[i];

@@ -187,36 +187,28 @@ function collectiveAttackWaves()
 	{
 		const tPos = camMakePos("colEntrance4");
 		const tTemp = (waveIndex >= 16 || difficulty === INSANE) ? cTempl.comtruckt : cTempl.coltruckht;
-		const newTruck = addDroid(CAM_THE_COLLECTIVE, tPos.x, tPos.y, 
-			camNameTemplate(tTemp.weap, tTemp.body, tTemp.prop), 
-			tTemp.body, tTemp.prop, "", "", tTemp.weap);
+		const newTruck = camAddDroid(CAM_THE_COLLECTIVE, tPos, tTemp);
 		camAssignTruck(newTruck, colTruckJob1);
 	}
 	if (!camDef(camGetTrucksFromLabel("colEastLZ")[0]) && waveIndex >= 16 && (waveIndex % 8 == 0))
 	{
 		const tPos = camMakePos("colEntrance3");
 		const tTemp = (waveIndex >= 24 || difficulty >= HARD) ? cTempl.comtruckt : cTempl.coltruckht;
-		const newTruck = addDroid(CAM_THE_COLLECTIVE, tPos.x, tPos.y, 
-			camNameTemplate(tTemp.weap, tTemp.body, tTemp.prop), 
-			tTemp.body, tTemp.prop, "", "", tTemp.weap);
+		const newTruck = camAddDroid(CAM_THE_COLLECTIVE, tPos, tTemp);
 		camAssignTruck(newTruck, colTruckJob2);
 	}
 	if (!camDef(camGetTrucksFromLabel("colSouthLZ")[0]) && waveIndex >= 24 && (waveIndex % 6 == 0))
 	{
 		const tPos = camMakePos("colEntrance6");
 		const tTemp = (waveIndex >= 32 || difficulty >= MEDIUM) ? cTempl.comtruckt : cTempl.coltruckht;
-		const newTruck = addDroid(CAM_THE_COLLECTIVE, tPos.x, tPos.y, 
-			camNameTemplate(tTemp.weap, tTemp.body, tTemp.prop), 
-			tTemp.body, tTemp.prop, "", "", tTemp.weap);
+		const newTruck = camAddDroid(CAM_THE_COLLECTIVE, tPos, tTemp);
 		camAssignTruck(newTruck, colTruckJob3);
 	}
 	if (!camDef(camGetTrucksFromLabel("colSWLZ")[0]) && waveIndex >= 32 && (waveIndex % 8 == 0))
 	{
 		const tPos = camMakePos("colEntrance9");
 		const tTemp = (waveIndex >= 40 || difficulty >= EASY) ? cTempl.comtruckt : cTempl.coltruckht;
-		const newTruck = addDroid(CAM_THE_COLLECTIVE, tPos.x, tPos.y, 
-			camNameTemplate(tTemp.weap, tTemp.body, tTemp.prop), 
-			tTemp.body, tTemp.prop, "", "", tTemp.weap);
+		const newTruck = camAddDroid(CAM_THE_COLLECTIVE, tPos, tTemp);
 		camAssignTruck(newTruck, colTruckJob4);
 	}
 
@@ -367,25 +359,29 @@ function eventStartLevel()
 	});
 
 	// Collective trucks
-	colTruckJob1 = camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colNorthLZ",
-		rebuildBase: true,
-		structset: camA1L6ColLZ1Structs
+	colTruckJob1 = camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colNorthLZ",
+			rebuildBase: true,
+			structset: camA1L6ColLZ1Structs
 	});
-	colTruckJob2 = camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colEastLZ",
-		rebuildBase: true,
-		structset: camA1L6ColLZ2Structs
+	colTruckJob2 = camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colEastLZ",
+			rebuildBase: true,
+			structset: camA1L6ColLZ2Structs
 	});
-	colTruckJob3 = camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colSouthLZ",
-		rebuildBase: true,
-		structset: camA1L6ColLZ3Structs
+	colTruckJob3 = camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colSouthLZ",
+			rebuildBase: true,
+			structset: camA1L6ColLZ3Structs
 	});
-	colTruckJob4 = camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colSWLZ",
-		rebuildBase: true,
-		structset: camA1L6ColLZ4Structs
+	colTruckJob4 = camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colSWLZ",
+			rebuildBase: true,
+			structset: camA1L6ColLZ4Structs
 	});
 
 	allowWin = false;

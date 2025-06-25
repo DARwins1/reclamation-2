@@ -449,7 +449,7 @@ function drainPlayerExp()
 	let droidExp = -1;
 	while (droidExp != 0)
 	{
-		const droid = addDroid(CAM_HUMAN_PLAYER, pos.x, pos.y, "EXP Sink", "Body1REC", "wheeled01", "", "", "MG1Mk1");
+		const droid = camAddDroid(CAM_HUMAN_PLAYER, "landingZone", cTempl.plmgw, "EXP Sink");
 		droidExp = droid.experience;
 		camSafeRemoveObject(droid);
 	}
@@ -940,8 +940,7 @@ function eventStartLevel()
 			}
 
 			// Create the droid
-			addDroid(CAM_HUMAN_PLAYER, -1, -1, 
-				camNameTemplate(template), template.body, template.prop, "", "", template.weap);
+			camAddDroid(CAM_HUMAN_PLAYER, -1, template);
 			// NOTE: We can't give the offworld droid XP here, since the scripting API can't find it.
 			// Instead, we'll grant XP when the transport drops it off.
 		}

@@ -749,46 +749,26 @@ function eventStartLevel()
 	// Set up factories
 	camSetFactories({
 		"infFactory1": {
-			assembly: "infAssembly1",
-			order: CAM_ORDER_ATTACK,
-			groupSize: 3,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(12)),
 			// Infested civilians, with some occasional vehicles
 			templates: [cTempl.infciv, cTempl.infbjeep, cTempl.infciv, cTempl.infciv, cTempl.infciv, cTempl.infbjeep, cTempl.infciv, cTempl.infbuscan]
 		},
 		"infFactory2": {
-			assembly: "infAssembly2",
-			order: CAM_ORDER_ATTACK,
-			groupSize: 3,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(12)),
 			// Infested civilians, with some occasional vehicles
 			templates: [cTempl.infciv, cTempl.infrbjeep, cTempl.infciv, cTempl.inflance, cTempl.infciv, cTempl.infbjeep, cTempl.infciv]
 		},
 		"infFactory3": {
-			assembly: "infAssembly3",
-			order: CAM_ORDER_ATTACK,
-			groupSize: 3,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(16)),
 			// Light Infested vehicles
 			templates: [cTempl.infciv, cTempl.infrbjeep, cTempl.infciv, cTempl.infbloke, cTempl.infciv, cTempl.infbjeep, cTempl.infciv, cTempl.infbjeep]
 		},
 		"infFactory4": {
-			assembly: "infAssembly4",
-			order: CAM_ORDER_ATTACK,
-			groupSize: 3,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(8)),
 			// Infested infantry
 			templates: [cTempl.infciv, cTempl.infbloke, cTempl.infciv, cTempl.infkevbloke, cTempl.infciv, cTempl.infkevbloke, cTempl.infciv, cTempl.inflance]
 		},
 		"infFactory5": {
-			assembly: "infAssembly5",
-			order: CAM_ORDER_ATTACK,
-			groupSize: 3,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(18)),
 			// Large Infested vehicles
 			templates: [cTempl.infciv, cTempl.infciv, cTempl.infrbjeep, cTempl.infciv, cTempl.infbuscan, cTempl.infciv, cTempl.infbjeep]

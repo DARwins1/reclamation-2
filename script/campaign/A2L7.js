@@ -207,33 +207,25 @@ function collectiveAttackWaves()
 	if (!camDef(camGetTrucksFromLabel("colNorthLZ")[0]) && waveIndex >= 8 && (waveIndex % 4 == 0))
 	{
 		const tPos = camMakePos("groundEntry5");
-		const newTruck = addDroid(CAM_THE_COLLECTIVE, tPos.x, tPos.y, 
-			camNameTemplate(tTemp.weap, tTemp.body, tTemp.prop), 
-			tTemp.body, tTemp.prop, "", "", tTemp.weap);
+		const newTruck = camAddDroid(CAM_THE_COLLECTIVE, tPos, tTemp);
 		camAssignTruck(newTruck, colTruckJob1);
 	}
 	if (!camDef(camGetTrucksFromLabel("colWestLZ")[0]) && waveIndex >= 16 && (waveIndex % 4 == 0))
 	{
 		const tPos = camMakePos("groundEntry8");
-		const newTruck = addDroid(CAM_THE_COLLECTIVE, tPos.x, tPos.y, 
-			camNameTemplate(tTemp.weap, tTemp.body, tTemp.prop), 
-			tTemp.body, tTemp.prop, "", "", tTemp.weap);
+		const newTruck = camAddDroid(CAM_THE_COLLECTIVE, tPos, tTemp);
 		camAssignTruck(newTruck, colTruckJob2);
 	}
 	if (!camDef(camGetTrucksFromLabel("colSouthLZ")[0]) && waveIndex >= 24 && (waveIndex % 6 == 0))
 	{
 		const tPos = camMakePos("groundEntry6");
-		const newTruck = addDroid(CAM_THE_COLLECTIVE, tPos.x, tPos.y, 
-			camNameTemplate(tTemp.weap, tTemp.body, tTemp.prop), 
-			tTemp.body, tTemp.prop, "", "", tTemp.weap);
+		const newTruck = camAddDroid(CAM_THE_COLLECTIVE, tPos, tTemp);
 		camAssignTruck(newTruck, colTruckJob3);
 	}
 	if (!camDef(camGetTrucksFromLabel("colCentralLZ")[0]) && waveIndex >= 40 && (waveIndex % 8 == 0))
 	{
 		const tPos = camMakePos("groundEntry9");
-		const newTruck = addDroid(CAM_THE_COLLECTIVE, tPos.x, tPos.y, 
-			camNameTemplate(tTemp.weap, tTemp.body, tTemp.prop), 
-			tTemp.body, tTemp.prop, "", "", tTemp.weap);
+		const newTruck = camAddDroid(CAM_THE_COLLECTIVE, tPos, tTemp);
 		camAssignTruck(newTruck, colTruckJob4);
 	}
 
@@ -260,9 +252,7 @@ function collectiveAttackWaves()
 			// Spawn and rank the commander
 			const commanderPos = camMakePos(specialEntrance);
 			const commanderTemp = (difficulty === INSANE || waveIndex >= 40) ? cTempl.cohcomt : cTempl.comcomt;
-			const commDroid = addDroid(CAM_THE_COLLECTIVE, commanderPos.x, commanderPos.y, 
-				camNameTemplate(commanderTemp), commanderTemp.body, commanderTemp.prop, "", "", commanderTemp.weap
-			);
+			const commDroid = camAddDroid(CAM_THE_COLLECTIVE, commanderPos, commanderTemp);
 			addLabel(commDroid, specialName);
 			// Set the commander's rank (ranges from Trained to Professional)
 			const COMMANDER_RANK = (difficulty <= EASY) ? 2 : (difficulty);
@@ -321,9 +311,7 @@ function collectiveAttackWaves()
 			// Spawn the sensor
 			const sensorPos = camMakePos(specialEntrance);
 			const sensorTemp = cTempl.comsenst;
-			const sensDroid = addDroid(CAM_THE_COLLECTIVE, sensorPos.x, sensorPos.y, 
-				camNameTemplate(sensorTemp), sensorTemp.body, sensorTemp.prop, "", "", sensorTemp.weap
-			);
+			const sensDroid = camAddDroid(CAM_THE_COLLECTIVE, sensorPos, sensorTemp);
 			addLabel(sensDroid, specialName);
 
 			// Order the sensor to attack
@@ -560,25 +548,29 @@ function eventStartLevel()
 	});
 
 	// Collective trucks
-	colTruckJob1 = camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colNorthLZ",
-		rebuildBase: true,
-		structset: camA2L7ColLZ1Structs
+	colTruckJob1 = camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colNorthLZ",
+			rebuildBase: true,
+			structset: camA2L7ColLZ1Structs
 	});
-	colTruckJob2 = camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colWestLZ",
-		rebuildBase: true,
-		structset: camA2L7ColLZ2Structs
+	colTruckJob2 = camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colWestLZ",
+			rebuildBase: true,
+			structset: camA2L7ColLZ2Structs
 	});
-	colTruckJob3 = camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colSouthLZ",
-		rebuildBase: true,
-		structset: camA2L7ColLZ3Structs
+	colTruckJob3 = camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colSouthLZ",
+			rebuildBase: true,
+			structset: camA2L7ColLZ3Structs
 	});
-	colTruckJob4 = camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colCentralLZ",
-		rebuildBase: true,
-		structset: camA2L7ColLZ4Structs
+	colTruckJob4 = camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colCentralLZ",
+			rebuildBase: true,
+			structset: camA2L7ColLZ4Structs
 	});
 
 	colHoverTemplates = [ // Changes over time
@@ -590,8 +582,9 @@ function eventStartLevel()
 		cTempl.comhpvh, cTempl.comhpvh, // 2 HVCs
 		cTempl.commrah, cTempl.commrah, // 2 MRAs
 	]
-	colHoverGroup = camMakeRefillableGroup(undefined, {
-		templates: colHoverTemplates
+	colHoverGroup = camMakeRefillableGroup(
+		undefined, {
+			templates: colHoverTemplates
 	}, CAM_ORDER_PATROL, {
 		// Move around the map and harass the player
 		pos: [ 

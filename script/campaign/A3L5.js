@@ -29,7 +29,6 @@ var enemyStoleArtifact; // True when the Collective have successfully escaped wi
 var colTruckJob; // Maintains the Collective's LZ
 var colArtiGroup; // Tries to escape with the artifact
 var colPatrolGroup; // Defends the Collective LZ
-// var colHoverGroup; // Harasses the player's LZ
 
 camAreaEvent("heliRemoveZone", function(droid)
 {
@@ -470,73 +469,41 @@ function eventStartLevel()
 
 	camSetFactories({
 		"infFactory1": {
-			assembly: "infAssembly1",
-			order: CAM_ORDER_ATTACK,
-			groupSize: 3,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(12)),
 			// Light scav vehicles + infantry
 			templates: [cTempl.infkevbloke, cTempl.infbjeep, cTempl.infbloke, cTempl.infciv, cTempl.infciv, cTempl.infbjeep, cTempl.infciv, cTempl.infbuscan]
 		},
 		"infFactory2": {
-			assembly: "infAssembly2",
-			order: CAM_ORDER_ATTACK,
-			groupSize: 3,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(16)),
 			// Misc. scav vehicles
 			templates: [cTempl.infrbuggy, cTempl.inflance, cTempl.infmoncan, cTempl.infbjeep, cTempl.infminitruck, cTempl.infbloke]
 		},
 		"infFactory3": {
-			assembly: "infAssembly3",
-			order: CAM_ORDER_ATTACK,
-			groupSize: 3,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(14)),
 			// Light Infested vehicles
 			templates: [cTempl.infgbjeep, cTempl.inftrike, cTempl.infbjeep, cTempl.infgbjeep, cTempl.infkevbloke, cTempl.infrbjeep]
 		},
 		"infFactory4": {
-			assembly: "infAssembly4",
-			order: CAM_ORDER_ATTACK,
-			groupSize: 3,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(16)),
 			// Misc. scav vehicles
 			templates: [cTempl.infbuscan, cTempl.infgbjeep, cTempl.infkevbloke, cTempl.infmonsar, cTempl.inffiretruck, cTempl.inftrike]
 		},
 		"infFactory5": {
-			assembly: "infAssembly5",
-			order: CAM_ORDER_ATTACK,
-			groupSize: 3,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(12)),
 			// Jeeps + infantry
 			templates: [cTempl.infkevbloke, cTempl.infrbjeep, cTempl.infkevlance, cTempl.infgbjeep, cTempl.infkevbloke, cTempl.infbjeep]
 		},
 		"infFactory6": {
-			assembly: "infAssembly6",
-			order: CAM_ORDER_ATTACK,
-			groupSize: 3,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(14)),
 			// Misc. scav vehicles
 			templates: [cTempl.inffiretruck, cTempl.infgbjeep, cTempl.infkevbloke, cTempl.infbuscan, cTempl.infminitruck]
 		},
 		"infFactory7": {
-			assembly: "infAssembly7",
-			order: CAM_ORDER_ATTACK,
-			groupSize: 3,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(26)),
 			// Heavy scav vehicles
 			templates: [cTempl.infmoncan, cTempl.infflatmrl, cTempl.infmonhmg, cTempl.infbuscan, cTempl.infmonmrl, cTempl.infminitruck, cTempl.infciv, cTempl.infbjeep]
 		},
 		"infFactory8": {
-			assembly: "infAssembly8",
-			order: CAM_ORDER_ATTACK,
-			groupSize: 3,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(20)),
 			// Evil vehicles
 			templates: [cTempl.inffiretruck, cTempl.infmonlan, cTempl.inftrike, cTempl.infbuscan, cTempl.infflatat, cTempl.infgbjeep, cTempl.infminitruck]
@@ -550,51 +517,42 @@ function eventStartLevel()
 	enemyStoleArtifact = false;
 
 	// Manage Collective groups...
-	colArtiGroup = camMakeRefillableGroup(camMakeGroup("colArtiGroup"), {
-		templates: [
-			cTempl.cohhcant, cTempl.cohhcant, // 2 Heavy Cannons
-			cTempl.comagt, cTempl.comagt, cTempl.comagt, cTempl.comagt, // 4 Assault Guns
-			cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, // 4 Assault Cannons
-			cTempl.cominft, cTempl.cominft, cTempl.cominft, // 3 Infernos
-			cTempl.comhatt, cTempl.comhatt, // 2 Tank Killers
-			cTempl.comhrept, // 1 Heavy Repair Turret
-		]}, CAM_ORDER_DEFEND, { // Wait for further orders...
-		pos: camMakePos("colArtiGroup")
+	colArtiGroup = camMakeRefillableGroup(
+		camMakeGroup("colArtiGroup"), {
+			templates: [
+				cTempl.cohhcant, cTempl.cohhcant, // 2 Heavy Cannons
+				cTempl.comagt, cTempl.comagt, cTempl.comagt, cTempl.comagt, // 4 Assault Guns
+				cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, // 4 Assault Cannons
+				cTempl.cominft, cTempl.cominft, cTempl.cominft, // 3 Infernos
+				cTempl.comhatt, cTempl.comhatt, // 2 Tank Killers
+				cTempl.comhrept, // 1 Heavy Repair Turret
+			]
+		}, CAM_ORDER_DEFEND, { // Wait for further orders...
+			pos: camMakePos("colArtiGroup")
 	});
-	colPatrolGroup = camMakeRefillableGroup(camMakeGroup("colPatrolGroup"), {
-		templates: [
-			cTempl.cohraat, // 1 Whirlwind
-			cTempl.cybla, cTempl.cybla, cTempl.cybla, cTempl.cybla, // 4 Lancer Cyborgs
-			cTempl.scytk, cTempl.scytk, // 2 Super Tank Killer Cyborgs
-			cTempl.cybth, cTempl.cybth, // 2 Thermite Flamer Cyborgs
-		]}, CAM_ORDER_PATROL, {
-		pos: [
-			camMakePos("patrolPos1"),
-			camMakePos("patrolPos2"),
-		],
-		interval: camSecondsToMilliseconds(42),
-		repair: 75
+	colPatrolGroup = camMakeRefillableGroup(
+		camMakeGroup("colPatrolGroup"), {
+			templates: [
+				cTempl.cohraat, // 1 Whirlwind
+				cTempl.cybla, cTempl.cybla, cTempl.cybla, cTempl.cybla, // 4 Lancer Cyborgs
+				cTempl.scytk, cTempl.scytk, // 2 Super Tank Killer Cyborgs
+				cTempl.cybth, cTempl.cybth, // 2 Thermite Flamer Cyborgs
+			]
+		}, CAM_ORDER_PATROL, {
+			pos: [
+				camMakePos("patrolPos1"),
+				camMakePos("patrolPos2"),
+			],
+			interval: camSecondsToMilliseconds(42),
+			repair: 75
 	});
-	// colHoverGroup = camMakeRefillableGroup(undefined, {
-	// 	templates: [
-	// 		cTempl.comhath, cTempl.comhath, // 2 Tank Killers
-	// 		cTempl.combbh, // 1 Bunker Buster
-	// 		cTempl.comhpvh, cTempl.comhpvh, cTempl.comhpvh, // 4 HVCs
-	// 		cTempl.combbh, // Another Bunker Buster
-	// 	]}, CAM_ORDER_PATROL, {
-	// 		pos: [
-	// 			camMakePos("hoverPatrolPos1"),
-	// 			camMakePos("hoverPatrolPos2"),
-	// 		],
-	// 		interval: camSecondsToMilliseconds(32),
-	// 		repair: 75
-	// });
 
-	colTruckJob = camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colLZBase",
-		rebuildBase: true,
-		structset: camAreaToStructSet("colLzStructs"),
-		truckDroid: getObject("colTruck")
+	colTruckJob = camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colLZBase",
+			rebuildBase: true,
+			structset: camAreaToStructSet("colLzStructs"),
+			truckDroid: getObject("colTruck")
 	});
 
 	// Most Infested units start out pre-damaged

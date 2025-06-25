@@ -365,14 +365,10 @@ function eventStartLevel()
 	// These are only activated after the player can leave
 	camSetFactories({
 		"infFactory": {
-			assembly: "infAssembly",
-			order: CAM_ORDER_ATTACK,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(15)),
 			templates: [ cTempl.infbuscan, cTempl.infkevbloke, cTempl.infminitruck, cTempl.infbuggy, cTempl.infkevlance ]
 		},
 		"infCybFactory": {
-			assembly: "infCybAssembly",
-			order: CAM_ORDER_ATTACK,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(25)),
 			templates: [ cTempl.infcybca, cTempl.infcybgr, cTempl.infcybhg, cTempl.infcybca ]
 		},

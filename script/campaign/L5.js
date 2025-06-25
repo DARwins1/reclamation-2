@@ -524,46 +524,18 @@ function eventStartLevel()
 			templates: [cTempl.bjeep, cTempl.sartruck, cTempl.rbjeep, cTempl.firetruck, cTempl.monhmg, cTempl.bjeep, cTempl.minitruck, cTempl.monmrl] // Vehicles and bus tanks
 		},
 		"infestedFactory1": {
-			assembly: "infestedAssembly1",
-			order: CAM_ORDER_ATTACK,
-			data: {
-				targetPlayer: CAM_HUMAN_PLAYER
-			},
-			groupSize: 1,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(10)),
 			templates: [cTempl.inflance, cTempl.infbjeep, cTempl.infbuscan, cTempl.infbloke] // Mixed light units and cannon buses
 		},
 		"infestedFactory2": {
-			assembly: "infestedAssembly2",
-			order: CAM_ORDER_ATTACK,
-			data: {
-				targetPlayer: CAM_HUMAN_PLAYER
-			},
-			groupSize: 1,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(10)),
 			templates: [cTempl.infrbuggy, cTempl.infminitruck, cTempl.infbuggy, cTempl.infkevbloke] // Mixed light units and MRP trucks
 		},
 		"infestedFactory3": {
-			assembly: "infestedAssembly3",
-			order: CAM_ORDER_ATTACK,
-			data: {
-				targetPlayer: CAM_HUMAN_PLAYER
-			},
-			groupSize: 1,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(10)),
 			templates: [cTempl.infkevlance, cTempl.inffiretruck, cTempl.infkevbloke] // Infantry and firetrucks
 		},
 		"infestedFactory4": {
-			assembly: "infestedAssembly4",
-			order: CAM_ORDER_ATTACK,
-			data: {
-				targetPlayer: CAM_HUMAN_PLAYER
-			},
-			groupSize: 1,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(10)),
 			templates: [cTempl.infrbuggy, cTempl.infminitruck, cTempl.infbuggy, cTempl.infbloke] // Mixed light units and MRP trucks
 		},
@@ -602,46 +574,51 @@ function eventStartLevel()
 	if (tweakOptions.rec_timerlessMode)
 	{
 		// Scav main base (cyan)
-		camManageTrucks(MIS_CYAN_SCAVS, {
-			label: "scavAllianceBase",
-			respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-			template: cTempl.crane,
-			structset: camAreaToStructSet("scavBase", MIS_CYAN_SCAVS)
+		camManageTrucks(
+			MIS_CYAN_SCAVS, {
+				label: "scavAllianceBase",
+				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+				template: cTempl.crane,
+				structset: camAreaToStructSet("scavBase", MIS_CYAN_SCAVS)
 		});
 		if (difficulty >= MEDIUM)
 		{
 			// Scav main base (yellow)
-			camManageTrucks(MIS_YELLOW_SCAVS, {
-				label: "scavAllianceBase",
-				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(90)),
-				template: cTempl.crane,
-				structset: camAreaToStructSet("scavBase", MIS_YELLOW_SCAVS)
+			camManageTrucks(
+				MIS_YELLOW_SCAVS, {
+					label: "scavAllianceBase",
+					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(90)),
+					template: cTempl.crane,
+					structset: camAreaToStructSet("scavBase", MIS_YELLOW_SCAVS)
 			});
 			// Central scav outpost
-			camManageTrucks(MIS_YELLOW_SCAVS, {
-				label: "scavOutpost",
-				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(90)),
-				template: cTempl.crane,
-				structset: camAreaToStructSet("yScavBase1")
+			camManageTrucks(
+				MIS_YELLOW_SCAVS, {
+					label: "scavOutpost",
+					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(90)),
+					template: cTempl.crane,
+					structset: camAreaToStructSet("yScavBase1")
 			});
 		}
 		if (difficulty >= HARD)
 		{
 			// Yellow scav southern bases
-			camManageTrucks(MIS_YELLOW_SCAVS, {
-				label: "scavCamp",
-				rebuildBase: true,
-				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(110)),
-				template: cTempl.crane,
-				structset: camAreaToStructSet("yScavBase2")
+			camManageTrucks(
+				MIS_YELLOW_SCAVS, {
+					label: "scavCamp",
+					rebuildBase: true,
+					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(110)),
+					template: cTempl.crane,
+					structset: camAreaToStructSet("yScavBase2")
 			});
 			// Yellow scav southern bases
-			camManageTrucks(MIS_YELLOW_SCAVS, {
-				label: "scavRoadblock",
-				rebuildBase: true,
-				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(110)),
-				template: cTempl.crane,
-				structset: camAreaToStructSet("yScavBase3")
+			camManageTrucks(
+				MIS_YELLOW_SCAVS, {
+					label: "scavRoadblock",
+					rebuildBase: true,
+					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(110)),
+					template: cTempl.crane,
+					structset: camAreaToStructSet("yScavBase3")
 			});
 		}
 	}
@@ -663,8 +640,7 @@ function eventStartLevel()
 
 	// Spawn a scav Monster Bus tank (to be blown up)
 	const busPos = camMakePos("boomShowcaseGroup");
-	showBus = addDroid(MIS_CYAN_SCAVS, busPos.x, busPos.y, "Battle Bus 4",
-		"MonsterBus", "tracked01", "", "", "RustCannon1Mk1").id;
+	showBus = camAddDroid(MIS_CYAN_SCAVS, busPos, cTempl.moncan, "Battle Bus 4").id;
 	setHealth(getObject(DROID, MIS_CYAN_SCAVS, showBus), 30); // Starts very damaged
 	addLabel({ type: GROUP, id: camMakeGroup(getObject(DROID, MIS_CYAN_SCAVS, showBus)) }, "showBusST", false);
 	resetLabel("showBusST", CAM_HUMAN_PLAYER); // subscribe for eventGroupSeen (used to trigger Boom Tick demonstration)

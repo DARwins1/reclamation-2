@@ -214,19 +214,21 @@ function eventTransporterLanded(transport)
 			donateObject(structure, CAM_HUMAN_PLAYER);
 		}
 
-		camManageTrucks(MIS_CLAYDE, {
-			label: "nasdaCentral",
-			rebuildBase: true,
-			respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(40), true),
-			truckDroid: getObject("zuluEngineer1"),
-			structset: nasdaCentralStructSet
+		camManageTrucks(
+			MIS_CLAYDE, {
+				label: "nasdaCentral",
+				rebuildBase: true,
+				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(40), true),
+				truckDroid: getObject("zuluEngineer1"),
+				structset: nasdaCentralStructSet
 		});
-		camManageTrucks(MIS_CLAYDE, {
-			label: "nasdaCentral",
-			rebuildBase: true,
-			respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(40), true),
-			truckDroid: getObject("zuluEngineer2"),
-			structset: nasdaCentralStructSet
+		camManageTrucks(
+			MIS_CLAYDE, {
+				label: "nasdaCentral",
+				rebuildBase: true,
+				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(40), true),
+				truckDroid: getObject("zuluEngineer2"),
+				structset: nasdaCentralStructSet
 		});
 
 		structsDonated = true;
@@ -458,27 +460,21 @@ function collectiveAttackWaves()
 	{
 		const tPos = camMakePos("colEntrance5");
 		const tTemp = (phaseTwo || difficulty === INSANE) ? cTempl.comtruckt : cTempl.coltruckht;
-		const newTruck = addDroid(CAM_THE_COLLECTIVE, tPos.x, tPos.y, 
-			camNameTemplate(tTemp.weap, tTemp.body, tTemp.prop), 
-			tTemp.body, tTemp.prop, "", "", tTemp.weap);
+		const newTruck = camAddDroid(CAM_THE_COLLECTIVE, tPos, tTemp);
 		camAssignTruck(newTruck, colTruckJob1);
 	}
 	if (!camDef(camGetTruck(colTruckJob2)) && waveIndex >= 16 && (waveIndex % 8 == 0 || (phaseTwo && waveIndex % 2 == 0)))
 	{
 		const tPos = camMakePos("colEntrance4");
 		const tTemp = (phaseTwo || difficulty >= HARD) ? cTempl.comtruckt : cTempl.coltruckht;
-		const newTruck = addDroid(CAM_THE_COLLECTIVE, tPos.x, tPos.y, 
-			camNameTemplate(tTemp.weap, tTemp.body, tTemp.prop), 
-			tTemp.body, tTemp.prop, "", "", tTemp.weap);
+		const newTruck = camAddDroid(CAM_THE_COLLECTIVE, tPos, tTemp);
 		camAssignTruck(newTruck, colTruckJob2);
 	}
 	if (!camDef(camGetTruck(colTruckJob3)) && waveIndex >= 24 && (waveIndex % 6 == 0 || (phaseTwo && waveIndex % 2 == 0)))
 	{
 		const tPos = camMakePos("colEntrance7");
 		const tTemp = (phaseTwo || difficulty >= MEDIUM) ? cTempl.comtruckt : cTempl.coltruckht;
-		const newTruck = addDroid(CAM_THE_COLLECTIVE, tPos.x, tPos.y, 
-			camNameTemplate(tTemp.weap, tTemp.body, tTemp.prop), 
-			tTemp.body, tTemp.prop, "", "", tTemp.weap);
+		const newTruck = camAddDroid(CAM_THE_COLLECTIVE, tPos, tTemp);
 		camAssignTruck(newTruck, colTruckJob3);
 	}
 }
@@ -593,8 +589,7 @@ function spawnCollectiveCommander()
 	// Spawn a Collective commander
 	const commanderPos = camMakePos("colEntrance8");
 	const commanderTemp = cTempl.comcomt;
-	const commDroid = addDroid(CAM_THE_COLLECTIVE, commanderPos.x, commanderPos.y, 
-		camNameTemplate(commanderTemp), commanderTemp.body, commanderTemp.prop, "", "", commanderTemp.weap);
+	const commDroid = camAddDroid(CAM_THE_COLLECTIVE, commanderPos, commanderTemp);
 	addLabel(commDroid, "colCommander");
 	// Set the commander's rank (ranges from Trained to Professional)
 	const COMMANDER_RANK = (difficulty <= EASY) ? 2 : (difficulty);

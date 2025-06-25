@@ -231,26 +231,29 @@ function expandMap()
 	else
 	{
 		// Set up scavenger cranes...
-		camManageTrucks(MIS_CYAN_SCAVS, {
-			label: "eastScavBase",
-			respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(100)),
-			template: cTempl.crane,
-			structset: camAreaToStructSet("scavBase1")
+		camManageTrucks(
+			MIS_CYAN_SCAVS, {
+				label: "eastScavBase",
+				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(100)),
+				template: cTempl.crane,
+				structset: camAreaToStructSet("scavBase1")
 		});
-		camManageTrucks(MIS_CYAN_SCAVS, {
-			label: "westScavBase",
-			respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(100)),
-			template: cTempl.crane,
-			structset: camAreaToStructSet("scavBase3")
+		camManageTrucks(
+			MIS_CYAN_SCAVS, {
+				label: "westScavBase",
+				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(100)),
+				template: cTempl.crane,
+				structset: camAreaToStructSet("scavBase3")
 		});
 		if (difficulty >= HARD)
 		{
-			camManageTrucks(MIS_CYAN_SCAVS, {
-				label: "oilOutpost",
-				rebuildBase: true,
-				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(100)),
-				template: cTempl.crane,
-				structset: camAreaToStructSet("scavBase2")
+			camManageTrucks(
+				MIS_CYAN_SCAVS, {
+					label: "oilOutpost",
+					rebuildBase: true,
+					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(100)),
+					template: cTempl.crane,
+					structset: camAreaToStructSet("scavBase2")
 			});
 		}
 	}
@@ -618,7 +621,7 @@ function convertToTransport(truck, transportLabel)
 	}
 
 	// Create the new truck
-	const newTruck = addDroid(CAM_HUMAN_PLAYER, tPos.x, tPos.y, newName, tBody, tProp, "", "", "Spade1Trans");
+	const newTruck = camAddDroid(CAM_HUMAN_PLAYER, tPos, {body: tBody, prop: tProp: weap: "Spade1Trans"} newName);
 	addLabel(newTruck, transportLabel);
 
 	// Quietly remove the old truck...
@@ -699,7 +702,7 @@ function convertToTruck(transTruck)
 	}
 
 	// Create the new truck
-	const newTruck = addDroid(CAM_HUMAN_PLAYER, tPos.x, tPos.y, newName, tBody, tProp, "", "", "Spade1Mk1");
+	const newTruck = camAddDroid(CAM_HUMAN_PLAYER, tPos, {body: tBody, prop: tProp: weap: "Spade1Mk1"} newName);
 
 	// Quietly remove the transport truck...
 	camSafeRemoveObject(transTruck);
@@ -856,12 +859,11 @@ function eventTransporterLanded(transport)
 
 	// Add some civilians to the LZ
 	const NUM_CIVS = camRand(5) + 6; // 6 to 10 civilians
-	const spawnPos = camMakePos("landingZone");
 	const depositPos = camMakePos("depositZone");
 	for (let i = 0; i < NUM_CIVS; i++)
 	{
 		// Spawn civilians, and then move them towards the deposit zone
-		const civ = addDroid(MIS_CIVS, spawnPos.x, spawnPos.y, _("Civilian"), "CivilianBody", "BaBaLegs", "", "", "InfestedMelee");
+		const civ = camAddDroid(MIS_CIVS, camRandPosIn("landingZone"), cTempl.civ, _("Civilian"));
 		orderDroidLoc(civ, DORDER_MOVE, depositPos.x, depositPos.y);
 	}
 }
@@ -1233,9 +1235,6 @@ function eventStartLevel()
 
 		for (template of templates)
 		{
-			// Choose a random position within the zone
-			const pos = {x: zone.x + camRand(zone.x2 - zone.x), y: zone.y + camRand(zone.y2 - zone.y)};
-
 			// Make some clean-looking names for the spawned units
 			// ("Weapon Body Propulsion" doesn't look very good for scavenger units)
 			let droidName = "";
@@ -1264,7 +1263,7 @@ function eventStartLevel()
 					break;
 			}
 
-			const newDroid = addDroid(MIS_CIVS, pos.x, pos.y, droidName, template.body, template.prop, "", "", template.weap);
+			const newDroid = camAddDroid(MIS_CIVS, camRandPosIn(zone), template, droidName);
 			groupAdd(civGroup, newDroid);
 		}
 	}

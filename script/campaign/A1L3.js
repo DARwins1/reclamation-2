@@ -282,51 +282,59 @@ function introduceCollective()
 		cTempl.colpodt, cTempl.colpodt, cTempl.colpodt, cTempl.colpodt, 
 	];
 	colUplinkPatrolGroup = camSendReinforcement(CAM_THE_COLLECTIVE, getObject("collectiveEntrance"), patrolTemplates, CAM_REINFORCE_GROUND);
-	camMakeRefillableGroup(colUplinkPatrolGroup, {templates: patrolTemplates}, CAM_ORDER_PATROL, {
-		pos: [camMakePos("patrolPos1"), camMakePos("patrolPos2"), camMakePos("patrolPos3")],
-		count: 10,
-		morale: 70,
-		fallback: camMakePos("collectiveRepairPos"),
-		repair: 60,
-		repairPos: camMakePos("collectiveRepairPos") // Wait here for repairs/reinforcements
+	camMakeRefillableGroup(
+		colUplinkPatrolGroup, {templates: patrolTemplates}, CAM_ORDER_PATROL, {
+			pos: [camMakePos("patrolPos1"), camMakePos("patrolPos2"), camMakePos("patrolPos3")],
+			count: 10,
+			morale: 70,
+			fallback: camMakePos("collectiveRepairPos"),
+			repair: 60,
+			repairPos: camMakePos("collectiveRepairPos") // Wait here for repairs/reinforcements
 	});
 
 	// These groups are filled in later!
 	// Single Sensor unit
-	colSensorGroup = camMakeRefillableGroup(undefined, {templates: [
-		(difficulty < HARD) ? cTempl.colsenst : cTempl.comsenst,
-		]}, CAM_ORDER_ATTACK, {
-		repair: 60,
-		repairPos: camMakePos("collectiveRepairPos")
+	colSensorGroup = camMakeRefillableGroup(
+		undefined, {
+			templates: [
+				(difficulty < HARD) ? cTempl.colsenst : cTempl.comsenst,
+			]
+		}, CAM_ORDER_ATTACK, {
+			repair: 60,
+			repairPos: camMakePos("collectiveRepairPos")
 	});
 	// Mortars to be assigned to a sensor (6 Mortars)
-	colMortarGroup = camMakeRefillableGroup(undefined, {templates: [
-		cTempl.colmortht, cTempl.colmortht, cTempl.colmortht,
-		cTempl.colmortht, cTempl.colmortht, cTempl.colmortht,
-		]}, CAM_ORDER_FOLLOW, {
-		leader: "colSensorDroid", // NOTE: This droid doesn't exist at the start of the mission!
-		suborder: CAM_ORDER_DEFEND,
-		pos: camMakePos("collectiveRepairPos"), // Defend this position if the sensor is dead.
-		repair: 75,
-		repairPos: camMakePos("collectiveRepairPos")
+	colMortarGroup = camMakeRefillableGroup(
+		undefined, {
+			templates: [
+				cTempl.colmortht, cTempl.colmortht, cTempl.colmortht,
+				cTempl.colmortht, cTempl.colmortht, cTempl.colmortht,
+			]
+		}, CAM_ORDER_FOLLOW, {
+			leader: "colSensorDroid", // NOTE: This droid doesn't exist at the start of the mission!
+			suborder: CAM_ORDER_DEFEND,
+			pos: camMakePos("collectiveRepairPos"), // Defend this position if the sensor is dead.
+			repair: 75,
+			repairPos: camMakePos("collectiveRepairPos")
 	});
 
 	// One truck for the LZ, one for the Uplink outpost
 	const tPos = camMakePos("collectiveEntrance");
 	const tTemp = cTempl.coltruckht;
-	colLZTruckJob = camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colLZBase",
-		rebuildBase: true,
-		structset: camA1L3LZStructs,
-		// Spawn a truck along with the other units
-		truckDroid: addDroid(CAM_THE_COLLECTIVE, tPos.x, tPos.y, 
-			camNameTemplate(tTemp), tTemp.body, tTemp.prop, "", "", tTemp.weap),
+	colLZTruckJob = camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colLZBase",
+			rebuildBase: true,
+			structset: camA1L3LZStructs,
+			// Spawn a truck along with the other units
+			truckDroid: camAddDroid(CAM_THE_COLLECTIVE, tPos, tTemp),
 	});
-	colUplinkTruckJob = camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colUplinkBase",
-		rebuildBase: true,
-		structset: camA1L3UplinkStructs,
-		// This truck is brought in later!
+	colUplinkTruckJob = camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colUplinkBase",
+			rebuildBase: true,
+			structset: camA1L3UplinkStructs,
+			// This truck is brought in later!
 	});
 
 	if (difficulty >= HARD) addCollectiveAntiAir(); // Do this immediately on Hard+
@@ -406,9 +414,7 @@ function spawnBackupTruck()
 {
 	const tPos = camMakePos("collectiveEntrance");
 	const tTemp = cTempl.coltruckht;
-	const newTruck = addDroid(CAM_THE_COLLECTIVE, tPos.x, tPos.y, 
-		camNameTemplate(tTemp.weap, tTemp.body, tTemp.prop), 
-		tTemp.body, tTemp.prop, "", "", tTemp.weap);
+	const newTruck = camAddDroid(CAM_THE_COLLECTIVE, tPos, tTemp);
 	camAssignTruck(newTruck, colLZTruckJob);
 	if (!backupTruckSpawned)
 	{
@@ -700,74 +706,83 @@ function eventStartLevel()
 		{
 			case INSANE:
 				// Cranes for the red roadblock base and orange central crater base
-				camManageTrucks(MIS_ORANGE_SCAVS, {
-					label: "orangeSouthCraterBase",
-					rebuildBase: true,
-					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-					template: cTempl.crane,
-					structset: camAreaToStructSet("orangeBase3")
+				camManageTrucks(
+					MIS_ORANGE_SCAVS, {
+						label: "orangeSouthCraterBase",
+						rebuildBase: true,
+						respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+						template: cTempl.crane,
+						structset: camAreaToStructSet("orangeBase3")
 				});
-				camManageTrucks(MIS_RED_SCAVS, {
-					label: "redRoadblockBase",
-					rebuildBase: true,
-					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-					template: cTempl.crane,
-					structset: camAreaToStructSet("redBase1")
+				camManageTrucks(
+					MIS_RED_SCAVS, {
+						label: "redRoadblockBase",
+						rebuildBase: true,
+						respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+						template: cTempl.crane,
+						structset: camAreaToStructSet("redBase1")
 				});
 			case HARD: // NOTE: Fall-through here! We still add Cranes from lower difficulties!
 				// Cranes for the red north road base, and orange northeast crater base
-				camManageTrucks(MIS_RED_SCAVS, {
-					label: "redNorthRoadBase",
-					rebuildBase: true,
-					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-					template: cTempl.crane,
-					structset: camAreaToStructSet("redBase2")
+				camManageTrucks(
+					MIS_RED_SCAVS, {
+						label: "redNorthRoadBase",
+						rebuildBase: true,
+						respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+						template: cTempl.crane,
+						structset: camAreaToStructSet("redBase2")
 				});
-				camManageTrucks(MIS_ORANGE_SCAVS, {
-					label: "orangeNorthCraterBase",
-					rebuildBase: true,
-					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-					template: cTempl.crane,
-					structset: camAreaToStructSet("orangeBase4")
+				camManageTrucks(
+					MIS_ORANGE_SCAVS, {
+						label: "orangeNorthCraterBase",
+						rebuildBase: true,
+						respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+						template: cTempl.crane,
+						structset: camAreaToStructSet("orangeBase4")
 				});
 			case MEDIUM:
 				// Cranes for the south red base and northwest orange base
-				camManageTrucks(MIS_RED_SCAVS, {
-					label: "redSouthRoadBase",
-					rebuildBase: true,
-					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-					template: cTempl.crane,
-					structset: camAreaToStructSet("redBase4")
+				camManageTrucks(
+					MIS_RED_SCAVS, {
+						label: "redSouthRoadBase",
+						rebuildBase: true,
+						respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+						template: cTempl.crane,
+						structset: camAreaToStructSet("redBase4")
 				});
-				camManageTrucks(MIS_ORANGE_SCAVS, {
-					label: "orangeNorthRoadBase",
-					rebuildBase: true,
-					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-					template: cTempl.crane,
-					structset: camAreaToStructSet("orangeBase1")
+				camManageTrucks(
+					MIS_ORANGE_SCAVS, {
+						label: "orangeNorthRoadBase",
+						rebuildBase: true,
+						respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+						template: cTempl.crane,
+						structset: camAreaToStructSet("orangeBase1")
 				});
 			default:
 				// Cranes for the red uplink base, plateau base, and orange hill base
-				camManageTrucks(MIS_RED_SCAVS, {
-					label: "redUplinkBase",
-					rebuildBase: true,
-					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-					template: cTempl.crane,
-					structset: camAreaToStructSet("redBase5")
+				camManageTrucks(
+					MIS_RED_SCAVS, {
+						label: "redUplinkBase",
+						rebuildBase: true,
+						respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+						template: cTempl.crane,
+						structset: camAreaToStructSet("redBase5")
 				});
-				camManageTrucks(MIS_RED_SCAVS, {
-					label: "redPlateauBase",
-					rebuildBase: true,
-					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-					template: cTempl.crane,
-					structset: camAreaToStructSet("redBase3")
+				camManageTrucks(
+					MIS_RED_SCAVS, {
+						label: "redPlateauBase",
+						rebuildBase: true,
+						respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+						template: cTempl.crane,
+						structset: camAreaToStructSet("redBase3")
 				});
-				camManageTrucks(MIS_ORANGE_SCAVS, {
-					label: "orangePlateauBase",
-					rebuildBase: true,
-					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-					template: cTempl.crane,
-					structset: camAreaToStructSet("orangeBase2")
+				camManageTrucks(
+					MIS_ORANGE_SCAVS, {
+						label: "orangePlateauBase",
+						rebuildBase: true,
+						respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+						template: cTempl.crane,
+						structset: camAreaToStructSet("orangeBase2")
 				});
 		}
 	}

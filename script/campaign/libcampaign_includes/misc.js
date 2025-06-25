@@ -59,6 +59,30 @@ function camRandFrom(array)
 	camDebug("Array has no elements!");
 }
 
+//;; ## camRandPosIn(area)
+//;;
+//;; Returns a position from the given area object/label.
+//;;
+//;; @param {string|Object} area
+//;; @returns {Object}
+//;;
+function camRandPosIn(area)
+{
+	if (camIsString(area))
+	{
+		area = getObject(area);
+	}
+
+	if (camDef(area.x2))
+	{
+		return {
+			x: area.x + camRand(area.x2 - area.x),
+			y: area.y + camRand(area.y2 - area.y)
+		};
+	}
+	camDebug("Couldn't make random coordinates in area!");
+}
+
 //;; ## camCallOnce(functionName)
 //;;
 //;; Call a function by name, but only if it has not been called yet.

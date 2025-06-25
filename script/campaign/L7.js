@@ -451,8 +451,7 @@ function sendCivGroup(entrance)
 	// Spawn 10 - 16 civilians
 	for (let i = 0; i < (10 + camRand(7)); i++)
 	{
-		addDroid(MIS_CIVILIANS, spawnPos.x, spawnPos.y, "Civilian",
-		"CivilianBody", "BaBaLegs", "", "", "BabaMG");
+		camAddDroid(MIS_CIVILIANS, spawnPos, cTempl.civ, _("Civilian"));
 	}
 
 	// Order all civilians on the map to move towards the LZ

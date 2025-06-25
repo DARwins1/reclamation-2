@@ -202,19 +202,20 @@ function expandMap()
 
 	// Set up refillable groups and trucks
 	// Echo patrol group (2 Lancer Cyborgs, 2 HMG Cyborgs, 1 Hurricane)
-	camMakeRefillableGroup(camMakeGroup("echoPatrolGroup"), {
-		templates: [
-			cTempl.cybla, cTempl.cybla,
-			cTempl.cybhg, cTempl.cybhg,
-			cTempl.pllaaw,
-		],
-		factories: ["colFactory1", "colCybFactory1"],
+	camMakeRefillableGroup(
+		camMakeGroup("echoPatrolGroup"), {
+			templates: [
+				cTempl.cybla, cTempl.cybla,
+				cTempl.cybhg, cTempl.cybhg,
+				cTempl.pllaaw,
+			],
+			factories: ["colFactory1", "colCybFactory1"],
 		}, CAM_ORDER_PATROL, {
-		pos: [
-			camMakePos("patrolPos1"), camMakePos("patrolPos2"), camMakePos("patrolPos3")
-		],
-		interval: camSecondsToMilliseconds(28),
-		repair: 75
+			pos: [
+				camMakePos("patrolPos1"), camMakePos("patrolPos2"), camMakePos("patrolPos3")
+			],
+			interval: camSecondsToMilliseconds(28),
+			repair: 75
 	});
 	// Echo commander group
 	// (3 Lancer Cyborgs, 3 HMG Cyborgs, 2 Hurricanes)
@@ -229,152 +230,166 @@ function expandMap()
 		commandTemplates.push(cTempl.cybla);
 		commandTemplates.push(cTempl.cybhg);
 	}
-	camMakeRefillableGroup(camMakeGroup("echoCommandGroup"), {
-		templates: commandTemplates,
-		factories: ["colFactory2", "colCybFactory2"],
-		obj: "echoCommander" // Stop refilling this group when the commander dies
+	camMakeRefillableGroup(
+		camMakeGroup("echoCommandGroup"), {
+			templates: commandTemplates,
+			factories: ["colFactory2", "colCybFactory2"],
+			obj: "echoCommander" // Stop refilling this group when the commander dies
 		}, CAM_ORDER_FOLLOW, {
-		leader: "echoCommander",
-		repair: 50,
-		suborder: CAM_ORDER_ATTACK
+			leader: "echoCommander",
+			repair: 50,
+			suborder: CAM_ORDER_ATTACK
 	});
 	// Strike "group" consisting of a single VTOL strike turret
-	echoStrikeGroup = camMakeRefillableGroup(camMakeGroup("echoVtolSensor"), {
-		templates: [
-			cTempl.pllstrikeht,
-		],
-		factories: ["colFactory1", "colFactory2"],
-		obj: "colVtolFactory"
+	echoStrikeGroup = camMakeRefillableGroup(
+		camMakeGroup("echoVtolSensor"), {
+			templates: [
+				cTempl.pllstrikeht,
+			],
+			factories: ["colFactory1", "colFactory2"],
+			obj: "colVtolFactory" // Don't rebuild the VTOL sensor if we can't produce any more VTOLs
 		}, CAM_ORDER_DEFEND, { // This order is overwritten later...
-		pos: camMakePos("patrolPos3"),
-		repair: 40
+			pos: camMakePos("patrolPos3"),
+			repair: 40
 	});
 	// Echo VTOL groups
 	// Strike tower 1 (2 HMGs, 2 MRPs)
-	camMakeRefillableGroup(undefined, {
-		templates: [
-			cTempl.pllpodv, cTempl.pllhmgv,
-			cTempl.pllpodv, cTempl.pllhmgv,
-		],
-		factories: ["colVtolFactory"],
-		obj: "echoVtolTower1", // Only refill this group if the tower is still alive
+	camMakeRefillableGroup(
+		undefined, {
+			templates: [
+				cTempl.pllpodv, cTempl.pllhmgv,
+				cTempl.pllpodv, cTempl.pllhmgv,
+			],
+			factories: ["colVtolFactory"],
+			obj: "echoVtolTower1", // Only refill this group if the tower is still alive
 		}, CAM_ORDER_FOLLOW, {
-		leader: "echoVtolTower1",
-		suborder: CAM_ORDER_DEFEND,
-		data: {
-			pos: camMakePos("colVtolAssembly")
-		}
+			leader: "echoVtolTower1",
+			suborder: CAM_ORDER_DEFEND,
+			data: {
+				pos: camMakePos("colVtolAssembly")
+			}
 	});
 	// Strike tower 2 (2 HMGs, 2 MRPs)
-	camMakeRefillableGroup(undefined, {
-		templates: [
-			cTempl.pllpodv, cTempl.pllhmgv,
-			cTempl.pllpodv, cTempl.pllhmgv,
-		],
-		factories: ["colVtolFactory"],
-		obj: "echoVtolTower2",
+	camMakeRefillableGroup(
+		undefined, {
+			templates: [
+				cTempl.pllpodv, cTempl.pllhmgv,
+				cTempl.pllpodv, cTempl.pllhmgv,
+			],
+			factories: ["colVtolFactory"],
+			obj: "echoVtolTower2",
 		}, CAM_ORDER_FOLLOW, {
-		leader: "echoVtolTower2",
-		suborder: CAM_ORDER_DEFEND,
-		data: {
-			pos: camMakePos("colVtolAssembly")
-		}
+			leader: "echoVtolTower2",
+			suborder: CAM_ORDER_DEFEND,
+			data: {
+				pos: camMakePos("colVtolAssembly")
+			}
 	});
 	// Strike tower 3 (2 HMGs, 2 MRPs)
-	camMakeRefillableGroup(undefined, {
-		templates: [
-			cTempl.pllpodv, cTempl.pllhmgv,
-			cTempl.pllpodv, cTempl.pllhmgv,
-		],
-		factories: ["colVtolFactory"],
-		obj: "echoVtolTower3",
+	camMakeRefillableGroup(
+		undefined, {
+			templates: [
+				cTempl.pllpodv, cTempl.pllhmgv,
+				cTempl.pllpodv, cTempl.pllhmgv,
+			],
+			factories: ["colVtolFactory"],
+			obj: "echoVtolTower3",
 		}, CAM_ORDER_FOLLOW, {
-		leader: "echoVtolTower3",
-		suborder: CAM_ORDER_DEFEND,
-		data: {
-			pos: camMakePos("colVtolAssembly")
-		}
+			leader: "echoVtolTower3",
+			suborder: CAM_ORDER_DEFEND,
+			data: {
+				pos: camMakePos("colVtolAssembly")
+			}
 	});
 	// Strike turret (2 Lancers, 2 Cluster Bombs)
-	camMakeRefillableGroup(undefined, {
-		templates: [
-			cTempl.pllbombv, cTempl.plllanv,
-			cTempl.pllbombv, cTempl.plllanv,
-		],
-		factories: ["colVtolFactory"],
-		obj: "echoVtolSensor",
+	camMakeRefillableGroup(
+		undefined, {
+			templates: [
+				cTempl.pllbombv, cTempl.plllanv,
+				cTempl.pllbombv, cTempl.plllanv,
+			],
+			factories: ["colVtolFactory"],
+			obj: "echoVtolSensor",
 		}, CAM_ORDER_FOLLOW, {
-		leader: "echoVtolSensor",
-		suborder: CAM_ORDER_ATTACK
+			leader: "echoVtolSensor",
+			suborder: CAM_ORDER_ATTACK
 	});
 	// Trucks
 	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds((tweakOptions.rec_timerlessMode) ? 60 : 120));
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "echoSWBase",
-		rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= MEDIUM),
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		truckDroid: getObject("echoTruck1"),
-		structset: camAreaToStructSet("colBase1")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "echoSWBase",
+			rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= MEDIUM),
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			truckDroid: getObject("echoTruck1"),
+			structset: camAreaToStructSet("colBase1")
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "echoMainBase",
-		rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= EASY),
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		truckDroid: getObject("echoTruck2"),
-		structset: camAreaToStructSet("colBase2")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "echoMainBase",
+			rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= EASY),
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			truckDroid: getObject("echoTruck2"),
+			structset: camAreaToStructSet("colBase2")
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colLZBase",
-		rebuildTruck: (tweakOptions.rec_timerlessMode),
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		truckDroid: getObject("echoTruck3"),
-		structset: camAreaToStructSet("echoLZStructs")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colLZBase",
+			rebuildTruck: (tweakOptions.rec_timerlessMode),
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			truckDroid: getObject("echoTruck3"),
+			structset: camAreaToStructSet("echoLZStructs")
 	});
 
 	// If we're in Timerless mode, set up scavenger Cranes
 	if (tweakOptions.rec_timerlessMode)
 	{
 		const CRANE_TIME = camChangeOnDiff(camSecondsToMilliseconds(70));
-		camManageTrucks(CAM_THE_COLLECTIVE, {
-			label: "cScavNEBase",
-			rebuildBase: true,
-			respawnDelay: CRANE_TIME,
-			template: cTempl.crane,
-			structset: camAreaToStructSet("cScavBase1").filter((struct) => (camIsScavStruct(struct)))
+		camManageTrucks(
+			CAM_THE_COLLECTIVE, {
+				label: "cScavNEBase",
+				rebuildBase: true,
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("cScavBase1").filter((struct) => (camIsScavStruct(struct)))
 		});
-		camManageTrucks(CAM_THE_COLLECTIVE, {
-			label: "cScavWestBase",
-			rebuildBase: true,
-			respawnDelay: CRANE_TIME,
-			template: cTempl.crane,
-			structset: camAreaToStructSet("cScavBase2")
+		camManageTrucks(
+			CAM_THE_COLLECTIVE, {
+				label: "cScavWestBase",
+				rebuildBase: true,
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("cScavBase2")
 		});
-		camManageTrucks(CAM_THE_COLLECTIVE, {
-			label: "cScavNorthCanalBase",
-			rebuildBase: true,
-			respawnDelay: CRANE_TIME,
-			template: cTempl.crane,
-			structset: camAreaToStructSet("cScavBase3").filter((struct) => (camIsScavStruct(struct)))
+		camManageTrucks(
+			CAM_THE_COLLECTIVE, {
+				label: "cScavNorthCanalBase",
+				rebuildBase: true,
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("cScavBase3").filter((struct) => (camIsScavStruct(struct)))
 		});
-		camManageTrucks(CAM_THE_COLLECTIVE, {
-			label: "cScavSouthCanalBase",
-			rebuildBase: true,
-			respawnDelay: CRANE_TIME,
-			template: cTempl.crane,
-			structset: camAreaToStructSet("cScavBase4").filter((struct) => (camIsScavStruct(struct)))
+		camManageTrucks(
+			CAM_THE_COLLECTIVE, {
+				label: "cScavSouthCanalBase",
+				rebuildBase: true,
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("cScavBase4").filter((struct) => (camIsScavStruct(struct)))
 		});
 		if (difficulty >= MEDIUM)
 		{
 			// Echo main base (again)
-			camManageTrucks(CAM_THE_COLLECTIVE, {
-				label: "echoMainBase",
-				respawnDelay: TRUCK_TIME / 2,
-				rebuildBase: true,
-				template: cTempl.cyben,
-				structset: camAreaToStructSet("colBase2")
+			camManageTrucks(
+				CAM_THE_COLLECTIVE, {
+					label: "echoMainBase",
+					respawnDelay: TRUCK_TIME / 2,
+					rebuildBase: true,
+					template: cTempl.cyben,
+					structset: camAreaToStructSet("colBase2")
 			});
 		}
 	}

@@ -97,84 +97,51 @@ camAreaEvent("cScavAttack", function(droid)
 // If so, free that civilian group
 function checkCivilianGuards()
 {
-	const civExit = getObject("civilianExit");
-	const SND_CIV_RESCUE = cam_sounds.rescue.civilianRescued; // "Civilian Rescued"
-
 	// Ruins group
 	if (getObject("civGuard1") === null && !civGroup1Free)
 	{
 		const area = getObject("civGroup1");
 		const civs = enumArea(area.x, area.y, area.x2, area.y2, MIS_CIVILIANS, false);
-		for (let i = 0; i < civs.length; ++i)
-		{
-			if (civs[i].type === DROID)
-			{
-				orderDroidLoc(civs[i], DORDER_MOVE, civExit.x, civExit.y);
-			}
-		}
+		camManageGroup(camMakeGroup(civs), CAM_ORDER_DEFEND, {pos: camMakePos("civilianExit")});
 		civGroup1Free = true;
-		playSound(SND_CIV_RESCUE);
+		playSound(cam_sounds.rescue.civilianRescued);
 	}
 	// Yellow scav group
 	if (getObject("civGuard2") === null && !civGroup2Free)
 	{
 		const area = getObject("civGroup2");
 		const civs = enumArea(area.x, area.y, area.x2, area.y2, MIS_CIVILIANS, false);
-		for (let i = 0; i < civs.length; ++i)
-		{
-			if (civs[i].type === DROID)
-			{
-				orderDroidLoc(civs[i], DORDER_MOVE, civExit.x, civExit.y);
-			}
-		}
+		camManageGroup(camMakeGroup(civs), CAM_ORDER_DEFEND, {pos: camMakePos("civilianExit")});
 		civGroup2Free = true;
-		playSound(SND_CIV_RESCUE);
+		playSound(cam_sounds.rescue.civilianRescued);
 	}
 	// Cyan scav group
 	if (getObject("civGuard3") === null && !civGroup3Free)
 	{
 		const area = getObject("civGroup3");
 		const civs = enumArea(area.x, area.y, area.x2, area.y2, MIS_CIVILIANS, false);
-		for (let i = 0; i < civs.length; ++i)
-		{
-			if (civs[i].type === DROID)
-			{
-				orderDroidLoc(civs[i], DORDER_MOVE, civExit.x, civExit.y);
-			}
-		}
+		camManageGroup(camMakeGroup(civs), CAM_ORDER_DEFEND, {pos: camMakePos("civilianExit")});
 		civGroup3Free = true;
-		playSound(SND_CIV_RESCUE);
+		playSound(cam_sounds.rescue.civilianRescued);
 	}
 }
 
 // Spawn civilians in random positions inside of their group areas
 function populateCivilians()
 {
-	const area1 = getObject("civGroup1");
 	for (let i = 0; i < 5; ++i) // Spawn 5 civilians in area 1
 	{
-		const POS_X = area1.x + (camRand(2)); // 2 tiles wide area
-		const POS_Y = area1.y + (camRand(3)); // 3 tiles tall area
-		addDroid(MIS_CIVILIANS, POS_X, POS_Y, "Civilian",
-		"CivilianBody", "BaBaLegs", "", "", "BabaMG");
+		camAddDroid(MIS_CIVILIANS, camRandPosIn("civGroup1"), cTempl.civ, _("Civilian"));
 	}
 
-	const area2 = getObject("civGroup2");
 	for (let i = 0; i < 6; ++i) // Spawn 7 civilians in area 2
 	{
-		const POS_X = area2.x + (camRand(2)); // 2 tiles wide area
-		const POS_Y = area2.y + (camRand(3)); // 3 tiles tall area
-		addDroid(MIS_CIVILIANS, POS_X, POS_Y, "Civilian",
-		"CivilianBody", "BaBaLegs", "", "", "BabaMG");
+		camAddDroid(MIS_CIVILIANS, camRandPosIn("civGroup2"), cTempl.civ, _("Civilian"));
 	}
 
-	const area3 = getObject("civGroup3");
 	for (let i = 0; i < 6; ++i) // Spawn 6 civilians in area 3
 	{
-		const POS_X = area3.x + (camRand(4)); // 4 tiles wide area
-		const POS_Y = area3.y + (camRand(2)); // 2 tiles tall area
-		addDroid(MIS_CIVILIANS, POS_X, POS_Y, "Civilian",
-		"CivilianBody", "BaBaLegs", "", "", "BabaMG");
+		camAddDroid(MIS_CIVILIANS, camRandPosIn("civGroup3"), cTempl.civ, _("Civilian"));
 	}
 }
 
@@ -184,7 +151,6 @@ function eventStartLevel()
 	const lz = getObject("LZ");
 	const tent = getObject("transporterEntry");
 	const text = getObject("transporterExit");
-	const busPos = getObject("monsterBusGroup");
 
 	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "L3", {
 		area: "compromiseZone",
@@ -338,8 +304,8 @@ function eventStartLevel()
 	});
 
 	// Spawn the scav Monster Bus tank
-	addDroid(MIS_CYAN_SCAVS, busPos.x, busPos.y, "The Battle Bus",
-		"MonsterBus", "tracked01", "", "", "RustCannon1Mk1");
+	const busPos = getObject("monsterBusGroup");
+	camAddDroid(MIS_CYAN_SCAVS, busPos, cTempl.moncan, "The Battle Bus");
 
 	if (difficulty < HARD) {
 		// If we're below hard, remove one of the 3 yellow mortar pits
@@ -352,34 +318,37 @@ function eventStartLevel()
 		if (difficulty >= EASY)
 		{
 			// Cyan scav main base
-			camManageTrucks(MIS_CYAN_SCAVS, {
-				label: "cyanBase",
-				rebuildBase: true,
-				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-				template: cTempl.crane,
-				structset: camAreaToStructSet("cScavBase3")
+			camManageTrucks(
+				MIS_CYAN_SCAVS, {
+					label: "cyanBase",
+					rebuildBase: true,
+					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+					template: cTempl.crane,
+					structset: camAreaToStructSet("cScavBase3")
 			});
 		}
 		if (difficulty >= HARD)
 		{
 			// Cyan scav depot base
-			camManageTrucks(MIS_CYAN_SCAVS, {
-				label: "cyanDepot",
-				rebuildBase: true,
-				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(120)),
-				template: cTempl.crane,
-				structset: camAreaToStructSet("cScavBase1")
+			camManageTrucks(
+				MIS_CYAN_SCAVS, {
+					label: "cyanDepot",
+					rebuildBase: true,
+					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(120)),
+					template: cTempl.crane,
+					structset: camAreaToStructSet("cScavBase1")
 			});
 		}
 		if (difficulty >= INSANE)
 		{
 			// Yellow scav mountain base
-			camManageTrucks(MIS_YELLOW_SCAVS, {
-				label: "yellowBase",
-				rebuildBase: false,
-				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(120)),
-				template: cTempl.crane,
-				structset: camAreaToStructSet("yScavBase1")
+			camManageTrucks(
+				MIS_YELLOW_SCAVS, {
+					label: "yellowBase",
+					rebuildBase: false,
+					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(120)),
+					template: cTempl.crane,
+					structset: camAreaToStructSet("yScavBase1")
 			});
 		}
 	}

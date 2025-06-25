@@ -831,106 +831,113 @@ function eventStartLevel()
 
 	// Manage refillable groups
 	// Delta groups...
-	deltaCommander = camMakeRefillableGroup(camMakeGroup("deltaCommander"), {
-		templates: [cTempl.plhcomt]
+	deltaCommander = camMakeRefillableGroup(
+		camMakeGroup("deltaCommander"), {
+			templates: [cTempl.plhcomt]
 		}, CAM_ORDER_DEFEND, {
-		repair: 50,
-		pos: camMakePos("deltaCommandGroup"),
-		radius: 20
-	});
-	deltaCommandGroup = camMakeRefillableGroup(camMakeGroup("deltaCommandGroup"), {
-		templates: [ 
-			cTempl.plhacant, cTempl.plhacant, cTempl.plhacant, cTempl.plhacant, cTempl.plhacant, cTempl.plhacant, // 6 Assault Cannons
-			cTempl.plhasgnt, cTempl.plhasgnt, // 2 Assault Guns
-			cTempl.plhhrepht, cTempl.plhhrepht, cTempl.plhhrepht, // 3 Heavy Repair Turrets
-			cTempl.plhhaat, cTempl.plhhaat, // 2 Cyclones
-			cTempl.scygr, cTempl.scygr, cTempl.scygr, cTempl.scygr, // 4 Super Grenadiers
-			cTempl.plhstriket, // 1 VTOL Strike Turret
-		],
-		}, CAM_ORDER_FOLLOW, {
-		leader: "deltaCommander",
-		repair: 50,
-		suborder: CAM_ORDER_DEFEND,
-		data: {
+			repair: 50,
 			pos: camMakePos("deltaCommandGroup"),
 			radius: 20
-		}
 	});
-	deltaVtolSensGroup = camMakeRefillableGroup(camMakeGroup("deltaVtolSensGroup"), {
-		templates: [ // 4 HVCs, 4 Assault Guns
-			cTempl.plmhpvv, cTempl.plmhpvv,
-			cTempl.plmagv, cTempl.plmagv,
-			cTempl.plmhpvv, cTempl.plmhpvv,
-			cTempl.plmagv, cTempl.plmagv,
-		]
+	deltaCommandGroup = camMakeRefillableGroup(
+		camMakeGroup("deltaCommandGroup"), {
+			templates: [ 
+				cTempl.plhacant, cTempl.plhacant, cTempl.plhacant, cTempl.plhacant, cTempl.plhacant, cTempl.plhacant, // 6 Assault Cannons
+				cTempl.plhasgnt, cTempl.plhasgnt, // 2 Assault Guns
+				cTempl.plhhrepht, cTempl.plhhrepht, cTempl.plhhrepht, // 3 Heavy Repair Turrets
+				cTempl.plhhaat, cTempl.plhhaat, // 2 Cyclones
+				cTempl.scygr, cTempl.scygr, cTempl.scygr, cTempl.scygr, // 4 Super Grenadiers
+				cTempl.plhstriket, // 1 VTOL Strike Turret
+			],
 		}, CAM_ORDER_FOLLOW, {
-		leader: "deltaVtolSensor",
-		repair: 50,
-		suborder: CAM_ORDER_DEFEND,
-		data: {
-			pos: camMakePos("deltaVtolSensGroup"),
-			radius: 20
-		}
-	});
-	deltaVtolCbGroup = camMakeRefillableGroup(camMakeGroup("deltaVtolCbGroup"), {
-		templates: [ // 4 HVCs
-			cTempl.plmhpvv, cTempl.plmhpvv,
-			cTempl.plmhpvv, cTempl.plmhpvv,
-		]
-		}, CAM_ORDER_FOLLOW, {
-		leader: "deltaVtolCBTower",
-		repair: 50,
-		suborder: CAM_ORDER_ATTACK,
-		data: {
-			targetPlayer: CAM_HUMAN_PLAYER,
+			leader: "deltaCommander",
 			repair: 50,
-		}
+			suborder: CAM_ORDER_DEFEND,
+			data: {
+				pos: camMakePos("deltaCommandGroup"),
+				radius: 20
+			}
 	});
-	deltaVtolTowerGroup1 = camMakeRefillableGroup(camMakeGroup("deltaVtolTowerGroup1"), {
-		templates: [ // 4 HVCs, 4 Assault Guns
-			cTempl.plmhpvv, cTempl.plmhpvv,
-			cTempl.plmagv, cTempl.plmagv,
-			cTempl.plmhpvv, cTempl.plmhpvv,
-			cTempl.plmagv, cTempl.plmagv,
-		]
+	deltaVtolSensGroup = camMakeRefillableGroup(
+		camMakeGroup("deltaVtolSensGroup"), {
+			templates: [ // 4 HVCs, 4 Assault Guns
+				cTempl.plmhpvv, cTempl.plmhpvv,
+				cTempl.plmagv, cTempl.plmagv,
+				cTempl.plmhpvv, cTempl.plmhpvv,
+				cTempl.plmagv, cTempl.plmagv,
+			]
 		}, CAM_ORDER_FOLLOW, {
-		leader: "deltaVtolTower1",
-		repair: 50,
-		suborder: CAM_ORDER_ATTACK,
-		data: {
-			targetPlayer: CAM_HUMAN_PLAYER,
+			leader: "deltaVtolSensor",
 			repair: 50,
-		}
+			suborder: CAM_ORDER_DEFEND,
+			data: {
+				pos: camMakePos("deltaVtolSensGroup"),
+				radius: 20
+			}
 	});
-	deltaVtolTowerGroup2 = camMakeRefillableGroup(undefined, {
-		templates: [ // 2 HVCs, 2 Assault Guns
-			cTempl.plmhpvv, cTempl.plmhpvv,
-			cTempl.plmagv, cTempl.plmagv,
-		]
+	deltaVtolCbGroup = camMakeRefillableGroup(
+		camMakeGroup("deltaVtolCbGroup"), {
+			templates: [ // 4 HVCs
+				cTempl.plmhpvv, cTempl.plmhpvv,
+				cTempl.plmhpvv, cTempl.plmhpvv,
+			]
 		}, CAM_ORDER_FOLLOW, {
-		leader: "deltaVtolTower2",
-		repair: 50,
-		suborder: CAM_ORDER_ATTACK,
-		data: {
-			targetPlayer: CAM_HUMAN_PLAYER,
+			leader: "deltaVtolCBTower",
 			repair: 50,
-		}
+			suborder: CAM_ORDER_ATTACK,
+			data: {
+				targetPlayer: CAM_HUMAN_PLAYER,
+				repair: 50,
+			}
 	});
-	deltaVtolTowerGroup3 = camMakeRefillableGroup(undefined, {
-		templates: [ // 4 HVCs, 4 Assault Guns
-			cTempl.plmhpvv, cTempl.plmhpvv,
-			cTempl.plmagv, cTempl.plmagv,
-			cTempl.plmhpvv, cTempl.plmhpvv,
-			cTempl.plmagv, cTempl.plmagv,
-		]
+	deltaVtolTowerGroup1 = camMakeRefillableGroup(
+		camMakeGroup("deltaVtolTowerGroup1"), {
+			templates: [ // 4 HVCs, 4 Assault Guns
+				cTempl.plmhpvv, cTempl.plmhpvv,
+				cTempl.plmagv, cTempl.plmagv,
+				cTempl.plmhpvv, cTempl.plmhpvv,
+				cTempl.plmagv, cTempl.plmagv,
+			]
 		}, CAM_ORDER_FOLLOW, {
-		leader: "deltaVtolTower3",
-		repair: 50,
-		suborder: CAM_ORDER_ATTACK,
-		data: {
-			targetPlayer: CAM_HUMAN_PLAYER,
+			leader: "deltaVtolTower1",
 			repair: 50,
-		}
+			suborder: CAM_ORDER_ATTACK,
+			data: {
+				targetPlayer: CAM_HUMAN_PLAYER,
+				repair: 50,
+			}
+	});
+	deltaVtolTowerGroup2 = camMakeRefillableGroup(
+		undefined, {
+			templates: [ // 2 HVCs, 2 Assault Guns
+				cTempl.plmhpvv, cTempl.plmhpvv,
+				cTempl.plmagv, cTempl.plmagv,
+			]
+		}, CAM_ORDER_FOLLOW, {
+			leader: "deltaVtolTower2",
+			repair: 50,
+			suborder: CAM_ORDER_ATTACK,
+			data: {
+				targetPlayer: CAM_HUMAN_PLAYER,
+				repair: 50,
+			}
+	});
+	deltaVtolTowerGroup3 = camMakeRefillableGroup(
+		undefined, {
+			templates: [ // 4 HVCs, 4 Assault Guns
+				cTempl.plmhpvv, cTempl.plmhpvv,
+				cTempl.plmagv, cTempl.plmagv,
+				cTempl.plmhpvv, cTempl.plmhpvv,
+				cTempl.plmagv, cTempl.plmagv,
+			]
+		}, CAM_ORDER_FOLLOW, {
+			leader: "deltaVtolTower3",
+			repair: 50,
+			suborder: CAM_ORDER_ATTACK,
+			data: {
+				targetPlayer: CAM_HUMAN_PLAYER,
+				repair: 50,
+			}
 	});
 	
 	// Collective groups...
@@ -944,43 +951,46 @@ function eventStartLevel()
 		interval: camSecondsToMilliseconds(46),
 		repair: 65
 	});
-	camMakeRefillableGroup(camMakeGroup("colCommandGroup"), {
-		templates: [
-			cTempl.cohhcant, cTempl.cohhcant, // 2 Heavy Cannons
-			cTempl.cohhrat, cTempl.cohhrat, // 2 HRAs
-			cTempl.comagt, cTempl.comagt, cTempl.comagt, cTempl.comagt, // 4 Assault Guns
-			cTempl.cominft, cTempl.cominft, // 2 Infernos
-			cTempl.comhrept, cTempl.comhrept, // 2 Heavy Repair Turrets
-			cTempl.scyac, cTempl.scyac, cTempl.scyac, cTempl.scyac, // 4 Super Auto-Cannons
-		],
-		factories: ["colFactory1", "colFactory3", "colCybFactory2", "colCybFactory3", "colCybFactory4"],
-		obj: "colCommander" // Stop refilling this group when the commander dies
+	camMakeRefillableGroup(
+		camMakeGroup("colCommandGroup"), {
+			templates: [
+				cTempl.cohhcant, cTempl.cohhcant, // 2 Heavy Cannons
+				cTempl.cohhrat, cTempl.cohhrat, // 2 HRAs
+				cTempl.comagt, cTempl.comagt, cTempl.comagt, cTempl.comagt, // 4 Assault Guns
+				cTempl.cominft, cTempl.cominft, // 2 Infernos
+				cTempl.comhrept, cTempl.comhrept, // 2 Heavy Repair Turrets
+				cTempl.scyac, cTempl.scyac, cTempl.scyac, cTempl.scyac, // 4 Super Auto-Cannons
+			],
+			factories: ["colFactory1", "colFactory3", "colCybFactory2", "colCybFactory3", "colCybFactory4"],
+			obj: "colCommander" // Stop refilling this group when the commander dies
 		}, CAM_ORDER_FOLLOW, {
-		leader: "colCommander",
-		repair: 65,
-		suborder: CAM_ORDER_ATTACK
+			leader: "colCommander",
+			repair: 65,
+			suborder: CAM_ORDER_ATTACK
 	});
 	// Mortar/sensor groups
-	camMakeRefillableGroup(undefined, {
-		templates: [
-			cTempl.comsenst, // 1 Sensor
-		],
-		factories: ["colFactory2"]
-	}, CAM_ORDER_ATTACK, {
-		repair: 40,
-		targetPlayer: CAM_HUMAN_PLAYER
+	camMakeRefillableGroup(
+		undefined, {
+			templates: [
+				cTempl.comsenst, // 1 Sensor
+			],
+			factories: ["colFactory2"]
+		}, CAM_ORDER_ATTACK, {
+			repair: 40,
+			targetPlayer: CAM_HUMAN_PLAYER
 	});
-	camMakeRefillableGroup(undefined, {
-		templates: [
-			cTempl.comhmortht, cTempl.comhmortht, cTempl.comhmortht, cTempl.comhmortht, // 4 Bombards
-		],
-		factories: ["colFactory2"],
-		obj: "colSensor"
-	}, CAM_ORDER_FOLLOW, {
-		leader: "colSensor",
-		repair: 60,
-		suborder: CAM_ORDER_DEFEND,
-		pos: camMakePos("colAssembly2")
+	camMakeRefillableGroup(
+		undefined, {
+			templates: [
+				cTempl.comhmortht, cTempl.comhmortht, cTempl.comhmortht, cTempl.comhmortht, // 4 Bombards
+			],
+			factories: ["colFactory2"],
+			obj: "colSensor"
+		}, CAM_ORDER_FOLLOW, {
+			leader: "colSensor",
+			repair: 60,
+			suborder: CAM_ORDER_DEFEND,
+			pos: camMakePos("colAssembly2")
 	});
 	colKillGroup = camMakeGroup("colKillGroup");
 	camManageGroup(colKillGroup, CAM_ORDER_DEFEND, {
@@ -989,111 +999,128 @@ function eventStartLevel()
 
 	// Manage trucks...
 	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds((tweakOptions.rec_timerlessMode) ? 45 : 90));
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colMainBase",
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		structset: camAreaToStructSet("colMainStructs"),
-		truckDroid: getObject("colTruck1")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colMainBase",
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			structset: camAreaToStructSet("colMainStructs"),
+			truckDroid: getObject("colTruck1")
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colMainBase",
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		structset: camAreaToStructSet("colMainStructs"),
-		truckDroid: getObject("colTruck2")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colMainBase",
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			structset: camAreaToStructSet("colMainStructs"),
+			truckDroid: getObject("colTruck2")
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colWestCyborgBase",
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty >= HARD),
-		structset: camAreaToStructSet("colWestStructs"),
-		truckDroid: getObject("colTruck3")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colWestCyborgBase",
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: (tweakOptions.rec_timerlessMode || difficulty >= HARD),
+			structset: camAreaToStructSet("colWestStructs"),
+			truckDroid: getObject("colTruck3")
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colOutpost",
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		structset: camAreaToStructSet("outpostStructArea"),
-		truckDroid: getObject("colTruck4")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colOutpost",
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			structset: camAreaToStructSet("outpostStructArea"),
+			truckDroid: getObject("colTruck4")
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colUplinkBase",
-		respawnDelay: TRUCK_TIME,
-		structset: camAreaToStructSet("uplinkStructArea"),
-		truckDroid: getObject("colTruck5")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colUplinkBase",
+			respawnDelay: TRUCK_TIME,
+			structset: camAreaToStructSet("uplinkStructArea"),
+			truckDroid: getObject("colTruck5")
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colHillBase",
-		respawnDelay: TRUCK_TIME,
-		structset: camAreaToStructSet("colEastHillStructs"),
-		truckDroid: getObject("colTruck6")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colHillBase",
+			respawnDelay: TRUCK_TIME,
+			structset: camAreaToStructSet("colEastHillStructs"),
+			truckDroid: getObject("colTruck6")
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colNorthEastBase",
-		respawnDelay: TRUCK_TIME,
-		structset: camAreaToStructSet("colNEStructs"),
-		truckDroid: getObject("colTruck7")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colNorthEastBase",
+			respawnDelay: TRUCK_TIME,
+			structset: camAreaToStructSet("colNEStructs"),
+			truckDroid: getObject("colTruck7")
 	});
 	// Delta trucks
-	deltaTruckJob1 = camManageTrucks(MIS_TEAM_DELTA, {
-		label: "deltaLZBase",
-		rebuildBase: true,
-		structset: camAreaToStructSet("deltaLZStructs"),
-		truckDroid: getObject("deltaTruck1")
+	deltaTruckJob1 = camManageTrucks(
+		MIS_TEAM_DELTA, {
+			label: "deltaLZBase",
+			rebuildBase: true,
+			structset: camAreaToStructSet("deltaLZStructs"),
+			truckDroid: getObject("deltaTruck1")
 	});
-	deltaTruckJob2 = camManageTrucks(MIS_TEAM_DELTA, {
-		label: "deltaLZBase",
-		rebuildBase: true,
-		structset: camAreaToStructSet("deltaLZStructs"),
-		truckDroid: getObject("deltaTruck2")
+	deltaTruckJob2 = camManageTrucks(
+		MIS_TEAM_DELTA, {
+			label: "deltaLZBase",
+			rebuildBase: true,
+			structset: camAreaToStructSet("deltaLZStructs"),
+			truckDroid: getObject("deltaTruck2")
 	});
-	deltaTruckJob3 = camManageTrucks(MIS_TEAM_DELTA, {
-		label: "deltaLZBase",
-		rebuildBase: true,
-		structset: camAreaToStructSet("deltaMainStructs"),
-		truckDroid: getObject("deltaTruck3")
+	deltaTruckJob3 = camManageTrucks(
+		MIS_TEAM_DELTA, {
+			label: "deltaLZBase",
+			rebuildBase: true,
+			structset: camAreaToStructSet("deltaMainStructs"),
+			truckDroid: getObject("deltaTruck3")
 	});
-	deltaTruckJob4 = camManageTrucks(MIS_TEAM_DELTA, {
-		label: "deltaLZBase",
-		rebuildBase: true,
-		structset: camAreaToStructSet("deltaMainStructs"),
-		truckDroid: getObject("deltaTruck4")
+	deltaTruckJob4 = camManageTrucks(
+		MIS_TEAM_DELTA, {
+			label: "deltaLZBase",
+			rebuildBase: true,
+			structset: camAreaToStructSet("deltaMainStructs"),
+			truckDroid: getObject("deltaTruck4")
 	});
-	deltaTruckJob5 = camManageTrucks(MIS_TEAM_DELTA, {
-		label: "deltaOverlookBase",
-		rebuildBase: true,
-		structset: camA4L2DeltaOverlookStructs
+	deltaTruckJob5 = camManageTrucks(
+		MIS_TEAM_DELTA, {
+			label: "deltaOverlookBase",
+			rebuildBase: true,
+			structset: camA4L2DeltaOverlookStructs
 	});
-	deltaTruckJob6 = camManageTrucks(MIS_TEAM_DELTA, {
-		label: "deltaOutpost",
-		rebuildBase: true,
-		structset: camA4L2DeltaOutpostStructs
+	deltaTruckJob6 = camManageTrucks(
+		MIS_TEAM_DELTA, {
+			label: "deltaOutpost",
+			rebuildBase: true,
+			structset: camA4L2DeltaOutpostStructs
 	});
-	deltaTruckJob7 = camManageTrucks(MIS_TEAM_DELTA, {
-		label: "deltaOutpost",
-		rebuildBase: true,
-		structset: camA4L2DeltaOutpostStructs
+	deltaTruckJob7 = camManageTrucks(
+		MIS_TEAM_DELTA, {
+			label: "deltaOutpost",
+			rebuildBase: true,
+			structset: camA4L2DeltaOutpostStructs
 	});
-	deltaTruckJob8 = camManageTrucks(MIS_TEAM_DELTA, {
-		label: "deltaUplinkBase",
-		rebuildBase: true,
-		structset: camA4L2DeltaUplinkStructs
+	deltaTruckJob8 = camManageTrucks(
+		MIS_TEAM_DELTA, {
+			label: "deltaUplinkBase",
+			rebuildBase: true,
+			structset: camA4L2DeltaUplinkStructs
 	});
-	deltaTruckJob9 = camManageTrucks(MIS_TEAM_DELTA, {
-		label: "deltaUplinkBase",
-		rebuildBase: true,
-		structset: camA4L2DeltaUplinkStructs
+	deltaTruckJob9 = camManageTrucks(
+		MIS_TEAM_DELTA, {
+			label: "deltaUplinkBase",
+			rebuildBase: true,
+			structset: camA4L2DeltaUplinkStructs
 	});
 
 	if (tweakOptions.rec_timerlessMode && difficulty >= HARD)
 	{
 		// Add another main base truck
-		camManageTrucks(CAM_THE_COLLECTIVE, {
-			label: "colMainBase",
-			respawnDelay: TRUCK_TIME * 2,
-			structset: camAreaToStructSet("colMainStructs"),
-			template: cTempl.comtruckt
+		camManageTrucks(
+			CAM_THE_COLLECTIVE, {
+				label: "colMainBase",
+				respawnDelay: TRUCK_TIME * 2,
+				structset: camAreaToStructSet("colMainStructs"),
+				template: cTempl.comtruckt
 		});
 	}
 

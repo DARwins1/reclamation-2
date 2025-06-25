@@ -288,14 +288,15 @@ function activateCollective()
 		commandTemplates1.push(cTempl.scymc);
 		commandTemplates1.push(cTempl.scymc);
 	}
-	camMakeRefillableGroup(camMakeGroup("colCommandGroup1"), {
-		templates: commandTemplates1,
-		factories: ["colFactory4", "colCybFactory5"],
-		obj: "colCommander1" // Stop refilling this group when the commander dies
+	camMakeRefillableGroup(
+		camMakeGroup("colCommandGroup1"), {
+			templates: commandTemplates1,
+			factories: ["colFactory4", "colCybFactory5"],
+			obj: "colCommander1" // Stop refilling this group when the commander dies
 		}, CAM_ORDER_FOLLOW, {
-		leader: "colCommander1",
-		repair: 60,
-		suborder: CAM_ORDER_ATTACK
+			leader: "colCommander1",
+			repair: 60,
+			suborder: CAM_ORDER_ATTACK
 	});
 	const commandTemplates2 = [ // 2 HVCs, 2 HMGs, 2 Lancer Cyborgs, 2 Super Heavy-Gunners, 2 Heavy Cannons, 1 Cyclone, 1 Heavy Repair Turret
 		cTempl.comhpvt, cTempl.comhpvt,
@@ -312,192 +313,218 @@ function activateCollective()
 		commandTemplates1.push(cTempl.cybla);
 		commandTemplates1.push(cTempl.cybla);
 	}
-	camMakeRefillableGroup(camMakeGroup("colCommandGroup2"), {
-		templates: commandTemplates2,
-		factories: ["colFactory4", "colCybFactory5"],
-		obj: "colCommander2"
+	camMakeRefillableGroup(
+		camMakeGroup("colCommandGroup2"), {
+			templates: commandTemplates2,
+			factories: ["colFactory4", "colCybFactory5"],
+			obj: "colCommander2"
 		}, CAM_ORDER_FOLLOW, {
-		leader: "colCommander2",
-		repair: 60,
-		suborder: CAM_ORDER_ATTACK
+			leader: "colCommander2",
+			repair: 60,
+			suborder: CAM_ORDER_ATTACK
 	});
-	camMakeRefillableGroup(undefined, {
-		templates: [ // 2 Lancers, 2 MRAs, 2 HVCs
-			cTempl.comath, cTempl.commrah, cTempl.comhpvh,
-			cTempl.comath, cTempl.commrah, cTempl.comhpvh,
-		],
-		factories: ["colFactory3"],
-		obj: "colCC1"
+	camMakeRefillableGroup(
+		undefined, {
+			templates: [ // 2 Lancers, 2 MRAs, 2 HVCs
+				cTempl.comath, cTempl.commrah, cTempl.comhpvh,
+				cTempl.comath, cTempl.commrah, cTempl.comhpvh,
+			],
+			factories: ["colFactory3"],
+			obj: "colCC1"
 		}, CAM_ORDER_PATROL, {
-		pos: [
-			camMakePos("hoverPatrolPos1"),
-			camMakePos("hoverPatrolPos2"),
-			camMakePos("hoverPatrolPos3"),
-		],
-		interval: camSecondsToMilliseconds(18),
-		repair: 80
+			pos: [
+				camMakePos("hoverPatrolPos1"),
+				camMakePos("hoverPatrolPos2"),
+				camMakePos("hoverPatrolPos3"),
+			],
+			interval: camSecondsToMilliseconds(18),
+			repair: 80
 	});
 	// Allied refillable groups
-	charlieCommander = camMakeRefillableGroup(camMakeGroup("charlieCommander"), {
-		templates: [cTempl.plmcomht]
+	charlieCommander = camMakeRefillableGroup(
+		camMakeGroup("charlieCommander"), {
+			templates: [cTempl.plmcomht]
 		}, CAM_ORDER_ATTACK, {
-		repair: 50
+			repair: 50
 	});
-	charlieCommandGroup = camMakeRefillableGroup(camMakeGroup("charlieCommandGroup"), {
-		templates: [ // 2 Lancers, 2 Bunker Busters, 4 Heavy Machinegunners, 2 Super Heavy-Gunners
-			cTempl.plmatht, cTempl.plmatht,
-			cTempl.plmbbht, cTempl.plmbbht,
-			cTempl.cybhg, cTempl.cybhg, cTempl.cybhg, cTempl.cybhg,
-			cTempl.scymc, cTempl.scymc,
-		],
+	charlieCommandGroup = camMakeRefillableGroup(
+		camMakeGroup("charlieCommandGroup"), {
+			templates: [ // 2 Lancers, 2 Bunker Busters, 4 Heavy Machinegunners, 2 Super Heavy-Gunners
+				cTempl.plmatht, cTempl.plmatht,
+				cTempl.plmbbht, cTempl.plmbbht,
+				cTempl.cybhg, cTempl.cybhg, cTempl.cybhg, cTempl.cybhg,
+				cTempl.scymc, cTempl.scymc,
+			],
 		}, CAM_ORDER_FOLLOW, {
-		leader: "charlieCommander",
-		repair: 50,
-		suborder: CAM_ORDER_DEFEND,
-		data: {pos: camMakePos("landingZoneCharlie")}
+			leader: "charlieCommander",
+			repair: 50,
+			suborder: CAM_ORDER_DEFEND,
+			data: {pos: camMakePos("landingZoneCharlie")}
 	});
-	golfSensor = camMakeRefillableGroup(camMakeGroup("golfSensor"), {
-		templates: [cTempl.plmsenst]
+	golfSensor = camMakeRefillableGroup(
+		camMakeGroup("golfSensor"), {
+			templates: [cTempl.plmsenst]
 		}, CAM_ORDER_ATTACK, {
-		pos: camMakePos("patrolPos8"), // Focus on the northern route
-		repair: 50
+			pos: camMakePos("patrolPos8"), // Focus on the northern route
+			repair: 50
 	});
-	golfSensorGroup = camMakeRefillableGroup(camMakeGroup("golfSensorGroup"), {
-		templates: [cTempl.plmhmortt, cTempl.plmhmortt, cTempl.plmhmortt, cTempl.plmhmortt]
+	golfSensorGroup = camMakeRefillableGroup(
+		camMakeGroup("golfSensorGroup"), {
+			templates: [cTempl.plmhmortt, cTempl.plmhmortt, cTempl.plmhmortt, cTempl.plmhmortt]
 		}, CAM_ORDER_FOLLOW, {
-		leader: "golfSensor",
-		repair: 50,
-		suborder: CAM_ORDER_DEFEND,
-		data: {pos: camMakePos("landingZoneGolf")}
+			leader: "golfSensor",
+			repair: 50,
+			suborder: CAM_ORDER_DEFEND,
+			data: {pos: camMakePos("landingZoneGolf")}
 	});
-	golfAttackGroup = camMakeRefillableGroup(camMakeGroup("golfAttackGroup"), {
-		templates: [cTempl.plmmrat, cTempl.plmmrat, cTempl.plmmrat, cTempl.plmmrat, cTempl.plmmrat, cTempl.plmmrat]
+	golfAttackGroup = camMakeRefillableGroup(
+		camMakeGroup("golfAttackGroup"), {
+			templates: [
+				cTempl.plmmcant, cTempl.plmmcant, cTempl.plmmcant, cTempl.plmmcant,
+				cTempl.plmmrat, cTempl.plmmrat, cTempl.plmmrat, cTempl.plmmrat
+			]
 		}, CAM_ORDER_ATTACK, {
-		pos: camMakePos("patrolPos8"), // Focus on the northern route
-		repair: 50
+			pos: camMakePos("patrolPos8"), // Focus on the northern route
+			repair: 50
 	});
-	golfVtolGroup = camMakeRefillableGroup(camMakeGroup("golfVtolGroup"), {
-		templates: [cTempl.pllbombv, cTempl.pllbombv, cTempl.pllbombv, cTempl.pllbombv, cTempl.pllbombv, cTempl.pllbombv]
+	golfVtolGroup = camMakeRefillableGroup(
+		camMakeGroup("golfVtolGroup"), {
+			templates: [cTempl.pllbombv, cTempl.pllbombv, cTempl.pllbombv, cTempl.pllbombv, cTempl.pllbombv, cTempl.pllbombv]
 		}, CAM_ORDER_ATTACK, {
-		repair: 50
+			repair: 50
 	});
 
 	// Set up trucks
 	// Collective trucks
 	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds((tweakOptions.rec_timerlessMode) ? 35 : 70));
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colBasinOutpost",
-		respawnDelay: TRUCK_TIME,
-		template: cTempl.coltruckht,
-		structset: camAreaToStructSet("colBase1").filter((struct) => (!camIsScavStruct(struct)))
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colBasinOutpost",
+			respawnDelay: TRUCK_TIME,
+			template: cTempl.coltruckht,
+			structset: camAreaToStructSet("colBase1").filter((struct) => (!camIsScavStruct(struct)))
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colSouthCanalRoadblock",
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		template: cTempl.coltruckht,
-		structset: camAreaToStructSet("colBase2")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colSouthCanalRoadblock",
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			template: cTempl.coltruckht,
+			structset: camAreaToStructSet("colBase2")
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colNorthCanalBase",
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		template: cTempl.comtruckt,
-		structset: camAreaToStructSet("colBase3")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colNorthCanalBase",
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			template: cTempl.comtruckt,
+			structset: camAreaToStructSet("colBase3")
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colSouthCanalBase",
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		template: cTempl.comtruckt,
-		structset: camAreaToStructSet("colBase4")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colSouthCanalBase",
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			template: cTempl.comtruckt,
+			structset: camAreaToStructSet("colBase4")
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colEastCanalBase",
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		template: cTempl.comtruckt,
-		structset: camAreaToStructSet("colBase5")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colEastCanalBase",
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			template: cTempl.comtruckt,
+			structset: camAreaToStructSet("colBase5")
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colCraterBase",
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		template: cTempl.coltruckht,
-		structset: camAreaToStructSet("colBase6")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colCraterBase",
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			template: cTempl.coltruckht,
+			structset: camAreaToStructSet("colBase6")
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colMainBase",
-		respawnDelay: TRUCK_TIME / 2,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		template: cTempl.comtruckt,
-		structset: camAreaToStructSet("colBase7")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colMainBase",
+			respawnDelay: TRUCK_TIME / 2,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			template: cTempl.comtruckt,
+			structset: camAreaToStructSet("colBase7")
 	});
 	if (tweakOptions.rec_timerlessMode)
 	{
 		const CRANE_TIME = camChangeOnDiff(camSecondsToMilliseconds(70));
-		camManageTrucks(CAM_THE_COLLECTIVE, {
-			label: "colBasinOutpost",
-			rebuildBase: true,
-			respawnDelay: CRANE_TIME,
-			template: cTempl.crane,
-			structset: camAreaToStructSet("colBase1").filter((struct) => (camIsScavStruct(struct)))
+		camManageTrucks(
+			CAM_THE_COLLECTIVE, {
+				label: "colBasinOutpost",
+				rebuildBase: true,
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("colBase1").filter((struct) => (camIsScavStruct(struct)))
 		});
-		camManageTrucks(CAM_THE_COLLECTIVE, {
-			label: "cScavCanalBase",
-			rebuildBase: true,
-			respawnDelay: CRANE_TIME,
-			template: cTempl.crane,
-			structset: camAreaToStructSet("cScavBase").filter((struct) => (camIsScavStruct(struct)))
-		});
-		if (difficulty >= MEDIUM)
-		{
-			// Add another crane to the central scav base
-			camManageTrucks(CAM_THE_COLLECTIVE, {
+		camManageTrucks(
+			CAM_THE_COLLECTIVE, {
 				label: "cScavCanalBase",
 				rebuildBase: true,
 				respawnDelay: CRANE_TIME,
 				template: cTempl.crane,
 				structset: camAreaToStructSet("cScavBase").filter((struct) => (camIsScavStruct(struct)))
+		});
+		if (difficulty >= MEDIUM)
+		{
+			// Add another crane to the central scav base
+			camManageTrucks(
+				CAM_THE_COLLECTIVE, {
+					label: "cScavCanalBase",
+					rebuildBase: true,
+					respawnDelay: CRANE_TIME,
+					template: cTempl.crane,
+					structset: camAreaToStructSet("cScavBase").filter((struct) => (camIsScavStruct(struct)))
 			});
 		}
 		if (difficulty >= HARD)
 		{
 			// Add even more trucks...
-			camManageTrucks(CAM_THE_COLLECTIVE, {
-				label: "colNorthCanalBase",
-				respawnDelay: TRUCK_TIME * 2,
-				rebuildBase: tweakOptions.rec_timerlessMode,
-				template: cTempl.comtruckht,
-				structset: camAreaToStructSet("colBase3")
+			camManageTrucks(
+				CAM_THE_COLLECTIVE, {
+					label: "colNorthCanalBase",
+					respawnDelay: TRUCK_TIME * 2,
+					rebuildBase: tweakOptions.rec_timerlessMode,
+					template: cTempl.comtruckht,
+					structset: camAreaToStructSet("colBase3")
 			});
-			camManageTrucks(CAM_THE_COLLECTIVE, {
-				label: "colMainBase",
-				respawnDelay: TRUCK_TIME,
-				rebuildBase: tweakOptions.rec_timerlessMode,
-				template: cTempl.comtruckht,
-				structset: camAreaToStructSet("colBase7")
+			camManageTrucks(
+				CAM_THE_COLLECTIVE, {
+					label: "colMainBase",
+					respawnDelay: TRUCK_TIME,
+					rebuildBase: tweakOptions.rec_timerlessMode,
+					template: cTempl.comtruckht,
+					structset: camAreaToStructSet("colBase7")
 			});
 		}
 	}
 	// Allied Trucks
-	charlieTruckJob1 = camManageTrucks(MIS_TEAM_CHARLIE, {
-		label: "charlieLZ",
-		rebuildBase: true,
-		truckDroid: getObject("charlieEngineer"),
-		structset: camAreaToStructSet("charlieStructZone")
+	charlieTruckJob1 = camManageTrucks(
+		MIS_TEAM_CHARLIE, {
+			label: "charlieLZ",
+			rebuildBase: true,
+			truckDroid: getObject("charlieEngineer"),
+			structset: camAreaToStructSet("charlieStructZone")
 	});
-	golfTruckJob1 = camManageTrucks(MIS_TEAM_GOLF, {
-		label: "golfLZ",
-		rebuildBase: true,
-		truckDroid: getObject("golfTruck1"),
-		structset: camAreaToStructSet("golfStructZone")
+	golfTruckJob1 = camManageTrucks(
+		MIS_TEAM_GOLF, {
+			label: "golfLZ",
+			rebuildBase: true,
+			truckDroid: getObject("golfTruck1"),
+			structset: camAreaToStructSet("golfStructZone")
 	});
-	golfTruckJob2 = camManageTrucks(MIS_TEAM_GOLF, {
-		label: "golfLZ",
-		rebuildBase: true,
-		truckDroid: getObject("golfTruck2"),
-		structset: camAreaToStructSet("golfStructZone")
+	golfTruckJob2 = camManageTrucks(
+		MIS_TEAM_GOLF, {
+			label: "golfLZ",
+			rebuildBase: true,
+			truckDroid: getObject("golfTruck2"),
+			structset: camAreaToStructSet("golfStructZone")
 	});
 
 	// Start timers and queues

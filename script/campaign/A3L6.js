@@ -387,17 +387,11 @@ function eventStartLevel()
 			templates: [ cTempl.cybla, cTempl.cybth, cTempl.cybla, cTempl.scytk ]
 		},
 		"infFactory1": {
-			assembly: "infAssembly1",
-			order: CAM_ORDER_ATTACK,
-			groupSize: 3,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(16)),
 			// Scav vehicles
 			templates: [cTempl.infbuscan, cTempl.infmonhmg, cTempl.infsartruck, cTempl.infkevbloke, cTempl.infbuggy, cTempl.infkevlance, cTempl.infmonlan]
 		},
 		"infFactory2": {
-			assembly: "infAssembly2",
-			order: CAM_ORDER_ATTACK,
-			groupSize: 3,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(12)),
 			// More scav vehicles
 			templates: [cTempl.infflatmrl, cTempl.infrbuggy, cTempl.infminitruck, cTempl.infbuscan, cTempl.inffiretruck, cTempl.infkevbloke, cTempl.infgbjeep]
@@ -406,62 +400,69 @@ function eventStartLevel()
 
 	// Set up Collective trucks...
 	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds((tweakOptions.rec_timerlessMode) ? 45 : 90));
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colWestRoadblock",
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		truckDroid: getObject("colTruck1"),
-		structset: camAreaToStructSet("colBase1")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colWestRoadblock",
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			truckDroid: getObject("colTruck1"),
+			structset: camAreaToStructSet("colBase1")
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colEastRoadblock",
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		truckDroid: getObject("colTruck2"),
-		structset: camAreaToStructSet("colBase2")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colEastRoadblock",
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			truckDroid: getObject("colTruck2"),
+			structset: camAreaToStructSet("colBase2")
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colSouthEastBase",
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		truckDroid: getObject("colTruck3"),
-		structset: camAreaToStructSet("colBase4")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colSouthEastBase",
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			truckDroid: getObject("colTruck3"),
+			structset: camAreaToStructSet("colBase4")
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colOverlook",
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		truckDroid: getObject("colTruck4"),
-		structset: camAreaToStructSet("colBase5")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colOverlook",
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			truckDroid: getObject("colTruck4"),
+			structset: camAreaToStructSet("colBase5")
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colDepotBase",
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		truckDroid: getObject("colTruck5"),
-		structset: camAreaToStructSet("colBase6")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colDepotBase",
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			truckDroid: getObject("colTruck5"),
+			structset: camAreaToStructSet("colBase6")
 	});
 
 	if (tweakOptions.rec_timerlessMode || difficulty === INSANE)
 	{
 		// Add another truck to the main depot
-		camManageTrucks(CAM_THE_COLLECTIVE, {
-			label: "colDepotBase",
-			respawnDelay: TRUCK_TIME,
-			rebuildBase: tweakOptions.rec_timerlessMode,
-			template: cTempl.comtruckt,
-			structset: camAreaToStructSet("colBase6")
+		camManageTrucks(
+			CAM_THE_COLLECTIVE, {
+				label: "colDepotBase",
+				respawnDelay: TRUCK_TIME,
+				rebuildBase: tweakOptions.rec_timerlessMode,
+				template: cTempl.comtruckt,
+				structset: camAreaToStructSet("colBase6")
 		});
 	}
 	if (tweakOptions.rec_timerlessMode && difficulty >= HARD)
 	{
 		// Add another truck to the southeast base
-		camManageTrucks(CAM_THE_COLLECTIVE, {
-			label: "colSouthEastBase",
-			respawnDelay: TRUCK_TIME,
-			rebuildBase: tweakOptions.rec_timerlessMode,
-			template: cTempl.comtruckt,
-			structset: camAreaToStructSet("colBase4")
+		camManageTrucks(
+			CAM_THE_COLLECTIVE, {
+				label: "colSouthEastBase",
+				respawnDelay: TRUCK_TIME,
+				rebuildBase: tweakOptions.rec_timerlessMode,
+				template: cTempl.comtruckt,
+				structset: camAreaToStructSet("colBase4")
 		});
 	}
 	if (!tweakOptions.rec_timerlessMode)
@@ -502,52 +503,55 @@ function eventStartLevel()
 		interval: camSecondsToMilliseconds(46),
 		repair: 50
 	});
-	camMakeRefillableGroup(camMakeGroup("colCommandGroup"), {
-		templates: [
-			cTempl.scyac, cTempl.scyac, cTempl.scyac, cTempl.scyac, // 4 Super Auto-Cannons
-			cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk, // 4 Super Tank Killers
-			cTempl.comagt, cTempl.comagt, // 2 Assault Guns
-			cTempl.cominft, cTempl.cominft, // 2 Infernos
-			cTempl.cohraat, // 1 Whirlwind
-			cTempl.comhrept, // 1 Heavy Repair Turret
-		],
-		factories: ["colFactory1", "colCybFactory1"],
-		obj: "colCommander" // Stop refilling this group when the commander dies
-	}, CAM_ORDER_FOLLOW, {
-		leader: "colCommander",
-		repair: 50,
-		suborder: CAM_ORDER_ATTACK,
-		targetPlayer: CAM_HUMAN_PLAYER
+	camMakeRefillableGroup(
+		camMakeGroup("colCommandGroup"), {
+			templates: [
+				cTempl.scyac, cTempl.scyac, cTempl.scyac, cTempl.scyac, // 4 Super Auto-Cannons
+				cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk, // 4 Super Tank Killers
+				cTempl.comagt, cTempl.comagt, // 2 Assault Guns
+				cTempl.cominft, cTempl.cominft, // 2 Infernos
+				cTempl.cohraat, // 1 Whirlwind
+				cTempl.comhrept, // 1 Heavy Repair Turret
+			],
+			factories: ["colFactory1", "colCybFactory1"],
+			obj: "colCommander" // Stop refilling this group when the commander dies
+		}, CAM_ORDER_FOLLOW, {
+			leader: "colCommander",
+			repair: 50,
+			suborder: CAM_ORDER_ATTACK,
+			targetPlayer: CAM_HUMAN_PLAYER
 	});
 
 	// Also make refillable mortar/sensor groups
-	camMakeRefillableGroup(undefined, {
-		templates: [
-			cTempl.comsensht, // 1 Sensor
-		],
-		factories: ["colFactory2"]
-	}, CAM_ORDER_ATTACK, {
-		repair: 40,
-		pos: [
-			camMakePos("focusPos1"),
-			camMakePos("focusPos2"),
-			camMakePos("focusPos3"),
-		],
-		targetPlayer: CAM_HUMAN_PLAYER
-	})
-	camMakeRefillableGroup(undefined, {
-		templates: [
-			cTempl.comhmortht, cTempl.comhmortht, cTempl.comhmortht, cTempl.comhmortht, // 4 Bombards
-			cTempl.cohhowt, cTempl.cohhowt, // 2 Ripple Rockets
-		],
-		factories: ["colFactory2"],
-		obj: "colSensor"
-	}, CAM_ORDER_FOLLOW, {
-		leader: "colSensor",
-		repair: 60,
-		suborder: CAM_ORDER_DEFEND,
-		pos: camMakePos("colAssembly2")
-	})
+	camMakeRefillableGroup(
+		undefined, {
+			templates: [
+				cTempl.comsensht, // 1 Sensor
+			],
+			factories: ["colFactory2"]
+		}, CAM_ORDER_ATTACK, {
+			repair: 40,
+			pos: [
+				camMakePos("focusPos1"),
+				camMakePos("focusPos2"),
+				camMakePos("focusPos3"),
+			],
+			targetPlayer: CAM_HUMAN_PLAYER
+	});
+	camMakeRefillableGroup(
+		undefined, {
+			templates: [
+				cTempl.comhmortht, cTempl.comhmortht, cTempl.comhmortht, cTempl.comhmortht, // 4 Bombards
+				cTempl.cohhowt, cTempl.cohhowt, // 2 Ripple Rockets
+			],
+			factories: ["colFactory2"],
+			obj: "colSensor"
+		}, CAM_ORDER_FOLLOW, {
+			leader: "colSensor",
+			repair: 60,
+			suborder: CAM_ORDER_DEFEND,
+			pos: camMakePos("colAssembly2")
+	});
 
 	camAutoReplaceObjectLabel("colCC");
 	// Start these factories immediately...

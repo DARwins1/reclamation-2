@@ -493,84 +493,36 @@ function eventStartLevel()
 			templates: [cTempl.bloke, cTempl.firetruck, cTempl.kevlance, cTempl.kevbloke, cTempl.bjeep, cTempl.rbjeep, cTempl.moncan] // Variety
 		},
 		// These infested factories build units very fast, and then send against the player without retreating.
+		// No need for any data except throttle and templates; infested units are automatically managed once built
 		"infestedFactory1": {
-			assembly: "infestedAssembly1",
-			order: CAM_ORDER_ATTACK,
-			data: {
-				targetPlayer: CAM_HUMAN_PLAYER
-			},
-			groupSize: 3,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(10)),
 			templates: [cTempl.infciv, cTempl.infbloke, cTempl.infciv] // Only infested civilians/infantry
 		},
 		"infestedFactory2": {
-			assembly: "infestedAssembly2",
-			order: CAM_ORDER_ATTACK,
-			data: {
-				targetPlayer: CAM_HUMAN_PLAYER
-			},
-			groupSize: 3,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(9)),
 			templates: [cTempl.infciv, cTempl.infbloke, cTempl.infciv] // Only infested civilians/infantry
 		},
 		"infestedFactory3": {
-			assembly: "infestedAssembly3",
-			order: CAM_ORDER_ATTACK,
-			data: {
-				targetPlayer: CAM_HUMAN_PLAYER
-			},
-			groupSize: 3,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(12)),
 			// Infested civilians, with some occasional vehicles
 			templates: [cTempl.infciv, cTempl.infbjeep, cTempl.infciv, cTempl.infciv, cTempl.infciv, cTempl.infbjeep, cTempl.infciv, cTempl.infbuscan]
 		},
 		"infestedFactory4": {
-			assembly: "infestedAssembly4",
-			order: CAM_ORDER_ATTACK,
-			data: {
-				targetPlayer: CAM_HUMAN_PLAYER
-			},
-			groupSize: 3,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(12)),
 			// Infested civilians, with some occasional vehicles
 			templates: [cTempl.infciv, cTempl.infrbjeep, cTempl.infciv, cTempl.inflance, cTempl.infciv, cTempl.infbjeep, cTempl.infciv]
 		},
 		"infestedFactory5": {
-			assembly: "infestedAssembly5",
-			order: CAM_ORDER_ATTACK,
-			data: {
-				targetPlayer: CAM_HUMAN_PLAYER
-			},
-			groupSize: 3,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(16)),
 			// Light Infested vehicles
 			templates: [cTempl.infciv, cTempl.infrbjeep, cTempl.infciv, cTempl.infbloke, cTempl.infciv, cTempl.infbjeep, cTempl.infciv, cTempl.infbjeep]
 		},
 		"infestedFactory6": {
-			assembly: "infestedAssembly6",
-			order: CAM_ORDER_ATTACK,
-			data: {
-				targetPlayer: CAM_HUMAN_PLAYER
-			},
-			groupSize: 3,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(8)),
 			// Infested infantry
 			templates: [cTempl.infciv, cTempl.infbloke, cTempl.infciv, cTempl.infkevbloke, cTempl.infciv, cTempl.infkevbloke, cTempl.infciv, cTempl.inflance]
 		},
 		"infestedFactory7": {
-			assembly: "infestedAssembly7",
-			order: CAM_ORDER_ATTACK,
-			data: {
-				targetPlayer: CAM_HUMAN_PLAYER
-			},
-			groupSize: 3,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(18)),
 			// Large Infested vehicles
 			templates: [cTempl.infciv, cTempl.infciv, cTempl.infrbjeep, cTempl.infciv, cTempl.infbuscan, cTempl.infciv, cTempl.infbjeep]
@@ -582,8 +534,7 @@ function eventStartLevel()
 
 	// Spawn a scav Monster Bus tank
 	const busPos = camMakePos("scavBase2");
-	addDroid(MIS_CYAN_SCAVS, busPos.x, busPos.y, "Battle Bus 3",
-		"MonsterBus", "tracked01", "", "", "RustMG3Mk1");
+	camAddDroid(MIS_CYAN_SCAVS, busPos, cTempl.monhmg, "Battle Bus 3");
 
 	// Infested start out partially damaged
 	camSetPreDamageModifier(CAM_INFESTED, [50, 80], [60, 90], CAM_INFESTED_PREDAMAGE_EXCLUSIONS);
@@ -606,13 +557,14 @@ function eventStartLevel()
 	if (tweakOptions.rec_timerlessMode && difficulty >= EASY)
 	{
 		// Cyan scav main base
-		camManageTrucks(MIS_CYAN_SCAVS, {
-			label: "scavCamp",
-			rebuildBase: false,
-			rebuildTruck: (difficulty >= MEDIUM),
-			respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-			template: cTempl.crane,
-			structset: camAreaToStructSet("scavBase1")
+		camManageTrucks(
+			MIS_CYAN_SCAVS, {
+				label: "scavCamp",
+				rebuildBase: false,
+				rebuildTruck: (difficulty >= MEDIUM),
+				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+				template: cTempl.crane,
+				structset: camAreaToStructSet("scavBase1")
 		});
 	}
 

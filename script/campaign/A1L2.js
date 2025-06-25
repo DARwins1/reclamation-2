@@ -840,147 +840,192 @@ function eventStartLevel()
 	// Also set up allied trucks
 
 	// Scav patrol group (2 MRPs, 4 Grenade Jeeps)
-	camMakeRefillableGroup(undefined, {templates: [
-		cTempl.minitruck, cTempl.minitruck,
-		cTempl.gbjeep, cTempl.gbjeep, cTempl.gbjeep, cTempl.gbjeep,
-		],
-		factories: ["scavOuterFactory3"]
-	}, CAM_ORDER_PATROL, {
-		// Patrol and harass the player's LZ
-		pos: [ "scavPatrolPos1", "scavPatrolPos2", "scavPatrolPos3", "scavPatrolPos4" ],
-		interval: camSecondsToMilliseconds(20),
-		radius: 8
+	camMakeRefillableGroup(
+		undefined, {
+			templates: [
+				cTempl.minitruck, cTempl.minitruck,
+				cTempl.gbjeep, cTempl.gbjeep, cTempl.gbjeep, cTempl.gbjeep,
+			],
+			factories: ["scavOuterFactory3"]
+		}, CAM_ORDER_PATROL, {
+			// Patrol and harass the player's LZ
+			pos: [ "scavPatrolPos1", "scavPatrolPos2", "scavPatrolPos3", "scavPatrolPos4" ],
+			interval: camSecondsToMilliseconds(20),
+			radius: 8
 	});
 
 	// Charlie slow attack group (6 Mini-Rockets, 4 Twin Machineguns)
-	charlieSlowAttackGroup = camMakeRefillableGroup(undefined, {templates: [
-		cTempl.pllpodt, cTempl.pllpodt, cTempl.pllpodt, cTempl.pllpodt, cTempl.pllpodt, cTempl.pllpodt,
-		cTempl.plltmgt, cTempl.plltmgt, cTempl.plltmgt, cTempl.plltmgt,
-		]}, CAM_ORDER_ATTACK, {
-		pos: camMakePos("vtolFactoryCaptureZone"),
-		count: 10,
-		morale: 80,
-		fallback: camMakePos("scavOuterAssembly1"),
-		repair: 75,
-		repairPos: camMakePos("scavOuterAssembly1") // Wait here for repairs
+	charlieSlowAttackGroup = camMakeRefillableGroup(
+		undefined, {
+			templates: [
+				cTempl.pllpodt, cTempl.pllpodt, cTempl.pllpodt, cTempl.pllpodt, cTempl.pllpodt, cTempl.pllpodt,
+				cTempl.plltmgt, cTempl.plltmgt, cTempl.plltmgt, cTempl.plltmgt,
+			]
+		}, CAM_ORDER_ATTACK, {
+			pos: camMakePos("vtolFactoryCaptureZone"),
+			count: 10,
+			morale: 80,
+			fallback: camMakePos("scavOuterAssembly1"),
+			repair: 75,
+			repairPos: camMakePos("scavOuterAssembly1") // Wait here for repairs
 	});
 	// Charlie fast attack group (4 Machinegunner Cyborgs, 4 Light Cannons, 2 Mini-Rocket Arrays)
-	charlieFastAttackGroup = camMakeRefillableGroup(undefined, {templates: [
-		cTempl.cybmg, cTempl.cybmg, cTempl.cybmg, cTempl.cybmg,
-		cTempl.pllcanw, cTempl.pllcanw, cTempl.pllcanw, cTempl.pllcanw,
-		cTempl.pllmraw, cTempl.pllmraw,
-		]}, CAM_ORDER_ATTACK, {
-		count: 10,
-		morale: 80,
-		fallback: camMakePos("scavOuterAssembly1"),
-		// regroup: true,
-		repair: 75,
-		repairPos: camMakePos("scavOuterAssembly1")
+	charlieFastAttackGroup = camMakeRefillableGroup(
+		undefined, {
+			templates: [
+				cTempl.cybmg, cTempl.cybmg, cTempl.cybmg, cTempl.cybmg,
+				cTempl.pllcanw, cTempl.pllcanw, cTempl.pllcanw, cTempl.pllcanw,
+				cTempl.pllmraw, cTempl.pllmraw,
+			]
+		}, CAM_ORDER_ATTACK, {
+			count: 10,
+			morale: 80,
+			fallback: camMakePos("scavOuterAssembly1"),
+			// regroup: true,
+			repair: 75,
+			repairPos: camMakePos("scavOuterAssembly1")
 	});
 	// Charlie repair group (6 Mechanic Cyborgs)
-	charlieRepairGroup = camMakeRefillableGroup(undefined, {templates: [cTempl.cybrp, cTempl.cybrp, cTempl.cybrp, cTempl.cybrp]}, CAM_ORDER_DEFEND, {pos: camMakePos("scavOuterAssembly1")});
-	// Charlie gets 2 trucks
-	charlieTruckJob1 = camManageTrucks(MIS_TEAM_CHARLIE, {
-		label: "charlieLZ", // Label of Charlie's LZ base (which starts unbuilt)
-		rebuildBase: true,
-		structset: camCharlieA1L2Structs // See structSets.js
-		// NOTE: We don't need any more data here, since we'll manually assign/rebuild the truck with transport reinforcements
+	charlieRepairGroup = camMakeRefillableGroup(
+		undefined, {
+			templates: [cTempl.cybrp, cTempl.cybrp, cTempl.cybrp, cTempl.cybrp]
+		}, CAM_ORDER_DEFEND, {
+			pos: camMakePos("scavOuterAssembly1")
 	});
-	charlieTruckJob2 = camManageTrucks(MIS_TEAM_CHARLIE, {
-		label: "charlieLZ",
-		rebuildBase: true,
-		structset: camCharlieA1L2Structs
+	// Charlie gets 2 trucks
+	charlieTruckJob1 = camManageTrucks(
+		MIS_TEAM_CHARLIE, {
+			label: "charlieLZ", // Label of Charlie's LZ base (which starts unbuilt)
+			rebuildBase: true,
+			structset: camCharlieA1L2Structs // See structSets.js
+			// NOTE: We don't need any more data here, since we'll manually assign/rebuild the truck with transport reinforcements
+	});
+	charlieTruckJob2 = camManageTrucks(
+		MIS_TEAM_CHARLIE, {
+			label: "charlieLZ",
+			rebuildBase: true,
+			structset: camCharlieA1L2Structs
 	});
 
 	// Foxtrot attack group (8 Flamer Cyborgs, 6 Mini-Rockets, 6 Sarissas)
-	foxtrotAttackGroup = camMakeRefillableGroup(undefined, {templates: [
-		cTempl.cybfl, cTempl.cybfl, cTempl.cybfl, cTempl.cybfl, cTempl.cybfl, cTempl.cybfl, cTempl.cybfl, cTempl.cybfl,
-		cTempl.pllpodw, cTempl.pllpodw, cTempl.pllpodw, cTempl.pllpodw, cTempl.pllpodw, cTempl.pllpodw,
-		cTempl.pllsart, cTempl.pllsart, cTempl.pllsart, cTempl.pllsart, cTempl.pllsart, cTempl.pllsart,
-		]}, CAM_ORDER_ATTACK, {
-		count: 20,
-		morale: 90,
-		fallback: camMakePos("scavLZBase2"),
-		// regroup: true,
-		repair: 75,
-		repairPos: camMakePos("scavLZBase2") // Wait here for repairs
+	foxtrotAttackGroup = camMakeRefillableGroup(
+		undefined, {
+			templates: [
+				cTempl.cybfl, cTempl.cybfl, cTempl.cybfl, cTempl.cybfl, cTempl.cybfl, cTempl.cybfl, cTempl.cybfl, cTempl.cybfl,
+				cTempl.pllpodw, cTempl.pllpodw, cTempl.pllpodw, cTempl.pllpodw, cTempl.pllpodw, cTempl.pllpodw,
+				cTempl.pllsart, cTempl.pllsart, cTempl.pllsart, cTempl.pllsart, cTempl.pllsart, cTempl.pllsart,
+			]
+		}, CAM_ORDER_ATTACK, {
+			count: 20,
+			morale: 90,
+			fallback: camMakePos("scavLZBase2"),
+			// regroup: true,
+			repair: 75,
+			repairPos: camMakePos("scavLZBase2") // Wait here for repairs
 	});
 	// Foxtrot repair group (4 Repair Turrets)
-	foxtrotRepairGroup = camMakeRefillableGroup(undefined, {templates: [cTempl.pllrepw, cTempl.pllrepw, cTempl.pllrepw, cTempl.pllrepw]}, CAM_ORDER_DEFEND, {pos: camMakePos("scavLZBase2")});
-	// Trucks
-	foxtrotTruckJob1 = camManageTrucks(MIS_TEAM_FOXTROT, {
-		label: "foxtrotLZ",
-		rebuildBase: true,
-		structset: camFoxtrotA1L2Structs
+	foxtrotRepairGroup = camMakeRefillableGroup(
+		undefined, {
+			templates: [cTempl.pllrepw, cTempl.pllrepw, cTempl.pllrepw, cTempl.pllrepw]
+		}, CAM_ORDER_DEFEND, {
+			pos: camMakePos("scavLZBase2")
 	});
-	foxtrotTruckJob2 = camManageTrucks(MIS_TEAM_FOXTROT, {
-		label: "foxtrotLZ",
-		rebuildBase: true,
-		structset: camFoxtrotA1L2Structs
+	// Trucks
+	foxtrotTruckJob1 = camManageTrucks(
+		MIS_TEAM_FOXTROT, {
+			label: "foxtrotLZ",
+			rebuildBase: true,
+			structset: camFoxtrotA1L2Structs
+	});
+	foxtrotTruckJob2 = camManageTrucks(
+		MIS_TEAM_FOXTROT, {
+			label: "foxtrotLZ",
+			rebuildBase: true,
+			structset: camFoxtrotA1L2Structs
 	});
 
 	// Golf attack group (8 MRA's)
-	golfAttackGroup = camMakeRefillableGroup(undefined, {templates: [
-		cTempl.pllmrat, cTempl.pllmrat, cTempl.pllmrat, cTempl.pllmrat, cTempl.pllmrat, cTempl.pllmrat, cTempl.pllmrat, cTempl.pllmrat,
-		]}, CAM_ORDER_ATTACK, {
-		count: 8,
-		morale: 80,
-		fallback: camMakePos("scavOuterAssembly4"), // Prioritize this area
-		repair: 50,
-		repairPos: camMakePos("scavLZBase3") // Wait here for repairs
+	golfAttackGroup = camMakeRefillableGroup(
+		undefined, {
+			templates: [
+				cTempl.pllmrat, cTempl.pllmrat, cTempl.pllmrat, cTempl.pllmrat, cTempl.pllmrat, cTempl.pllmrat, cTempl.pllmrat, cTempl.pllmrat,
+			]
+		}, CAM_ORDER_ATTACK, {
+			count: 8,
+			morale: 80,
+			fallback: camMakePos("scavOuterAssembly4"), // Prioritize this area
+			repair: 50,
+			repairPos: camMakePos("scavLZBase3") // Wait here for repairs
 	});
 	// Golf mortar group (6 Mortars)
-	golfMortarGroup = camMakeRefillableGroup(undefined, {templates: [
-		cTempl.pllmortt, cTempl.pllmortt, cTempl.pllmortt, cTempl.pllmortt, cTempl.pllmortt, cTempl.pllmortt,
-		]}, CAM_ORDER_FOLLOW, {
-		leader: "golfSensor",
-		repair: 50,
-		suborder: CAM_ORDER_DEFEND,
-		pos: camMakePos("scavLZBase3"), // Defend here if sensor dies
-		repairPos: camMakePos("scavLZBase3") // Wait here for repairs
+	golfMortarGroup = camMakeRefillableGroup(
+		undefined, {
+			templates: [
+				cTempl.pllmortt, cTempl.pllmortt, cTempl.pllmortt, cTempl.pllmortt, cTempl.pllmortt, cTempl.pllmortt,
+			]
+		}, CAM_ORDER_FOLLOW, {
+			leader: "golfSensor",
+			repair: 50,
+			suborder: CAM_ORDER_DEFEND,
+			pos: camMakePos("scavLZBase3"), // Defend here if sensor dies
+			repairPos: camMakePos("scavLZBase3") // Wait here for repairs
 	});
 	// Golf sensor "group" (Just a single Sensor)
-	golfSensorGroup = camMakeRefillableGroup(undefined, {templates: [cTempl.pllsenst]}, CAM_ORDER_ATTACK, {pos: camMakePos("scavOuterAssembly4")}); // Prioritize this area
+	golfSensorGroup = camMakeRefillableGroup(
+		undefined, {
+			templates: [cTempl.pllsenst]
+		}, CAM_ORDER_ATTACK, {
+		pos: camMakePos("scavOuterAssembly4") // Prioritize this area
+	}); 
 	// Golf repair group (2 Repair Turrets)
-	golfRepairGroup = camMakeRefillableGroup(undefined, {templates: [cTempl.pllrept, cTempl.pllrept]}, CAM_ORDER_DEFEND, {pos: camMakePos("scavLZBase3")});
+	golfRepairGroup = camMakeRefillableGroup(
+		undefined, {
+			templates: [cTempl.pllrept, cTempl.pllrept]
+		}, CAM_ORDER_DEFEND, {
+			pos: camMakePos("scavLZBase3")
+	});
 	// Truck
-	golfTruckJob = camManageTrucks(MIS_TEAM_GOLF, {
-		label: "golfLZ",
-		rebuildBase: true,
-		structset: camGolfA1L2Structs
+	golfTruckJob = camManageTrucks(
+		MIS_TEAM_GOLF, {
+			label: "golfLZ",
+			rebuildBase: true,
+			structset: camGolfA1L2Structs
 	});
 
 	// If we're in Timerless mode, set up scavenger Cranes
 	if (tweakOptions.rec_timerlessMode)
 	{
 		// Northeast scav base
-		camManageTrucks(MIS_YELLOW_SCAVS, {
-			label: "scavNEBase",
-			rebuildBase: true,
-			respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-			template: cTempl.crane,
-			structset: camAreaToStructSet("scavOuterBase4")
+		camManageTrucks(
+			MIS_YELLOW_SCAVS, {
+				label: "scavNEBase",
+				rebuildBase: true,
+				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+				template: cTempl.crane,
+				structset: camAreaToStructSet("scavOuterBase4")
 		});
 		if (difficulty >= MEDIUM)
 		{
 			// Southwest scav base
-			camManageTrucks(MIS_YELLOW_SCAVS, {
-				label: "scavHillBase",
-				rebuildBase: true,
-				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-				template: cTempl.crane,
-				structset: camAreaToStructSet("scavOuterBase1")
+			camManageTrucks(
+				MIS_YELLOW_SCAVS, {
+					label: "scavHillBase",
+					rebuildBase: true,
+					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+					template: cTempl.crane,
+					structset: camAreaToStructSet("scavOuterBase1")
 			});
 		}
 		if (difficulty >= HARD)
 		{
 			// Southeast scav base
-			camManageTrucks(MIS_YELLOW_SCAVS, {
-				label: "scavCanalBase",
-				rebuildBase: true,
-				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-				template: cTempl.crane,
-				structset: camAreaToStructSet("scavOuterBase3")
+			camManageTrucks(
+				MIS_YELLOW_SCAVS, {
+					label: "scavCanalBase",
+					rebuildBase: true,
+					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+					template: cTempl.crane,
+					structset: camAreaToStructSet("scavOuterBase3")
 			});
 		}
 	}

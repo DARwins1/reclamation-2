@@ -1506,7 +1506,7 @@
         "id": "R-Struc-Materials01",
         "keyTopic": 1,
         "imdName": "icmolql.pie",
-        "msgName": "RES_ST_MAT1",
+        "msgName": "RES_ALL_ST_MAT1",
         "name": "Reinforced Structure Materials",
         "requiredResearch": [
             "R-Sys-Engineering01"

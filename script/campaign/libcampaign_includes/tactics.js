@@ -151,7 +151,8 @@ function camManageGroup(group, order, data)
 		}
 	}
 	// apply orders instantly
-	queue("__camTacticsTickForGroup", __CAM_TICKS_PER_FRAME, group);
+	// queue("__camTacticsTickForGroup", __CAM_TICKS_PER_FRAME, group);
+	__camTacticsTickForGroup(group);
 
 	return group;
 }

@@ -190,15 +190,15 @@ function eventTransporterLanded(transport)
 		if (difficulty >= MEDIUM) commandTemplates.push(cTempl.colpodt, cTempl.colpodt) // MRP
 		if (difficulty >= HARD) commandTemplates.push(cTempl.colaaht, cTempl.colaaht) // Hurricanes
 
-		camMakeRefillableGroup(COMMAND_GROUP, {
-			templates: commandTemplates,
-			factories: ["colFactory"], // Only refill from this factory
-			obj: "colCommander", // Stop filling this group when the commander dies
-		}, CAM_ORDER_FOLLOW, 
-		{
-			leader: "colCommander",
-			suborder: CAM_ORDER_ATTACK,
-			repair: 40,
+		camMakeRefillableGroup(
+			COMMAND_GROUP, {
+				templates: commandTemplates,
+				factories: ["colFactory"], // Only refill from this factory
+				obj: "colCommander", // Stop filling this group when the commander dies
+			}, CAM_ORDER_FOLLOW, {
+				leader: "colCommander",
+				suborder: CAM_ORDER_ATTACK,
+				repair: 40,
 		});
 
 		// Manage the actual commander droid
@@ -344,19 +344,21 @@ function eventStartLevel()
 	// Set up Collective trucks
 	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds(70))
 	const colBaseStructs = camAreaToStructSet("colBase");
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colMainBase",
-		rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= MEDIUM), // Don't rebuild this truck unless we're on timerless mode (or on Normal+)
-		respawnDelay: ((tweakOptions.rec_timerlessMode) ? (TRUCK_TIME / 2) : TRUCK_TIME),
-		template: cTempl.coltruckht,
-		structset: colBaseStructs
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colMainBase",
+			rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= MEDIUM), // Don't rebuild this truck unless we're on timerless mode (or on Normal+)
+			respawnDelay: ((tweakOptions.rec_timerlessMode) ? (TRUCK_TIME / 2) : TRUCK_TIME),
+			template: cTempl.coltruckht,
+			structset: colBaseStructs
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colMainBase",
-		rebuildTruck: tweakOptions.rec_timerlessMode, // Don't rebuild this truck unless we're on timerless mode
-		respawnDelay: ((tweakOptions.rec_timerlessMode) ? (TRUCK_TIME / 2) : TRUCK_TIME),
-		template: cTempl.coltruckht,
-		structset: colBaseStructs
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colMainBase",
+			rebuildTruck: tweakOptions.rec_timerlessMode, // Don't rebuild this truck unless we're on timerless mode
+			respawnDelay: ((tweakOptions.rec_timerlessMode) ? (TRUCK_TIME / 2) : TRUCK_TIME),
+			template: cTempl.coltruckht,
+			structset: colBaseStructs
 	});
 
 	// If we're in Timerless mode, set up scavenger Cranes
@@ -367,33 +369,36 @@ function eventStartLevel()
 			camIsScavStruct(struct.stat) && struct.stat !== "A0TankTrap"
 		));
 		// Southwest scav base
-		camManageTrucks(CAM_THE_COLLECTIVE, {
-			label: "scavSWBase",
-			rebuildBase: true,
-			respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-			template: cTempl.crane,
-			structset: scavStructsSW
-		});
-		if (difficulty >= MEDIUM)
-		{
-			// Northeast scav base
-			camManageTrucks(CAM_THE_COLLECTIVE, {
-				label: "scavNEBase",
-				rebuildBase: true,
-				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-				template: cTempl.crane,
-				structset: camAreaToStructSet("scavBase2")
-			});
-		}
-		if (difficulty >= HARD)
-		{
-			// Southwest scav base (again)
-			camManageTrucks(CAM_THE_COLLECTIVE, {
+		camManageTrucks(
+			CAM_THE_COLLECTIVE, {
 				label: "scavSWBase",
 				rebuildBase: true,
 				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
 				template: cTempl.crane,
 				structset: scavStructsSW
+		});
+		if (difficulty >= MEDIUM)
+		{
+			// Northeast scav base
+			camManageTrucks(
+				CAM_THE_COLLECTIVE, {
+					label: "scavNEBase",
+					rebuildBase: true,
+					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+					template: cTempl.crane,
+					structset: camAreaToStructSet("scavBase2")
+			});
+		}
+		if (difficulty >= HARD)
+		{
+			// Southwest scav base (again)
+			camManageTrucks(
+				CAM_THE_COLLECTIVE, {
+					label: "scavSWBase",
+					rebuildBase: true,
+					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+					template: cTempl.crane,
+					structset: scavStructsSW
 			});
 		}
 	}

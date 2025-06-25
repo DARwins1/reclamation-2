@@ -286,7 +286,7 @@ function drainPlayerExp()
 	let droidExp = -1;
 	while (droidExp != 0)
 	{
-		const droid = addDroid(CAM_HUMAN_PLAYER, pos.x, pos.y, "EXP Sink", "Body1REC", "wheeled01", "", "", "MG1Mk1");
+		const droid = camAddDroid(CAM_HUMAN_PLAYER, "landingZone", cTempl.plmgw, "EXP Sink");
 		droidExp = droid.experience;
 		camSafeRemoveObject(droid);
 	}
@@ -500,28 +500,16 @@ function eventStartLevel()
 			templates: [ cTempl.gbjeep, cTempl.minitruck, cTempl.kevlance, cTempl.sartruck, cTempl.bjeep, cTempl.monmrl ]
 		},
 		"infFactory1": {
-			assembly: "infAssembly1",
-			order: CAM_ORDER_ATTACK,
-			groupSize: 3,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(12)),
 			// Infested civilians, with some occasional vehicles
 			templates: [cTempl.infciv, cTempl.infbjeep, cTempl.infciv, cTempl.infciv, cTempl.infciv, cTempl.infbjeep, cTempl.infciv, cTempl.infbuscan]
 		},
 		"infFactory2": {
-			assembly: "infAssembly2",
-			order: CAM_ORDER_ATTACK,
-			groupSize: 3,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(12)),
 			// Infested civilians, with some occasional vehicles
 			templates: [cTempl.infciv, cTempl.infrbjeep, cTempl.infciv, cTempl.inflance, cTempl.infciv, cTempl.infbjeep, cTempl.infciv]
 		},
 		"infFactory3": {
-			assembly: "infAssembly3",
-			order: CAM_ORDER_ATTACK,
-			groupSize: 3,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(16)),
 			// Light Infested vehicles
 			templates: [cTempl.infciv, cTempl.infrbjeep, cTempl.infciv, cTempl.infbloke, cTempl.infciv, cTempl.infbjeep, cTempl.infciv, cTempl.infbjeep]
@@ -530,35 +518,39 @@ function eventStartLevel()
 
 	// Set up Collective trucks...
 	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds((tweakOptions.rec_timerlessMode) ? 45 : 90));
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colSouthRoadblock",
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		truckDroid: getObject("colTruck1"),
-		structset: camAreaToStructSet("colRoadblock1").filter((struct) => (!camIsScavStruct(struct.stat)))
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colSouthRoadblock",
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			truckDroid: getObject("colTruck1"),
+			structset: camAreaToStructSet("colRoadblock1").filter((struct) => (!camIsScavStruct(struct.stat)))
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colEastRoadblock",
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		truckDroid: getObject("colTruck2"),
-		structset: camAreaToStructSet("colRoadblock2").filter((struct) => (!camIsScavStruct(struct.stat)))
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colEastRoadblock",
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			truckDroid: getObject("colTruck2"),
+			structset: camAreaToStructSet("colRoadblock2").filter((struct) => (!camIsScavStruct(struct.stat)))
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colMainBase",
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		truckDroid: getObject("colTruck3"),
-		structset: camAreaToStructSet("colBase")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colMainBase",
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			truckDroid: getObject("colTruck3"),
+			structset: camAreaToStructSet("colBase")
 	});
 	if (tweakOptions.rec_timerlessMode || difficulty >= HARD)
 	{
-		camManageTrucks(CAM_THE_COLLECTIVE, {
-			label: "colLZBase",
-			respawnDelay: TRUCK_TIME,
-			rebuildBase: true,
-			template: cTempl.coltruckht,
-			structset: camAreaToStructSet("colLZ")
+		camManageTrucks(
+			CAM_THE_COLLECTIVE, {
+				label: "colLZBase",
+				respawnDelay: TRUCK_TIME,
+				rebuildBase: true,
+				template: cTempl.coltruckht,
+				structset: camAreaToStructSet("colLZ")
 		});
 	}
 
@@ -566,19 +558,21 @@ function eventStartLevel()
 	{
 		// If we're in Timerless mode, set up scavenger Cranes instead of adding a timer
 		const CRANE_TIME = camChangeOnDiff(camSecondsToMilliseconds(70));
-		camManageTrucks(CAM_THE_COLLECTIVE, {
-			label: "colSouthRoadblock",
-			rebuildBase: true,
-			respawnDelay: CRANE_TIME,
-			template: cTempl.crane,
-			structset: camAreaToStructSet("colRoadblock1").filter((struct) => (camIsScavStruct(struct)))
+		camManageTrucks(
+			CAM_THE_COLLECTIVE, {
+				label: "colSouthRoadblock",
+				rebuildBase: true,
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("colRoadblock1").filter((struct) => (camIsScavStruct(struct)))
 		});
-		camManageTrucks(CAM_THE_COLLECTIVE, {
-			label: "colEastRoadblock",
-			rebuildBase: true,
-			respawnDelay: CRANE_TIME,
-			template: cTempl.crane,
-			structset: camAreaToStructSet("colRoadblock2").filter((struct) => (camIsScavStruct(struct)))
+		camManageTrucks(
+			CAM_THE_COLLECTIVE, {
+				label: "colEastRoadblock",
+				rebuildBase: true,
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("colRoadblock2").filter((struct) => (camIsScavStruct(struct)))
 		});
 	}
 	else
@@ -660,8 +654,7 @@ function eventStartLevel()
 			}
 
 			// Create the droid
-			addDroid(CAM_HUMAN_PLAYER, -1, -1, 
-				camNameTemplate(template), template.body, template.prop, "", "", template.weap);
+			camAddDroid(CAM_HUMAN_PLAYER, -1, template);
 			// NOTE: We can't give the offworld droid XP here, since the scripting API can't find it.
 			// Instead, we'll grant XP when the transport drops it off.
 		}

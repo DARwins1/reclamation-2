@@ -555,23 +555,11 @@ function eventStartLevel()
 			templates: [cTempl.kevbloke, cTempl.buscan, cTempl.monmrl, cTempl.kevlance, cTempl.minitruck, cTempl.kevbloke, cTempl.bjeep, cTempl.rbjeep, cTempl.sartruck, cTempl.monhmg] // Mixed units (cool)
 		},
 		"westInfestedFactory": {
-			assembly: "highwayAssembly",
-			order: CAM_ORDER_ATTACK,
-			groupSize: 1,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(15)),
-			// No target player here...
 			templates: [cTempl.infkevlance, cTempl.infminitruck, cTempl.infmoncan, cTempl.infbjeep, cTempl.infkevbloke, cTempl.infrbjeep, cTempl.infkevbloke] // Mixed units
 		},
 		"northInfestedFactory": {
-			assembly: "roadAssembly",
-			order: CAM_ORDER_ATTACK,
-			groupSize: 1,
-			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(10)),
-			data: {
-				targetPlayer: CAM_HUMAN_PLAYER
-			},
 			templates: [cTempl.infkevlance, cTempl.infbjeep, cTempl.infkevbloke, cTempl.inffiretruck, cTempl.infrbjeep, cTempl.infkevbloke] // Mixed units
 		},
 	});
@@ -601,53 +589,59 @@ function eventStartLevel()
 	if (tweakOptions.rec_timerlessMode)
 	{
 		// Large scavenger bases (with AA sites)
-		camManageTrucks(MIS_CYAN_SCAVS, {
-			label: "northWestScavBase",
-			rebuildBase: (difficulty >= HARD),
-			respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-			template: cTempl.crane,
-			// Don't try to rebuild the AA sites
-			structset: camAreaToStructSet("nwScavFactoryBase").filter((struct) => (struct.stat !== "AASite-RustQuadBof"))
+		camManageTrucks(
+			MIS_CYAN_SCAVS, {
+				label: "northWestScavBase",
+				rebuildBase: (difficulty >= HARD),
+				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+				template: cTempl.crane,
+				// Don't try to rebuild the AA sites
+				structset: camAreaToStructSet("nwScavFactoryBase").filter((struct) => (struct.stat !== "AASite-RustQuadBof"))
 		});
-		camManageTrucks(MIS_CYAN_SCAVS, {
-			label: "eastScavBase",
-			rebuildBase: (difficulty >= HARD),
-			respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-			template: cTempl.crane,
-			structset: camAreaToStructSet("eScavBase").filter((struct) => (struct.stat !== "AASite-RustQuadBof"))
+		camManageTrucks(
+			MIS_CYAN_SCAVS, {
+				label: "eastScavBase",
+				rebuildBase: (difficulty >= HARD),
+				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+				template: cTempl.crane,
+				structset: camAreaToStructSet("eScavBase").filter((struct) => (struct.stat !== "AASite-RustQuadBof"))
 		});
-		camManageTrucks(MIS_CYAN_SCAVS, {
-			label: "southWestScavBase",
-			rebuildBase: (difficulty >= INSANE),
-			respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-			template: cTempl.crane,
-			structset: camAreaToStructSet("swScavBase").filter((struct) => (struct.stat !== "AASite-RustQuadBof"))
+		camManageTrucks(
+			MIS_CYAN_SCAVS, {
+				label: "southWestScavBase",
+				rebuildBase: (difficulty >= INSANE),
+				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+				template: cTempl.crane,
+				structset: camAreaToStructSet("swScavBase").filter((struct) => (struct.stat !== "AASite-RustQuadBof"))
 		});
 		if (difficulty >= EASY)
 		{
 			// Scav mountain base
-			camManageTrucks(MIS_CYAN_SCAVS, {
-				label: "scavAllianceBase",
-				rebuildBase: (difficulty >= MEDIUM),
-				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
-				template: cTempl.crane,
-				structset: camAreaToStructSet("scavBase")
+			camManageTrucks(
+				MIS_CYAN_SCAVS, {
+					label: "scavAllianceBase",
+					rebuildBase: (difficulty >= MEDIUM),
+					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(70)),
+					template: cTempl.crane,
+					structset: camAreaToStructSet("scavBase")
 			});
 		}
 		if (difficulty >= MEDIUM)
 		{
 			// Scav outposts
-			camManageTrucks(MIS_CYAN_SCAVS, {
-				label: "northWestScavOutpost",
-				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(90)),
-				template: cTempl.crane,
-				structset: camAreaToStructSet("wScavOutpost")
+			camManageTrucks(
+				MIS_CYAN_SCAVS, {
+					label: "northWestScavOutpost",
+					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(90)),
+					template: cTempl.crane,
+					structset: camAreaToStructSet("wScavOutpost")
 			});
-			camManageTrucks(MIS_CYAN_SCAVS, {
-				label: "northEastScavOutpost",
-				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(90)),
-				template: cTempl.crane,
-				structset: camAreaToStructSet("neScavOutpost")
+			camManageTrucks(
+				MIS_CYAN_SCAVS, {
+					label: "northEastScavOutpost",
+					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(90)),
+					template: cTempl.crane,
+					structset: camAreaToStructSet("neScavOutpost")
 			});
 		}
 	}

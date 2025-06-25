@@ -169,9 +169,7 @@ function sendCollectiveHeavyWave()
 		// Spawn a Collective commander
 		const commanderPos1 = camMakePos("colEntry6");
 		const commanderTemp1 = cTempl.comcomt;
-		const commDroid1 = addDroid(CAM_THE_COLLECTIVE, commanderPos1.x, commanderPos1.y, 
-			camNameTemplate(commanderTemp1), commanderTemp1.body, commanderTemp1.prop, "", "", commanderTemp1.weap
-		);
+		const commDroid1 = camAddDroid(CAM_THE_COLLECTIVE, commanderPos1, commanderTemp1);
 		
 		addLabel(commDroid1, "colCommander1");
 		// Set the commander's rank (ranges from Trained to Professional)
@@ -213,9 +211,7 @@ function sendCollectiveHeavyWave()
 		// Also include a special Tiger tank
 		const assaultPos = camMakePos("colEntry1");
 		const assaultTemp = cTempl.cohacant; // Assault Cannon Tiger Tracks
-		const assaultDroid = addDroid(CAM_THE_COLLECTIVE, assaultPos.x, assaultPos.y, 
-			camNameTemplate(assaultTemp), assaultTemp.body, assaultTemp.prop, "", "", assaultTemp.weap
-		);
+		const assaultDroid = camAddDroid(CAM_THE_COLLECTIVE, assaultPos, assaultTemp);
 		// Order the tank to attack
 		camManageGroup(camMakeGroup(assaultDroid), CAM_ORDER_ATTACK, {targetPlayer: CAM_HUMAN_PLAYER});
 		
@@ -241,9 +237,7 @@ function sendCollectiveHeavyWave()
 		// Spawn another Collective commander
 		const commanderPos2 = camMakePos("colEntry6");
 		const commanderTemp2 = cTempl.cohcomt;
-		const commDroid2 = addDroid(CAM_THE_COLLECTIVE, commanderPos2.x, commanderPos2.y, 
-			camNameTemplate(commanderTemp2), commanderTemp2.body, commanderTemp2.prop, "", "", commanderTemp2.weap
-		);
+		const commDroid2 = camAddDroid(CAM_THE_COLLECTIVE, commanderPos2, commanderTemp2);
 		
 		addLabel(commDroid2, "colCommander2");
 		// Set the commander's rank (ranges from Regular to Veteran)
@@ -307,9 +301,7 @@ function sendCollectiveSupportWave()
 		// Spawn a sensor
 		const sensorPos = camMakePos(chosenEntrance);
 		const sensorTemp = cTempl.comsensht;
-		const sensorDroid = addDroid(CAM_THE_COLLECTIVE, sensorPos.x, sensorPos.y, 
-			camNameTemplate(sensorTemp), sensorTemp.body, sensorTemp.prop, "", "", sensorTemp.weap
-		);
+		const sensorDroid = camAddDroid(CAM_THE_COLLECTIVE, sensorPos, sensorTemp);
 		const sensorLabel = ("colSensor" + sensorIdx++);
 		addLabel(sensorDroid, sensorLabel);
 		// Order the sensor to attack
@@ -362,7 +354,7 @@ function sendCollectiveSupportWave()
 
 		const truckPos = camMakePos(chosenEntrance);
 		const truckTemp = cTempl.comtruckht; // Truck Panther Half-tracks
-		const newTruck = addDroid(CAM_THE_COLLECTIVE, truckPos.x, truckPos.y, camNameTemplate(truckTemp), truckTemp.body, truckTemp.prop, "", "", truckTemp.weap);
+		const newTruck = camAddDroid(CAM_THE_COLLECTIVE, truckPos, truckTemp);
 		camAssignTruck(newTruck, job);
 	}
 }
@@ -554,25 +546,29 @@ function eventStartLevel()
 	});
 
 	// Collective trucks
-	colTruckJob1 = camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colLZ1",
-		rebuildBase: true,
-		structset: camA3L4ColLZ1Structs
+	colTruckJob1 = camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colLZ1",
+			rebuildBase: true,
+			structset: camA3L4ColLZ1Structs
 	});
-	colTruckJob2 = camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colLZ2",
-		rebuildBase: true,
-		structset: camA3L4ColLZ2Structs
+	colTruckJob2 = camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colLZ2",
+			rebuildBase: true,
+			structset: camA3L4ColLZ2Structs
 	});
-	colTruckJob3 = camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colLZ3",
-		rebuildBase: true,
-		structset: camA3L4ColLZ3Structs
+	colTruckJob3 = camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colLZ3",
+			rebuildBase: true,
+			structset: camA3L4ColLZ3Structs
 	});
-	colTruckJob4 = camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colLZ4",
-		rebuildBase: true,
-		structset: camA3L4ColLZ4Structs
+	colTruckJob4 = camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colLZ4",
+			rebuildBase: true,
+			structset: camA3L4ColLZ4Structs
 	});
 
 	heavyWaveIdx = 1;

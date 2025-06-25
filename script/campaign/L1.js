@@ -134,12 +134,13 @@ function expandMap()
 		{
 			// Crane for the cyan scav bases
 			// NOTE: The player doesn't really have any effective anti-structure weapons at this point, so we're being nice with the Cranes for now...
-			camManageTrucks(MIS_CYAN_SCAVS, {
-				label: "CyanBase",
-				rebuildBase: false,
-				respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(120)),
-				template: cTempl.crane,
-				structset: camAreaToStructSet("cScavBase3")
+			camManageTrucks(
+				MIS_CYAN_SCAVS, {
+					label: "CyanBase",
+					rebuildBase: false,
+					respawnDelay: camChangeOnDiff(camSecondsToMilliseconds(120)),
+					template: cTempl.crane,
+					structset: camAreaToStructSet("cScavBase3")
 			});
 		}
 	}
@@ -168,21 +169,21 @@ function expandMap()
 }
 
 // This is used to start make scavengers "detect" the player once they're attacked
-function eventAttacked(victim, attacker) 
+function eventDestroyed(obj)
 {
-	if (!camDef(victim) || !victim || victim.player === CAM_HUMAN_PLAYER)
+	if (ob.type !== STRUCTURE)
 	{
-		return;
+		return; // Only care about structures
 	}
-	if (victim.player === MIS_CYAN_SCAVS && attacker.player === CAM_HUMAN_PLAYER && !playerCyanDetected)
+
+	// NOTE: This assumes that the scavengers will not destroy eachother's structures before the player gets involved!
+	if (obj.player === MIS_CYAN_SCAVS && !playerCyanDetected)
 	{
 		camCallOnce("cScavDetectCountdown");
-		return;
 	}
-	if (victim.player === MIS_YELLOW_SCAVS && attacker.player === CAM_HUMAN_PLAYER && !playerYellowDetected)
+	else if (obj.player === MIS_YELLOW_SCAVS && !playerYellowDetected)
 	{
 		camCallOnce("yScavDetectCountdown");
-		return;
 	}
 }
 
@@ -605,30 +606,34 @@ function eventStartLevel()
 		},
 	});
 
-	camMakeRefillableGroup(undefined, {templates: [
-		cTempl.trike, cTempl.bloke,
-		cTempl.bloke, cTempl.trike,
-		],
-		factories: ["yScavFactory1"],
-		callback: "allowCentralRefilling" // Stop refilling the central groups once the player is detected
+	camMakeRefillableGroup(
+		undefined, {
+			templates: [
+				cTempl.trike, cTempl.bloke,
+				cTempl.bloke, cTempl.trike,
+			],
+			factories: ["yScavFactory1"],
+			callback: "allowCentralRefilling" // Stop refilling the central groups once the player is detected
 		}, CAM_ORDER_PATROL, {
-		pos: [
-			camMakePos("scavPatrol1"),
-			camMakePos("scavPatrol2"),
-		]
+			pos: [
+				camMakePos("scavPatrol1"),
+				camMakePos("scavPatrol2"),
+			]
 	});
 
-	camMakeRefillableGroup(undefined, {templates: [
-		cTempl.bjeep, cTempl.bloke, cTempl.bloke,
-		cTempl.bjeep, cTempl.bloke, cTempl.bloke,
-		],
-		factories: ["cScavFactory"],
-		callback: "allowCentralRefilling"
+	camMakeRefillableGroup(
+		undefined, {
+			templates: [
+				cTempl.bjeep, cTempl.bloke, cTempl.bloke,
+				cTempl.bjeep, cTempl.bloke, cTempl.bloke,
+			],
+			factories: ["cScavFactory"],
+			callback: "allowCentralRefilling"
 		}, CAM_ORDER_PATROL, {
-		pos: [
-			camMakePos("scavPatrol1"),
-			camMakePos("scavPatrol2"),
-		]
+			pos: [
+				camMakePos("scavPatrol1"),
+				camMakePos("scavPatrol2"),
+			]
 	});
 
 	playerCyanDetected = false;

@@ -346,194 +346,211 @@ function eventStartLevel()
 		commandTemplates.push(cTempl.comatt);
 		commandTemplates.push(cTempl.comatt);
 	}
-	camMakeRefillableGroup(camMakeGroup("colCommandGroup"), {
-		templates: commandTemplates,
-		factories: ["colFactory2", "colFactory3", "colCybFactory1", "colCybFactory2", "colCybFactory3"],
-		obj: "colCommander" // Stop refilling this group when the commander dies
+	camMakeRefillableGroup(
+		camMakeGroup("colCommandGroup"), {
+			templates: commandTemplates,
+			factories: ["colFactory2", "colFactory3", "colCybFactory1", "colCybFactory2", "colCybFactory3"],
+			obj: "colCommander" // Stop refilling this group when the commander dies
 		}, CAM_ORDER_FOLLOW, {
-		leader: "colCommander",
-		repair: 60,
-		suborder: CAM_ORDER_ATTACK
+			leader: "colCommander",
+			repair: 60,
+			suborder: CAM_ORDER_ATTACK
 	});
 	// Hover patrol group
 	const hoverTemplates = 
-	camMakeRefillableGroup(undefined, {
-		templates: [ // 2 Lancers, 2 MRAs, 2 Bunker Busters
-			cTempl.comath, cTempl.comath,
-			cTempl.combbh,
-			cTempl.commrah, cTempl.commrah,
-			cTempl.combbh,
-		],
-		factories: ["colFactory1"],
+	camMakeRefillableGroup(
+		undefined, {
+			templates: [ // 2 Lancers, 2 MRAs, 2 Bunker Busters
+				cTempl.comath, cTempl.comath,
+				cTempl.combbh,
+				cTempl.commrah, cTempl.commrah,
+				cTempl.combbh,
+			],
+			factories: ["colFactory1"],
 		}, CAM_ORDER_PATROL, {
-		pos: [
-			camMakePos("hoverPatrolPos5"),
-			camMakePos("hoverPatrolPos6"),
-			camMakePos("hoverPatrolPos7"),
-			camMakePos("hoverPatrolPos8"),
-			camMakePos("hoverPatrolPos9")
-		],
-		interval: camSecondsToMilliseconds(28),
-		repair: 80
+			pos: [
+				camMakePos("hoverPatrolPos5"),
+				camMakePos("hoverPatrolPos6"),
+				camMakePos("hoverPatrolPos7"),
+				camMakePos("hoverPatrolPos8"),
+				camMakePos("hoverPatrolPos9")
+			],
+			interval: camSecondsToMilliseconds(28),
+			repair: 80
 	});
 	// VTOL groups
 	// Assigned to the VTOL Strike unit (which in turn is assigned to a commander)
-	camMakeRefillableGroup(undefined, {
-		templates: [ // 3 Cluster bombs, 3 Lancers
-			cTempl.colbombv, cTempl.colatv,
-			cTempl.colbombv, cTempl.colatv,
-			cTempl.colbombv, cTempl.colatv,
-		],
-		factories: ["colVtolFactory"],
-		obj: "colVtolSensor",
+	camMakeRefillableGroup(
+		undefined, {
+			templates: [ // 3 Cluster bombs, 3 Lancers
+				cTempl.colbombv, cTempl.colatv,
+				cTempl.colbombv, cTempl.colatv,
+				cTempl.colbombv, cTempl.colatv,
+			],
+			factories: ["colVtolFactory"],
+			obj: "colVtolSensor",
 		}, CAM_ORDER_FOLLOW, {
-		leader: "colVtolSensor",
-		suborder: CAM_ORDER_ATTACK // Just attack normally when sensor is destroyed
+			leader: "colVtolSensor",
+			suborder: CAM_ORDER_ATTACK // Just attack normally when sensor is destroyed
 	});
 	// Assigned to the VTOL Radar Tower (northwest)
-	camMakeRefillableGroup(undefined, {
-		templates: [ // 2 Heavy Machineguns, 2 Lancers
-			cTempl.colhmgv, cTempl.colatv,
-			cTempl.colhmgv, cTempl.colatv,
-		],
-		factories: ["colVtolFactory"],
-		obj: "colVtolTower1",
+	camMakeRefillableGroup(
+		undefined, {
+			templates: [ // 2 Heavy Machineguns, 2 Lancers
+				cTempl.colhmgv, cTempl.colatv,
+				cTempl.colhmgv, cTempl.colatv,
+			],
+			factories: ["colVtolFactory"],
+			obj: "colVtolTower1",
 		}, CAM_ORDER_FOLLOW, {
-		leader: "colVtolTower1",
-		suborder: CAM_ORDER_DEFEND, // Tower groups defend until tower is rebuilt
-		data: {
-			pos: camMakePos("colVtolAssembly")
-		}
+			leader: "colVtolTower1",
+			suborder: CAM_ORDER_DEFEND, // Tower groups defend until tower is rebuilt
+			data: {
+				pos: camMakePos("colVtolAssembly")
+			}
 	});
 	// Assigned to the VTOL Radar Tower (center)
-	camMakeRefillableGroup(undefined, {
-		templates: [ // 2 Heavy Machineguns, 2 Lancers
-			cTempl.colhmgv, cTempl.colatv,
-			cTempl.colhmgv, cTempl.colatv,
-		],
-		factories: ["colVtolFactory"],
-		obj: "colVtolTower2",
+	camMakeRefillableGroup(
+		undefined, {
+			templates: [ // 2 Heavy Machineguns, 2 Lancers
+				cTempl.colhmgv, cTempl.colatv,
+				cTempl.colhmgv, cTempl.colatv,
+			],
+			factories: ["colVtolFactory"],
+			obj: "colVtolTower2",
 		}, CAM_ORDER_FOLLOW, {
-		leader: "colVtolTower2",
-		suborder: CAM_ORDER_DEFEND,
-		data: {
-			pos: camMakePos("colVtolAssembly")
-		}
+			leader: "colVtolTower2",
+			suborder: CAM_ORDER_DEFEND,
+			data: {
+				pos: camMakePos("colVtolAssembly")
+			}
 	});
 	// Assigned to the VTOL Radar Tower (east)
-	camMakeRefillableGroup(undefined, {
-		templates: [ // 2 Heavy Machineguns, 2 Lancers
-			cTempl.colhmgv, cTempl.colatv,
-			cTempl.colhmgv, cTempl.colatv,
-		],
-		factories: ["colVtolFactory"],
-		obj: "colVtolTower3",
+	camMakeRefillableGroup(
+		undefined, {
+			templates: [ // 2 Heavy Machineguns, 2 Lancers
+				cTempl.colhmgv, cTempl.colatv,
+				cTempl.colhmgv, cTempl.colatv,
+			],
+			factories: ["colVtolFactory"],
+			obj: "colVtolTower3",
 		}, CAM_ORDER_FOLLOW, {
-		leader: "colVtolTower3",
-		suborder: CAM_ORDER_DEFEND,
-		data: {
-			pos: camMakePos("colVtolAssembly")
-		}
+			leader: "colVtolTower3",
+			suborder: CAM_ORDER_DEFEND,
+			data: {
+				pos: camMakePos("colVtolAssembly")
+			}
 	});
 	// Assigned to the VTOL CB Tower
-	camMakeRefillableGroup(undefined, {
-		templates: [ // 2 Cluster Bombs, 2 Lancers
-			cTempl.colbombv, cTempl.colatv,
-			cTempl.colbombv, cTempl.colatv,
-		],
-		factories: ["colVtolFactory"],
-		obj: "colVtolCBTower",
+	camMakeRefillableGroup(
+		undefined, {
+			templates: [ // 2 Cluster Bombs, 2 Lancers
+				cTempl.colbombv, cTempl.colatv,
+				cTempl.colbombv, cTempl.colatv,
+			],
+			factories: ["colVtolFactory"],
+			obj: "colVtolCBTower",
 		}, CAM_ORDER_FOLLOW, {
-		leader: "colVtolCBTower",
-		suborder: CAM_ORDER_DEFEND,
-		data: {
-			pos: camMakePos("colVtolAssembly")
-		}
+			leader: "colVtolCBTower",
+			suborder: CAM_ORDER_DEFEND,
+			data: {
+				pos: camMakePos("colVtolAssembly")
+			}
 	});
 	// Trucks
 	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds((tweakOptions.rec_timerlessMode) ? 35 : 70));
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colCanalBase",
-		rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= MEDIUM),
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		truckDroid: getObject("colTruck1"),
-		structset: camAreaToStructSet("colBase1")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colCanalBase",
+			rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= MEDIUM),
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			truckDroid: getObject("colTruck1"),
+			structset: camAreaToStructSet("colBase1")
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colMoundBase",
-		rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= MEDIUM),
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		truckDroid: getObject("colTruck2"),
-		structset: camAreaToStructSet("colBase2")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colMoundBase",
+			rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= MEDIUM),
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			truckDroid: getObject("colTruck2"),
+			structset: camAreaToStructSet("colBase2")
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colBlockadeBase",
-		rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= EASY),
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: (tweakOptions.rec_timerlessMode || difficulty >= MEDIUM),
-		truckDroid: getObject("colTruck3"),
-		structset: camAreaToStructSet("colBase3")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colBlockadeBase",
+			rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= EASY),
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: (tweakOptions.rec_timerlessMode || difficulty >= MEDIUM),
+			truckDroid: getObject("colTruck3"),
+			structset: camAreaToStructSet("colBase3")
 	});
-	camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colMainBase",
-		rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= EASY),
-		respawnDelay: TRUCK_TIME,
-		rebuildBase: tweakOptions.rec_timerlessMode,
-		truckDroid: getObject("colTruck4"),
-		structset: camAreaToStructSet("colBase4")
+	camManageTrucks(
+		CAM_THE_COLLECTIVE, {
+			label: "colMainBase",
+			rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= EASY),
+			respawnDelay: TRUCK_TIME,
+			rebuildBase: tweakOptions.rec_timerlessMode,
+			truckDroid: getObject("colTruck4"),
+			structset: camAreaToStructSet("colBase4")
 	});
 
 	if (difficulty >= HARD || tweakOptions.rec_timerlessMode)
 	{
 		// Add a SECOND truck to the barricade base
-		camManageTrucks(CAM_THE_COLLECTIVE, {
-		label: "colBlockadeBase",
-			respawnDelay: TRUCK_TIME,
-			rebuildBase: true,
-			template: cTempl.comtruckt,
-			structset: camAreaToStructSet("colBase3")
+		camManageTrucks(
+			CAM_THE_COLLECTIVE, {
+				label: "colBlockadeBase",
+				respawnDelay: TRUCK_TIME,
+				rebuildBase: true,
+				template: cTempl.comtruckt,
+				structset: camAreaToStructSet("colBase3")
 		});
 	}
 
 	if (tweakOptions.rec_timerlessMode)
 	{
 		const CRANE_TIME = camChangeOnDiff(camSecondsToMilliseconds(70));
-		camManageTrucks(CAM_THE_COLLECTIVE, {
-			label: "cScavWesterCraterBase",
-			rebuildBase: true,
-			respawnDelay: CRANE_TIME,
-			template: cTempl.crane,
-			structset: camAreaToStructSet("cScavBase1").filter((struct) => (camIsScavStruct(struct)))
+		camManageTrucks(
+			CAM_THE_COLLECTIVE, {
+				label: "cScavWesterCraterBase",
+				rebuildBase: true,
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("cScavBase1").filter((struct) => (camIsScavStruct(struct)))
 		});
-		camManageTrucks(CAM_THE_COLLECTIVE, {
-			label: "cScavWestCraterBase",
-			rebuildBase: true,
-			respawnDelay: CRANE_TIME,
-			template: cTempl.crane,
-			structset: camAreaToStructSet("cScavBase2").filter((struct) => (camIsScavStruct(struct)))
+		camManageTrucks(
+			CAM_THE_COLLECTIVE, {
+				label: "cScavWestCraterBase",
+				rebuildBase: true,
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("cScavBase2").filter((struct) => (camIsScavStruct(struct)))
 		});
-		camManageTrucks(CAM_THE_COLLECTIVE, {
-			label: "cScavNorthBase",
-			rebuildBase: true,
-			respawnDelay: CRANE_TIME,
-			template: cTempl.crane,
-			structset: camAreaToStructSet("cScavBase4").filter((struct) => (camIsScavStruct(struct)))
+		camManageTrucks(
+			CAM_THE_COLLECTIVE, {
+				label: "cScavNorthBase",
+				rebuildBase: true,
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("cScavBase4").filter((struct) => (camIsScavStruct(struct)))
 		});
-		camManageTrucks(CAM_THE_COLLECTIVE, {
-			label: "cScavBigCraterBase",
-			rebuildBase: true,
-			respawnDelay: CRANE_TIME,
-			template: cTempl.crane,
-			structset: camAreaToStructSet("cScavBase5").filter((struct) => (camIsScavStruct(struct)))
+		camManageTrucks(
+			CAM_THE_COLLECTIVE, {
+				label: "cScavBigCraterBase",
+				rebuildBase: true,
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("cScavBase5").filter((struct) => (camIsScavStruct(struct)))
 		});
-		camManageTrucks(CAM_THE_COLLECTIVE, {
-			label: "cScavEastBase",
-			rebuildBase: true,
-			respawnDelay: CRANE_TIME,
-			template: cTempl.crane,
-			structset: camAreaToStructSet("cScavBase6")
+		camManageTrucks(
+			CAM_THE_COLLECTIVE, {
+				label: "cScavEastBase",
+				rebuildBase: true,
+				respawnDelay: CRANE_TIME,
+				template: cTempl.crane,
+				structset: camAreaToStructSet("cScavBase6")
 		});
 	}
 	else

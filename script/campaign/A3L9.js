@@ -263,9 +263,7 @@ function sendFoxtrotGroundReinforcements()
 		// Bring in the trucks!
 		const tPos = camMakePos(camRandFrom(entrances));
 		const tTemp = (phase >= 3 || difficulty >= HARD) ? cTempl.plhtruckht : cTempl.plmtruckht;
-		const newTruck = addDroid(MIS_TEAM_FOXTROT, tPos.x, tPos.y, 
-			camNameTemplate(tTemp.weap, tTemp.body, tTemp.prop), 
-			tTemp.body, tTemp.prop, "", "", tTemp.weap);
+		const newTruck = camAddDroid(MIS_TEAM_FOXTROT, tPos, tTemp);
 		camAssignTruck(newTruck, job);
 	}
 
@@ -389,9 +387,7 @@ function sendGolfGroundReinforcements()
 		// Bring in the trucks!
 		const tPos = camMakePos(camRandFrom(entrances));
 		const tTemp = (phase > 3 || difficulty >= HARD) ? cTempl.plhtruckt : cTempl.plmtruckt;
-		const newTruck = addDroid(MIS_TEAM_GOLF, tPos.x, tPos.y, 
-			camNameTemplate(tTemp.weap, tTemp.body, tTemp.prop), 
-			tTemp.body, tTemp.prop, "", "", tTemp.weap);
+		const newTruck = camAddDroid(MIS_TEAM_GOLF, tPos.x, tTemp);
 		camAssignTruck(newTruck, job);
 	}
 
@@ -694,190 +690,214 @@ function eventStartLevel()
 
 	// Foxtrot trucks
 	// 2 Trucks for each LZ...
-	foxtrotLz1TruckJobs.push(camManageTrucks(MIS_TEAM_FOXTROT, {
-		label: "foxtrotLz1",
-		rebuildBase: true,
-		structset: camA3L9FoxtrotLZ1Structs
+	foxtrotLz1TruckJobs.push(camManageTrucks(
+		MIS_TEAM_FOXTROT, {
+			label: "foxtrotLz1",
+			rebuildBase: true,
+			structset: camA3L9FoxtrotLZ1Structs
 	}));
-	foxtrotLz1TruckJobs.push(camManageTrucks(MIS_TEAM_FOXTROT, {
-		label: "foxtrotLz1",
-		rebuildBase: true,
-		structset: camA3L9FoxtrotLZ1Structs
+	foxtrotLz1TruckJobs.push(camManageTrucks(
+		MIS_TEAM_FOXTROT, {
+			label: "foxtrotLz1",
+			rebuildBase: true,
+			structset: camA3L9FoxtrotLZ1Structs
 	}));
 
-	foxtrotLz2TruckJobs.push(camManageTrucks(MIS_TEAM_FOXTROT, {
-		label: "foxtrotLz2",
-		rebuildBase: true,
-		structset: camA3L9FoxtrotLZ2Structs
+	foxtrotLz2TruckJobs.push(camManageTrucks(
+		MIS_TEAM_FOXTROT, {
+			label: "foxtrotLz2",
+			rebuildBase: true,
+			structset: camA3L9FoxtrotLZ2Structs
 	}));
-	foxtrotLz2TruckJobs.push(camManageTrucks(MIS_TEAM_FOXTROT, {
-		label: "foxtrotLz2",
-		rebuildBase: true,
-		structset: camA3L9FoxtrotLZ2Structs
+	foxtrotLz2TruckJobs.push(camManageTrucks(
+		MIS_TEAM_FOXTROT, {
+			label: "foxtrotLz2",
+			rebuildBase: true,
+			structset: camA3L9FoxtrotLZ2Structs
 	}));
 
 	// 6 Trucks for general defenses
-	foxtrotDefenseTruckJobs.push(camManageTrucks(MIS_TEAM_FOXTROT, {
-		label: "foxtrotDefenses",
-		area: "foxtrotDefenses",
-		structset: camA3L9FoxtrotDefenseStructs
+	foxtrotDefenseTruckJobs.push(camManageTrucks(
+		MIS_TEAM_FOXTROT, {
+			label: "foxtrotDefenses",
+			area: "foxtrotDefenses",
+			structset: camA3L9FoxtrotDefenseStructs
 	}));
-	foxtrotDefenseTruckJobs.push(camManageTrucks(MIS_TEAM_FOXTROT, {
-		label: "foxtrotDefenses",
-		area: "foxtrotDefenses",
-		structset: camA3L9FoxtrotDefenseStructs
+	foxtrotDefenseTruckJobs.push(camManageTrucks(
+		MIS_TEAM_FOXTROT, {
+			label: "foxtrotDefenses",
+			area: "foxtrotDefenses",
+			structset: camA3L9FoxtrotDefenseStructs
 	}));
-	foxtrotDefenseTruckJobs.push(camManageTrucks(MIS_TEAM_FOXTROT, {
-		label: "foxtrotDefenses",
-		area: "foxtrotDefenses",
-		structset: camA3L9FoxtrotDefenseStructs
+	foxtrotDefenseTruckJobs.push(camManageTrucks(
+		MIS_TEAM_FOXTROT, {
+			label: "foxtrotDefenses",
+			area: "foxtrotDefenses",
+			structset: camA3L9FoxtrotDefenseStructs
 	}));
-	foxtrotDefenseTruckJobs.push(camManageTrucks(MIS_TEAM_FOXTROT, {
-		label: "foxtrotDefenses",
-		area: "foxtrotDefenses",
-		structset: camA3L9FoxtrotDefenseStructs
+	foxtrotDefenseTruckJobs.push(camManageTrucks(
+		MIS_TEAM_FOXTROT, {
+			label: "foxtrotDefenses",
+			area: "foxtrotDefenses",
+			structset: camA3L9FoxtrotDefenseStructs
 	}));
-	foxtrotDefenseTruckJobs.push(camManageTrucks(MIS_TEAM_FOXTROT, {
-		label: "foxtrotDefenses",
-		area: "foxtrotDefenses",
-		structset: camA3L9FoxtrotDefenseStructs
+	foxtrotDefenseTruckJobs.push(camManageTrucks(
+		MIS_TEAM_FOXTROT, {
+			label: "foxtrotDefenses",
+			area: "foxtrotDefenses",
+			structset: camA3L9FoxtrotDefenseStructs
 	}));
-	foxtrotDefenseTruckJobs.push(camManageTrucks(MIS_TEAM_FOXTROT, {
-		label: "foxtrotDefenses",
-		area: "foxtrotDefenses",
-		structset: camA3L9FoxtrotDefenseStructs
+	foxtrotDefenseTruckJobs.push(camManageTrucks(
+		MIS_TEAM_FOXTROT, {
+			label: "foxtrotDefenses",
+			area: "foxtrotDefenses",
+			structset: camA3L9FoxtrotDefenseStructs
 	}));
 
 	// Golf trucks
 	// 2 Trucks for each LZ...
-	golfLz1TruckJobs.push(camManageTrucks(MIS_TEAM_GOLF, {
-		label: "golfLz1",
-		rebuildBase: true,
-		structset: camA3L9GolfLZ1Structs
+	golfLz1TruckJobs.push(camManageTrucks(
+		MIS_TEAM_GOLF, {
+			label: "golfLz1",
+			rebuildBase: true,
+			structset: camA3L9GolfLZ1Structs
 	}));
-	golfLz1TruckJobs.push(camManageTrucks(MIS_TEAM_GOLF, {
-		label: "golfLz1",
-		rebuildBase: true,
-		structset: camA3L9GolfLZ1Structs
+	golfLz1TruckJobs.push(camManageTrucks(
+		MIS_TEAM_GOLF, {
+			label: "golfLz1",
+			rebuildBase: true,
+			structset: camA3L9GolfLZ1Structs
 	}));
 
-	golfLz2TruckJobs.push(camManageTrucks(MIS_TEAM_GOLF, {
-		label: "golfLz2",
-		rebuildBase: true,
-		structset: camA3L9GolfLZ2Structs
+	golfLz2TruckJobs.push(camManageTrucks(
+		MIS_TEAM_GOLF, {
+			label: "golfLz2",
+			rebuildBase: true,
+			structset: camA3L9GolfLZ2Structs
 	}));
-	golfLz2TruckJobs.push(camManageTrucks(MIS_TEAM_GOLF, {
-		label: "golfLz2",
-		rebuildBase: true,
-		structset: camA3L9GolfLZ2Structs
+	golfLz2TruckJobs.push(camManageTrucks(
+		MIS_TEAM_GOLF, {
+			label: "golfLz2",
+			rebuildBase: true,
+			structset: camA3L9GolfLZ2Structs
 	}));
 
 	// 6 Trucks for general defenses
-	golfDefenseTruckJobs.push(camManageTrucks(MIS_TEAM_GOLF, {
-		label: "golfDefenses",
-		area: "golfDefenses",
-		structset: camA3L9GolfDefenseStructs
+	golfDefenseTruckJobs.push(camManageTrucks(
+		MIS_TEAM_GOLF, {
+			label: "golfDefenses",
+			area: "golfDefenses",
+			structset: camA3L9GolfDefenseStructs
 	}));
-	golfDefenseTruckJobs.push(camManageTrucks(MIS_TEAM_GOLF, {
-		label: "golfDefenses",
-		area: "golfDefenses",
-		structset: camA3L9GolfDefenseStructs
+	golfDefenseTruckJobs.push(camManageTrucks(
+		MIS_TEAM_GOLF, {
+			label: "golfDefenses",
+			area: "golfDefenses",
+			structset: camA3L9GolfDefenseStructs
 	}));
-	golfDefenseTruckJobs.push(camManageTrucks(MIS_TEAM_GOLF, {
-		label: "golfDefenses",
-		area: "golfDefenses",
-		structset: camA3L9GolfDefenseStructs
+	golfDefenseTruckJobs.push(camManageTrucks(
+		MIS_TEAM_GOLF, {
+			label: "golfDefenses",
+			area: "golfDefenses",
+			structset: camA3L9GolfDefenseStructs
 	}));
-	golfDefenseTruckJobs.push(camManageTrucks(MIS_TEAM_GOLF, {
-		label: "golfDefenses",
-		area: "golfDefenses",
-		structset: camA3L9GolfDefenseStructs
+	golfDefenseTruckJobs.push(camManageTrucks(
+		MIS_TEAM_GOLF, {
+			label: "golfDefenses",
+			area: "golfDefenses",
+			structset: camA3L9GolfDefenseStructs
 	}));
-	golfDefenseTruckJobs.push(camManageTrucks(MIS_TEAM_GOLF, {
-		label: "golfDefenses",
-		area: "golfDefenses",
-		structset: camA3L9GolfDefenseStructs
+	golfDefenseTruckJobs.push(camManageTrucks(
+		MIS_TEAM_GOLF, {
+			label: "golfDefenses",
+			area: "golfDefenses",
+			structset: camA3L9GolfDefenseStructs
 	}));
-	golfDefenseTruckJobs.push(camManageTrucks(MIS_TEAM_GOLF, {
-		label: "golfDefenses",
-		area: "golfDefenses",
-		structset: camA3L9GolfDefenseStructs
+	golfDefenseTruckJobs.push(camManageTrucks(
+		MIS_TEAM_GOLF, {
+			label: "golfDefenses",
+			area: "golfDefenses",
+			structset: camA3L9GolfDefenseStructs
 	}));
 
-	foxtrotPatrolGroup = camMakeRefillableGroup(undefined, {
-		templates: [
-			cTempl.plhhatht, cTempl.plhhatht, cTempl.plhhatht, cTempl.plhhatht, // 4 Tank Killers
-			cTempl.cybth, cTempl.cybth, cTempl.cybth, cTempl.cybth, cTempl.cybth, cTempl.cybth, // 6 Thermite Flamers
-			cTempl.plhhaaht, cTempl.plhhaaht, cTempl.plhhaaht, cTempl.plhhaaht, // 4 Cyclones
-			cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk, // 4 Super Tank Killers
-		]
-	}, CAM_ORDER_PATROL, {
-		repair: 75,
-		pos: [
-			camMakePos("patrolPos10"),
-			camMakePos("patrolPos11"),
-			camMakePos("patrolPos12"),
-		],
-		interval: camSecondsToMilliseconds(32)
+	foxtrotPatrolGroup = camMakeRefillableGroup(
+		undefined, {
+			templates: [
+				cTempl.plhhatht, cTempl.plhhatht, cTempl.plhhatht, cTempl.plhhatht, // 4 Tank Killers
+				cTempl.cybth, cTempl.cybth, cTempl.cybth, cTempl.cybth, cTempl.cybth, cTempl.cybth, // 6 Thermite Flamers
+				cTempl.plhhaaht, cTempl.plhhaaht, cTempl.plhhaaht, cTempl.plhhaaht, // 4 Cyclones
+				cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk, // 4 Super Tank Killers
+			]
+		}, CAM_ORDER_PATROL, {
+			repair: 75,
+			pos: [
+				camMakePos("patrolPos10"),
+				camMakePos("patrolPos11"),
+				camMakePos("patrolPos12"),
+			],
+			interval: camSecondsToMilliseconds(32)
 	});
-	foxtrotHoverGroup = camMakeRefillableGroup(undefined, {
-		templates: [
-			cTempl.plhhath, cTempl.plhhath, cTempl.plhhath, cTempl.plhhath, cTempl.plhhath, cTempl.plhhath, cTempl.plhhath, cTempl.plhhath, // 8 Tank Killers
-			cTempl.plhbbh, cTempl.plhbbh, cTempl.plhbbh, cTempl.plhbbh, // 4 Bunker Busters
-			cTempl.plhinfh, cTempl.plhinfh, cTempl.plhinfh, cTempl.plhinfh, // 4 Infernos
-		]
-	}, CAM_ORDER_PATROL, {
-		repair: 75,
-		pos: [
-			camMakePos("hoverPatrolPos4"),
-			camMakePos("hoverPatrolPos5"),
-			camMakePos("hoverPatrolPos6"),
-			camMakePos("hoverPatrolPos7"),
-		],
-		interval: camSecondsToMilliseconds(22)
+	foxtrotHoverGroup = camMakeRefillableGroup(
+		undefined, {
+			templates: [
+				cTempl.plhhath, cTempl.plhhath, cTempl.plhhath, cTempl.plhhath, cTempl.plhhath, cTempl.plhhath, cTempl.plhhath, cTempl.plhhath, // 8 Tank Killers
+				cTempl.plhbbh, cTempl.plhbbh, cTempl.plhbbh, cTempl.plhbbh, // 4 Bunker Busters
+				cTempl.plhinfh, cTempl.plhinfh, cTempl.plhinfh, cTempl.plhinfh, // 4 Infernos
+			]
+		}, CAM_ORDER_PATROL, {
+			repair: 75,
+			pos: [
+				camMakePos("hoverPatrolPos4"),
+				camMakePos("hoverPatrolPos5"),
+				camMakePos("hoverPatrolPos6"),
+				camMakePos("hoverPatrolPos7"),
+			],
+			interval: camSecondsToMilliseconds(22)
 	});
-	foxtrotCommandGroup = camMakeRefillableGroup(undefined, {
-		templates: [ // 6 Tank Killers, 6 BBs, 6 Infernos
-			cTempl.plhhatw, cTempl.plhhatw,
-			cTempl.plhbbw, cTempl.plhbbw,
-			cTempl.plhinfw, cTempl.plhinfw,
-			cTempl.plhhatw, cTempl.plhhatw,
-			cTempl.plhbbw, cTempl.plhbbw,
-			cTempl.plhinfw, cTempl.plhinfw,
-			cTempl.plhhatw, cTempl.plhhatw,
-			cTempl.plhbbw, cTempl.plhbbw,
-			cTempl.plhinfw, cTempl.plhinfw,
-		],
-	}, CAM_ORDER_FOLLOW, {
-		leader: "foxtrotCommander",
-		repair: 50,
-		suborder: CAM_ORDER_DEFEND,
-		data: {
-			pos: camMakePos("foxtrotFallbackPos"),
-			radius: 24
-		}
+	foxtrotCommandGroup = camMakeRefillableGroup(
+		undefined, {
+			templates: [ // 6 Tank Killers, 6 BBs, 6 Infernos
+				cTempl.plhhatw, cTempl.plhhatw,
+				cTempl.plhbbw, cTempl.plhbbw,
+				cTempl.plhinfw, cTempl.plhinfw,
+				cTempl.plhhatw, cTempl.plhhatw,
+				cTempl.plhbbw, cTempl.plhbbw,
+				cTempl.plhinfw, cTempl.plhinfw,
+				cTempl.plhhatw, cTempl.plhhatw,
+				cTempl.plhbbw, cTempl.plhbbw,
+				cTempl.plhinfw, cTempl.plhinfw,
+			],
+		}, CAM_ORDER_FOLLOW, {
+			leader: "foxtrotCommander",
+			repair: 50,
+			suborder: CAM_ORDER_DEFEND,
+			data: {
+				pos: camMakePos("foxtrotFallbackPos"),
+				radius: 24
+			}
 	});
 
-	golfPatrolGroup = camMakeRefillableGroup(undefined, {
-		templates: [
-			cTempl.plhhrat, cTempl.plhhrat, cTempl.plhhrat, cTempl.plhhrat, cTempl.plhhrat, cTempl.plhhrat, cTempl.plhhrat, cTempl.plhhrat, // 8 HRAs
-			cTempl.plmhpvt, cTempl.plmhpvt, cTempl.plmhpvt, cTempl.plmhpvt, cTempl.plmhpvt, cTempl.plmhpvt, // 6 HVCs
-			cTempl.plhhaat, cTempl.plhhaat, cTempl.plhhaat, cTempl.plhhaat, // 4 Cyclones
-		]
-	}, CAM_ORDER_PATROL, {
-		repair: 50,
-		pos: [
-			camMakePos("patrolPos1"),
-			camMakePos("patrolPos2"),
-			camMakePos("patrolPos3"),
-			camMakePos("patrolPos4"),
-			camMakePos("patrolPos5"),
-			camMakePos("patrolPos6"),
-			camMakePos("patrolPos7"),
-			camMakePos("patrolPos8"),
-			camMakePos("patrolPos9"),
-		],
-		interval: camSecondsToMilliseconds(46)
+	golfPatrolGroup = camMakeRefillableGroup(
+		undefined, {
+			templates: [
+				cTempl.plhhrat, cTempl.plhhrat, cTempl.plhhrat, cTempl.plhhrat, cTempl.plhhrat, cTempl.plhhrat, cTempl.plhhrat, cTempl.plhhrat, // 8 HRAs
+				cTempl.plmhpvt, cTempl.plmhpvt, cTempl.plmhpvt, cTempl.plmhpvt, cTempl.plmhpvt, cTempl.plmhpvt, // 6 HVCs
+				cTempl.plhhaat, cTempl.plhhaat, cTempl.plhhaat, cTempl.plhhaat, // 4 Cyclones
+			]
+		}, CAM_ORDER_PATROL, {
+			repair: 50,
+			pos: [
+				camMakePos("patrolPos1"),
+				camMakePos("patrolPos2"),
+				camMakePos("patrolPos3"),
+				camMakePos("patrolPos4"),
+				camMakePos("patrolPos5"),
+				camMakePos("patrolPos6"),
+				camMakePos("patrolPos7"),
+				camMakePos("patrolPos8"),
+				camMakePos("patrolPos9"),
+			],
+			interval: camSecondsToMilliseconds(46)
 	});
 
 	allowWin = false;

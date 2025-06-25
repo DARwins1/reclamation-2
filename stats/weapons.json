@@ -1683,7 +1683,7 @@
         "facePlayer": 1,
         "fireOnMove": 0,
         "firePause": 100,
-        "flightGfx": "FXMPLME.PIE",
+        "flightGfx": "FXTPLME.PIE",
         "flightSpeed": 1500,
         "hitGfx": "FXMPExp.PIE",
         "hitpoints": 1,

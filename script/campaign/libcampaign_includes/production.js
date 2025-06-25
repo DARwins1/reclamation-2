@@ -429,17 +429,26 @@ function camDisableInfAutoManagement()
 //;; Takes a player ID, position object, template, and an optional name.
 //;; If no name is provided, the template will be named automatically based on its components.
 //;; `position` can be a label for a position or a position object.
+//;; `position` can also be '-1' to place droids "offworld" (calls addDroid with position {-1, -1}).
 //;; Returns the created droid on success, or null on failure.
 //;;
 //;; @param {number} playerId
-//;; @param {Object|string} pos
+//;; @param {Object|string|number} pos
 //;; @param {Object} template
 //;; @param {string} [name]
 //;; @returns {Object}
 //;;
 function camAddDroid(playerId, position, template, droidName)
 {
-	pos = camMakePos(position);
+	if (position === -1)
+	{
+		pos = {x: -1, y: -1};
+	}
+	else
+	{
+		pos = camMakePos(position);
+	}
+
 	name = (camDef(droidName) ? droidName : camNameTemplate(template));
 	const __PROP = __camChangePropulsion(template.prop, playerId);
 	let droid;
