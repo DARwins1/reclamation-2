@@ -566,7 +566,7 @@ function eventStartLevel()
 			cleanup: "collectiveLZBaseArea",
 			detectMsg: "COL_LZ",
 			detectSnd: cam_sounds.baseDetection.enemyLZDetected,
-			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+			eliminateSnd: cam_sounds.baseElimination.enemyLZEradicated,
 		},
 		"colUplinkBase": {
 			cleanup: "collectiveUplinkBaseArea",

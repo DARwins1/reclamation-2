@@ -300,6 +300,7 @@ function eventStartLevel()
 			detectMsg: "COL_BASE",
 			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
 			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+			player: CAM_THE_COLLECTIVE
 		},
 	});
 

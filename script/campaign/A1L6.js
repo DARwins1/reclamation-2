@@ -332,28 +332,28 @@ function eventStartLevel()
 			cleanup: "colLZBaseArea1",
 			detectMsg: "COL_LZBASE1",
 			detectSnd: cam_sounds.baseDetection.enemyLZDetected,
-			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+			eliminateSnd: cam_sounds.baseElimination.enemyLZEradicated,
 			player: CAM_THE_COLLECTIVE
 		},
 		"colEastLZ": {
 			cleanup: "colLZBaseArea2",
 			detectMsg: "COL_LZBASE2",
 			detectSnd: cam_sounds.baseDetection.enemyLZDetected,
-			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+			eliminateSnd: cam_sounds.baseElimination.enemyLZEradicated,
 			player: CAM_THE_COLLECTIVE
 		},
 		"colSouthLZ": {
 			cleanup: "colLZBaseArea3",
 			detectMsg: "COL_LZBASE3",
 			detectSnd: cam_sounds.baseDetection.enemyLZDetected,
-			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+			eliminateSnd: cam_sounds.baseElimination.enemyLZEradicated,
 			player: CAM_THE_COLLECTIVE
 		},
 		"colSWLZ": {
 			cleanup: "colLZBaseArea4",
 			detectMsg: "COL_LZBASE4",
 			detectSnd: cam_sounds.baseDetection.enemyLZDetected,
-			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+			eliminateSnd: cam_sounds.baseElimination.enemyLZEradicated,
 			player: CAM_THE_COLLECTIVE
 		},
 	});

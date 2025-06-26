@@ -255,6 +255,14 @@
 
 
 	"object_8": {
+		"label": "colRepairFacility",
+		"id": 333,
+		"player": 2,
+		"type": 1
+	},
+
+
+	"object_9": {
 		"label": "scavFactory4",
 		"id": 53,
 		"player": 2,
@@ -262,7 +270,7 @@
 	},
 
 
-	"object_9": {
+	"object_10": {
 		"label": "scavFactory2",
 		"id": 52,
 		"player": 2,
@@ -270,17 +278,9 @@
 	},
 
 
-	"object_10": {
+	"object_11": {
 		"label": "colResearchFacility",
 		"id": 7,
-		"player": 2,
-		"type": 1
-	},
-
-
-	"object_11": {
-		"label": "colRepairFacility",
-		"id": 333,
 		"player": 2,
 		"type": 1
 	},

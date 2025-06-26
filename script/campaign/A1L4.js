@@ -703,19 +703,19 @@ function eventStartLevel()
 			cleanup: "colLZBase1",
 			detectMsg: "COL_LZBASE1",
 			detectSnd: cam_sounds.baseDetection.enemyLZDetected,
-			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+			eliminateSnd: cam_sounds.baseElimination.enemyLZEradicated,
 		},
 		"colLZ2": {
 			cleanup: "colLZBase2",
 			detectMsg: "COL_LZBASE2",
 			detectSnd: cam_sounds.baseDetection.enemyLZDetected,
-			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+			eliminateSnd: cam_sounds.baseElimination.enemyLZEradicated,
 		},
 		"colLZ3": {
 			cleanup: "colLZBase3",
 			detectMsg: "COL_LZBASE3",
 			detectSnd: cam_sounds.baseDetection.enemyLZDetected,
-			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+			eliminateSnd: cam_sounds.baseElimination.enemyLZEradicated,
 		},
 	});
 

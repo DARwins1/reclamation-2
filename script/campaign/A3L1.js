@@ -421,7 +421,7 @@ function eventStartLevel()
 			cleanup: "colLZ",
 			detectMsg: "COL_LZ",
 			detectSnd: cam_sounds.baseDetection.enemyLZDetected,
-			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+			eliminateSnd: cam_sounds.baseElimination.enemyLZEradicated,
 		},
 		"colSouthRoadblock": {
 			cleanup: "colRoadblock1",

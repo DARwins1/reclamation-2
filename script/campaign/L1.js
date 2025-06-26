@@ -52,7 +52,7 @@ camAreaEvent("captureZone", function(droid)
 	queue("researchFlash", camSecondsToMilliseconds(1));
 
 	// Tell the player to use the inbound trucks
-	// camPlayVideos([cam_sounds.objectiveCaptured, {video: "L1_BASEMSG", type: MISS_MSG}]);
+	// camPlayVideos([cam_sounds.objective.objectiveCaptured, {video: "L1_BASEMSG", type: MISS_MSG}]);
 	// queue("messageAlert", camSecondsToMilliseconds(3.4));
 	camQueueDialogue([
 		{text: "CLAYDE: Well done, Commander.", delay: 0, sound: CAM_RCLICK},

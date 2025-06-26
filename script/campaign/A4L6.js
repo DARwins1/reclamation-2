@@ -890,27 +890,27 @@ function eventDestroyed(obj)
 				{
 					// Transport Truck destroyed before reaching the deposit zone
 					trucksLost++;
-					playSound(cam_sounds.objectiveDestroyed);
+					playSound(cam_sounds.objective.objectiveDestroyed);
 				}
 				if (label === "civTruck2" && !truck2Safe)
 				{
 					trucksLost++;
-					playSound(cam_sounds.objectiveDestroyed);
+					playSound(cam_sounds.objective.objectiveDestroyed);
 				}
 				if (label === "civTruck3" && !truck3Safe)
 				{
 					trucksLost++;
-					playSound(cam_sounds.objectiveDestroyed);
+					playSound(cam_sounds.objective.objectiveDestroyed);
 				}
 				if (label === "civTruck4" && !truck4Safe)
 				{
 					trucksLost++;
-					playSound(cam_sounds.objectiveDestroyed);
+					playSound(cam_sounds.objective.objectiveDestroyed);
 				}
 				if (label === "civTruck5" && !truck5Safe)
 				{
 					trucksLost++;
-					playSound(cam_sounds.objectiveDestroyed);
+					playSound(cam_sounds.objective.objectiveDestroyed);
 				}
 
 				if (!transportTrucksActive())
@@ -3224,40 +3224,40 @@ function eventStartLevel()
 			cleanup: "colLZ1",
 			detectMsg: "COL_LZ1",
 			detectSnd: cam_sounds.baseDetection.enemyLZDetected,
-			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+			eliminateSnd: cam_sounds.baseElimination.enemyLZEradicated,
 		},
 		"colNorthEastLZ": {
 			cleanup: "colLZ2",
 			detectMsg: "COL_LZ2",
 			detectSnd: cam_sounds.baseDetection.enemyLZDetected,
-			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+			eliminateSnd: cam_sounds.baseElimination.enemyLZEradicated,
 		},
 		"colCentralLZ": {
 			cleanup: "colLZ3",
 			detectMsg: "COL_LZ3",
 			player: CAM_THE_COLLECTIVE,
 			detectSnd: cam_sounds.baseDetection.enemyLZDetected,
-			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+			eliminateSnd: cam_sounds.baseElimination.enemyLZEradicated,
 		},
 		"colNorthLZ": {
 			cleanup: "colLZ4",
 			detectMsg: "COL_LZ4",
 			player: CAM_THE_COLLECTIVE,
 			detectSnd: cam_sounds.baseDetection.enemyLZDetected,
-			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+			eliminateSnd: cam_sounds.baseElimination.enemyLZEradicated,
 		},
 		"colSouthLZ": {
 			cleanup: "colLZ5",
 			detectMsg: "COL_LZ5",
 			player: CAM_THE_COLLECTIVE,
 			detectSnd: cam_sounds.baseDetection.enemyLZDetected,
-			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+			eliminateSnd: cam_sounds.baseElimination.enemyLZEradicated,
 		},
 		"colWestLZ": {
 			cleanup: "colLZ6",
 			detectMsg: "COL_LZ6",
 			detectSnd: cam_sounds.baseDetection.enemyLZDetected,
-			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+			eliminateSnd: cam_sounds.baseElimination.enemyLZEradicated,
 		},
 
 		"charlieMainBase": {

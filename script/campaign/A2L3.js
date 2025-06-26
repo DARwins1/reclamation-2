@@ -221,7 +221,7 @@ function eventStartLevel()
 			cleanup: "colLzStructs",
 			detectMsg: "COL_LZ",
 			detectSnd: cam_sounds.baseDetection.enemyLZDetected,
-			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+			eliminateSnd: cam_sounds.baseElimination.enemyLZEradicated,
 		},
 		"colHydroBase": {
 			cleanup: "colBase",

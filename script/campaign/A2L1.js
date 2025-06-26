@@ -273,7 +273,7 @@ function eventDestroyed(obj)
 		// "Eradicate" the Collective LZ
 		hackRemoveMessage("COL_LZ", PROX_MSG, CAM_HUMAN_PLAYER);
 		colLZBlip = false;
-		playSound(cam_sounds.baseElimination.enemyBaseEradicated);
+		playSound(cam_sounds.baseElimination.enemyLZEradicated);
 	}
 }
 

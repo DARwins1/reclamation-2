@@ -222,6 +222,7 @@ const cam_sounds = {
 		scavengerOutpostEradicated: "pcv391.ogg",
 		scavengerBaseEradicated: "pcv392.ogg",
 		enemyBaseEradicated: "pcv394.ogg",
+		enemyLZEradicated: "pcv665.ogg",
 	},
 	lz: {
 		returnToLZ: "pcv427.ogg",
@@ -303,10 +304,12 @@ const cam_sounds = {
 		click5: "radclik5.ogg",
 		click6: "radclik6.ogg",
 	},
+	objective: {
+		objectiveCaptured: "pcv621.ogg",
+		primObjectiveCompleted: "pcv626.ogg",
+		objectiveDestroyed: "pcv622.ogg",
+	},
 	reinforcementsAreAvailable: "pcv440.ogg",
-	objectiveCaptured: "pcv621.ogg",
-	primObjectiveCompleted: "pcv626.ogg",
-	objectiveDestroyed: "pcv622.ogg",
 	enemyEscaping: "pcv632.ogg",
 	powerTransferred: "power-transferred.ogg",
 	technologyTransferred: "pcv485.ogg",

@@ -715,7 +715,7 @@ function eventStartLevel()
 			cleanup: "echoLZStructs",
 			detectMsg: "COL_LZ",
 			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
-			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+			eliminateSnd: cam_sounds.baseElimination.enemyLZEradicated,
 		},
 	});
 

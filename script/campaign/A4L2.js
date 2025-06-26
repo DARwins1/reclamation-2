@@ -471,7 +471,7 @@ function dataDownloaded()
 		}
 		if (uplinkSecure)
 		{
-			playSound(cam_sounds.primObjectiveCompleted);
+			playSound(cam_sounds.objective.primObjectiveCompleted);
 			updateExtraObjectiveMessage();
 			uplinkSecure = false;
 		}
@@ -507,7 +507,7 @@ function dataDownloaded()
 				missionTimeRemaining = getMissionTime();
 				setMissionTime(-1); // Pause the mission timer
 			}
-			playSound(cam_sounds.objectiveCaptured);
+			playSound(cam_sounds.objective.objectiveCaptured);
 		}
 
 		lastUplinkCheckTime = gameTime;
@@ -600,7 +600,7 @@ function eventStartLevel()
 			cleanup: "deltaLZStructs",
 			detectMsg: "DELTA_LZ",
 			detectSnd: cam_sounds.baseDetection.enemyLZDetected,
-			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+			eliminateSnd: cam_sounds.baseElimination.enemyLZEradicated,
 		},
 		"colNorthEastBase": {
 			cleanup: "colNEStructs",

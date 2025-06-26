@@ -67,6 +67,7 @@ camAreaEvent("powerCaptureZone", function(droid)
 			donateObject(object, MIS_CLAYDE);
 		}
 		powerCaptured = true;
+		playSound(cam_sounds.objective.objectiveCaptured);
 		hackRemoveMessage("POWER_ZONE", PROX_MSG, CAM_HUMAN_PLAYER);
 		// Also grant the Power Module
 		enableResearch("R-Struc-PowerModuleMk1", CAM_HUMAN_PLAYER);
@@ -96,6 +97,7 @@ camAreaEvent("uplinkCaptureZone", function(droid)
 			donateObject(object, MIS_CLAYDE);
 		}
 		uplinkCaptured = true;
+		playSound(cam_sounds.objective.objectiveCaptured);
 		hackRemoveMessage("UPLINK_ZONE", PROX_MSG, CAM_HUMAN_PLAYER);
 
 		camQueueDialogue([
@@ -121,6 +123,7 @@ camAreaEvent("vtolFactoryCaptureZone", function(droid)
 			donateObject(object, MIS_CLAYDE);
 		}
 		vtolCaptured = true;
+		playSound(cam_sounds.objective.objectiveCaptured);
 		hackRemoveMessage("VTOL_ZONE", PROX_MSG, CAM_HUMAN_PLAYER);
 		// Also grant VTOL Propulsion
 		enableResearch("R-Vehicle-Prop-VTOL", CAM_HUMAN_PLAYER);
@@ -581,6 +584,8 @@ function isNasdaStructure(struct)
 // Victory dialogue
 function finalDialogue()
 {
+	playSound(cam_sounds.objective.primObjectiveCompleted);
+
 	camQueueDialogue([
 		{text: "CLAYDE: Excellent work, Commanders.", delay: 4, sound: CAM_RCLICK},
 		{text: "CLAYDE: NASDA Central is ours.", delay: 2, sound: CAM_RCLICK},
@@ -661,6 +666,11 @@ function eventStartLevel()
 	setAlliance(MIS_TEAM_CHARLIE, MIS_TEAM_FOXTROT, true);
 	setAlliance(MIS_TEAM_CHARLIE, MIS_TEAM_GOLF, true);
 	setAlliance(MIS_TEAM_FOXTROT, MIS_TEAM_GOLF, true);
+
+	// Allow the player to view allied objects
+	camSetObjectVision(MIS_TEAM_CHARLIE, true);
+	camSetObjectVision(MIS_TEAM_FOXTROT, true);
+	camSetObjectVision(MIS_TEAM_GOLF, true);
 
 	camSetArtifacts({
 		"scavInnerFactory1": { tech: "R-Wpn-MG3Mk1" }, // Heavy Machinegun
