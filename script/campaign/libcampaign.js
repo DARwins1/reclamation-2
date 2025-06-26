@@ -439,7 +439,6 @@ var __camNexusActivated;
 //production
 var __camFactoryInfo;
 var __camFactoryQueue;
-var __camPropulsionTypeLimit;
 var __camPreDamageModifier;
 const __CAM_ASSEMBLY_DEFENSE_RADIUS = 8;
 // These templates should normally be excluded from any pre-damage

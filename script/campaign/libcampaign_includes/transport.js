@@ -109,7 +109,7 @@ function __camDispatchTransporterUnsafe()
 	for (let i = 0, l = list.length; i < l; ++i)
 	{
 		const template = list[i];
-		const __PROP = __camChangePropulsion(template.prop, __PLAYER);
+		const __PROP = template.prop;
 		const droid = addDroid(__PLAYER, -1, -1, camNameTemplate(template.weap, template.body, __PROP), template.body, __PROP, "", "", template.weap);
 		droids.push(droid);
 		addDroidToTransporter(transporter, droid);
@@ -176,13 +176,6 @@ function __camLandTransporter(player, pos)
 	if (camDef(ti.order))
 	{
 		camManageGroup(camMakeGroup(ti.droids), ti.order, ti.data);
-	}
-	if (player !== CAM_HUMAN_PLAYER)
-	{
-		for (let i = 0, len = ti.droids.length; i < len; ++i)
-		{
-			camSetDroidExperience(ti.droids[i]);
-		}
 	}
 }
 

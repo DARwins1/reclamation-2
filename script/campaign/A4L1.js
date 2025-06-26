@@ -68,15 +68,11 @@ function eventTransporterLanded(transport)
 		if (startedFromMenu)
 		{
 			droids = enumCargo(transport);
-			const droidExp = (firstTransport) ? [256] : [128, 64, 32, 16];
+			const droidRank = (firstTransport) ? ["Special"] : ["Elite", "Veteran", "Professional", "Regular"];
 
-			for (let i = 0, len = droids.length; i < len; ++i)
+			for (let i = 0; i < droids.length; ++i)
 			{
-				const droid = droids[i];
-				if (droid.droidType !== DROID_CONSTRUCT && droid.droidType !== DROID_REPAIR)
-				{
-					setDroidExperience(droid, droidExp[i % droidExp.length]);
-				}
+				camSetDroidRank(droids[i], droidRank[i % droidRank.length]);
 			}
 		}
 

@@ -870,6 +870,18 @@ function __camTacticsTickForGroup(group)
 				));
 
 				// Basic target filtering
+				if (__VTOL_UNIT)
+				{
+					// Don't make VTOLs waste ammo on walls/gates
+					const nonWalls = closeBy.filter(function(obj) {
+						return !(obj.type === STRUCTURE && (obj.stattype === WALL || obj.stattype === GATE))
+					});
+					if (nonWalls.length > 0)
+					{
+						closeBy = nonWalls;
+					}
+				}
+
 				if (__HAS_WEAPON && weapon.Effect === "ANTI TANK")
 				{
 					// Only target vehicles if there are any in range

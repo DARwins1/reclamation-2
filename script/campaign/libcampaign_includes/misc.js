@@ -1181,30 +1181,6 @@ function camEnumDroid(player)
 	}
 }
 
-function camSetExpLevel(number)
-{
-	__camExpLevel = number;
-}
-
-function camSetOnMapEnemyUnitExp()
-{
-	enumDroid(CAM_NEW_PARADIGM)
-	.concat(enumDroid(CAM_THE_COLLECTIVE))
-	.concat(enumDroid(CAM_NEXUS))
-	.concat(enumDroid(CAM_INFESTED))
-	.concat(enumDroid(CAM_SCAV_6))
-	.concat(enumDroid(CAM_SCAV_7))
-	.forEach(function(obj) {
-		if (!allianceExistsBetween(CAM_HUMAN_PLAYER, obj.player) && //may have friendly units as other player
-			!camIsTransporter(obj) &&
-			obj.droidType !== DROID_CONSTRUCT &&
-			obj.droidType !== DROID_REPAIR)
-		{
-			camSetDroidExperience(obj);
-		}
-	});
-}
-
 //;; ## camNameTemplate(weapon, body, propulsion)
 //;; Returns a nice name for the passed in template
 //;; Takes in either a template object or a turret + body + propulsion
@@ -1581,59 +1557,6 @@ function __camAiPowerReset()
 	}
 }
 
-function __camGetExpRangeLevel()
-{
-	const ranks = {
-		rookie: 0,
-		green: 4,
-		trained: 8,
-		regular: 16,
-		professional: 32,
-		veteran: 64,
-		elite: 128,
-		special: 256,
-		hero: 512,
-	}; //see brain.json
-	let exp = [];
-
-	switch (__camExpLevel)
-	{
-		case 0: // fall-through
-		case 1:
-			exp = [ranks.rookie, ranks.rookie];
-			break;
-		case 2:
-			exp = [ranks.green, ranks.trained, ranks.regular];
-			break;
-		case 3:
-			exp = [ranks.trained, ranks.regular, ranks.professional];
-			break;
-		case 4:
-			exp = [ranks.regular, ranks.professional, ranks.veteran];
-			break;
-		case 5:
-			exp = [ranks.professional, ranks.veteran, ranks.elite];
-			break;
-		case 6:
-			exp = [ranks.veteran, ranks.elite, ranks.special];
-			break;
-		case 7:
-			exp = [ranks.elite, ranks.special, ranks.hero];
-			break;
-		case 8:
-			exp = [ranks.special, ranks.hero];
-			break;
-		case 9:
-			exp = [ranks.hero, ranks.hero];
-			break;
-		default:
-			__camExpLevel = 0;
-			exp = [ranks.rookie, ranks.rookie];
-	}
-
-	return exp;
-}
-
 // Cause an explosion after a boomtick dies
 function __camDetonateBoomtick(boomBaitId)
 {
@@ -1655,28 +1578,6 @@ function __camRemoveBoomBait(boomBaitId)
 {
 	const bait = getObject(DROID, CAM_INFESTED, boomBaitId);
 	camSafeRemoveObject(bait);
-}
-
-function camSetDroidExperience(droid)
-{
-	if (droid.droidType === DROID_REPAIR || droid.droidType === DROID_CONSTRUCT || camIsTransporter(droid))
-	{
-		return;
-	}
-	if (droid.player === CAM_HUMAN_PLAYER)
-	{
-		return;
-	}
-
-	const expRange = __camGetExpRangeLevel();
-	let exp = camRandFrom(expRange);
-
-	if (droid.droidType === DROID_COMMAND || droid.droidType === DROID_SENSOR)
-	{
-		exp = exp * 2;
-	}
-
-	setDroidExperience(droid, exp);
 }
 
 // This used to be in `rules.js``

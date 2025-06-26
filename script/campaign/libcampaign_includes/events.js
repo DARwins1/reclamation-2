@@ -53,15 +53,6 @@ function cam_eventChat(from, to, message)
 	{
 		__camShowVictoryConditions();
 	}
-	if (message.lastIndexOf("rank ", 0) === 0)
-	{
-		camSetExpLevel(Number(message.substring(5)));
-		camSetOnMapEnemyUnitExp();
-	}
-	if (message.lastIndexOf("prop ", 0) === 0)
-	{
-		camSetPropulsionTypeLimit(Number(message.substring(5)));
-	}
 	if (!camIsCheating())
 	{
 		return;
@@ -153,7 +144,6 @@ function cam_eventStartLevel()
 	__camPreDamageModifier = [];
 	__camDisableFactoryAutoManagement = false;
 	__camCapturedFactoryIdx = 0;
-	camSetPropulsionTypeLimit(); //disable the propulsion changer by default
 	__camAiPowerReset(); //grant power to the AI
 	camSetFog(); // Set fog to it's default color
 	camSetSunPos(); // Set the sun to it's default position
@@ -231,7 +221,6 @@ function cam_eventDroidBuilt(droid, structure)
 		__camAssignTruck(droid);
 		return;
 	}
-	camSetDroidExperience(droid);
 	__camPreDamageDroid(droid);
 	if (droid.player !== CAM_INFESTED || __camDisableFactoryAutoManagement)
 	{

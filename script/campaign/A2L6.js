@@ -178,18 +178,22 @@ function camEnemyBaseEliminated_scavLZBase()
 		{text: "CLAYDE: General Clayde, signing off.", delay: 3, sound: CAM_RCLICK},
 	]);
 
-	queue("stealthBreakDialogue", camSecondsToMilliseconds(6));
-
 	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "A2L7", {
 		reinforcements: camMinutesToSeconds(1.75),
 		area: "compromiseZone",
 		callback: "playerDetected", // Will change once the stealth phase is officially "ended"
 		retlz: true,
 	});
+	setReinforcementTime(30); // The first transport is much faster
 	camSetExtraObjectiveMessage("Avoid detection by the Collective");
 
 	queue("endStealthPhase", camSecondsToMilliseconds(60));
 	queue("sendCollectiveScouts", camChangeOnDiff(camMinutesToMilliseconds(4)));
+}
+
+function resetReinforcementTime()
+{
+	setReinforcementTime(camMinutesToSeconds(1.75)); // Revert to standard reinforcement time after the first transport
 }
 
 // Sends a scout group searching for the player
@@ -218,6 +222,8 @@ function endStealthPhase()
 {
 	stealthPhase = false;
 
+	camCallOnce("stealthBreakDialogue");
+
 	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "A2L7", {
 		reinforcements: camMinutesToSeconds(1.75),
 		area: "compromiseZone",
@@ -230,7 +236,7 @@ function endStealthPhase()
 	setScrollLimits(0, 0, 160, 56);
 
 	// HACK: Move the sun position slightly to avoid weird shadows when expanding the map
-	camSetSunPos(-225.0, -600.0, 450.0);
+	camSetSunPos(-225.0, -601.0, 450.0);
 }
 
 // Activate the Collective and all allies
@@ -555,6 +561,13 @@ function activateCollective()
 		{text: "GOLF: We can't stop until we breach that camp!", delay: 3, sound: CAM_RCLICK},
 		{text: "CHARLIE: Push up before they can regroup!", delay: 5, sound: CAM_RCLICK},
 	]);
+
+	// Grant vision of allied objects to the player
+	camSetObjectVision(MIS_TEAM_CHARLIE, true);
+	camSetObjectVision(MIS_TEAM_GOLF, true);
+
+	// Ensure the player can't attack the prisoner safehouses
+	setAlliance(MIS_LZ_SCAVS, CAM_HUMAN_PLAYER, true);
 }
 
 function sendCharlieTransporter()
@@ -624,6 +637,11 @@ function eventTransporterLanded(transport)
 	if (transport.player == CAM_HUMAN_PLAYER)
 	{
 		camCallOnce("landingDialogue");
+
+		if (camBaseIsEliminated("scavLZBase"))
+		{
+			camCallOnce("resetReinforcementTime");
+		}
 		return; // don't care afterwards
 	}
 
@@ -843,6 +861,8 @@ function playerInfestedDialogue()
 // Dialogue when the main camp is secure
 function campClearDialogue()
 {
+	playSound(cam_sounds.objective.primObjectiveCompleted);
+	
 	camQueueDialogue([
 		{text: "CHARLIE: Bravo!", delay: 4},
 		{text: "CHARLIE: You've gotta get back to base, man.", delay: 2, sound: CAM_RCLICK},
@@ -940,6 +960,9 @@ function eventStartLevel()
 	setAlliance(MIS_TEAM_GOLF, CAM_HUMAN_PLAYER, true);
 	setAlliance(MIS_TEAM_CHARLIE, MIS_TEAM_GOLF, true);
 	setAlliance(MIS_LZ_SCAVS, CAM_THE_COLLECTIVE, true);
+	setAlliance(MIS_LZ_SCAVS, MIS_TEAM_CHARLIE, true);
+	setAlliance(MIS_LZ_SCAVS, MIS_TEAM_GOLF, true);
+	setAlliance(MIS_LZ_SCAVS, CAM_INFESTED, true);
 
 	camSetArtifacts({
 		"colResearch": { tech: "R-Wpn-Rocket-Accuracy03" }, // Rocket Laser Designator
@@ -996,6 +1019,7 @@ function eventStartLevel()
 			detectMsg: "COL_BASE7",
 			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
 			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+			player: CAM_THE_COLLECTIVE
 		},
 		"cScavCanalBase": {
 			cleanup: "cScavBase",

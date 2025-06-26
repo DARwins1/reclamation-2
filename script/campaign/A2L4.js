@@ -76,8 +76,10 @@ function landingDialogue()
 // Dialogue after all AA sites are neutralized
 function clearDialogue()
 {
+	playSound(cam_sounds.objective.primObjectiveCompleted);
+
 	camQueueDialogue([
-		{text: "CLAYDE: Well done, Commander Bravo.", delay: 2, sound: CAM_RCLICK},
+		{text: "CLAYDE: Well done, Commander Bravo.", delay: 4, sound: CAM_RCLICK},
 		{text: "CLAYDE: We're reinforcing Golf's position now.", delay: 2, sound: CAM_RCLICK},
 		{text: "CLAYDE: Your objective has been accomplished.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: Return to base and await further orders.", delay: 2, sound: CAM_RCLICK},

@@ -111,7 +111,7 @@ function grantPlayerTech()
 // Get some higher rank droids.
 function setUnitRank(transport)
 {
-	const EXP = (firstTransportLanded) ? 8 : 16;
+	const rank = (firstTransportLanded) ? "Trained" : "Regular";
 	let droids;
 
 	if (transport)
@@ -124,7 +124,7 @@ function setUnitRank(transport)
 		const droid = droids[i];
 		if (droid.droidType !== DROID_CONSTRUCT && droid.droidType !== DROID_REPAIR)
 		{
-			setDroidExperience(droid, EXP);
+			camSetDroidRank(droid, rank);
 		}
 	}
 }

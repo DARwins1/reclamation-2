@@ -188,38 +188,6 @@ function camQueueDroidProduction(playerId, template, position)
 	__camFactoryQueue[playerId][__camFactoryQueue[playerId].length] = {template: template, position: camMakePos(position)};
 }
 
-//;; ## camSetPropulsionTypeLimit([limit])
-//;;
-//;; This function can automatically augment units to use Type I/II/III propulsions.
-//;; If nothing or zero is passed in then the type limit will match what is in templates.json.
-//;;
-//;; @param {number} [limit]
-//;; @returns {void}
-//;;
-function camSetPropulsionTypeLimit(limit)
-{
-	if (!camDef(limit) || !limit)
-	{
-		__camPropulsionTypeLimit = "NO_USE";
-	}
-	else if (limit === 1)
-	{
-		__camPropulsionTypeLimit = "01";
-	}
-	else if (limit === 2)
-	{
-		__camPropulsionTypeLimit = "02";
-	}
-	else if (limit === 3)
-	{
-		__camPropulsionTypeLimit = "03";
-	}
-	else
-	{
-		camTrace("Unknown propulsion level specified. Use 1 - 3 to force the propulsion type, 0 to disable.");
-	}
-}
-
 //;; ## camUpgradeOnMapTemplates(template1, template2, playerId[, excluded])
 //;;
 //;; Search for `template1`, save its coordinates, remove it, and then replace with it with `template2`.
@@ -286,7 +254,7 @@ function camUpgradeOnMapTemplates(template1, template2, playerId, excluded)
 			const droidInfo = {x: dr.x, y: dr.y, name: dr.name};
 			camSafeRemoveObject(dr, false);
 			const newDroid = addDroid(playerId, droidInfo.x, droidInfo.y, droidInfo.name, template2.body,
-				__camChangePropulsion(template2.prop, playerId), "", "", template2.weap);
+				template2.prop, "", "", template2.weap);
 
 			if (camDef(__DROID_LABEL)) 
 			{
@@ -296,7 +264,6 @@ function camUpgradeOnMapTemplates(template1, template2, playerId, excluded)
 			{
 				groupAdd(__DROID_GROUP, newDroid);
 			}
-			camSetDroidExperience(newDroid);
 		}
 	}
 }
@@ -450,7 +417,7 @@ function camAddDroid(playerId, position, template, droidName)
 	}
 
 	name = (camDef(droidName) ? droidName : camNameTemplate(template));
-	const __PROP = __camChangePropulsion(template.prop, playerId);
+	const __PROP = template.prop;
 	let droid;
 	if (typeof template.weap === "object" && camDef(template.weap[2]))
 	{
@@ -530,40 +497,6 @@ function __camAddDroidToFactoryGroup(droid, structure)
 	__camFactoryUpdateTactics(__FLABEL);
 }
 
-function __camChangePropulsion(propulsion, playerId)
-{
-	if (__camPropulsionTypeLimit === "NO_USE" || playerId === CAM_HUMAN_PLAYER)
-	{
-		return propulsion;
-	}
-
-	let name = propulsion;
-	const validProp = ["CyborgLegs", "HalfTrack", "V-Tol", "hover", "tracked", "wheeled"];
-	const specProps = ["CyborgLegs", "HalfTrack", "V-Tol"]; //Some have "01" at the end and others don't for the base ones.
-
-	const __LAST_TWO = name.substring(name.length - 2);
-	if (__LAST_TWO === "01" || __LAST_TWO === "02" || __LAST_TWO === "03")
-	{
-		name = name.substring(0, name.length - 2);
-	}
-
-	for (let i = 0, l = validProp.length; i < l; ++i)
-	{
-		const __CURRENT_PROP = validProp[i];
-		if (name === __CURRENT_PROP)
-		{
-			if ((__camPropulsionTypeLimit === "01") && (specProps.indexOf(__CURRENT_PROP) !== -1))
-			{
-				return __CURRENT_PROP;
-			}
-			return __CURRENT_PROP.concat(__camPropulsionTypeLimit);
-		}
-	}
-
-	//If all else fails then return the propulsion that came with the template
-	return propulsion;
-}
-
 function __camBuildDroid(template, structure)
 {
 	if (!camDef(structure))
@@ -571,27 +504,27 @@ function __camBuildDroid(template, structure)
 		return false;
 	}
 
-	if (template.prop === __camChangePropulsion("V-Tol", structure.player) && structure.stattype !== VTOL_FACTORY)
+	if (template.prop === "V-Tol" && structure.stattype !== VTOL_FACTORY)
 	{
 		// If not a VTOL factory and the template is a VTOL then keep it in the
 		// queue until a factory can deal with it.
 		return false;
 	}
-	if (template.prop === __camChangePropulsion("CyborgLegs", structure.player) && structure.stattype !== CYBORG_FACTORY)
+	if (template.prop === "CyborgLegs" && structure.stattype !== CYBORG_FACTORY)
 	{
 		// Likewise, if not a cyborg factory and the template is a cyborg then
 		// keep it in the queue until a cyborg factory can deal with it.
 		return false;
 	}
-	if ((template.prop === __camChangePropulsion("wheeled01", structure.player) || template.prop === __camChangePropulsion("HalfTrack", structure.player) 
-		|| template.prop === __camChangePropulsion("tracked01", structure.player) || template.prop === __camChangePropulsion("hover01", structure.player)) 
+	if ((template.prop === "wheeled01" || template.prop === "HalfTrack" 
+		|| template.prop === "tracked01" || template.prop === "hover01") 
 		&& structure.stattype !== FACTORY)
 	{
 		// Finally, don't build normal units in cyborg or VTOL factories
 		return false;
 	}
 
-	const __PROP = __camChangePropulsion(template.prop, structure.player);
+	const __PROP = template.prop;
 	makeComponentAvailable(template.body, structure.player);
 	makeComponentAvailable(__PROP, structure.player);
 	const __NAME = camNameTemplate(template.weap, template.body, __PROP);

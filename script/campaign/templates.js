@@ -60,7 +60,7 @@ boomtick: { body: "BoomTickBody", prop: "BoomTickLegs", weap: "BoomTickSac" }, /
 pllcanw: { body: "Body1REC", prop: "wheeled01", weap: "Cannon1Mk1" }, // Light Cannon Viper Wheels
 pllcanht: { body: "Body1REC", prop: "HalfTrack", weap: "Cannon1Mk1" }, // Light Cannon Viper Half-tracks
 pllcant: { body: "Body1REC", prop: "tracked01", weap: "Cannon1Mk1" }, // Light Cannon Viper Tracks
-pllcant: { body: "Body5REC", prop: "tracked01", weap: "Cannon2A-TMk1" }, // Medium Cannon Cobra Tracks
+plmmcant: { body: "Body5REC", prop: "tracked01", weap: "Cannon2A-TMk1" }, // Medium Cannon Cobra Tracks
 plmhpvht: { body: "Body5REC", prop: "HalfTrack", weap: "Cannon4AUTOMk1" }, // Hyper Velocity Cannon Cobra Half-tracks
 plmhpvt: { body: "Body5REC", prop: "tracked01", weap: "Cannon4AUTOMk1" }, // Hyper Velocity Cannon Cobra Tracks
 plmacant: { body: "Body5REC", prop: "tracked01", weap: "Cannon5VulcanMk1" }, // Assault Cannon Cobra Tracks

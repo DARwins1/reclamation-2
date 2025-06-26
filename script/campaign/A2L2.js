@@ -401,6 +401,9 @@ function expandMap()
 	queue("heliAttack2", camChangeOnDiff(camMinutesToMilliseconds(7)));
 	queue("enableFinalFactories", camChangeOnDiff(camMinutesToMilliseconds(12)));
 	queue("startCollectiveTransports", camChangeOnDiff(camMinutesToMilliseconds(16)));
+
+	// Hack to prevent the south half of the map from being dark after the expansion
+	setSunPosition(225.0, -601.0, 450.0); // Move the sun just a wee bit (default is 225.0, -600.0, 450.0)
 }
 
 function enableFirstFactories()
