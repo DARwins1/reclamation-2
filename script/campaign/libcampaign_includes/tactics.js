@@ -881,13 +881,9 @@ function __camTacticsTickForGroup(group)
 				if (__VTOL_UNIT)
 				{
 					// Don't make VTOLs waste ammo on walls/gates
-					const nonWalls = closeBy.filter(function(obj) {
+					closeBy = closeBy.filter(function(obj) {
 						return !(obj.type === STRUCTURE && (obj.stattype === WALL || obj.stattype === GATE))
 					});
-					if (nonWalls.length > 0)
-					{
-						closeBy = nonWalls;
-					}
 				}
 
 				if (__HAS_WEAPON && weapon.Effect === "ANTI TANK")

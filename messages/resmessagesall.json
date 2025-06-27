@@ -52,7 +52,7 @@
             "Refuels, rearms and repairs VTOLs",
             "Assign a VTOL by selecting the rearming pad as its target",
             "The VTOL returns to the selected pad for rearming",
-            "VTOLs with lower weights rearm faster",
+            "VTOLs with lower weights rearm faster"
         ]
     },
     "RES_SY_CBSTW1": {
