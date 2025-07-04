@@ -1176,6 +1176,7 @@ function eventStartLevel()
 
 	camSetArtifacts({
 		"scavFactory1": { tech: "R-Wpn-Rocket-LtA-TMk1" }, // Sarissa
+		"scavFactory2": { tech: "R-Wpn-Rocket02-MRL" }, // Mini-Rocket Array
 	});
 
 	// Place a beacon in Charlie's safe haven

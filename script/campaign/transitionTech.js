@@ -68,9 +68,9 @@ const camRec2StartResearch = [
 // 	"R-Wpn-Mortar-Damage02",
 // ].concat(camRec2StartResearch);
 
-// What is acquired during the Prologue
+// What is (assumed to be) acquired during the Prologue
 const camRec2PrologueResearch = [
-	//PL2
+	//P2
 	"R-Wpn-Rocket-LtA-TMk1", // Artifact
 	"R-Defense-Sarissa",
 ];
