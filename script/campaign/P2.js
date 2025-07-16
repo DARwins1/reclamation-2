@@ -72,9 +72,8 @@ function heliAttack()
 	const ext = {
 		limit: [1, 1],
 		alternate: true,
-		targetPlayer: CAM_HUMAN_PLAYER,
-		ignorePlayers: [MIS_CIVS, CAM_INFESTED],
-		pos: camMakePos("landingZone")
+		callback: "strikeTargets", // Focus only on the player
+		altOrder: CAM_ORDER_ATTACK,
 	};
 
 	// A helicopter will attack the player every 3 minutes.
@@ -826,10 +825,9 @@ function eventAttacked(victim, attacker)
 		{
 			// The player has attacked one of the meandering Infested groups
 			// Re-order the Infested group to attack the player instead
-			camManageGroup(victim.group, CAM_ORDER_ATTACK, {
-				targetPlayer: CAM_HUMAN_PLAYER,
-				ignorePlayers: MIS_CIVS,
-				pos: camMakePos("landingZone")
+			camManageGroup(victim.group, CAM_ORDER_STRIKE, {
+				callback: "strikeTargets", // Focus only on the player
+				altOrder: CAM_ORDER_ATTACK,
 			});
 
 			// Increase the spiciness of future Infested waves
@@ -1083,6 +1081,11 @@ function playerReallyAlive()
 	return enumDroid(DROID_ANY, CAM_HUMAN_PLAYER).length > 0;
 }
 
+function strikeTargets()
+{
+	return enumStruct(CAM_HUMAN_PLAYER).concat(enumStruct(CAM_HUMAN_PLAYER));
+}
+
 function eventStartLevel()
 {
 	const PLAYER_COLOR = playerData[0].colour;
@@ -1139,15 +1142,13 @@ function eventStartLevel()
 	camSetFactories({
 		"scavFactory1": {
 			assembly: "scavAssembly1",
-			order: CAM_ORDER_ATTACK,
+			order: CAM_ORDER_STRIKE,
 			groupSize: 7,
 			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(22)),
 			data: {
-				targetPlayer: CAM_HUMAN_PLAYER, // Prioritize the player's main base
-				ignorePlayers: MIS_CIVS, // Ignore civilians if possible
-				targetPos: camMakePos("landingZone"),
-				// regroup: true
+				callback: "strikeTargets", // Focus only on the player
+				altOrder: CAM_ORDER_ATTACK,
 			},
 			// Infantry, light vehicles, with the occasional bus tank
 			templates: [
@@ -1157,14 +1158,13 @@ function eventStartLevel()
 		},
 		"scavFactory2": {
 			assembly: "scavAssembly2",
-			order: CAM_ORDER_ATTACK,
+			order: CAM_ORDER_STRIKE,
 			groupSize: 5,
 			maxSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(24)),
 			data: {
-				targetPlayer: CAM_HUMAN_PLAYER,
-				ignorePlayers: MIS_CIVS,
-				targetPos: camMakePos("landingZone")
+				callback: "strikeTargets",
+				altOrder: CAM_ORDER_ATTACK,
 			},
 			// Mostly vehicles
 			templates: [

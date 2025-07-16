@@ -35,7 +35,7 @@ const camRec2StartResearch = [
 
 	// L3
 	"R-Wpn-MG2Mk1", // Artifact
-	"R-Wpn-MG-Damage02",
+	"R-Wpn-MG-Damage02", "R-Defense-Tower02",
 	"R-Vehicle-Metals01", // Artifact
 	"R-Cyborg-Metals01",
 	"R-Wpn-Flamer01Mk1", // Artifact

@@ -150,7 +150,7 @@
         "sequenceName": "res_struttech.ogg",
         "text": [
             "New Defensive Structure Available",
-            "Armored guard tower with Mini-Pod Rocket",
+            "Steel tower with Mini-Pod Rocket",
             "Automatically targets enemies within sensor range",
             "Defensive Strength: Medium"
         ]
@@ -393,6 +393,17 @@
         "text": [
             "New Defensive Structure Available",
             "Steel tower with heavy machinegun",
+            "Automatically targets enemies within sensor range",
+            "Defensive Strength: Medium"
+        ]
+    },
+    "RES_TOWER2": {
+        "id": "RES_TOWER2",
+        "imdName": "MICAPSUL.pie",
+        "sequenceName": "res_struttech.ogg",
+        "text": [
+            "New Defensive Structure Available",
+            "Steel tower with twin machinegun",
             "Automatically targets enemies within sensor range",
             "Defensive Strength: Medium"
         ]

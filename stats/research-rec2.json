@@ -1458,11 +1458,29 @@
             "R-Wpn-MG3Mk1"
         ],
         "researchPoints": 400,
-        "researchPower": 68,
+        "researchPower": 18,
         "resultStructures": [
             "GuardTower1"
         ],
+        "redStructures": [
+            "GuardTower2"
+        ],
         "statID": "GuardTower1"
+    },
+    "R-Defense-Tower02": {
+        "iconID": "IMAGE_RES_DEFENCE",
+        "id": "R-Defense-Tower02",
+        "msgName": "RES_TOWER2",
+        "name": "Twin Machinegun Guard Tower",
+        "requiredResearch": [
+            "R-Wpn-MG2Mk1"
+        ],
+        "researchPoints": 350,
+        "researchPower": 12,
+        "resultStructures": [
+            "GuardTower2"
+        ],
+        "statID": "GuardTower2"
     },
     "R-Defense-Tower06": {
         "iconID": "IMAGE_RES_DEFENCE",
@@ -5380,10 +5398,10 @@
     "R-Wpn-AAGun-ROF02": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-AAGun-ROF02",
+        "keyTopic": 1,
         "name": "AA Ammunition Hopper Mk2",
         "requiredResearch": [
-            "R-Wpn-AAGun-ROF01",
-            "R-Wpn-Cannon-ROF03"
+            "R-Wpn-AAGun-ROF01"
         ],
         "researchPoints": 1600,
         "researchPower": 150,

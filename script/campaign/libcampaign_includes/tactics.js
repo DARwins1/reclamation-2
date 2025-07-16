@@ -14,8 +14,6 @@
 //;;   * `radius` Circle radius around `pos` to scan for targets.
 //;;   * `targetPlayer` Player number to prioritize attacking. If targetPlayer is undefined 
 //;;     or is allied, will indescriminantly attack all un-allied players.
-//;;   * `ignorePlayers` Droids will never be ordered to attack this player directly (but may still attack automatically).
-//;;     Can be a single player id, or list of player ids.
 //;;   * `fallback` Position to retreat.
 //;;   * `morale` An integer from `1` to `100`. If that high percentage of the original group dies,
 //;;     fall back to the fallback position. If new droids are added to the group, it can recover and attack again.
@@ -103,18 +101,6 @@ function camManageGroup(group, order, data)
 	if (camDef(__camGroupInfo[group]) && order !== __camGroupInfo[group].order)
 	{
 		camTrace("Group", group, "receives a new order:", camOrderToString(order));
-	}
-	if (camDef(saneData.ignorePlayers))
-	{
-		// Do not target this player(s)
-		if (!camDef(saneData.ignorePlayers.length))
-		{
-			saneData.ignorePlayers = [saneData.ignorePlayers];
-		}
-	}
-	else
-	{
-		saneData.ignorePlayers = [];
 	}
 	__camGroupInfo[group] = {
 		target: undefined,
@@ -265,7 +251,6 @@ function __camPickTarget(group, groupOrder)
 	const gi = __camGroupInfo[group];
 	const droids = enumGroup(group);
 	__camFindGroupAvgCoordinate(group);
-	const ignorePlayers = gi.data.ignorePlayers;
 	switch (groupOrder)
 	{
 		case CAM_ORDER_ATTACK:
@@ -274,7 +259,6 @@ function __camPickTarget(group, groupOrder)
 			{
 				targets = enumRange(gi.target.x, gi.target.y,__CAM_TARGET_TRACKING_RADIUS, ALL_PLAYERS, false).filter((obj) => (
 					(obj.type === STRUCTURE || (obj.type === DROID && !isVTOL(obj))) && !allianceExistsBetween(droids[0].player, obj.player)
-					&& !ignorePlayers.includes(obj.player)
 				));
 			}
 		}
@@ -296,8 +280,7 @@ function __camPickTarget(group, groupOrder)
 						radius = __CAM_PLAYER_BASE_RADIUS;
 					}
 					targets = enumRange(compromisePos.x, compromisePos.y, radius, ALL_PLAYERS, false).filter((obj) => (
-						(obj.type !== FEATURE && !allianceExistsBetween(droids[0].player, obj.player) 
-							&& !ignorePlayers.includes(obj.player))
+						(obj.type !== FEATURE && !allianceExistsBetween(droids[0].player, obj.player)
 					));
 				}
 			}
@@ -329,23 +312,20 @@ function __camPickTarget(group, groupOrder)
 
 				targets = camEnumStruct(targetPlayer).filter((obj) => ( // Look for structures...
 					propulsionCanReach(dr.propulsion, dr.x, dr.y, obj.x, obj.y) && 
-					!allianceExistsBetween(dr.player, obj.player) && 
-					!ignorePlayers.includes(obj.player)
+					!allianceExistsBetween(dr.player, obj.player)
 				));
 				if (targets.length === 0)
 				{
 					targets = camEnumDroid(targetPlayer).filter((obj) => ( // Look for non-VTOL droids...
 						propulsionCanReach(dr.propulsion, dr.x, dr.y, obj.x, obj.y) &&
 							(obj.type === DROID && !isVTOL(obj)) && 
-							!allianceExistsBetween(dr.player, obj.player) &&
-							!ignorePlayers.includes(obj.player)
+							!allianceExistsBetween(dr.player, obj.player)
 					));
 					if (targets.length === 0)
 					{
 						targets = camEnumDroid(targetPlayer).filter((obj) => ( // Look for any droids...
 							propulsionCanReach(dr.propulsion, dr.x, dr.y, obj.x, obj.y) && 
 							obj.type !== FEATURE && !allianceExistsBetween(dr.player, obj.player)
-							&& !ignorePlayers.includes(obj.player)
 						));
 					}
 				}
@@ -867,14 +847,13 @@ function __camTacticsTickForGroup(group)
 				const __ARTILLERY_LIKE = (droid.isCB || droid.hasIndirect || droid.isSensor);
 				const __HAS_WEAPON = camDef(droid.weapons[0]);
 				const __ANTI_AIR = droid.canHitAir && !droid.canHitGround;
-				const ignorePlayers = gi.data.ignorePlayers;
 				let weapon;
 				if (__HAS_WEAPON)
 				{
 					weapon = camGetCompStats(droid.weapons[0].fullname, "Weapon");
 				}
 				let closeBy = enumRange(droid.x, droid.y, __camScanRange(groupOrder, droid), ALL_PLAYERS, __TRACK).filter((obj) => (
-					obj.type !== FEATURE && !allianceExistsBetween(droid.player, obj.player) && !ignorePlayers.includes(obj.player)
+					obj.type !== FEATURE && !allianceExistsBetween(droid.player, obj.player)
 				));
 
 				// Basic target filtering

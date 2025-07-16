@@ -1625,7 +1625,25 @@
         "resultStructures": [
             "GuardTower1"
         ],
+        "redStructures": [
+            "GuardTower2"
+        ],
         "statID": "GuardTower1"
+    },
+    "R-Defense-Tower02": {
+        "iconID": "IMAGE_RES_DEFENCE",
+        "id": "R-Defense-Tower02",
+        "msgName": "RES_TOWER2",
+        "name": "Twin Machinegun Guard Tower",
+        "requiredResearch": [
+            "R-Wpn-MG2Mk1"
+        ],
+        "researchPoints": 350,
+        "researchPower": 12,
+        "resultStructures": [
+            "GuardTower2"
+        ],
+        "statID": "GuardTower2"
     },
     "R-Defense-Tower06": {
         "iconID": "IMAGE_RES_DEFENCE",

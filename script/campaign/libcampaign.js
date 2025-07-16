@@ -123,16 +123,16 @@ const __cam_reclamationLevels = [
 	"L4S", "L4", // BREACH
 	"L5S", "L5", // CLEANUP
 	"L6S", "L6", // FRIENDLY SKIES
-	"L7", // EVACUATION
+	"L7", // BLAST SHADOWS
 ]; // 7 missions
 const __cam_prologueLevels = [
-	"PL1", // THE SUCCESSOR
-	"PL2", // SAFE HAVEN
+	"P1", // THE SUCCESSOR
+	"P2", // SAFE HAVEN
 ]; // 2 missions
 const __cam_act1Levels = [
 	"A1L1", // WELCOME TO THE JUNGLE
 	"A1L2S", "A1L2", // ALLIED ASSAULT
-	"A1L3", // RISING
+	"A1L3", // FROM THE HORIZON
 	"A1L4S", "A1L4", // THE COLLECTIVE
 	"A1L5S", "A1L5", // DECAPITATION
 	"A1L6", // ONSLAUGHT
@@ -140,8 +140,8 @@ const __cam_act1Levels = [
 const __cam_act2Levels = [
 	"A2L1", // HOT DROP
 	"A2L2S", "A2L2", // DISILLUSIONED
-	"A2L3", // A LIGHT
-	"A2L4S", "A2L4", // IRON DOME
+	"A2L3", // REFOCUS
+	"A2L4S", "A2L4", // SPLIT THE SKY
 	"A2L5", // CHOKEHOLD
 	"A2L6S", "A2L6", // BREAKOUT
 	"A2L7", // REPRISE
@@ -150,12 +150,12 @@ const __cam_act3Levels = [
 	"A3L1", // OUTBREAK
 	"A3L2", // MALIGNANT
 	"A3L3S", "A3L3", // SEARCH AND DESTROY
-	"A3L4", // FEVER PITCH
+	"A3L4", // DEFIANCE
 	"A3L5S", "A3L5", // ARMS RACE
 	"A3L6", // TIGER'S DEN
 	"A3L7S", "A3L7", // X-FACTOR
 	"A3L8", // VICTORY HOUR
-	"A3L9", // PRECIPICE
+	"A3L9", // FALLING STAR
 ]; // 9 missions
 const __cam_act4Levels = [
 	"A4L1", // DEAD CENTER

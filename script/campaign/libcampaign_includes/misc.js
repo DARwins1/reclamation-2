@@ -1585,16 +1585,15 @@ function __camDetonateBoomtick(boomBaitId)
 	else
 	{
 		fireWeaponAtObj("BoomTickBlast", bait, CAM_INFESTED);
-		// Failsafe in case the bait doesn't actually die
+		// Remove the bait after the boom
 		queue("__camRemoveBoomBait", __CAM_TICKS_PER_FRAME, boomBaitId + "");
 	}
 }
 
-// Quietly remove the bait object if it wasn't destroyed in the blast for some reason
+// Loudly remove the boom bait object
 function __camRemoveBoomBait(boomBaitId)
 {
-	const bait = getObject(DROID, CAM_INFESTED, boomBaitId);
-	camSafeRemoveObject(bait);
+	camSafeRemoveObject(getObject(DROID, CAM_INFESTED, boomBaitId), true);
 }
 
 // This used to be in `rules.js``
