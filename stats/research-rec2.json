@@ -301,12 +301,15 @@
         "id": "R-Cyborg-Wpn-Rocket",
         "msgName": "RES_CYW_RK1",
         "name": "Lancer Cyborg",
+        "replacedComponents": [
+            "CyborgLtRocket:CyborgRocket"
+        ],
         "requiredResearch": [
             "R-Wpn-Rocket01-LtAT",
             "R-Cyborg-Wpn-MG"
         ],
         "researchPoints": 900,
-        "researchPower": 28,
+        "researchPower": 68,
         "resultComponents": [
             "CyborgRocket"
         ],
@@ -315,14 +318,13 @@
     "R-Cyborg-Wpn-LtRocket": {
         "iconID": "IMAGE_RES_CYBORGTECH",
         "id": "R-Cyborg-Wpn-LtRocket",
-        "keyTopic": 1,
         "msgName": "RES_CYW_LTRK1",
         "name": "Sarissa Cyborg",
         "requiredResearch": [
             "R-Wpn-Rocket-LtA-TMk1",
             "R-Cyborg-Wpn-MG"
         ],
-        "researchPoints": 900,
+        "researchPoints": 600,
         "researchPower": 28,
         "resultComponents": [
             "CyborgLtRocket"

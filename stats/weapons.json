@@ -3296,7 +3296,7 @@
     },
     "CyborgRocket": {
         "buildPoints": 500,
-        "buildPower": 125,
+        "buildPower": 150,
         "damage": 105,
         "effectSize": 50,
         "explosionWav": "smlexpl.ogg",
@@ -3335,14 +3335,15 @@
         "weight": 120
     },
     "CyborgLtRocket": {
-        "buildPoints": 500,
-        "buildPower": 125,
+        "buildPoints": 450,
+        "buildPower": 100,
         "damage": 105,
         "effectSize": 50,
         "explosionWav": "smlexpl.ogg",
         "faceInFlight": 1,
         "facePlayer": 1,
         "firePause": 120,
+        "flags": "ShootAir",
         "flightGfx": "FXMPLME.PIE",
         "flightSpeed": 1800,
         "hitGfx": "FXMPExp.PIE",
@@ -3875,7 +3876,7 @@
     },
     "InfCyborgRocket": {
         "buildPoints": 500,
-        "buildPower": 125,
+        "buildPower": 150,
         "damage": 105,
         "effectSize": 50,
         "explosionWav": "smlexpl.ogg",
@@ -3914,14 +3915,15 @@
         "weight": 120
     },
     "InfCyborgLtRocket": {
-        "buildPoints": 500,
-        "buildPower": 125,
+        "buildPoints": 450,
+        "buildPower": 100,
         "damage": 105,
         "effectSize": 50,
         "explosionWav": "smlexpl.ogg",
         "faceInFlight": 1,
         "facePlayer": 1,
         "firePause": 120,
+        "flags": "ShootAir",
         "flightGfx": "FXMPLME.PIE",
         "flightSpeed": 1800,
         "hitGfx": "FXMPExp.PIE",

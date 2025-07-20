@@ -72,7 +72,7 @@ const camRec2StartResearch = [
 const camRec2PrologueResearch = [
 	//P2
 	"R-Wpn-Rocket-LtA-TMk1", // Artifact
-	"R-Defense-Sarissa",
+	"R-Defense-Sarissa", "R-Cyborg-Wpn-LtRocket",
 ];
 
 // Used to grant research at the start of Act 1
