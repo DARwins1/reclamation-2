@@ -154,50 +154,35 @@ function sendInfestedReinforcements()
 	if (difficulty >= HARD) bChance += 5;
 	if (difficulty === INSANE) bChance += 5;
 
-	// North trench entrances
-	// Choose one to spawn from...
-	const northEntrances = ["infEntry1", "infEntry2"];
-	camSendReinforcement(CAM_INFESTED, getObject(camRandFrom(northEntrances)), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
+	const entrances = [
+		"infEntry1", "infEntry2", "infEntry3",
+		"infEntry4", "infEntry5", "infEntry10",
+	];
+	// Disable these once Foxtrot becomes active
+	if (phase < 2) entrances.push("infEntry6", "infEntry7", "infEntry8", "infEntry9");
+	// Disable these once Golf becomes active
+	if (phase < 3) entrances.push("infEntry11", "infEntry12", "infEntry13", "infEntry14", "infEntry15", "infEntry16", "infEntry17");
 
-	// North east entrance
-	// Choose one to spawn from...
-	camSendReinforcement(CAM_INFESTED, getObject("infEntry3"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
-
-	// South east entrances
-	const seEntrances = ["infEntry4", "infEntry5"];
-	camSendReinforcement(CAM_INFESTED, getObject(camRandFrom(seEntrances)), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
-
-	if (phase < 2) // Disable these once Foxtrot becomes active
+	const NUM_GROUPS = difficulty + 3;
+	const NUM_ENTRANCES = entrances.length;
+	for (let i = 0; i < (Math.min(NUM_ENTRANCES, NUM_GROUPS)); i++)
 	{
-		// South canal entrances
-		const canalEntrances = ["infEntry6", "infEntry7"];
-		camSendReinforcement(CAM_INFESTED, getObject(camRandFrom(canalEntrances)), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
+		// Spawn units at a random entrance
+		const INDEX = camRand(entrances.length);
 
-		// South small trench entrances
-		const southEntrances = ["infEntry8", "infEntry9"];
-		camSendReinforcement(CAM_INFESTED, getObject(camRandFrom(southEntrances)), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
+		// Special case player targeting
+		let targetPlayer;
+		if (entrances[INDEX] === "infEntry10" && getObject("infFactory") !== null)
+		{
+			// Prioritize the player's stuff
+			targetPlayer === CAM_HUMAN_PLAYER;
+		}
+
+		camSendReinforcement(CAM_INFESTED, getObject(entrances[INDEX]), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance),
+			CAM_REINFORCE_GROUND, {order: CAM_ORDER_ATTACK, data: {targetPlayer: targetPlayer}});
+
+		entrances.splice(INDEX, 1);
 	}
-
-	// South large trench entrance
-	camSendReinforcement(CAM_INFESTED, getObject("infEntry10"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
-
-	if (phase < 3) // Disable these once Golf becomes active
-	{
-		// Southwest corner entrances
-		const swEntrances = ["infEntry11", "infEntry12", "infEntry13"];
-		camSendReinforcement(CAM_INFESTED, getObject(camRandFrom(swEntrances)), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
-
-		// West small trench entrance
-		camSendReinforcement(CAM_INFESTED, getObject("infEntry14"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
-
-		// Northwest trench entrances
-		const northwestEntrances = ["infEntry15", "infEntry17"];
-		camSendReinforcement(CAM_INFESTED, getObject(camRandFrom(northwestEntrances)), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
-
-		// Northwest small trench entrance
-		camSendReinforcement(CAM_INFESTED, getObject("infEntry16"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
-	}
-	
 }
 
 // Start bringing in Foxtrot units from the southeast

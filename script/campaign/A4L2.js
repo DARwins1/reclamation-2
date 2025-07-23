@@ -174,30 +174,22 @@ function sendInfestedReinforcements()
 	const FODDER_SIZE = 12;
 	const B_CHANCE = (difficulty * 5) + 5;
 
+	const entrances = [
+		"infEntry2",
+	];
 	// Southeast road entrance
 	// Only if either factory is alive
-	if (getObject("infFactory1") !== null || getObject("infFactory2") !== null)
+	if (getObject("infFactory1") !== null || getObject("infFactory2") !== null) entrances.push("infEntry1");
+	// South base & marsh entrances
+	if (allowExtraWaves) entrances.push("infEntry3", "infEntry4");
+	// Southeast road entrance
+	// Only if the ridge factory is alive
+	if (allowExtraWaves && getObject("infFactory6") !== null) entrances.push("infEntry5");
+
+	// Spawn from every entrance
+	for (const entrance of entrances)
 	{
-		camSendReinforcement(CAM_INFESTED, getObject("infEntry1"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, B_CHANCE), CAM_REINFORCE_GROUND);
-	}
-
-	// South hill entrance
-	camSendReinforcement(CAM_INFESTED, getObject("infEntry2"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, B_CHANCE), CAM_REINFORCE_GROUND);
-
-	if (allowExtraWaves)
-	{
-		// South base entrance
-		camSendReinforcement(CAM_INFESTED, getObject("infEntry3"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, B_CHANCE), CAM_REINFORCE_GROUND);
-
-		// South marsh entrance
-		camSendReinforcement(CAM_INFESTED, getObject("infEntry4"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, B_CHANCE), CAM_REINFORCE_GROUND);
-
-		// Southeast road entrance
-		// Only if the ridge factory is alive
-		if (getObject("infFactory6") !== null)
-		{
-			camSendReinforcement(CAM_INFESTED, getObject("infEntry5"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, B_CHANCE), CAM_REINFORCE_GROUND);
-		}
+		camSendReinforcement(CAM_INFESTED, getObject(entrance), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, B_CHANCE), CAM_REINFORCE_GROUND);
 	}
 }
 

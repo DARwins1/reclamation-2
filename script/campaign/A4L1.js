@@ -279,7 +279,7 @@ function sendInfestedReinforcements()
 		"infEntry26", "infEntry22",
 	];
 
-	const NUM_GROUPS = difficulty + 2;
+	const NUM_GROUPS = difficulty + 3;
 	for (let i = 0; i < NUM_GROUPS; i++)
 	{
 		// Spawn units at a random entrance

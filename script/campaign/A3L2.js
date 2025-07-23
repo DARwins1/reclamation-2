@@ -118,40 +118,37 @@ function sendInfestedReinforcements()
 	if (difficulty >= HARD) bChance += 5;
 	if (difficulty === INSANE) bChance += 5;
 
-	// North east entrance
-	camSendReinforcement(CAM_INFESTED, getObject("infEntry2"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
+	// North east & south canal entrance
+	const entrances = ["infEntry2", "infEntry3"];
+	// North & south trench entrances
+	if (allowExtraWaves) entrances.push("infEntry4", "infEntry7", "infEntry8");
+	// South west trench entrance
+	// Only starts when the south Collective base is destroyed
+	if (camBaseIsEliminated("colSouthBase")) entrances.push("infEntry5");
+	// North west road entrance
+	// Only starts when the main Collective base is destroyed
+	if (camBaseIsEliminated("colMainBase")) entrances.push("infEntry9");
 
-	// South canal entrance
-	camSendReinforcement(CAM_INFESTED, getObject("infEntry3"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
-
-	// South trench entrance
-	if (allowExtraWaves)
+	const NUM_GROUPS = difficulty + 2;
+	const NUM_ENTRANCES = entrances.length;
+	for (let i = 0; i < (Math.min(NUM_ENTRANCES, NUM_GROUPS)); i++)
 	{
-		const southData = {order: CAM_ORDER_ATTACK, data: {targetPlayer: ((getObject("infFactory1") !== null) ? CAM_HUMAN_PLAYER : undefined)}};
-		camSendReinforcement(CAM_INFESTED, getObject("infEntry4"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND, southData);
+		// Spawn units at a random entrance
+		const INDEX = camRand(entrances.length);
 
-		// South west trench entrance
-		// Only starts when the south Collective base is destroyed
-		if (camBaseIsEliminated("colSouthBase"))
+		// Special case player targeting
+		let targetPlayer;
+		if ((entrances[INDEX] === "infEntry4" && getObject("infFactory1") !== null)
+			|| ((entrances[INDEX] === "infEntry7" || entrances[INDEX] === "infEntry8") && getObject("infFactory2") !== null))
 		{
-			camSendReinforcement(CAM_INFESTED, getObject("infEntry5"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
+			// Prioritize the player's stuff
+			targetPlayer === CAM_HUMAN_PLAYER;
 		}
-	}
 
-	// North trench entrances
-	if (allowExtraWaves)
-	{
-		// Choose one to spawn from...
-		const northTrenchEntrances = ["infEntry7", "infEntry8"];
-		const northData = {order: CAM_ORDER_ATTACK, data: {targetPlayer: ((getObject("infFactory2") !== null) ? CAM_HUMAN_PLAYER : undefined)}};
-		camSendReinforcement(CAM_INFESTED, getObject(camRandFrom(northTrenchEntrances)), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND, northData);
+		camSendReinforcement(CAM_INFESTED, getObject(entrances[INDEX]), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance),
+			CAM_REINFORCE_GROUND, {order: CAM_ORDER_ATTACK, data: {targetPlayer: targetPlayer}});
 
-		// North west road entrance
-		// Only starts when the main Collective base is destroyed
-		if (camBaseIsEliminated("colMainBase"))
-		{
-			camSendReinforcement(CAM_INFESTED, getObject("infEntry9"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
-		}
+		entrances.splice(INDEX, 1);
 	}
 }
 

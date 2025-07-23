@@ -132,39 +132,21 @@ function sendInfestedReinforcements()
 
 	// If there's an onslaught occurring, target the player instead of the Collective
 	const data = {order: CAM_ORDER_ATTACK, data: {targetPlayer: (infestedOnslaught) ? CAM_HUMAN_PLAYER : CAM_THE_COLLECTIVE}};
-
-	if (!camBaseIsEliminated("colEastOutpost"))
-	{
-		// South entrance
-		camSendReinforcement(CAM_INFESTED, getObject("infEntry1"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND, data);
-
-		// Southeast entrance
-		camSendReinforcement(CAM_INFESTED, getObject("infEntry2"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND, data);
-	}
-
-	if (!camBaseIsEliminated("colNorthBase"))
-	{
-		// Canal entrance
-		camSendReinforcement(CAM_INFESTED, getObject("infEntry3"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND, data);
-	}
-
-	if (!camBaseIsEliminated("colWestOutpost"))
-	{
-		// Southwest entrance
-		camSendReinforcement(CAM_INFESTED, getObject("infEntry4"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND, data);
-	}
-
+	const entrances = ["infEntry6", "infEntry7"];
+	// South/southeast entrances
+	if (!camBaseIsEliminated("colEastOutpost")) entrances.push("infEntry1", "infEntry2");
+	// Canal entrance
+	if (!camBaseIsEliminated("colNorthBase")) entrances.push("infEntry3");
+	// Southwest entrance
+	if (!camBaseIsEliminated("colWestOutpost")) entrances.push("infEntry4");
 	// West entrance (only if west base is destroyed)
-	if (camBaseIsEliminated("colWestOutpost") && !camBaseIsEliminated("colTrenchOutpost"))
+	if (camBaseIsEliminated("colWestOutpost") && !camBaseIsEliminated("colTrenchOutpost")) entrances.push("infEntry5");
+	
+	// Spawn from every entrance
+	for (const entrance of entrances)
 	{
-		camSendReinforcement(CAM_INFESTED, getObject("infEntry5"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND, data);
+		camSendReinforcement(CAM_INFESTED, getObject(entrance), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
 	}
-
-	// East entrance
-	camSendReinforcement(CAM_INFESTED, getObject("infEntry6"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND, data);
-
-	// West Trench entrance
-	camSendReinforcement(CAM_INFESTED, getObject("infEntry7"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND, data);
 }
 
 // Count the number of (non-wall) structures remaining in the final base

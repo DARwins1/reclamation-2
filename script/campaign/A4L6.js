@@ -2140,7 +2140,7 @@ function setStageThree()
 
 	// Set the mission timer to 20 minutes
 	setMissionTime(camMinutesToSeconds(20));
-	camSetExtraObjectiveMessage(_("Survive"));
+	camSetExtraObjectiveMessage(_("Survive at all costs"));
 
 	// More VTOL attacks
 	// NOTE: The stage 2 VTOL attacks linked to the Collective CC stay active during this stage

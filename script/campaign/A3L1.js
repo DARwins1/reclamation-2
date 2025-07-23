@@ -230,49 +230,39 @@ function sendInfestedReinforcements()
 	if (difficulty >= HARD) bChance += 5; // +5% chance
 	if (difficulty === INSANE) bChance += 5; // +5% chance
 
+	const entrances = [];
+
 	// South road entrance
 	// (Stops entirely when factory is destroyed)
-	if (getObject("infFactory1") !== null)
-	{
-		const TARGET = (camBaseIsEliminated("colSouthRoadblock")) ? undefined : CAM_THE_COLLECTIVE;
-		camSendReinforcement(CAM_INFESTED, getObject("infEntry1"), camRandInfTemplates(coreDroids, CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND,
-			{order: CAM_ORDER_ATTACK, data: {targetPlayer: TARGET}}
-		);
-	}
-
-	// South canal entrance
+	if (getObject("infFactory1") !== null) entrances.push("infEntry1");
+	// South canal & east trench entrances
 	// (Does NOT stop for the entire mission!)
-	if (allowExtraWaves)
-	{
-		const TARGET = (camBaseIsEliminated("colSouthRoadblock")) ? undefined : CAM_THE_COLLECTIVE;
-		camSendReinforcement(CAM_INFESTED, getObject("infEntry2"), camRandInfTemplates(coreDroids, CORE_SIZE / 2, 2 * FODDER_SIZE / 3, bChance), CAM_REINFORCE_GROUND, 
-			{order: CAM_ORDER_ATTACK, data: {targetPlayer: TARGET}}
-		);
-	}
-
+	if (allowExtraWaves) entrances.push("infEntry2", "infEntry4");
 	// East base entrance
-	if (getObject("infFactory2") !== null && allowExtraWaves)
-	{
-		camSendReinforcement(CAM_INFESTED, getObject("infEntry3"), camRandInfTemplates(coreDroids, CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
-	}
-
-	// East trench entrance
-	if (allowExtraWaves)
-	{
-		const TARGET = (camBaseIsEliminated("colEastRoadblock")) ? undefined : CAM_THE_COLLECTIVE;
-		camSendReinforcement(CAM_INFESTED, getObject("infEntry4"), camRandInfTemplates(coreDroids, CORE_SIZE / 2, 2 * FODDER_SIZE / 3, bChance), CAM_REINFORCE_GROUND,
-			{order: CAM_ORDER_ATTACK, data: {targetPlayer: TARGET}}
-		);
-	}
-
+	if (getObject("infFactory2") !== null && allowExtraWaves) entrances.push("infEntry3");
 	// East road entrance
-	// (Stops entirely when factory is destroyed)
-	if (getObject("infFactory3") !== null)
+	if (getObject("infFactory3") !== null && allowExtraWaves) entrances.push("infEntry5");
+
+	const NUM_GROUPS = difficulty + 2;
+	const NUM_ENTRANCES = entrances.length;
+	for (let i = 0; i < (Math.min(NUM_ENTRANCES, NUM_GROUPS)); i++)
 	{
-		const TARGET = (camBaseIsEliminated("colEastRoadblock")) ? CAM_HUMAN_PLAYER : CAM_THE_COLLECTIVE;
-		camSendReinforcement(CAM_INFESTED, getObject("infEntry5"), camRandInfTemplates(coreDroids, CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND,
-			{order: CAM_ORDER_ATTACK, data: {targetPlayer: TARGET}}
-		);
+		// Spawn units at a random entrance
+		const INDEX = camRand(entrances.length);
+
+		// Special case player targeting
+		let targetPlayer;
+		if (((entrances[INDEX] === "infEntry1" || entrances[INDEX] === "infEntry2") && !camBaseIsEliminated("colSouthRoadblock"))
+			|| ((entrances[INDEX] === "infEntry4" || entrances[INDEX] === "infEntry4") && !camBaseIsEliminated("colEastRoadblock")))
+		{
+			// Prioritize the closest Collective base
+			targetPlayer === CAM_THE_COLLECTIVE;
+		}
+
+		camSendReinforcement(CAM_INFESTED, getObject(entrances[INDEX]), camRandInfTemplates(coreDroids, CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND,
+			{order: CAM_ORDER_ATTACK, data: {targetPlayer: targetPlayer}});
+
+		entrances.splice(INDEX, 1);
 	}
 }
 

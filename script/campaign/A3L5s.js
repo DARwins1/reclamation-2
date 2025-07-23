@@ -85,16 +85,23 @@ function sendInfestedReinforcements()
 	if (difficulty >= HARD) bChance += 5;
 	if (difficulty === INSANE) bChance += 5;
 
-	// North east entrances
-	camSendReinforcement(CAM_INFESTED, infEntry2, camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
+	const entrances = [
+		infEntry2, infEntry3, infEntry7,
+		infEntry8,
+	];
 
-	// South canal entrance
-	camSendReinforcement(CAM_INFESTED, infEntry3, camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
+	const NUM_GROUPS = difficulty + 2;
+	const NUM_ENTRANCES = entrances.length;
+	for (let i = 0; i < (Math.min(NUM_ENTRANCES, NUM_GROUPS)); i++)
+	{
+		// Spawn units at a random entrance
+		const INDEX = camRand(entrances.length);
 
-	// North trench entrances
-	// Choose one to spawn from...
-	let northTrenchEntrances = [infEntry7, infEntry8];
-	camSendReinforcement(CAM_INFESTED, camRandFrom(northTrenchEntrances), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
+		camSendReinforcement(CAM_INFESTED, getObject(entrances[INDEX]), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance),
+			CAM_REINFORCE_GROUND);
+
+		entrances.splice(INDEX, 1);
+	}
 }
 
 function eventStartLevel()

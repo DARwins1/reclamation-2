@@ -206,39 +206,37 @@ function sendInfestedReinforcements()
 	if (difficulty >= HARD) bChance += 5;
 	if (difficulty === INSANE) bChance += 5;
 
-	// North trench entrances
-	// Choose one to spawn from...
-	const northEntrances = ["infEntry1", "infEntry2"];
-	camSendReinforcement(CAM_INFESTED, getObject(camRandFrom(northEntrances)), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
-
-	// North east entrances
-	camSendReinforcement(CAM_INFESTED, getObject("infEntry4"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
-
-	// South east entrances
-	// Choose one to spawn from...
-	const seEntrances = ["infEntry5", "infEntry6"];
-	const SEFACT_DESTROYED = (getObject("infFactory1") === null);
-	const seOrderData = {order: CAM_ORDER_ATTACK, data: {targetPlayer: (SEFACT_DESTROYED) ? undefined : CAM_HUMAN_PLAYER}}; // Focus on the player until the factory is destroyed
-	camSendReinforcement(CAM_INFESTED, getObject(camRandFrom(seEntrances)), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND, seOrderData);
-
-	// South canal entrances
-	const canalEntrances = ["infEntry7", "infEntry9"];
-	camSendReinforcement(CAM_INFESTED, getObject(camRandFrom(canalEntrances)), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
-
+	const entrances = [
+		"infEntry1", "infEntry2", "infEntry4",
+		"infEntry5", "infEntry6", "infEntry7",
+		"infEntry9",
+	];
 	// South canal high ground entrance
 	// (Stops when factory is destroyed)
-	if (getObject("infFactory2") !== null)
-	{
-		camSendReinforcement(CAM_INFESTED, getObject("infEntry8"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
-	}
-
+	if (getObject("infFactory2") !== null) entrances.push("infEntry8");
 	// South west trench entrances
 	// (Only if the main depot base is eradicated)
-	if (camBaseIsEliminated("colDepotBase"))
+	if (camBaseIsEliminated("colDepotBase")) entrances.push("infEntry10", "infEntry11");
+
+	const NUM_GROUPS = difficulty + 2;
+	const NUM_ENTRANCES = entrances.length;
+	for (let i = 0; i < (Math.min(NUM_ENTRANCES, NUM_GROUPS)); i++)
 	{
-		// Choose one to spawn from...
-		const swEntrances = ["infEntry10", "infEntry11"];
-		camSendReinforcement(CAM_INFESTED, getObject(camRandFrom(swEntrances)), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
+		// Spawn units at a random entrance
+		const INDEX = camRand(entrances.length);
+
+		// Special case player targeting
+		let targetPlayer;
+		if ((entrances[INDEX] === "infEntry5" || entrances[INDEX] === "infEntry6") && getObject("infFactory1") !== null)
+		{
+			// Prioritize the player's stuff
+			targetPlayer === CAM_HUMAN_PLAYER;
+		}
+
+		camSendReinforcement(CAM_INFESTED, getObject(entrances[INDEX]), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance),
+			CAM_REINFORCE_GROUND, {order: CAM_ORDER_ATTACK, data: {targetPlayer: targetPlayer}});
+
+		entrances.splice(INDEX, 1);
 	}
 }
 

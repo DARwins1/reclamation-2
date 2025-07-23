@@ -11,7 +11,7 @@ const mis_infestedResearch = [
 ];
 const infEntry1 = {x: 106, y: 1, x2: 111, y2: 2};
 const infEntry2 = {x: 128, y: 1, x2: 133, y2: 2};
-const infEntry3 = {x: 197, y: 6, x2: 198, y2: 11};
+// const infEntry3 = {x: 197, y: 6, x2: 198, y2: 11};
 const infEntry4 = {x: 197, y: 21, x2: 198, y2: 25};
 const infEntry5 = {x: 197, y: 94, x2: 198, y2: 100};
 const infEntry6 = {x: 197, y: 117, x2: 198, y2: 121};
@@ -91,29 +91,24 @@ function sendInfestedReinforcements()
 	if (difficulty >= HARD) bChance += 5;
 	if (difficulty === INSANE) bChance += 5;
 
-	// North trench entrances
-	// Choose one to spawn from...
-	const northEntrances = [infEntry1, infEntry2];
-	camSendReinforcement(CAM_INFESTED, camRandFrom(northEntrances), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
+	const entrances = [
+		infEntry1, infEntry2, infEntry4,
+		infEntry5, infEntry6, infEntry7,
+		infEntry8, infEntry9, infEntry10,
+	];
 
-	// North east entrances
-	// Choose one to spawn from...
-	const neEntrances = [infEntry3, infEntry4];
-	camSendReinforcement(CAM_INFESTED, camRandFrom(neEntrances), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
+	const NUM_GROUPS = difficulty + 2;
+	const NUM_ENTRANCES = entrances.length;
+	for (let i = 0; i < (Math.min(NUM_ENTRANCES, NUM_GROUPS)); i++)
+	{
+		// Spawn units at a random entrance
+		const INDEX = camRand(entrances.length);
 
-	// South east entrances
-	// Choose one to spawn from...
-	const seEntrances = [infEntry5, infEntry6];
-	camSendReinforcement(CAM_INFESTED, camRandFrom(seEntrances), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
+		camSendReinforcement(CAM_INFESTED, getObject(entrances[INDEX]), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance),
+			CAM_REINFORCE_GROUND);
 
-	// South canal entrances
-	const canalEntrances = [infEntry7, infEntry8];
-	camSendReinforcement(CAM_INFESTED, camRandFrom(canalEntrances), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
-
-	// South west trench entrances
-	// Choose one to spawn from...
-	const swEntrances = [infEntry9, infEntry10];
-	camSendReinforcement(CAM_INFESTED, camRandFrom(swEntrances), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
+		entrances.splice(INDEX, 1);
+	}
 }
 
 function eventStartLevel()

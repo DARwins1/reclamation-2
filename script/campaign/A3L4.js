@@ -402,7 +402,6 @@ function sendCollectiveTransporter()
 
 function sendInfestedReinforcements()
 {	
-	
 	const coreDroids = [
 		[ // Scavs & crawlers
 			cTempl.stinger, cTempl.stinger, cTempl.stinger, // Stingers
@@ -457,20 +456,21 @@ function sendInfestedReinforcements()
 	if (difficulty >= HARD) bChance += 5;
 	if (difficulty === INSANE) bChance += 5;
 
-	// NOTE: The entrances are numbered differently from A2L2...
+	// NOTE: The entrances are numbered differently from A3L2...
+	const entrances = ["infEntry1", "infEntry2", "infEntry4", "infEntry5"];
 
-	// North trench entrances
-	// Choose one to spawn from...
-	const northEntrances = ["infEntry1", "infEntry2"];
-	camSendReinforcement(CAM_INFESTED, getObject(camRandFrom(northEntrances)), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
+	const NUM_GROUPS = difficulty + 2;
+	const NUM_ENTRANCES = entrances.length;
+	for (let i = 0; i < (Math.min(NUM_ENTRANCES, NUM_GROUPS)); i++)
+	{
+		// Spawn units at a random entrance
+		const INDEX = camRand(entrances.length);
 
-	// North east entrances
-	// Choose one to spawn from...
-	const nwEntrances = ["infEntry3", "infEntry4"];
-	camSendReinforcement(CAM_INFESTED, getObject(camRandFrom(nwEntrances)), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
+		camSendReinforcement(CAM_INFESTED, getObject(entrances[INDEX]), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance),
+			CAM_REINFORCE_GROUND);
 
-	// South canal entrance
-	camSendReinforcement(CAM_INFESTED, getObject("infEntry5"), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND);
+		entrances.splice(INDEX, 1);
+	}
 }
 
 // Finish spawning Collective waves, and start a time limit for the player to clean up the map
