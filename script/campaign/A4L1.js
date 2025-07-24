@@ -2,7 +2,10 @@ include("script/campaign/transitionTech.js");
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
-const MIS_NUM_TRANSPORTS = (difficulty < HARD) ? 4 : (difficulty < INSANE) ? 3 : 2; // Good enough for now...
+// 4 Transports on INSANE
+// 5 Transports on HARD
+// 6 Transports on all other difficulties
+const MIS_NUM_TRANSPORTS = Math.min(8 - difficulty, 6);
 const MIS_TEAM_CHARLIE = 1;
 
 var firstTransport; // Whether the player's first transport has landed
@@ -57,7 +60,12 @@ function eventTransporterLanded(transport)
 			const objs = enumDroid(MIS_TEAM_CHARLIE).concat(enumStruct(MIS_TEAM_CHARLIE));
 			for (const obj of objs)
 			{
-				camSetDroidRank(obj, "Veteran");
+				let rank = "Veteran";
+				if (obj.type === DROID && obj.droidType === DROID_COMMAND)
+				{
+					rank = "Special";
+				}
+				camSetDroidRank(obj, rank);
 				donateObject(obj, CAM_HUMAN_PLAYER);
 			}
 
@@ -279,7 +287,7 @@ function sendInfestedReinforcements()
 		"infEntry26", "infEntry22",
 	];
 
-	const NUM_GROUPS = difficulty + 3;
+	const NUM_GROUPS = difficulty + 2;
 	for (let i = 0; i < NUM_GROUPS; i++)
 	{
 		// Spawn units at a random entrance

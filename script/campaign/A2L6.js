@@ -969,6 +969,7 @@ function eventStartLevel()
 		"colFactory3": { tech: "R-Wpn-Cannon4AMk1" }, // Hyper Velocity Cannon
 		"colCybFactory4": { tech: "R-Cyb-Hvywpn-Grenade" }, // Super Heavy Grenadier
 		"colCC2": { tech: "R-Sys-Engineering02" }, // Improved Engineering
+		"colPower": { tech: "R-Struc-Power-Upgrade01" }, // Gas Turbine Generator
 	});
 
 	camSetEnemyBases({

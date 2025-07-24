@@ -782,6 +782,14 @@
 	},
 
 
+	"object_43": {
+		"label": "golfPower",
+		"id": 389,
+		"player": 6,
+		"type": 1
+	},
+
+
 	"radius_0": {
 		"label": "heliRemoveZone",
 		"pos": [6525, 277],

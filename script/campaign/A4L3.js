@@ -398,6 +398,7 @@ function eventStartLevel()
 		"foxtrotFactory1": { tech: "R-Struc-Factory-Upgrade03" }, // Advanced Manufacturing
 		"golfResearch1": { tech: "R-Wpn-Bomb-Damage02" }, // Improved Bomb Warhead
 		"golfResearch2": { tech: "R-Defense-WallUpgrade06" }, // Supercrete Mk3
+		"golfPower": { tech: "R-Struc-Power-Upgrade03" }, // Gas Turbine Generator Mk3
 	});
 
 	camCompleteRequiredResearch(camAct4StartResearch, MIS_TEAM_FOXTROT);
