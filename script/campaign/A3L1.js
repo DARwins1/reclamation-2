@@ -256,7 +256,7 @@ function sendInfestedReinforcements()
 			|| ((entrances[INDEX] === "infEntry4" || entrances[INDEX] === "infEntry4") && !camBaseIsEliminated("colEastRoadblock")))
 		{
 			// Prioritize the closest Collective base
-			targetPlayer === CAM_THE_COLLECTIVE;
+			targetPlayer = CAM_THE_COLLECTIVE;
 		}
 
 		camSendReinforcement(CAM_INFESTED, getObject(entrances[INDEX]), camRandInfTemplates(coreDroids, CORE_SIZE, FODDER_SIZE, bChance), CAM_REINFORCE_GROUND,
@@ -577,10 +577,10 @@ function eventStartLevel()
 		startedFromMenu = true;
 
 		// Send a transport with a commander and some high-rank droids
-		const firstTransportDroids = [ // 1 Command Turret, 2 HMG Cyborgs, 4 Lancer Cyborgs, 3 HVCs
+		const firstTransportDroids = [ // 1 Command Turret, 2 HMGs, 4 Flamer Cyborgs, 3 HVCs
 			cTempl.plmcomht,
-			cTempl.cybhg, cTempl.cybhg,
-			cTempl.cybla, cTempl.cybla, cTempl.cybla, cTempl.cybla,
+			cTempl.plmhmght, cTempl.plmhmght,
+			cTempl.cybfl, cTempl.cybfl, cTempl.cybfl, cTempl.cybfl,
 			cTempl.plmhpvht, cTempl.plmhpvht, cTempl.plmhpvht,
 		];
 
@@ -593,16 +593,16 @@ function eventStartLevel()
 		
 		// Subsequent transport droids are randomly chosen from this pool
 		const attackPool = [ // Misc. cyborgs and tanks
-			cTempl.cybhg, cTempl.cybla, cTempl.cybfl, cTempl.scygr, cTempl.scyhc,
-			cTempl.plmhpvht, cTempl.plmhmght, cTempl.plmatht, cTempl.plmbbht, cTempl.plmpodht,
+			cTempl.cybfl, cTempl.scyhc,
+			cTempl.plmhpvht, cTempl.plmhmght, cTempl.comatht, cTempl.combbht, cTempl.compodht,
 		]
 
-		const artPool = [ // Bombards and MRAs
-			cTempl.plmhmortw, cTempl.plmmraht,
+		const artPool = [ // Bombards, MRAs and Super Grenadiers
+			cTempl.plmhmortw, cTempl.commraht, cTempl.scygr,
 		]
 
 		const vtolPool = [ // Misc. VTOLs
-			cTempl.pllbombv, cTempl.pllhmgv, cTempl.plllanv,
+			cTempl.colbombv, cTempl.colhmgv, cTempl.colatv, cTempl.colhpvv,
 		];
 
 		// Store units "offworld", so that the player can bring them in via transport.

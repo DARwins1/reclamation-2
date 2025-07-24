@@ -681,16 +681,16 @@ function eventStartLevel()
 		
 		// Subsequent transport droids are randomly chosen from this pool
 		const attackPool = [ // Misc. cyborgs and tanks
-			cTempl.cybhg, cTempl.cybla, cTempl.cybfl, cTempl.cybgr, cTempl.cybca,
-			cTempl.pllcanht, cTempl.pllhmght, cTempl.plllant, cTempl.pllmrat, cTempl.pllpodt,
+			cTempl.cybhg, cTempl.cybla, cTempl.cybfl,
+			cTempl.pllcanht, cTempl.pllhmght, cTempl.colatw, cTempl.colpodw,
 		]
 
-		const artPool = [ // Mortars
-			cTempl.pllmortw,
+		const artPool = [ // Mortars, MRAs, and Grenadiers
+			cTempl.pllmortw, cTempl.colmraw, cTempl.cybgr,
 		]
 
 		const vtolPool = [ // Misc. VTOLs
-			cTempl.pllcanv, cTempl.pllpodv, cTempl.pllhmgv, cTempl.plllanv,
+			cTempl.colcanv, cTempl.colpodv, cTempl.colhmgv, cTempl.colatv,
 		];
 
 		// Store units "offworld", so that the player can bring them in via transport.

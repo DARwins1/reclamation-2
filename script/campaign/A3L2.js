@@ -142,7 +142,7 @@ function sendInfestedReinforcements()
 			|| ((entrances[INDEX] === "infEntry7" || entrances[INDEX] === "infEntry8") && getObject("infFactory2") !== null))
 		{
 			// Prioritize the player's stuff
-			targetPlayer === CAM_HUMAN_PLAYER;
+			targetPlayer = CAM_HUMAN_PLAYER;
 		}
 
 		camSendReinforcement(CAM_INFESTED, getObject(entrances[INDEX]), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, bChance),

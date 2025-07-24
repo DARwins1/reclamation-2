@@ -259,7 +259,10 @@ infcohhrat: { body: "InfBody9REC", prop: "tracked01", weap: "InfRocket-MRL-Hvy" 
 basher: { body: "BasherBody", prop: "BoomTickLegs", weap: "BasherMelee" }, // Basher
 
 // Collective Units:
+colpodw: { body: "Body2SUP", prop: "wheeled01", weap: "Rocket-Pod" }, // Mini-Rocket Pod Leopard Wheels
 colpodt: { body: "Body2SUP", prop: "tracked01", weap: "Rocket-Pod" }, // Mini-Rocket Pod Leopard Tracks
+colatw: { body: "Body2SUP", prop: "wheeled01", weap: "Rocket-LtA-T" }, // Lancer Pod Leopard Wheels
+compodht: { body: "Body6SUPP", prop: "HalfTrack", weap: "Rocket-Pod" }, // Mini-Rocket Pod Panther Half-tracks
 comatht: { body: "Body6SUPP", prop: "HalfTrack", weap: "Rocket-LtA-T" }, // Lancer Panther Half-tracks
 comatt: { body: "Body6SUPP", prop: "tracked01", weap: "Rocket-LtA-T" }, // Lancer Panther Tracks
 comath: { body: "Body6SUPP", prop: "hover01", weap: "Rocket-LtA-T" }, // Lancer Panther Hover
@@ -268,7 +271,9 @@ comhatt: { body: "Body6SUPP", prop: "tracked01", weap: "Rocket-HvyA-T" }, // Tan
 comhath: { body: "Body6SUPP", prop: "hover01", weap: "Rocket-HvyA-T" }, // Tank Killer Panther Hover
 cohhatht: { body: "Body9REC", prop: "HalfTrack", weap: "Rocket-HvyA-T" }, // Tank Killer Tiger Half-tracks
 
+combbht: { body: "Body6SUPP", prop: "HalfTrack", weap: "Rocket-BB" }, // Bunker Buster Panther Half-tracks
 combbh: { body: "Body6SUPP", prop: "hover01", weap: "Rocket-BB" }, // Bunker Buster Panther Hover
+cohbbht: { body: "Body9REC", prop: "HalfTrack", weap: "Rocket-BB" }, // Bunker Buster Tiger Half-tracks
 cohbbt: { body: "Body9REC", prop: "tracked01", weap: "Rocket-BB" }, // Bunker Buster Tiger Tracks
 cohbbh: { body: "Body9REC", prop: "hover01", weap: "Rocket-BB" }, // Bunker Buster Tiger Hover
 
@@ -295,10 +300,12 @@ cohrmorth: { body: "Body9REC", prop: "hover01", weap: "Mortar3ROTARYMk1" }, // P
 cohhowt: { body: "Body9REC", prop: "tracked01", weap: "Howitzer105Mk1" }, // Howitzer Tiger Tracks
 cohhhowtt: { body: "Body9REC", prop: "tracked01", weap: "Howitzer150Mk1" }, // Ground Shaker Tiger Tracks
 
+colmraw: { body: "Body2SUP", prop: "wheeled01", weap: "Rocket-MRL" }, // Mini-Rocket Array Leopard Wheels
 colmrat: { body: "Body2SUP", prop: "tracked01", weap: "Rocket-MRL" }, // Mini-Rocket Array Leopard Tracks
 commraht: { body: "Body6SUPP", prop: "HalfTrack", weap: "Rocket-MRL" }, // Mini-Rocket Array Panther Half-tracks
 commrat: { body: "Body6SUPP", prop: "tracked01", weap: "Rocket-MRL" }, // Mini-Rocket Array Panther Tracks
 commrah: { body: "Body6SUPP", prop: "hover01", weap: "Rocket-MRL" }, // Mini-Rocket Array Panther Hover
+cohhraht: { body: "Body9REC", prop: "HalfTrack", weap: "Rocket-MRL-Hvy" }, // Heavy Rocket Array Tiger Half-tracks
 cohhrah: { body: "Body9REC", prop: "hover01", weap: "Rocket-MRL-Hvy" }, // Heavy Rocket Array Tiger Hover
 cohhrat: { body: "Body9REC", prop: "tracked01", weap: "Rocket-MRL-Hvy" }, // Heavy Rocket Array Tiger Tracks
 cohript: { body: "Body9REC", prop: "tracked01", weap: "Rocket-IDF" }, // Ripple Rocket Tiger Tracks
@@ -354,12 +361,16 @@ cohcomh: { body: "Body9REC", prop: "hover01", weap: "CommandBrain01" }, // Comma
 colbombv: { body: "Body2SUP", prop: "V-Tol", weap: "Bomb1-VTOL-LtHE" }, // Cluster Bomb Leopard VTOL
 colphosv: { body: "Body2SUP", prop: "V-Tol", weap: "Bomb3-VTOL-LtINC" }, // Phosphor Bomb Leopard VTOL
 colatv: { body: "Body2SUP", prop: "V-Tol", weap: "Rocket-VTOL-LtA-T" }, // Lancer Leopard VTOL
+colpodv: { body: "Body2SUP", prop: "V-Tol", weap: "Rocket-VTOL-Pod" }, // Mini-Rocket Pod Leopard VTOL
+colcanv: { body: "Body2SUP", prop: "V-Tol", weap: "Cannon1-VTOL" }, // Light Cannon Leopard VTOL
+colhpvv: { body: "Body2SUP", prop: "V-Tol", weap: "Cannon4AUTO-VTOL" }, // Hyper Velocity Cannon Leopard VTOL
 colhmgv: { body: "Body2SUP", prop: "V-Tol", weap: "MG3-VTOL" }, // Heavy Machinegun Leopard VTOL
 colagv: { body: "Body2SUP", prop: "V-Tol", weap: "MG4ROTARY-VTOL" }, // Assault Gun Leopard VTOL
 
 comagv: { body: "Body6SUPP", prop: "V-Tol", weap: "MG4ROTARY-VTOL" }, // Assault Gun Panther VTOL
 combombv: { body: "Body6SUPP", prop: "V-Tol", weap: "Bomb1-VTOL-LtHE" }, // Cluster Bomb Panther VTOL
 comhbombv: { body: "Body6SUPP", prop: "V-Tol", weap: "Bomb2-VTOL-HvHE" }, // HEAP Bomb Panther VTOL
+comphosv: { body: "Body6SUPP", prop: "V-Tol", weap: "Bomb3-VTOL-LtINC" }, // Phosphor Bomb Panther VTOL
 comthermv: { body: "Body6SUPP", prop: "V-Tol", weap: "Bomb4-VTOL-HvyINC" }, // Thermite Bomb Panther VTOL
 comhatv: { body: "Body6SUPP", prop: "V-Tol", weap: "Rocket-VTOL-HvyA-T" }, // Tank Killer Panther VTOL
 combbv: { body: "Body6SUPP", prop: "V-Tol", weap: "Rocket-VTOL-BB" }, // Bunker Buster Panther VTOL

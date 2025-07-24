@@ -872,7 +872,7 @@ function eventStartLevel()
 
 		// Send a transport with a commander and some high-rank droids
 		const firstTransportDroids = [ // 1 Command Turret, 2 AG Cyborgs, 4 Super TK Cyborgs, 3 Assault Cannons
-			cTempl.plhcomht,
+			cTempl.cohcomht,
 			cTempl.cybag, cTempl.cybag,
 			cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk,
 			cTempl.plhacanht, cTempl.plhacanht, cTempl.plhacanht,
@@ -887,16 +887,16 @@ function eventStartLevel()
 		
 		// Subsequent transport droids are randomly chosen from this pool
 		const attackPool = [ // Misc. cyborgs and tanks
-			cTempl.cybag, cTempl.scytk, cTempl.cybth, cTempl.scygr, cTempl.scyhc,
-			cTempl.plhacanht, cTempl.plhasgnht, cTempl.plhhatht, cTempl.plhbbht, cTempl.plhinfht,
+			cTempl.cybag, cTempl.scytk, cTempl.cybth, cTempl.scyhc,
+			cTempl.plhacanht, cTempl.cohasgnht, cTempl.cohhatht, cTempl.cohbbht, cTempl.plhinfht,
 		]
 
 		const artPool = [ // Pepperpots, Ballistas, and HRAs
-			cTempl.plhrmortht, cTempl.plhbalht, cTempl.plhhraht,
+			cTempl.plhrmortht, cTempl.plhbalht, cTempl.cohhraht,
 		]
 
 		const vtolPool = [ // Misc. VTOLs
-			cTempl.plmhbombv, cTempl.plmphosv, cTempl.plmhatv, cTempl.plmacanv, cTempl.plmagv, 
+			cTempl.comhbombv, cTempl.comphosv, cTempl.comhatv, cTempl.comacanv, cTempl.comagv, 
 		];
 
 		// Store units "offworld", so that the player can bring them in via transport.
