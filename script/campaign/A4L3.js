@@ -9,10 +9,10 @@ const MIS_TEAM_GOLF = 6;
 const MIS_FACTORY_TIME = camChangeOnDiff(camSecondsToMilliseconds(90));
 const MIS_CYBORG_FACTORY_TIME = camChangeOnDiff(camSecondsToMilliseconds(50));
 const MIS_VTOL_FACTORY_TIME = camChangeOnDiff(camSecondsToMilliseconds(110));
-const MIS_FOXTROT_RANK = (difficulty <= MEDIUM) ? 6 : difficulty + 4; // Elite to Hero
 const MIS_FOXTROT_COMMANDER_DELAY = camChangeOnDiff(camMinutesToMilliseconds(6));
 
 var foxtrotCommanderDeathTime;
+var foxtrotRank;
 
 var golfSensorsGroup;
 var golfVtolAttackGroup;
@@ -249,7 +249,7 @@ function eventDroidBuilt(droid, structure)
 	{
 		// Foxtrot commander rebuilt
 		addLabel(droid, "foxtrotCommander");
-		camSetDroidRank(droid, MIS_FOXTROT_RANK);
+		camSetDroidRank(droid, foxtrotRank);
 	}
 	else if (droid.player === MIS_TEAM_GOLF && camDroidMatchesTemplate(droid, cTempl.plhsenst) && droid.group === golfSensorsGroup)
 	{
@@ -813,7 +813,7 @@ function eventStartLevel()
 
 	// Manage refillable groups
 	// Foxtrot groups...
-	camSetDroidRank(getObject("foxtrotCommander"), MIS_FOXTROT_RANK);
+	camSetDroidRank(getObject("foxtrotCommander"), foxtrotRank);
 	camMakeRefillableGroup(
 		camMakeGroup("foxtrotCommander"), {
 			templates: [cTempl.plhcomw],
@@ -1140,6 +1140,7 @@ function eventStartLevel()
 	}
 
 	foxtrotCommanderDeathTime = 0;
+	foxtrotRank = (difficulty <= MEDIUM) ? 6 : difficulty + 4; // Elite to Hero
 
 	camAutoReplaceObjectLabel(["golfVtolTower1", "golfVtolTower2", "golfVtolCBTower1", "golfVtolCBTower2", "golfCBTower1", "golfCBTower2"]);
 

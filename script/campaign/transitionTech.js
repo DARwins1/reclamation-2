@@ -144,6 +144,7 @@ const camA2L2AllyResearch = camAct2StartResearch.concat([
 const camA2L6AllyResearch = camA2L2AllyResearch.concat([
 	// A2L2
 	"R-Wpn-Bomb01", // Artifact
+	"R-Wpn-Mortar-Damage04",
 	"R-Wpn-Rocket-Accuracy02", // Artifact
 	"R-Wpn-MG-ROF02", // Artifact
 	"R-Wpn-Rocket-ROF02", // Artifact
@@ -164,7 +165,7 @@ const camA2L6AllyResearch = camA2L2AllyResearch.concat([
 	"R-Cyborg-Hvywpn-Mcannon", // Artifact
 	"R-Wpn-AAGun-ROF01", // Artifact
 	"R-Wpn-Mortar02Hvy", // Artifact
-	"R-Defense-HvyMor", "R-Wpn-Mortar-Damage04",
+	"R-Defense-HvyMor", "R-Wpn-Mortar-Damage05",
 	// A2L5
 	"R-Wpn-Rocket03-HvAT", // Artifact
 	"R-Wpn-Rocket-Damage05",
@@ -223,7 +224,7 @@ const camA3L7AllyResearch = camAct3StartResearch.concat([
 	"R-Struc-RprFac-Upgrade02", "R-Struc-VTOLPad-Upgrade02",
 	"R-Wpn-HowitzerMk1", // Artifact
 	"R-Defense-Howitzer", "R-Wpn-Howitzer-Damage01", "R-Wpn-Howitzer-ROF01",
-	"R-Wpn-Mortar-Damage05",
+	"R-Wpn-Mortar-Damage06",
 ]);
 
 // Used to grant research to teams Foxtrot and Golf on A3L9
@@ -257,8 +258,8 @@ const camAct4StartResearch = camA3L9EnemyResearch.concat([
 const camA4L4AllyResearch = camAct4StartResearch.concat([
 	// A4L1
 	"R-Wpn-Cannon3Mk1", // Artifact
-	"R-Wpn-Cannon-Damage06", "R-Wpn-Cannon-ROF03", "R-Wpn-Mortar-Damage06",
-	"R-Wpn-Howitzer-ROF02", "R-Defense-WallTower04", 
+	"R-Wpn-Cannon-Damage06", "R-Wpn-Cannon-ROF03",
+	"R-Wpn-Howitzer-ROF02", "R-Defense-WallTower04",
 	"R-Wpn-AAGun04", // Artifact
 	"R-Wpn-AAGun-Damage03", "R-Wpn-AAGun-ROF03",
 	// A4L2

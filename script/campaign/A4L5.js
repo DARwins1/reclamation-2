@@ -26,7 +26,6 @@ const mis_collectiveResearch = [
 
 const MIS_TEAM_DELTA = 5;
 const MIS_ALLY_COMMANDER_RANK = "Hero";
-const MIS_COL_COMMANDER_RANK = Math.min(5, difficulty + 4); // Veteran to Hero
 const MIS_GROUND_ASSAULT_DELAY = camSecondsToMilliseconds(20);
 const MIS_AIR_ASSAULT_DELAY = camSecondsToMilliseconds(15);
 
@@ -35,6 +34,7 @@ var killTeamsEnabled;
 var infestedEnabled;
 var transportPlaced;
 var colCommanderIndex;
+var colCommanderRank;
 
 // Truck jobs
 var colLZTruckJob1;
@@ -707,7 +707,7 @@ function sendCollectiveGroundWave(entry, templates, commTemplate)
 		const commLabel = "colCommander" + colCommanderIndex++;
 		const commDroid = camAddDroid(CAM_THE_COLLECTIVE, entry, commTemplate);
 		addLabel(commDroid, commLabel);
-		camSetDroidRank(commDroid, MIS_COL_COMMANDER_RANK);
+		camSetDroidRank(commDroid, colCommanderRank);
 		camManageGroup(camMakeGroup(commDroid), CAM_ORDER_ATTACK, {repair: 40});
 
 		// Send in the rest of the group; which will follow the leader
@@ -1260,6 +1260,7 @@ function eventStartLevel()
 	infestedEnabled = true;
 	transportPlaced = false;
 	colCommanderIndex = 1;
+	colCommanderRank = Math.min(5, difficulty + 4); // Veteran to Hero
 
 	groundBlips = [
 		null,

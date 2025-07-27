@@ -12,9 +12,7 @@ const MIS_TRANSPORT_MAX_TIME = camMinutesToSeconds(5); // 5 minutes max
 const MIS_TRANSPORT_START_TIME = camMinutesToSeconds(2); // 2 minutes for the first transport
 const MIS_TRANSPORT_TIME_INCREMENT = 15; // Increase transport time by 15 seconds per transport
 const DORDER_GUARD = 25; // Order number for guarding an droid/structure
-const MIS_LOST_THRESHOLD = (difficulty >= MEDIUM) ? 2 : 3;
 const MIS_ALLY_COMMANDER_RANK = "Hero";
-const MIS_COL_COMMANDER_RANK = Math.min(5, difficulty + 4); // Veteran to Hero
 const MIS_ALLY_TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds(65), true);
 const MIS_ALLY_ENGINEER_TIME = camChangeOnDiff(camSecondsToMilliseconds(35), true);
 const MIS_ALLY_COMMANDER_DELAY = camChangeOnDiff(camMinutesToMilliseconds(2.5), true);
@@ -52,6 +50,8 @@ var charlieCommanderDeathTime;
 var deltaCommanderDeathTime;
 var collectiveRetreat;
 var colCommanderIndex;
+var colCommanderRank;
+var truckLostThreshold;
 
 // Store structure sets for later
 var charlieMainBaseStructs;
@@ -927,7 +927,7 @@ function eventDestroyed(obj)
 				// Update the objective message
 				camSetExtraObjectiveMessage(
 					[_("Use Trucks to escort civilians back to the haven"),
-						"Don't lose " + MIS_LOST_THRESHOLD + " Transport Trucks (" + trucksLost + " LOST)"]
+						"Don't lose " + truckLostThreshold + " Transport Trucks (" + trucksLost + " LOST)"]
 				);
 
 				checkTrucksLost();
@@ -1102,7 +1102,7 @@ function checkCivsDone()
 	// The player has not lost too many Transport Trucks
 	// The player has loaded all civilians into Transport Trucks
 	// The player does not currently have any Transport Trucks
-	if (trucksLost < MIS_LOST_THRESHOLD 
+	if (trucksLost < truckLostThreshold 
 		&& civ1Loaded && civ2Loaded && civ3Loaded && civ4Loaded && civ5Loaded
 		&& !transportTrucksActive())
 	{
@@ -1567,7 +1567,7 @@ function convertToTruck(transTruck)
 // Called during stage 1
 function checkTrucksLost()
 {
-	if (trucksLost >= MIS_LOST_THRESHOLD)
+	if (trucksLost >= truckLostThreshold)
 	{
 		// Player has lost too many Transport Trucks
 		camEndMission(false);
@@ -2949,7 +2949,7 @@ function sendCollectiveGroundWave(entry, templates, commTemplate)
 		const commLabel = "colCommander" + colCommanderIndex++;
 		const commDroid = camAddDroid(CAM_THE_COLLECTIVE, entry, commTemplate);
 		addLabel(commDroid, commLabel);
-		camSetDroidRank(commDroid, MIS_COL_COMMANDER_RANK);
+		camSetDroidRank(commDroid, colCommanderRank);
 		camManageGroup(camMakeGroup(commDroid), CAM_ORDER_ATTACK, {repair: 40});
 
 		// Send in the rest of the group; which will follow the leader
@@ -3459,6 +3459,8 @@ function eventStartLevel()
 	deltaCommanderDeathTime = 0;
 	collectiveRetreat = false;
 	colCommanderIndex = 1;
+	colCommanderRank = Math.min(5, difficulty + 4); // Veteran to Hero
+	truckLostThreshold = (difficulty >= MEDIUM) ? 2 : 3;
 
 	groundBlips = [
 		null,

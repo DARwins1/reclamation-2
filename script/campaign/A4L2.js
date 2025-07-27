@@ -31,7 +31,6 @@ const mis_deltaExtraResearch = [ // Added on top of everything the player starts
 
 const MIS_UPLINK = 1;
 const MIS_TEAM_DELTA = 5;
-const MIS_DELTA_RANK = (difficulty <= MEDIUM) ? 6 : difficulty + 4; // Elite to Hero
 const MIS_DELTA_COMMANDER_DELAY = camChangeOnDiff(camMinutesToMilliseconds(6));
 
 var colCommanderGroup;
@@ -63,6 +62,7 @@ var uplinkTimeRemaining;
 var uplinkSecure;
 var lastUplinkCheckTime;
 var missionTimeRemaining;
+var deltaRank;
 
 camAreaEvent("vtolRemoveZone", function(droid)
 {
@@ -309,7 +309,7 @@ function eventTransporterLanded(transport)
 			// New Delta command tank
 			addLabel(droid, "deltaCommander");
 			// Also rank the commander to the appropriate level
-			camSetDroidRank(getObject("deltaCommander"), MIS_DELTA_RANK);
+			camSetDroidRank(getObject("deltaCommander"), deltaRank);
 		}
 		else if (droid.droidType === DROID_SENSOR)
 		{
@@ -819,7 +819,7 @@ function eventStartLevel()
 	
 	// Rank commanders...
 	const COL_RANK = (difficulty <= MEDIUM) ? 4 : difficulty + 2; // Professional to Elite
-	camSetDroidRank(getObject("deltaCommander"), MIS_DELTA_RANK);
+	camSetDroidRank(getObject("deltaCommander"), deltaRank);
 	camSetDroidRank(getObject("colCommander"), COL_RANK);
 
 	// Manage refillable groups
@@ -1124,6 +1124,7 @@ function eventStartLevel()
 	deltaAggro = false;
 	uplinkTimeRemaining = camMinutesToMilliseconds(10);
 	missionTimeRemaining = -1;
+	deltaRank = (difficulty <= MEDIUM) ? 6 : difficulty + 4; // Elite to Hero
 
 	hackAddMessage("UPLINK_BEACON", PROX_MSG, CAM_HUMAN_PLAYER);
 

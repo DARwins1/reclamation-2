@@ -4349,7 +4349,7 @@
         "name": "HEAP Mortar Shells",
         "requiredResearch": [
             "R-Wpn-Mortar-Damage03",
-            "R-Wpn-Mortar02Hvy"
+            "R-Wpn-Bomb01"
         ],
         "researchPoints": 1700,
         "researchPower": 287,
@@ -4385,7 +4385,7 @@
         "name": "HEAP Mortar Shells Mk2",
         "requiredResearch": [
             "R-Wpn-Mortar-Damage04",
-            "R-Wpn-Howitzer-Damage01"
+            "R-Wpn-Mortar02Hvy"
         ],
         "researchPoints": 2000,
         "researchPower": 350,
@@ -4422,7 +4422,7 @@
         "name": "HEAP Mortar Shells Mk3",
         "requiredResearch": [
             "R-Wpn-Mortar-Damage05",
-            "R-Wpn-Cannon-Damage06"
+            "R-Wpn-HowitzerMk1"
         ],
         "researchPoints": 2300,
         "researchPower": 412,

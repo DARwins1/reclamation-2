@@ -23,7 +23,7 @@ const MIS_CYAN_SCAVS = 2;
 const MIS_TEAM_CHARLIE = 3;
 // Order number for guarding an droid/structure
 const DORDER_GUARD = 25;
-const MIS_LOST_THRESHOLD = (difficulty >= MEDIUM) ? 2 : 3;
+const MIS_MAX_THREAT = 30;
 
 var sensorFound;
 var infestedActive;
@@ -31,7 +31,7 @@ var depositBeaconActive;
 var trucksLost;
 var infestedThreatFactor;
 var infestedThreatFactorMin;
-const MIS_MAX_THREAT = 30;
+var truckLostThreshold;
 
 // Civilian holdout groups
 var civGroup1;
@@ -197,7 +197,7 @@ function expandMap()
 	hackAddMessage("CIVS4", PROX_MSG, CAM_HUMAN_PLAYER);
 
 	camSetStandardWinLossConditions(CAM_VICTORY_SCRIPTED, "A1L1", {showArtifacts: false});
-	camSetExtraObjectiveMessage(["Use Trucks to escort civilians back to the haven", "Don't lose " + MIS_LOST_THRESHOLD + " Transport Trucks (0 LOST)"]);
+	camSetExtraObjectiveMessage(["Use Trucks to escort civilians back to the haven", "Don't lose " + truckLostThreshold + " Transport Trucks (0 LOST)"]);
 
 	// Queue the start of the infested waves and scavenger bases
 	queue("startInfestedWaves", camSecondsToMilliseconds(60));
@@ -909,7 +909,7 @@ function eventDestroyed(obj)
 		// Update the objective message
 		camSetExtraObjectiveMessage(
 			["Use Trucks to escort civilians back to the haven",
-				"Don't lose " + MIS_LOST_THRESHOLD + " Transport Trucks (" + trucksLost + " LOST)"]
+				"Don't lose " + truckLostThreshold + " Transport Trucks (" + trucksLost + " LOST)"]
 		);
 
 		checkTrucksLost();
@@ -924,7 +924,7 @@ function checkCivsDone()
 	// The player has not lost too many Transport Trucks
 	// The player has loaded all civilians into Transport Trucks
 	// The player does not currently have any Transport Trucks
-	if (trucksLost < MIS_LOST_THRESHOLD 
+	if (trucksLost < truckLostThreshold 
 		&& civ1Loaded && civ2Loaded && civ3Loaded && civ4Loaded
 		&& getObject("civTruck1") === null && getObject("civTruck2") === null
 		&& getObject("civTruck3") === null && getObject("civTruck4") === null)
@@ -1063,7 +1063,7 @@ function nukeMap()
 
 function checkTrucksLost()
 {
-	if (trucksLost < MIS_LOST_THRESHOLD)
+	if (trucksLost < truckLostThreshold)
 	{
 		return undefined;
 	}
@@ -1208,6 +1208,7 @@ function eventStartLevel()
 	civGroup4 = camNewGroup();
 	infestedThreatFactor = 5;
 	infestedThreatFactorMin = 5;
+	truckLostThreshold = (difficulty >= MEDIUM) ? 2 : 3;
 
 	// Populate the civilian holdouts
 	const civ1Templates = [

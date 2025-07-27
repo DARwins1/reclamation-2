@@ -2,10 +2,6 @@ include("script/campaign/transitionTech.js");
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 
-// 2 Transports on INSANE
-// 3 Transports on HARD
-// 4 Transports on all other difficulties
-const MIS_NUM_TRANSPORTS = Math.min(6 - difficulty, 4);
 const MIS_TEAM_CHARLIE = 1;
 const MIS_CYAN_SCAVS = 5;
 const transportEntryPos = { x: 96, y: 122 };
@@ -665,6 +661,10 @@ function eventStartLevel()
 	// Only if starting Act 2 directly from the menu
 	if (enumDroid(CAM_HUMAN_PLAYER, DROID_SUPERTRANSPORTER).length === 0)
 	{
+		// 2 Transports on INSANE
+		// 3 Transports on HARD
+		// 4 Transports on all other difficulties
+		const NUM_TRANSPORTS = Math.min(6 - difficulty, 4);
 		startedFromMenu = true;
 
 		// Send a transport with a commander and some high-rank droids
@@ -699,8 +699,8 @@ function eventStartLevel()
 		// Store units "offworld", so that the player can bring them in via transport.
 		// The chosen units are distributed (roughly) as: 1/2 "attack" units, 1/4 artillery, 1/4 VTOLs
 		// Since the player started from the menu, the number of units to store 
-		// (AKA, the ones "safely evacuated" from the previous level) is based on difficulty (MIS_NUM_TRANSPORTS).
-		const NUM_DROIDS = (MIS_NUM_TRANSPORTS - 1) * 10; // "- 1" because of the starting transport
+		// (AKA, the ones "safely evacuated" from the previous level) is based on difficulty (NUM_TRANSPORTS).
+		const NUM_DROIDS = (NUM_TRANSPORTS - 1) * 10; // "- 1" because of the starting transport
 		let numAttackDroids = (NUM_DROIDS / 2) + NUM_DROIDS % 4;
 		let numArtilleryDroids = Math.floor(NUM_DROIDS / 4);
 		let numVtolDroids = Math.floor(NUM_DROIDS / 4);
@@ -739,7 +739,7 @@ function eventStartLevel()
 			// Instead, we'll grant XP when the transport drops it off.
 		}
 
-		setPower(MIS_NUM_TRANSPORTS * 1000, CAM_HUMAN_PLAYER);		
+		setPower(NUM_TRANSPORTS * 1000, CAM_HUMAN_PLAYER);		
 	}
 	else
 	{

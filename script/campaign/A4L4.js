@@ -22,7 +22,6 @@ const MIS_TEAM_CHARLIE = 1;
 const MIS_TEAM_ZULU = 5;
 const MIS_CHARLIE_COMMANDER_RANK = "Hero";
 const MIS_CHARLIE_RANK = "Regular";
-const MIS_ZULU_RANK = (difficulty <= MEDIUM) ? 6 : difficulty + 4; // Elite to Hero
 const MIS_ZULU_COMMANDER_DELAY = camChangeOnDiff(camMinutesToMilliseconds(12));
 
 // Zulu difficulty-based templates
@@ -72,6 +71,7 @@ var claydeListening;
 var allowVtolStrikes;
 var zuluSurrendered;
 var mapExpanded;
+var zuluRank;
 
 camAreaEvent("vtolRemoveZone", function(droid)
 {
@@ -101,19 +101,19 @@ function eventDroidBuilt(droid, structure)
 		{
 			// Tracked commander rebuilt
 			addLabel(droid, "zuluCommander1");
-			camSetDroidRank(droid, MIS_ZULU_RANK);
+			camSetDroidRank(droid, zuluRank);
 		}
 		else if (camDroidMatchesTemplate(droid, mis_zuluComHTTempl))
 		{
 			// Halftracked commander rebuilt
 			addLabel(droid, "zuluCommander2");
-			camSetDroidRank(droid, MIS_ZULU_RANK);
+			camSetDroidRank(droid, zuluRank);
 		}
 		else if (camDroidMatchesTemplate(droid, mis_zuluComHovTempl))
 		{
 			// Hover commander rebuilt
 			addLabel(droid, "zuluCommander3");
-			camSetDroidRank(droid, MIS_ZULU_RANK);
+			camSetDroidRank(droid, zuluRank);
 		}
 		else if (camDroidMatchesTemplate(droid, cTempl.plhstriket))
 		{
@@ -1687,10 +1687,10 @@ function eventStartLevel()
 	}
 
 	// Rank commanders...
-	camSetDroidRank(getObject("zuluCommander1"), MIS_ZULU_RANK);
-	camSetDroidRank(getObject("zuluCommander2"), MIS_ZULU_RANK);
-	camSetDroidRank(getObject("zuluCommander3"), MIS_ZULU_RANK);
-	camSetDroidRank(getObject("zuluIntroCommander"), MIS_ZULU_RANK);
+	camSetDroidRank(getObject("zuluCommander1"), zuluRank);
+	camSetDroidRank(getObject("zuluCommander2"), zuluRank);
+	camSetDroidRank(getObject("zuluCommander3"), zuluRank);
+	camSetDroidRank(getObject("zuluIntroCommander"), zuluRank);
 
 	zuluCommander1DeathTime = 0;
 	zuluCommander2DeathTime = 0;
@@ -1703,6 +1703,7 @@ function eventStartLevel()
 	zuluSurrendered = false;
 	mapExpanded = false;
 	heartbeatDarkness = false;
+	zuluRank = (difficulty <= MEDIUM) ? 6 : difficulty + 4; // Elite to Hero
 
 	// Most Infested units start out pre-damaged
 	camSetPreDamageModifier(CAM_INFESTED, [50, 80], [60, 90], CAM_INFESTED_PREDAMAGE_EXCLUSIONS);
