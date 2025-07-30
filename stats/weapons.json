@@ -6128,7 +6128,7 @@
         "weaponClass": "KINETIC",
         "weaponEffect": "ANTI TANK",
         "weaponSubClass": "A-A GUN",
-        "weaponWav": "mgbar2.ogg",
+        "weaponWav": "mgtower.ogg",
         "weight": 2000
     },
     "InfQuadMg1AAGun": {
@@ -6170,7 +6170,7 @@
         "weaponClass": "KINETIC",
         "weaponEffect": "ANTI TANK",
         "weaponSubClass": "A-A GUN",
-        "weaponWav": "mgbar2.ogg",
+        "weaponWav": "mgtower.ogg",
         "weight": 2000
     },
     "QuadRotAAGun": {

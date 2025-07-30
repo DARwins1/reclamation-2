@@ -180,14 +180,6 @@
 
 
 	"object_0": {
-		"label": "colCybFactory1",
-		"id": 10,
-		"player": 2,
-		"type": 1
-	},
-
-
-	"object_1": {
 		"label": "colCBTower",
 		"id": 37,
 		"player": 2,
@@ -195,7 +187,7 @@
 	},
 
 
-	"object_2": {
+	"object_1": {
 		"label": "colAAEmp",
 		"id": 348,
 		"player": 2,
@@ -203,15 +195,15 @@
 	},
 
 
-	"object_3": {
-		"label": "colBombardPit",
-		"id": 280,
+	"object_2": {
+		"label": "colCybFactory2",
+		"id": 299,
 		"player": 2,
 		"type": 1
 	},
 
 
-	"object_4": {
+	"object_3": {
 		"label": "colFactory2",
 		"id": 8,
 		"player": 2,
@@ -219,7 +211,7 @@
 	},
 
 
-	"object_5": {
+	"object_4": {
 		"label": "colCC",
 		"id": 309,
 		"player": 2,
@@ -227,9 +219,17 @@
 	},
 
 
+	"object_5": {
+		"label": "colBombardPit",
+		"id": 280,
+		"player": 2,
+		"type": 1
+	},
+
+
 	"object_6": {
-		"label": "colCybFactory2",
-		"id": 299,
+		"label": "colCybFactory1",
+		"id": 10,
 		"player": 2,
 		"type": 1
 	},
