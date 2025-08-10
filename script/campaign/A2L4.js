@@ -375,7 +375,7 @@ function eventStartLevel()
 			order: CAM_ORDER_ATTACK,
 			groupSize: 6,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(28)),
-			templates: [ cTempl.monmrl, cTempl.buscan, cTempl.gbjeep, cTempl.firetruck, cTempl.lance, cTempl.buggy ]
+			templates: [ cTempl.monmrl, cTempl.buscan, cTempl.kevbloke, cTempl.gbjeep, cTempl.firetruck, cTempl.monlan, cTempl.lance, cTempl.buggy, cTempl.kevbloke ]
 		},
 	});
 
@@ -439,8 +439,6 @@ function eventStartLevel()
 	queue("enableAllFactories", camChangeOnDiff(camMinutesToMilliseconds(10)));
 	queue("vtolAttack", camChangeOnDiff(camMinutesToMilliseconds(16)));
 
-	// Shift the sun towards the west
-	camSetSunPos(450.0, -400.0, 225.0);
-	camSetSunIntensity(.4, .4, .5);
+	camSetSunIntensity(.35, .35, .45);
 	camSetWeather(CAM_WEATHER_RAINSTORM);
 }

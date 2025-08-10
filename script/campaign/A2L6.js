@@ -29,6 +29,7 @@ const mis_infestedResearch = [
 
 var stealthPhase;
 var playerHidden;
+var survivedInfested;
 
 var charlieCommander;
 var charlieCommandGroup;
@@ -76,7 +77,7 @@ function vtolAttack2()
 {
 	playSound(cam_sounds.enemyVtolsDetected);
 
-	const templates = [cTempl.colatv, ((difficulty >= HARD) ? cTempl.comhbombv : cTempl.combombv)]; // Lancers and Cluster Bombs (or HEAP Bombs on Hard+)
+	const templates = [cTempl.colatv, cTempl.combombv]; // Lancers and Cluster Bombs
 	const ext = {
 		limit: [((difficulty >= HARD) ? 3 : 2), 2],
 		targetPlayer: CAM_HUMAN_PLAYER,
@@ -116,19 +117,6 @@ function eventAttacked(victim, attacker)
 			camCallOnce("activateCollective");
 		}
 	}
-	if (victim.player === CAM_INFESTED)
-	{
-		if (attacker.player === MIS_TEAM_CHARLIE || attacker.player === MIS_TEAM_GOLF)
-		{
-			// An ally has encountered the Infested
-			camCallOnce("allyInfestedDialogue");
-		}
-		else if (attacker.player === CAM_HUMAN_PLAYER)
-		{
-			// The player has encountered the Infested
-			camCallOnce("playerInfestedDialogue");
-		}
-	}
 }
 
 function activateLzScavs()
@@ -152,7 +140,7 @@ function camEnemyBaseEliminated_scavLZBase()
 	if (!tweakOptions.rec_timerlessMode)
 	{
 		// Set to the "real" mission time
-		setMissionTime(camChangeOnDiff(camHoursToSeconds(1.5)));
+		setMissionTime(camChangeOnDiff(camHoursToSeconds(1.75)));
 	}
 	else
 	{
@@ -189,6 +177,11 @@ function camEnemyBaseEliminated_scavLZBase()
 
 	queue("endStealthPhase", camSecondsToMilliseconds(60));
 	queue("sendCollectiveScouts", camChangeOnDiff(camMinutesToMilliseconds(4)));
+}
+
+function camEnemyBaseEliminated_colMainBase()
+{
+	camCallOnce("campCleared");
 }
 
 function resetReinforcementTime()
@@ -228,7 +221,7 @@ function endStealthPhase()
 		reinforcements: camMinutesToSeconds(1.75),
 		area: "compromiseZone",
 		retlz: true,
-		callback: "campClear", // No longer fail when detected
+		callback: "canLeave", // No longer fail when detected
 	});
 	camSetExtraObjectiveMessage("Clear the Collective prison camp");
 
@@ -388,6 +381,7 @@ function activateCollective()
 			templates: [
 				cTempl.plmmcant, cTempl.plmmcant, cTempl.plmmcant, cTempl.plmmcant,
 				cTempl.plmmrat, cTempl.plmmrat, cTempl.plmmrat, cTempl.plmmrat
+				cTempl.plmhaat, cTempl.plmhaat,
 			]
 		}, CAM_ORDER_ATTACK, {
 			pos: camMakePos("patrolPos8"), // Focus on the northern route
@@ -551,8 +545,6 @@ function activateCollective()
 	// NOTE: These factories only resupply refillable groups for now
 	camEnableFactory("colFactory4");
 	camEnableFactory("colCybFactory5");
-
-	setTimer("sendInfestedReinforcements", camMinutesToMilliseconds(1.1));
 
 	// Dialogue when the cool epic fighting starts
 	camQueueDialogue([
@@ -722,7 +714,7 @@ function enableMoreFactories()
 	camQueueDialogue([
 		{text: "CHARLIE: Lieutenant! It looks like the General's plan is working!", delay: 0, sound: CAM_RCLICK},
 		{text: "CHARLIE: Whatever he's doing, Collective aren't bringing in any reinforcements!", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Yes, I haven't detected any Collective transports.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Yes, I haven't detected any Collective transports in the area.", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: But be careful, the Collective are likely to regroup and counter attack soon.", delay: 3, sound: CAM_RCLICK},
 	]);
 }
@@ -758,34 +750,6 @@ function enableFinalFactories()
 	camCallOnce("diversionDialogue");
 }
 
-// Randomize the provided list of units and tack on a bunch of extra rocket fodder
-// TODO: Move this into a general libcampaign function
-function randomizeTemplates(list)
-{
-	const droids = [];
-	const CORE_SIZE = 4 + camRand(5); // Maximum of 8 core units.
-	const FODDER_SIZE = 14 + camRand(3); // 14 - 16 extra Infested Civilians to the swarm.
-
-	for (let i = 0; i < CORE_SIZE; ++i)
-	{
-		droids.push(camRandFrom(list));
-	}
-
-	// Add a bunch of Infested Civilians.
-	for (let i = 0; i < FODDER_SIZE; ++i)
-	{
-		droids.push(cTempl.infciv);
-	}
-
-	// Chance to add a Boom Tick on Hard (10%) or Insane (20%)
-	if ((difficulty === HARD && camRand(101) < 10) || (difficulty === INSANE && camRand(101) < 20))
-	{
-		droids.push(cTempl.boomtick);
-	}
-
-	return droids;
-}
-
 // Dialogue telling the player to clear the LZ
 function landingDialogue()
 {
@@ -815,8 +779,9 @@ function diversionDialogue()
 {
 	camQueueDialogue([
 		{text: "LIEUTENANT: Whatever the General's been doing, it's surely working...", delay: 0, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: I'm picking up activity all over the city.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: The Collective is scrambling their forces all over the map...", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: I'm detecting a huge spike in Collective comms traffic.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: And Delta is reporting high amounts of activity, especially near the city center.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: The Collective is suddenly scrambling a lot of their forces across the map...", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: ...But where did Clayde get the manpower to attack all of these places at once?", delay: 5, sound: CAM_RCLICK},
 		{text: "GOLF: Who cares?", delay: 3, sound: CAM_RCLICK},
 		{text: "GOLF: Now we can put the hurt on these Collective dummies.", delay: 1, sound: CAM_RCLICK},
@@ -824,78 +789,116 @@ function diversionDialogue()
 	]);
 }
 
-// Dialogue on an ally encountering the Infested
-function allyInfestedDialogue()
-{
-	camQueueDialogue([
-		{text: "GOLF: Lieutenant, sir... uhh", delay: 0, sound: CAM_RCLICK},
-		{text: "GOLF: We seemed to have encountered some unknown forces.", delay: 2, sound: CAM_RCLICK},
-		{text: "GOLF: They seem very hostile...", delay: 2, sound: CAM_RCLICK},
-		{text: "GOLF: ...and VERY ugly, sir.", delay: 2, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Commander Golf, can you give any more details?", delay: 3, sound: CAM_RCLICK},
-		{text: "GOLF: ...Oops, They're dead. Heh, heh heh.", delay: 4, sound: CAM_RCLICK},
-		{text: "GOLF: Hey, wait! Here comes more of em!", delay: 4, sound: CAM_RCLICK},
-		{text: "GOLF: Light em up!", delay: 2, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Commander Golf?!", delay: 3, sound: CAM_RCLICK},
-	]);
-}
-
-// Dialogue on the player encountering the Infested
-function playerInfestedDialogue()
-{
-	camQueueDialogue([
-		{text: "CHARLIE: Are those things...", delay: 4},
-		{text: "CHARLIE: The same things we fought in the mountains...?", delay: 2, sound: CAM_RCLICK},
-		{text: "CHARLIE: The things that team Alpha...", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: This can't be happening..!", delay: 2, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Oh, Clayde...", delay: 3},
-		{text: "LIEUTENANT: ...What have you done..?", delay: 2, sound: CAM_RCLICK},
-		{text: "CHARLIE: Lieutenant!", delay: 2, sound: CAM_RCLICK},
-		{text: "CHARLIE: We still need to bust that Collective prison!", delay: 2, sound: CAM_RCLICK},
-		{text: "GOLF: Yeah, these ugly creeps can't stop us!", delay: 3, sound: CAM_RCLICK},
-		{text: "GOLF: We've gotta save our guys!", delay: 2, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: ...", delay: 4},
-	]);
-}
-
 // Dialogue when the main camp is secure
-function campClearDialogue()
+function campCleared()
 {
+	hackRemoveMessage("PRISON_SITE", PROX_MSG, CAM_HUMAN_PLAYER);
+
 	playSound(cam_sounds.objective.primObjectiveCompleted);
-	
+	// Remove the mission timer and grant bonus power as if the mission ended
+	camGrantBonusPower();
+
 	camQueueDialogue([
-		{text: "CHARLIE: Bravo!", delay: 4},
-		{text: "CHARLIE: You've gotta get back to base, man.", delay: 2, sound: CAM_RCLICK},
-		{text: "CHARLIE: The Collective is gonna assault you any minute now!", delay: 3, sound: CAM_RCLICK},
-		{text: "GOLF: Don't worry about us, Bravo.", delay: 3, sound: CAM_RCLICK},
-		{text: "GOLF: We'll get these guys back safe and sound.", delay: 3},
-		{text: "GOLF: You just worry about saving your own hide!", delay: 3},
-		{text: "GOLF: We can handle the rest from here.", delay: 3},
+		{text: "CHARLIE: We did it!", delay: 4, sound: CAM_RCLICK},
+		{text: "CHARLIE: Lieutenant, the camp is clear!", delay: 2, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Well done, Commanders!", delay: 4, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Clayde will be very relieved that this plan worked out.", delay: 3, sound: CAM_RCLICK},
+		{text: "GOLF: Yeah, this was almost too easy.", delay: 3, sound: CAM_RCLICK},
+		{text: "GOLF: These guys didn't stand a chance against us!", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: Uhh, Golf?", delay: 4, sound: CAM_RCLICK},
+		{text: "GOLF: What?", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: ...Nevermind.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Alright. Charlie and Golf, stay here and evacuate the prisoners from the camp.", delay: 5, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Bravo, you should return to base.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: The Collective have already amassed a large amount of forces near you.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: It's only a matter of time until...", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Until...", delay: 2, sound: CAM_RCLICK},
+		{text: "CHARLIE: Lieutenant?!", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Commanders!", delay: 2, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: I'm detecting movement all around you!", delay: 2, sound: CAM_RCLICK, callback: "startInfestedAttacks"},
+		{text: "GOLF: ...Huh?", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: Where?", delay: 1, sound: CAM_RCLICK},
+		{text: "CHARLIE: Lieutenant?!", delay: 3, sound: CAM_RCLICK},
+		{text: "GOLF: He-Hey!!", delay: 10, sound: CAM_RCLICK},
+		{text: "GOLF: What the hell is this?!", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: Are these the same things...", delay: 6, sound: CAM_RCLICK},
+		{text: "CHARLIE: That Team Alpha released?", delay: 3, sound: CAM_RCLICK},
+	]);
+}
+
+function startInfestedAttacks()
+{
+	// Darken the fog to 1/4 default brightness
+	camGradualFog(camSecondsToMilliseconds(8), 4, 1, 16);
+	// Add a slight purple-blue tint
+	camGradualSunIntensity(camSecondsToMilliseconds(8), .43, .37, .45);
+	camSetWeather(CAM_WEATHER_CLEAR);
+
+	// Queue up a swarm of Infested
+	queue("sendInfestedReinforcements", camSecondsToMilliseconds(10));
+	queue("sendInfestedReinforcements", camSecondsToMilliseconds(15));
+	queue("sendInfestedReinforcements", camSecondsToMilliseconds(20));
+	queue("sendInfestedReinforcements", camSecondsToMilliseconds(30));
+	queue("allowLeave", camSecondsToMilliseconds(50));
+
+	// Also set up continuous Infested waves
+	setTimer("sendInfestedReinforcements", camChangeOnDiff(camSecondsToMilliseconds(60)));
+}
+
+// Allow the player to escape the mission
+function allowLeave()
+{
+	survivedInfested = true;
+
+	camQueueDialogue([
+		{text: "GOLF: Bravo!", delay: 4, sound: CAM_RCLICK},
+		{text: "GOLF: You've gotta get back to base, man.", delay: 2, sound: CAM_RCLICK},
+		{text: "GOLF: The Collective is gonna assault you any minute now!", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: Don't worry about us, Bravo.", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: We'll get the prisoners back safe and sound.", delay: 3},
+		{text: "CHARLIE: Just get out of here!", delay: 3},
+		{text: "CHARLIE: Golf and I will handle these uglies.", delay: 2},
+		{text: "LIEUTENANT: ...", delay: 4},
+		{text: "LIEUTENANT: Charlie's right, Bravo.", delay: 4},
+		{text: "LIEUTENANT: You should return to base and prepare to evacuate.", delay: 3},
+		{text: "LIEUTENANT: I'll...", delay: 3},
+		{text: "LIEUTENANT: I'll have a conversation with the General when he gets back.", delay: 3},
+		{text: "LIEUTENANT: ...Oh, Clayde.", delay: 10, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: What have you done?!.", delay: 3, sound: CAM_RCLICK},
 	]);
 }
 
 // Start sending Infested waves once the player progresses far enough
 function sendInfestedReinforcements()
 {
-	// NE entrance
-	if (camBaseIsEliminated("colCraterBase") || camBaseIsEliminated("colMainBase"))
+	const entrances = [
+		"infestedEntry1", "infestedEntry2", "infestedEntry3",
+		"infestedEntry4", "infestedEntry5", "infestedEntry6",
+		"infestedEntry7", "infestedEntry8",
+	];
+	const coreDroids = [ // Just scavs and crawlers
+		cTempl.stinger, cTempl.stinger, cTempl.stinger, // Stingers
+		cTempl.boomtick, // Boom Ticks
+		cTempl.infmoncan, // Bus Tanks
+		cTempl.infminitruck, // MRP Trucks
+		cTempl.infsartruck, // Sarissa Trucks
+		cTempl.infbuscan, // School Buses
+		cTempl.infbjeep, cTempl.infbjeep, // Jeeps
+		cTempl.infrbjeep, // Rocket Jeeps
+		cTempl.infbuggy, cTempl.infbuggy, cTempl.infbuggy, // Buggies
+		cTempl.infrbuggy, cTempl.infrbuggy, cTempl.infrbuggy, // Rocket Buggies
+		cTempl.inftrike, cTempl.inftrike, // Trikes
+		cTempl.infbloke,  cTempl.infbloke, cTempl.infbloke, cTempl.infbloke, // Blokes
+		cTempl.infkevbloke,
+		cTempl.inflance, cTempl.inflance, // Lances
+		cTempl.infkevlance,
+	];
+	const CORE_SIZE = 4;
+	const FODDER_SIZE = 12;
+	// Spawn Infested groups from random entrances
+	for (let i = 0; i < entrances.length; i++)
 	{
-		camCallOnce("diversionDialogue");
-		const droids = [cTempl.stinger, cTempl.infbloke, cTempl.infkevbloke, cTempl.infminitruck, cTempl.infbuggy, cTempl.infrbuggy];
-		camSendReinforcement(CAM_INFESTED, getObject("infestedEntry3"), randomizeTemplates(droids), CAM_REINFORCE_GROUND);
-	}
-
-	// SE entrances
-	if (camBaseIsEliminated("colEastCanalBase") || camBaseIsEliminated("colMainBase"))
-	{
-		camCallOnce("diversionDialogue");
-		const droids1 = [cTempl.stinger, cTempl.inffiretruck, cTempl.infkevbloke, cTempl.inflance, cTempl.infbuggy, cTempl.infrbuggy];
-		camSendReinforcement(CAM_INFESTED, getObject("infestedEntry1"), randomizeTemplates(droids1), CAM_REINFORCE_GROUND, 
-			{order: CAM_ORDER_ATTACK, data: {targetPlayer: CAM_HUMAN_PLAYER}} // Annoy the player specifically
-		);
-
-		const droids2 = [cTempl.stinger, cTempl.infkevlance, cTempl.infbuscan, cTempl.infbloke, cTempl.infbjeep, cTempl.infrbjeep];
-		camSendReinforcement(CAM_INFESTED, getObject("infestedEntry2"), randomizeTemplates(droids2), CAM_REINFORCE_GROUND);
+		camSendReinforcement(CAM_INFESTED, getObject(entrances[i]), camRandInfTemplates(coreDroids, CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND);
 	}
 }
 
@@ -908,15 +911,13 @@ function playerDetected()
 	return undefined; // Player undetected
 }
 
-function campClear()
+function canLeave()
 {
-	if (camBaseIsEliminated("colMainBase"))
+	if (survivedInfested)
 	{
-		camCallOnce("campClearDialogue");
-		return true; // Camp is cleared
-		// TODO: Remove beacon blip
+		return true; // Camp is cleared, and the Infested have been re-introduced
 	}
-	return undefined; // Camp is not cleared
+	return undefined; // Can't leave yet
 }
 
 function eventStartLevel()
@@ -1160,6 +1161,7 @@ function eventStartLevel()
 
 	stealthPhase = true;
 	playerHidden = true;
+	survivedInfested = false;
 
 	// Add beacons for the player's objectives
 	hackAddMessage("CLEAR_LZ", PROX_MSG, CAM_HUMAN_PLAYER);
@@ -1179,8 +1181,9 @@ function eventStartLevel()
 	// Most Infested units start out pre-damaged
 	camSetPreDamageModifier(CAM_INFESTED, [50, 80], [60, 90], CAM_INFESTED_PREDAMAGE_EXCLUSIONS);
 
-	// Shift the sun slightly the east
-	camSetSunPos(-225.0, -600.0, 450.0);
-	camSetSunIntensity(.45,.45,.5);
+	camSetSkyType(CAM_SKY_NIGHT);
+	// Darken the fog to 1/4 default brightness
+	camSetFog(4, 4, 16);
+	camSetSunIntensity(.4, .4, .45);
 	camSetWeather(CAM_WEATHER_RAINSTORM);
 }

@@ -78,112 +78,149 @@ function vtolAttack()
 	camSetVtolData(CAM_THE_COLLECTIVE, vtolPositions, mis_vtolRemovePos, list, camChangeOnDiff(camSecondsToMilliseconds(60)), undefined, ext);
 }
 
+// Count all of the Collective non-truck ground units on the map
+function countCollectiveAttackDroids()
+{
+	return enumDroid(CAM_THE_COLLECTIVE).filter((droid) => (
+		!isVTOL(droid) && droid.droidType !== DROID_CONSTRUCT
+	)).length;
+}
+
 // Bring in Collective and C-Scav units.
 function collectiveAttackWaves()
 {
 	waveIndex++;
 
-	// Each entrance shares a C-Scav and a Collective pool.
-	// Each attack wave can draw from either pool.
-	const cScavDroidPool = [ // NOTE: Templates that appear multiple times are more common
-		cTempl.bloke, cTempl.kevbloke, cTempl.kevbloke,
-		cTempl.lance, cTempl.kevlance,
-		cTempl.trike, cTempl.trike,
-		cTempl.buggy, cTempl.buggy, cTempl.buggy,
-		cTempl.rbuggy, cTempl.rbuggy,
-		cTempl.bjeep, cTempl.bjeep,
-		cTempl.rbjeep, cTempl.rbjeep,
-		cTempl.gbjeep, cTempl.gbjeep, cTempl.gbjeep,
-		cTempl.buscan, cTempl.buscan,
-		cTempl.firetruck, cTempl.firetruck,
-		cTempl.minitruck, cTempl.minitruck,
-		cTempl.sartruck, cTempl.sartruck,
-		cTempl.moncan,
-		cTempl.monhmg,
-		cTempl.flatmrl,
-	];
-	const colDroidPool = [
-		cTempl.colpodt, cTempl.colpodt, // MRP
-		cTempl.colmrat, cTempl.colmrat, // MRA
-		cTempl.colhmght, cTempl.colhmght, // HMG
-		cTempl.colcanht, cTempl.colcanht, cTempl.colcanht, // Light Cannon
-		cTempl.colaaht, // Hurricane
-		cTempl.commcant, // Medium Cannon
-		cTempl.comatt, // Lancer
-	];
+	// Don't spawn another wave if there's already too many units on the map
+	if (countCollectiveAttackDroids() < 250)
+	{
+		// Each entrance shares a C-Scav and a Collective pool.
+		// Each attack wave can draw from either pool.
+		const cScavDroidPool = [ // NOTE: Templates that appear multiple times are more common
+			cTempl.bloke, cTempl.kevbloke, cTempl.kevbloke,
+			cTempl.lance, cTempl.kevlance,
+			cTempl.trike, cTempl.trike,
+			cTempl.buggy, cTempl.buggy, cTempl.buggy,
+			cTempl.rbuggy, cTempl.rbuggy,
+			cTempl.bjeep, cTempl.bjeep,
+			cTempl.rbjeep, cTempl.rbjeep,
+			cTempl.gbjeep, cTempl.gbjeep, cTempl.gbjeep,
+			cTempl.buscan, cTempl.buscan,
+			cTempl.firetruck, cTempl.firetruck,
+			cTempl.minitruck, cTempl.minitruck,
+			cTempl.sartruck, cTempl.sartruck,
+			cTempl.moncan,
+			cTempl.monhmg,
+			cTempl.flatmrl,
+		];
+		const colDroidPool = [
+			cTempl.colpodt, cTempl.colpodt, // MRP
+			cTempl.colmrat, cTempl.colmrat, // MRA
+			cTempl.colhmght, cTempl.colhmght, // HMG
+			cTempl.colcanht, cTempl.colcanht, cTempl.colcanht, // Light Cannon
+			cTempl.colaaht, // Hurricane
+			cTempl.commcant, // Medium Cannon
+			cTempl.comatt, // Lancer
+		];
 
-	// There are 10 entrances on the map, with each getting progressively closer to the player's LZ.
-	// This block handles activating new entrances
-	const waveEntrances = [];
-	if (waveIndex >= 1)
-	{
-		waveEntrances.push("colEntrance1");
-	}
-	if (waveIndex >= 4)
-	{
-		waveEntrances.push("colEntrance2");
-	}
-	if (waveIndex >= 7)
-	{
-		waveEntrances.push("colEntrance3");
-	}
-	if (waveIndex >= 11)
-	{
-		waveEntrances.push("colEntrance4");
-	}
-	if (waveIndex >= 15)
-	{
-		waveEntrances.push("colEntrance5");
-	}
-	if (waveIndex >= 19)
-	{
-		waveEntrances.push("colEntrance6");
-	}
-	if (waveIndex >= 24)
-	{
-		waveEntrances.push("colEntrance7");
-	}
-	if (waveIndex >= 29)
-	{
-		waveEntrances.push("colEntrance8");
-	}
-	if (waveIndex >= 34)
-	{
-		waveEntrances.push("colEntrance9");
-	}
-
-	// Determine the number of separate groups to spawn at once
-	let numGroups = 2;
-	if (difficulty >= MEDIUM) numGroups++; // 3 on Normal
-	if (difficulty >= HARD) numGroups++; // 4 on Hard
-	if (difficulty >= INSANE) numGroups++; // 5 on Insane
-
-	// Choose from among the active entrances and spawn units
-	const chosenEntrances = [];
-	for (let i = 0; i < Math.min(waveEntrances.length, numGroups); i++)
-	{
-		const INDEX = camRand(waveEntrances.length);
-
-		chosenEntrances.push(waveEntrances[INDEX]);
-		waveEntrances.splice(INDEX, 1);
-	}
-
-	// Spawn units at the chosen entrance(s)
-	const NUM_DROIDS = difficulty + 6;
-	for (let i = 0; i < chosenEntrances.length; i++)
-	{
-		const droids = [];
-		for (let j = 0; j < NUM_DROIDS; j++)
+		// There are 10 entrances on the map, with each getting progressively closer to the player's LZ.
+		// This block handles activating new entrances
+		const waveEntrances = [];
+		if (waveIndex >= 1)
 		{
-			// Choose either Collective or C-Scav templates
-			const templatePool = (camRand(40) < waveIndex) ? colDroidPool : cScavDroidPool;
-			droids.push(camRandFrom(templatePool));
+			waveEntrances.push("colEntrance1");
+		}
+		if (waveIndex >= 4)
+		{
+			waveEntrances.push("colEntrance2");
+		}
+		if (waveIndex >= 7)
+		{
+			waveEntrances.push("colEntrance3");
+		}
+		if (waveIndex >= 11)
+		{
+			waveEntrances.push("colEntrance4");
+		}
+		if (waveIndex >= 15)
+		{
+			waveEntrances.push("colEntrance5");
+		}
+		if (waveIndex >= 19)
+		{
+			waveEntrances.push("colEntrance6");
+		}
+		if (waveIndex >= 24)
+		{
+			waveEntrances.push("colEntrance7");
+		}
+		if (waveIndex >= 29)
+		{
+			waveEntrances.push("colEntrance8");
+		}
+		if (waveIndex >= 34)
+		{
+			waveEntrances.push("colEntrance9");
 		}
 
-		camSendReinforcement(CAM_THE_COLLECTIVE, getObject(chosenEntrances[i]), droids, CAM_REINFORCE_GROUND);
+		// Determine the number of separate groups to spawn at once
+		let numGroups = 2;
+		if (difficulty >= MEDIUM) numGroups++; // 3 on Normal
+		if (difficulty >= HARD) numGroups++; // 4 on Hard
+		if (difficulty >= INSANE) numGroups++; // 5 on Insane
+
+		// Choose from among the active entrances and spawn units
+		const chosenEntrances = [];
+		for (let i = 0; i < Math.min(waveEntrances.length, numGroups); i++)
+		{
+			const INDEX = camRand(waveEntrances.length);
+
+			chosenEntrances.push(waveEntrances[INDEX]);
+			waveEntrances.splice(INDEX, 1);
+		}
+
+		// Spawn units at the chosen entrance(s)
+		const NUM_DROIDS = difficulty + 6;
+		for (let i = 0; i < chosenEntrances.length; i++)
+		{
+			const droids = [];
+			for (let j = 0; j < NUM_DROIDS; j++)
+			{
+				// Choose either Collective or C-Scav templates
+				const templatePool = (camRand(40) < waveIndex) ? colDroidPool : cScavDroidPool;
+				droids.push(camRandFrom(templatePool));
+			}
+
+			camSendReinforcement(CAM_THE_COLLECTIVE, getObject(chosenEntrances[i]), droids, CAM_REINFORCE_GROUND);
+		}
+
+		// Lastly, start spawning more waves of enemies over time.
+		// This will cause the Collective to become overwhelming after a while.
+		if (waveIndex % 16 === 0)
+		{
+			// Increase the number of VTOLs every 16 waves
+			vtolAttack();
+		}
+		if (waveIndex % 12 === 0)
+		{
+			// Increase the number of Helicopters every 12 waves
+			heliAttack();
+		}
+		if (waveIndex % 20 === 0)
+		{
+			// Increase the number of ground attacks every 20 waves
+			setTimer("collectiveAttackWaves", camChangeOnDiff(MIS_GROUND_WAVE_DELAY));
+			// NOTE: Since the above increases are based on the number of ground waves, not only will the
+			// number of enemies increase over time, but the RATE that they increase will get faster too!
+		}
 	}
 
-	// Next, send a truck to attempt building a Collective LZ
+	sendCollectiveTrucks();
+}
+
+// Send trucks to attempt building Collective LZs
+function sendCollectiveTrucks()
+{
 	if (!camDef(camGetTrucksFromLabel("colNorthLZ")[0]) && waveIndex >= 8 && (waveIndex % 4 == 0))
 	{
 		const tPos = camMakePos("colEntrance4");
@@ -211,26 +248,6 @@ function collectiveAttackWaves()
 		const tTemp = (waveIndex >= 40 || difficulty >= EASY) ? cTempl.comtruckt : cTempl.coltruckht;
 		const newTruck = camAddDroid(CAM_THE_COLLECTIVE, tPos, tTemp);
 		camAssignTruck(newTruck, colTruckJob4);
-	}
-
-	// Lastly, start spawning more waves of enemies over time.
-	// This will cause the Collective to become overwhelming after a while.
-	if (waveIndex % 16 === 0)
-	{
-		// Increase the number of VTOLs every 16 waves
-		vtolAttack();
-	}
-	if (waveIndex % 12 === 0)
-	{
-		// Increase the number of Helicopters every 12 waves
-		heliAttack();
-	}
-	if (waveIndex % 20 === 0)
-	{
-		// Increase the number of ground attacks every 20 waves
-		setTimer("collectiveAttackWaves", camChangeOnDiff(MIS_GROUND_WAVE_DELAY));
-		// NOTE: Since the above increases are based on the number of ground waves, not only will the
-		// number of enemies increase over time, but the RATE that they increase will get faster too!
 	}
 }
 

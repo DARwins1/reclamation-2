@@ -263,7 +263,7 @@ function eventStartLevel()
 				repair: 60,
 				regroup: true
 			},
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(50)),
 			templates: [ cTempl.comath, cTempl.commrah, cTempl.comhpvh ]
 		},
 		"colFactory2": {
@@ -273,7 +273,7 @@ function eventStartLevel()
 				repair: 40
 			},
 			groupSize: 5,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(50)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
 			templates: [ cTempl.colpodt, cTempl.colflamt, cTempl.colmrat, cTempl.colaaht ]
 		},
 		"colFactory3": {
@@ -283,7 +283,7 @@ function eventStartLevel()
 				repair: 40
 			},
 			groupSize: 3,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(70)),
 			templates: [ cTempl.commcant, cTempl.comhmgt, cTempl.comatt, cTempl.commcant ]
 		},
 		"colCybFactory1": {
@@ -293,7 +293,7 @@ function eventStartLevel()
 				repair: 30
 			},
 			groupSize: 4,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(35)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(45)),
 			templates: [ cTempl.cybca, cTempl.cybhg, cTempl.cybgr ]
 		},
 		"colCybFactory2": {
@@ -303,7 +303,7 @@ function eventStartLevel()
 				repair: 30
 			},
 			groupSize: 3,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(50)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
 			templates: [ cTempl.cybgr, cTempl.scymc ]
 		},
 		"colCybFactory3": {
@@ -313,14 +313,14 @@ function eventStartLevel()
 				repair: 30
 			},
 			groupSize: 6,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(40)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(50)),
 			templates: [ cTempl.cybla, cTempl.cybfl ]
 		},
 		"colVtolFactory": {
 			assembly: "colVtolAssembly",
 			order: CAM_ORDER_ATTACK,
 			groupSize: 2,
-			throttle: camChangeOnDiff(camSecondsToMilliseconds(45)),
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(55)),
 			templates: [ cTempl.colatv, cTempl.colatv, cTempl.colbombv, cTempl.colbombv ]
 		},
 	});
@@ -458,7 +458,7 @@ function eventStartLevel()
 			}
 	});
 	// Trucks
-	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds((tweakOptions.rec_timerlessMode) ? 35 : 70));
+	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds((tweakOptions.rec_timerlessMode) ? 60 : 120));
 	camManageTrucks(
 		CAM_THE_COLLECTIVE, {
 			label: "colCanalBase",
@@ -480,9 +480,8 @@ function eventStartLevel()
 	camManageTrucks(
 		CAM_THE_COLLECTIVE, {
 			label: "colBlockadeBase",
-			rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= EASY),
+			rebuildTruck: (tweakOptions.rec_timerlessMode || difficulty >= MEDIUM),
 			respawnDelay: TRUCK_TIME,
-			rebuildBase: (tweakOptions.rec_timerlessMode || difficulty >= MEDIUM),
 			truckDroid: getObject("colTruck3"),
 			structset: camAreaToStructSet("colBase3")
 	});
@@ -495,19 +494,6 @@ function eventStartLevel()
 			truckDroid: getObject("colTruck4"),
 			structset: camAreaToStructSet("colBase4")
 	});
-
-	if (difficulty >= HARD || tweakOptions.rec_timerlessMode)
-	{
-		// Add a SECOND truck to the barricade base
-		camManageTrucks(
-			CAM_THE_COLLECTIVE, {
-				label: "colBlockadeBase",
-				respawnDelay: TRUCK_TIME,
-				rebuildBase: true,
-				template: cTempl.comtruckt,
-				structset: camAreaToStructSet("colBase3")
-		});
-	}
 
 	if (tweakOptions.rec_timerlessMode)
 	{
@@ -599,8 +585,7 @@ function eventStartLevel()
 		{text: "CLAYDE: Good luck, Commander Bravo.", delay: 3, sound: CAM_RCLICK},
 	]);
 
-	camSetSkyType(CAM_SKY_NIGHT);
-	// Darken the fog to 1/4 default brightness
-	camSetFog(4, 4, 16);
-	camSetSunIntensity(.4, .4, .45);
+	// Shift the sun towards the west
+	camSetSunPos(450.0, -400.0, 225.0);
+	camSetSunIntensity(.4, .4, .5);
 }

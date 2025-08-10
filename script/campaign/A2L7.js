@@ -87,123 +87,255 @@ function vtolAttack()
 	camSetVtolData(CAM_THE_COLLECTIVE, vtolPositions, mis_vtolRemovePos, list, camChangeOnDiff(camSecondsToMilliseconds(60)), undefined, ext);
 }
 
+// Count all of the Collective non-hover, non-truck ground units on the map
+function countCollectiveAttackDroids()
+{
+	return enumDroid(CAM_THE_COLLECTIVE).filter((droid) => (
+		!isVTOL(droid) && droid.droidType !== DROID_CONSTRUCT && droid.propulsion !== "hover01"
+	)).length;
+}
+
 // Bring in standard Collective ground units.
 function collectiveAttackWaves()
 {
 	waveIndex++;
 
-	let colDroidPool = [
-		cTempl.colpodt, // MRP
-		cTempl.colmrat, cTempl.colmrat, // MRA
-		cTempl.colhmght, cTempl.colhmght, // HMG
-		cTempl.colaaht, // Hurricane
-		cTempl.commcant, cTempl.commcant, // Medium Cannon
-		cTempl.comatt, // Lancer
-		cTempl.cybhg, cTempl.cybhg, // Heavy Machinegunner Cyborg
-		cTempl.cybgr, cTempl.cybgr, // Grenadier Cyborg
-		cTempl.cybca, cTempl.cybca, // Heavy Gunner Cyborg
-		cTempl.cybla, // Lancer Cyborg
-		cTempl.cybfl, // Flamer Cyborg
-	];
-	if (difficulty >= HARD || waveIndex >= 10)
+	// Don't spawn another wave if there's already too many units on the map
+	if (countCollectiveAttackDroids() < 250)
 	{
-		// Swap Leopards for Panthers
-		colDroidPool = camArrayReplaceWith(colDroidPool, cTempl.colmrat, cTempl.commrat);
-		colDroidPool = camArrayReplaceWith(colDroidPool, cTempl.colhmght, cTempl.comhmgt);
-		// Swap Heavy Gunners for Super Heavy Gunners
-		colDroidPool = camArrayReplaceWith(colDroidPool, cTempl.cybca, cTempl.scymc);
-		// Swap Hurricanes for Cyclones
-		colDroidPool = camArrayReplaceWith(colDroidPool, cTempl.colaaht, cTempl.comhaat);
-	}
-	if (difficulty === INSANE || (difficulty === HARD && waveIndex >= 10) || waveIndex >= 35)
-	{
-		// Add Heavy Cannons and HRAs
-		colDroidPool.push(cTempl.cohhcant);
-		colDroidPool.push(cTempl.cohhrat);
-		// Swap Flamers for Thermite Flamers
-		colDroidPool = camArrayReplaceWith(colDroidPool, cTempl.cybfl, cTempl.cybth);
-		// Swap Grenadiers for Super Grenadiers
-		colDroidPool = camArrayReplaceWith(colDroidPool, cTempl.cybgr, cTempl.scygr);
-	}
-	if ((difficulty === INSANE && waveIndex >= 10) || (difficulty === HARD && waveIndex >= 35) || waveIndex >= 60)
-	{
-		// Swap Medium Cannons for HVCs
-		colDroidPool = camArrayReplaceWith(colDroidPool, cTempl.commcant, cTempl.comhpvt);
-		// Swap Lancers for Tank Killers
-		colDroidPool = camArrayReplaceWith(colDroidPool, cTempl.cybla, cTempl.scytk);
-		colDroidPool = camArrayReplaceWith(colDroidPool, cTempl.comatt, cTempl.comhatt);
-	}
-
-	// There are 8 general-purpose ground entrances on the map, each getting progressively closer to the player's LZ.
-	// This block handles activating new entrances
-	const waveEntrances = [];
-	if (waveIndex >= 1)
-	{
-		// North east
-		waveEntrances.push("groundEntry4");
-	}
-	if (waveIndex >= 4)
-	{
-		// North west
-		waveEntrances.push("groundEntry7");
-	}
-	if (waveIndex >= 7)
-	{
-		// North
-		waveEntrances.push("groundEntry5");
-	}
-	if (waveIndex >= 15)
-	{
-		// West
-		waveEntrances.push("groundEntry8");
-	}
-	if (waveIndex >= 24)
-	{
-		// South west
-		waveEntrances.push("groundEntry10");
-	}
-	if (waveIndex >= 38)
-	{
-		// East
-		waveEntrances.push("groundEntry2");
-	}
-	if (waveIndex >= 50)
-	{
-		// South east
-		waveEntrances.push("groundEntry1");
-	}
-
-	// Determine the number of separate groups to spawn at once
-	let numGroups = 2;
-	if (difficulty >= MEDIUM) numGroups++; // 3 on Normal
-	if (difficulty >= HARD) numGroups++; // 4 on Hard
-	if (difficulty >= INSANE) numGroups++; // 5 on Insane
-
-	// Choose from among the active entrances and spawn units
-	const chosenEntrances = [];
-	for (let i = 0; i < Math.min(waveEntrances.length, numGroups); i++)
-	{
-		const INDEX = camRand(waveEntrances.length);
-
-		chosenEntrances.push(waveEntrances[INDEX]);
-		waveEntrances.splice(INDEX, 1);
-	}
-
-	// Spawn units at the chosen entrance(s)
-	const NUM_DROIDS = difficulty + 6;
-	for (let i = 0; i < chosenEntrances.length; i++)
-	{
-		const droids = [];
-		for (let j = 0; j < NUM_DROIDS; j++)
+		let colDroidPool = [
+			cTempl.colpodt, // MRP
+			cTempl.colmrat, cTempl.colmrat, // MRA
+			cTempl.colhmght, cTempl.colhmght, // HMG
+			cTempl.colaaht, // Hurricane
+			cTempl.commcant, cTempl.commcant, // Medium Cannon
+			cTempl.comatt, // Lancer
+			cTempl.cybhg, cTempl.cybhg, // Heavy Machinegunner Cyborg
+			cTempl.cybgr, cTempl.cybgr, // Grenadier Cyborg
+			cTempl.cybca, cTempl.cybca, // Heavy Gunner Cyborg
+			cTempl.cybla, // Lancer Cyborg
+			cTempl.cybfl, // Flamer Cyborg
+		];
+		if (difficulty >= HARD || waveIndex >= 10)
 		{
-			// Choose Collective templates
-			droids.push(camRandFrom(colDroidPool));
+			// Swap Leopards for Panthers
+			colDroidPool = camArrayReplaceWith(colDroidPool, cTempl.colmrat, cTempl.commrat);
+			colDroidPool = camArrayReplaceWith(colDroidPool, cTempl.colhmght, cTempl.comhmgt);
+			// Swap Heavy Gunners for Super Heavy Gunners
+			colDroidPool = camArrayReplaceWith(colDroidPool, cTempl.cybca, cTempl.scymc);
+			// Swap Hurricanes for Cyclones
+			colDroidPool = camArrayReplaceWith(colDroidPool, cTempl.colaaht, cTempl.comhaat);
+		}
+		if (difficulty === INSANE || (difficulty === HARD && waveIndex >= 10) || waveIndex >= 35)
+		{
+			// Add Heavy Cannons and HRAs
+			colDroidPool.push(cTempl.cohhcant);
+			colDroidPool.push(cTempl.cohhrat);
+			// Swap Flamers for Thermite Flamers
+			colDroidPool = camArrayReplaceWith(colDroidPool, cTempl.cybfl, cTempl.cybth);
+			// Swap Grenadiers for Super Grenadiers
+			colDroidPool = camArrayReplaceWith(colDroidPool, cTempl.cybgr, cTempl.scygr);
+		}
+		if ((difficulty === INSANE && waveIndex >= 10) || (difficulty === HARD && waveIndex >= 35) || waveIndex >= 60)
+		{
+			// Swap Medium Cannons for HVCs
+			colDroidPool = camArrayReplaceWith(colDroidPool, cTempl.commcant, cTempl.comhpvt);
+			// Swap Lancers for Tank Killers
+			colDroidPool = camArrayReplaceWith(colDroidPool, cTempl.cybla, cTempl.scytk);
+			colDroidPool = camArrayReplaceWith(colDroidPool, cTempl.comatt, cTempl.comhatt);
 		}
 
-		camSendReinforcement(CAM_THE_COLLECTIVE, getObject(chosenEntrances[i]), droids, CAM_REINFORCE_GROUND);
+		// There are 8 general-purpose ground entrances on the map, each getting progressively closer to the player's LZ.
+		// This block handles activating new entrances
+		const waveEntrances = [];
+		if (waveIndex >= 1)
+		{
+			// North east
+			waveEntrances.push("groundEntry4");
+		}
+		if (waveIndex >= 4)
+		{
+			// North west
+			waveEntrances.push("groundEntry7");
+		}
+		if (waveIndex >= 7)
+		{
+			// North
+			waveEntrances.push("groundEntry5");
+		}
+		if (waveIndex >= 15)
+		{
+			// West
+			waveEntrances.push("groundEntry8");
+		}
+		if (waveIndex >= 24)
+		{
+			// South west
+			waveEntrances.push("groundEntry10");
+		}
+		if (waveIndex >= 38)
+		{
+			// East
+			waveEntrances.push("groundEntry2");
+		}
+		if (waveIndex >= 50)
+		{
+			// South east
+			waveEntrances.push("groundEntry1");
+		}
+
+		// Determine the number of separate groups to spawn at once
+		let numGroups = 2;
+		if (difficulty >= MEDIUM) numGroups++; // 3 on Normal
+		if (difficulty >= HARD) numGroups++; // 4 on Hard
+		if (difficulty >= INSANE) numGroups++; // 5 on Insane
+
+		// Choose from among the active entrances and spawn units
+		const chosenEntrances = [];
+		for (let i = 0; i < Math.min(waveEntrances.length, numGroups); i++)
+		{
+			const INDEX = camRand(waveEntrances.length);
+
+			chosenEntrances.push(waveEntrances[INDEX]);
+			waveEntrances.splice(INDEX, 1);
+		}
+
+		// Spawn units at the chosen entrance(s)
+		const NUM_DROIDS = difficulty + 6;
+		for (let i = 0; i < chosenEntrances.length; i++)
+		{
+			const droids = [];
+			for (let j = 0; j < NUM_DROIDS; j++)
+			{
+				// Choose Collective templates
+				droids.push(camRandFrom(colDroidPool));
+			}
+
+			camSendReinforcement(CAM_THE_COLLECTIVE, getObject(chosenEntrances[i]), droids, CAM_REINFORCE_GROUND);
+		}
+
+		// Next, spawn a "special" ground wave along with the normal wave every 6 "normal" waves
+		if (waveIndex % 6 === 0 && waveIndex !== 0)
+		{
+			const specialEntrances = ["groundEntry6"];
+			if (waveIndex >= 18)
+			{
+				// North east
+				waveEntrances.push("groundEntry3");
+			}
+			if (waveIndex >= 30)
+			{
+				// West
+				waveEntrances.push("groundEntry9");
+			}
+			// Choose one location
+			const specialEntrance = camRandFrom(specialEntrances);
+			const specialName = "special" + specialIndex++;
+
+			if (specialIndex % 3 === 0) // Spawn a commander every 3 special waves
+			{
+				// Spawn and rank the commander
+				const commanderPos = camMakePos(specialEntrance);
+				const commanderTemp = (difficulty === INSANE || waveIndex >= 40) ? cTempl.cohcomt : cTempl.comcomt;
+				const commDroid = camAddDroid(CAM_THE_COLLECTIVE, commanderPos, commanderTemp);
+				addLabel(commDroid, specialName);
+				// Set the commander's rank (ranges from Trained to Professional)
+				const COMMANDER_RANK = (difficulty <= EASY) ? 2 : (difficulty);
+				camSetDroidRank(commDroid, COMMANDER_RANK);
+
+				// Order the commander to attack
+				camManageGroup(camMakeGroup(commDroid), CAM_ORDER_ATTACK, {targetPlayer: CAM_HUMAN_PLAYER});
+
+				// Spawn the commander's squad
+				// Choose from of these lists...
+				let commanderDroids = camRandFrom([
+					[
+						cTempl.commrat, cTempl.commrat, // 2 MRAs
+						cTempl.comhmgt, cTempl.comhmgt, // 2 HMGs
+						cTempl.commcant, cTempl.commcant, cTempl.commcant, cTempl.commcant, // 4 Medium Cannons
+						cTempl.comhaat, // 1 Cyclone
+						cTempl.comhrept, // 1 Heavy Repair Turret
+					],
+					[
+						cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, // 4 Heavy Cannons
+						cTempl.comhaat, cTempl.comhaat, // 2 Cyclones
+						cTempl.commrat, cTempl.commrat, // 2 MRAs
+						cTempl.comhrept, cTempl.comhrept, // 2 Heavy Repair Turrets
+					],
+					[
+						cTempl.comhmgt, cTempl.comhmgt, cTempl.comhmgt, cTempl.comhmgt, // 4 HMGs
+						cTempl.comatt, cTempl.comatt, cTempl.comatt, cTempl.comatt, // 4 Lancers
+						cTempl.comhaat, // 1 Cyclone
+						cTempl.comhrept, // 1 Heavy Repair Turret
+					],
+				]);
+				// Improve the commander's templates over time...
+				if (difficulty >= HARD || waveIndex >= 10)
+				{
+					// Swap Medium Cannons for HVCs
+					commanderDroids = camArrayReplaceWith(commanderDroids, cTempl.commcant, cTempl.comhpvt);
+				}
+				if (difficulty >= HARD || waveIndex >= 35)
+				{
+					// Swap MRAs for HRAs
+					commanderDroids = camArrayReplaceWith(commanderDroids, cTempl.commrat, cTempl.cohhrat);
+					// Swap Lancers for Tank Killers
+					commanderDroids = camArrayReplaceWith(commanderDroids, cTempl.comatt, cTempl.comhatt);
+				}
+				if ((difficulty === INSANE && waveIndex >= 10) || (difficulty === HARD && waveIndex >= 35) || waveIndex >= 60)
+				{
+					// Swap HMGs for Assault Guns
+					commanderDroids = camArrayReplaceWith(commanderDroids, cTempl.comhmgt, cTempl.comagt);
+				}
+				const commanderGroup = camSendReinforcement(CAM_THE_COLLECTIVE, getObject(specialEntrance), commanderDroids, CAM_REINFORCE_GROUND);
+				// Follow the commander droid
+				camManageGroup(commanderGroup, CAM_ORDER_FOLLOW, {leader: specialName, suborder: CAM_ORDER_ATTACK});
+			}
+			else // Otherwise, spawn a sensor + artillery
+			{
+				// Spawn the sensor
+				const sensorPos = camMakePos(specialEntrance);
+				const sensorTemp = cTempl.comsenst;
+				const sensDroid = camAddDroid(CAM_THE_COLLECTIVE, sensorPos, sensorTemp);
+				addLabel(sensDroid, specialName);
+
+				// Order the sensor to attack
+				camManageGroup(camMakeGroup(sensDroid), CAM_ORDER_ATTACK);
+
+				// Spawn some artillery
+				let sensorArtillery = [
+					cTempl.comhmortht, cTempl.comhmortht, cTempl.comhmortht, cTempl.comhmortht, cTempl.comhmortht, cTempl.comhmortht, // 6 Bombards
+				];
+				if (difficulty >= HARD || waveIndex >= 18) sensorArtillery = sensorArtillery.concat([cTempl.cohript, cTempl.cohript]); // Add 2 Ripple Rockets
+
+				const artilleryGroup = camSendReinforcement(CAM_THE_COLLECTIVE, getObject(specialEntrance), sensorArtillery, CAM_REINFORCE_GROUND);
+				// Follow the sensor droid
+				camManageGroup(artilleryGroup, CAM_ORDER_FOLLOW, {leader: specialName, suborder: CAM_ORDER_ATTACK});
+			}
+		}
+
+		// Lastly, start spawning more waves of enemies over time.
+		// This will cause the Collective to become overwhelming after a while.
+		if (waveIndex % 12 === 0)
+		{
+			// Increase the number of VTOLs every 16 waves
+			vtolAttack();
+		}
+		if (waveIndex % 20 === 0)
+		{
+			// Increase the number of ground attacks every 20 waves
+			setTimer("collectiveAttackWaves", MIS_GROUND_WAVE_DELAY);
+			// NOTE: Since the above increases are based on the number of ground waves, not only will the
+			// number of enemies increase over time, but the RATE that they increase will get faster too!
+		}
 	}
 
-	// Next, send a truck to attempt building a Collective LZ
+	sendCollectiveTrucks();
+}
+
+// Send trucks to attempt building Collective LZs
+function sendCollectiveTrucks()
+{
 	const tTemp = cTempl.comtruckht;
 	if (!camDef(camGetTrucksFromLabel("colNorthLZ")[0]) && waveIndex >= 8 && (waveIndex % 4 == 0))
 	{
@@ -228,121 +360,6 @@ function collectiveAttackWaves()
 		const tPos = camMakePos("groundEntry9");
 		const newTruck = camAddDroid(CAM_THE_COLLECTIVE, tPos, tTemp);
 		camAssignTruck(newTruck, colTruckJob4);
-	}
-
-	// Next, spawn a "special" ground wave along with the normal wave every 6 "normal" waves
-	if (waveIndex % 6 === 0 && waveIndex !== 0)
-	{
-		const specialEntrances = ["groundEntry6"];
-		if (waveIndex >= 18)
-		{
-			// North east
-			waveEntrances.push("groundEntry3");
-		}
-		if (waveIndex >= 30)
-		{
-			// West
-			waveEntrances.push("groundEntry9");
-		}
-		// Choose one location
-		const specialEntrance = camRandFrom(specialEntrances);
-		const specialName = "special" + specialIndex++;
-
-		if (specialIndex % 3 === 0) // Spawn a commander every 3 special waves
-		{
-			// Spawn and rank the commander
-			const commanderPos = camMakePos(specialEntrance);
-			const commanderTemp = (difficulty === INSANE || waveIndex >= 40) ? cTempl.cohcomt : cTempl.comcomt;
-			const commDroid = camAddDroid(CAM_THE_COLLECTIVE, commanderPos, commanderTemp);
-			addLabel(commDroid, specialName);
-			// Set the commander's rank (ranges from Trained to Professional)
-			const COMMANDER_RANK = (difficulty <= EASY) ? 2 : (difficulty);
-			camSetDroidRank(commDroid, COMMANDER_RANK);
-
-			// Order the commander to attack
-			camManageGroup(camMakeGroup(commDroid), CAM_ORDER_ATTACK, {targetPlayer: CAM_HUMAN_PLAYER});
-
-			// Spawn the commander's squad
-			// Choose from of these lists...
-			let commanderDroids = camRandFrom([
-				[
-					cTempl.commrat, cTempl.commrat, // 2 MRAs
-					cTempl.comhmgt, cTempl.comhmgt, // 2 HMGs
-					cTempl.commcant, cTempl.commcant, cTempl.commcant, cTempl.commcant, // 4 Medium Cannons
-					cTempl.comhaat, // 1 Cyclone
-					cTempl.comhrept, // 1 Heavy Repair Turret
-				],
-				[
-					cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, // 4 Heavy Cannons
-					cTempl.comhaat, cTempl.comhaat, // 2 Cyclones
-					cTempl.commrat, cTempl.commrat, // 2 MRAs
-					cTempl.comhrept, cTempl.comhrept, // 2 Heavy Repair Turrets
-				],
-				[
-					cTempl.comhmgt, cTempl.comhmgt, cTempl.comhmgt, cTempl.comhmgt, // 4 HMGs
-					cTempl.comatt, cTempl.comatt, cTempl.comatt, cTempl.comatt, // 4 Lancers
-					cTempl.comhaat, // 1 Cyclone
-					cTempl.comhrept, // 1 Heavy Repair Turret
-				],
-			]);
-			// Improve the commander's templates over time...
-			if (difficulty >= HARD || waveIndex >= 10)
-			{
-				// Swap Medium Cannons for HVCs
-				commanderDroids = camArrayReplaceWith(commanderDroids, cTempl.commcant, cTempl.comhpvt);
-			}
-			if (difficulty >= HARD || waveIndex >= 35)
-			{
-				// Swap MRAs for HRAs
-				commanderDroids = camArrayReplaceWith(commanderDroids, cTempl.commrat, cTempl.cohhrat);
-				// Swap Lancers for Tank Killers
-				commanderDroids = camArrayReplaceWith(commanderDroids, cTempl.comatt, cTempl.comhatt);
-			}
-			if ((difficulty === INSANE && waveIndex >= 10) || (difficulty === HARD && waveIndex >= 35) || waveIndex >= 60)
-			{
-				// Swap HMGs for Assault Guns
-				commanderDroids = camArrayReplaceWith(commanderDroids, cTempl.comhmgt, cTempl.comagt);
-			}
-			const commanderGroup = camSendReinforcement(CAM_THE_COLLECTIVE, getObject(specialEntrance), commanderDroids, CAM_REINFORCE_GROUND);
-			// Follow the commander droid
-			camManageGroup(commanderGroup, CAM_ORDER_FOLLOW, {leader: specialName, suborder: CAM_ORDER_ATTACK});
-		}
-		else // Otherwise, spawn a sensor + artillery
-		{
-			// Spawn the sensor
-			const sensorPos = camMakePos(specialEntrance);
-			const sensorTemp = cTempl.comsenst;
-			const sensDroid = camAddDroid(CAM_THE_COLLECTIVE, sensorPos, sensorTemp);
-			addLabel(sensDroid, specialName);
-
-			// Order the sensor to attack
-			camManageGroup(camMakeGroup(sensDroid), CAM_ORDER_ATTACK);
-
-			// Spawn some artillery
-			let sensorArtillery = [
-				cTempl.comhmortht, cTempl.comhmortht, cTempl.comhmortht, cTempl.comhmortht, cTempl.comhmortht, cTempl.comhmortht, // 6 Bombards
-			];
-			if (difficulty >= HARD || waveIndex >= 18) sensorArtillery = sensorArtillery.concat([cTempl.cohript, cTempl.cohript]); // Add 2 Ripple Rockets
-
-			const artilleryGroup = camSendReinforcement(CAM_THE_COLLECTIVE, getObject(specialEntrance), sensorArtillery, CAM_REINFORCE_GROUND);
-			// Follow the sensor droid
-			camManageGroup(artilleryGroup, CAM_ORDER_FOLLOW, {leader: specialName, suborder: CAM_ORDER_ATTACK});
-		}
-	}
-
-	// Lastly, start spawning more waves of enemies over time.
-	// This will cause the Collective to become overwhelming after a while.
-	if (waveIndex % 12 === 0)
-	{
-		// Increase the number of VTOLs every 16 waves
-		vtolAttack();
-	}
-	if (waveIndex % 20 === 0)
-	{
-		// Increase the number of ground attacks every 20 waves
-		setTimer("collectiveAttackWaves", MIS_GROUND_WAVE_DELAY);
-		// NOTE: Since the above increases are based on the number of ground waves, not only will the
-		// number of enemies increase over time, but the RATE that they increase will get faster too!
 	}
 }
 
@@ -424,9 +441,9 @@ function sendCollectiveTransporter()
 function startInfestedAttacks()
 {
 	// Give the fog a slight pink color
-	camSetFog(20, 12, 80);
+	camGradualFog(camSecondsToMilliseconds(8), 20, 12, 80);
 	// Add a slight purple-blue tint
-	camSetSunIntensity(.48, .42, .5);
+	camGradualSunIntensity(camSecondsToMilliseconds(8), .48, .42, .5);
 
 	// TODO: Dialogue...
 

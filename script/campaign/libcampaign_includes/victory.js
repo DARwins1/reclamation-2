@@ -29,7 +29,7 @@ function camEndMission(gameWon)
 //;;
 function camNextLevel(nextLevel)
 {
-	__camGrantBonusPower();
+	camGrantBonusPower();
 	camBreakAlliances();
 	//Set these limits again for the home map before exiting this mission
 	setStructureLimits("A0CommandCentre", 1, CAM_HUMAN_PLAYER);
@@ -209,6 +209,41 @@ function camClearConsoleOnVictoryMessage(clear)
 	__camAllowVictoryMsgClear = clear;
 }
 
+//;; ## camGrantBonusPower()
+//;;
+//;; Grants bonus power for completing the mission faster (if not in Timerless mode).
+//;; In Timerless mode, sets the player's power to the max.
+//;; Also removes the mission timer and disables player power generation for the rest of the mission.
+//;; This function is automatically called at the end of a mission, but it can also be called earlier via the mission script.
+//;;
+//;; @returns {void}
+//;;
+function camGrantBonusPower()
+{
+	if (__camNeedBonusTime && !__camBonusPowerGranted)
+	{
+		if (!tweakOptions.rec_timerlessMode)
+		{
+			// Calculate bonus power based on remaining mission time
+			let bonusTime = getMissionTime();
+			if (bonusTime > 0)
+			{
+				camTrace("Bonus time", bonusTime);
+				extraPowerTime(bonusTime);
+			}
+		}
+		else
+		{
+			// In Timerless mode, just set the player to max power at the end of the level
+			setPower(__camGetPowerLimit(), CAM_HUMAN_PLAYER);
+		}
+	setPowerModifier(0, CAM_HUMAN_PLAYER);
+	setMissionTime(-1);
+
+	__camBonusPowerGranted = true;
+	}
+}
+
 //////////// privates
 
 function __camGameLostCB()
@@ -372,7 +407,7 @@ function __camVictoryStandard()
 			else if (__camVictoryData.earlyPowerBonus)
 			{
 				// Grant bonus power now if enabled
-				__camGrantBonusPower();
+				camGrantBonusPower();
 			}
 		}
 		else
@@ -445,7 +480,7 @@ function __camVictoryOffworld()
 				else if (__camVictoryData.earlyPowerBonus)
 				{
 					// Grant bonus power now if enabled
-					__camGrantBonusPower();
+					camGrantBonusPower();
 				}
 				return;
 			}
@@ -469,7 +504,7 @@ function __camVictoryOffworld()
 				else if (__camVictoryData.earlyPowerBonus)
 				{
 					// Grant bonus power now if enabled
-					__camGrantBonusPower();
+					camGrantBonusPower();
 				}
 				return;
 			}
@@ -486,7 +521,7 @@ function __camVictoryOffworld()
 				else if (__camVictoryData.earlyPowerBonus)
 				{
 					// Grant bonus power now if enabled
-					__camGrantBonusPower();
+					camGrantBonusPower();
 				}
 				return;
 			}
@@ -505,7 +540,7 @@ function __camVictoryOffworld()
 				else if (__camVictoryData.earlyPowerBonus)
 				{
 					// Grant bonus power now if enabled
-					__camGrantBonusPower();
+					camGrantBonusPower();
 				}
 				return;
 			}
@@ -519,7 +554,7 @@ function __camVictoryOffworld()
 				if (__camVictoryData.earlyPowerBonus)
 				{
 					// Grant bonus power now if enabled
-					__camGrantBonusPower();
+					camGrantBonusPower();
 				}
 
 				const __REMIND_RETURN = 60; // every X seconds
@@ -693,33 +728,5 @@ function __camShowVictoryConditions()
 		{
 			console(__camExtraObjectiveMessage);
 		}
-	}
-}
-
-// Grants bonus power for completing the mission faster (if not in Timerless mode).
-// Also removes the mission timer and disables player power generation for the rest of the mission.
-function __camGrantBonusPower()
-{
-	if (__camNeedBonusTime && !__camBonusPowerGranted)
-	{
-		if (!tweakOptions.rec_timerlessMode)
-		{
-			// Calculate bonus power based on remaining mission time
-			let bonusTime = getMissionTime();
-			if (bonusTime > 0)
-			{
-				camTrace("Bonus time", bonusTime);
-				extraPowerTime(bonusTime);
-			}
-		}
-		else
-		{
-			// In Timerless mode, just set the player to max power at the end of the level
-			setPower(__camGetPowerLimit(), CAM_HUMAN_PLAYER);
-		}
-	setPowerModifier(0, CAM_HUMAN_PLAYER);
-	setMissionTime(-1);
-
-	__camBonusPowerGranted = true;
 	}
 }

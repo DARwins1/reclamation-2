@@ -7,7 +7,7 @@ function eventStartLevel()
 	setNoGoArea(100, 115, 102, 117, CAM_HUMAN_PLAYER);
 	if (!tweakOptions.rec_timerlessMode)
 	{
-		setMissionTime(camChangeOnDiff(camMinutesToSeconds(20)));
+		setMissionTime(camChangeOnDiff(camMinutesToSeconds(30)));
 	}
 	else
 	{
@@ -51,11 +51,9 @@ function eventStartLevel()
 		{text: "LIEUTENANT: Make sure you bring enough combat units in your first transport.", delay: 3, sound: CAM_RCLICK},
 	]);
 
-	// Lighten the fog to *more or less* 2x default brightness
-	camSetFog(32, 32, 96);
-	// Shift the sun towards the east
-	camSetSunPos(-450.0, -400.0, 225.0);
-	// Increase the lighting
-	camSetSunIntensity(.6,.6,.6);
+	camSetSkyType(CAM_SKY_NIGHT);
+	// Darken the fog to 1/4 default brightness
+	camSetFog(4, 4, 16);
+	camSetSunIntensity(.4, .4, .45);
 	camSetWeather(CAM_WEATHER_CLEAR);
 }
