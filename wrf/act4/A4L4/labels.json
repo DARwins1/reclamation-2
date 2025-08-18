@@ -351,14 +351,6 @@
 
 
 	"object_0": {
-		"label": "zuluResearch3",
-		"id": 1472,
-		"player": 5,
-		"type": 1
-	},
-
-
-	"object_1": {
 		"label": "zuluCommander3",
 		"id": 1197,
 		"player": 5,
@@ -366,7 +358,7 @@
 	},
 
 
-	"object_2": {
+	"object_1": {
 		"label": "zuluResearch1",
 		"id": 59,
 		"player": 5,
@@ -374,9 +366,17 @@
 	},
 
 
-	"object_3": {
+	"object_2": {
 		"label": "zuluLure",
 		"id": 12,
+		"player": 5,
+		"type": 1
+	},
+
+
+	"object_3": {
+		"label": "zuluFactory2",
+		"id": 1,
 		"player": 5,
 		"type": 1
 	},
@@ -399,6 +399,14 @@
 
 
 	"object_6": {
+		"label": "zuluCommander1",
+		"id": 1202,
+		"player": 5,
+		"type": 0
+	},
+
+
+	"object_7": {
 		"label": "zuluCybFactory1",
 		"id": 4,
 		"player": 5,
@@ -406,7 +414,7 @@
 	},
 
 
-	"object_7": {
+	"object_8": {
 		"label": "zuluVtolFactory2",
 		"id": 1458,
 		"player": 5,
@@ -414,7 +422,7 @@
 	},
 
 
-	"object_8": {
+	"object_9": {
 		"label": "zuluVtolFactory4",
 		"id": 1474,
 		"player": 5,
@@ -422,7 +430,7 @@
 	},
 
 
-	"object_9": {
+	"object_10": {
 		"label": "zuluFactory1",
 		"id": 11,
 		"player": 5,
@@ -430,7 +438,7 @@
 	},
 
 
-	"object_10": {
+	"object_11": {
 		"label": "zuluCybFactory2",
 		"id": 2,
 		"player": 5,
@@ -438,7 +446,7 @@
 	},
 
 
-	"object_11": {
+	"object_12": {
 		"label": "zuluVtolCBTower",
 		"id": 1309,
 		"player": 5,
@@ -446,7 +454,7 @@
 	},
 
 
-	"object_12": {
+	"object_13": {
 		"label": "zuluVtolFactory1",
 		"id": 92,
 		"player": 5,
@@ -454,7 +462,7 @@
 	},
 
 
-	"object_13": {
+	"object_14": {
 		"label": "zuluCommander2",
 		"id": 1200,
 		"player": 5,
@@ -462,7 +470,7 @@
 	},
 
 
-	"object_14": {
+	"object_15": {
 		"label": "zuluVtolSensor",
 		"id": 1160,
 		"player": 5,
@@ -470,7 +478,7 @@
 	},
 
 
-	"object_15": {
+	"object_16": {
 		"label": "zuluCybFactory3",
 		"id": 1305,
 		"player": 5,
@@ -478,7 +486,7 @@
 	},
 
 
-	"object_16": {
+	"object_17": {
 		"label": "zuluVtolTower3",
 		"id": 1272,
 		"player": 5,
@@ -486,7 +494,7 @@
 	},
 
 
-	"object_17": {
+	"object_18": {
 		"label": "zuluFactory5",
 		"id": 1326,
 		"player": 5,
@@ -494,7 +502,7 @@
 	},
 
 
-	"object_18": {
+	"object_19": {
 		"label": "zuluFactory3",
 		"id": 1443,
 		"player": 5,
@@ -502,7 +510,7 @@
 	},
 
 
-	"object_19": {
+	"object_20": {
 		"label": "zuluResearch2",
 		"id": 1372,
 		"player": 5,
@@ -510,7 +518,7 @@
 	},
 
 
-	"object_20": {
+	"object_21": {
 		"label": "zuluCybFactory4",
 		"id": 1437,
 		"player": 5,
@@ -518,7 +526,7 @@
 	},
 
 
-	"object_21": {
+	"object_22": {
 		"label": "zuluFactory4",
 		"id": 1442,
 		"player": 5,
@@ -526,7 +534,7 @@
 	},
 
 
-	"object_22": {
+	"object_23": {
 		"label": "zuluVtolFactory3",
 		"id": 1457,
 		"player": 5,
@@ -534,25 +542,9 @@
 	},
 
 
-	"object_23": {
+	"object_24": {
 		"label": "zuluIntroCommander",
 		"id": 1121,
-		"player": 5,
-		"type": 0
-	},
-
-
-	"object_24": {
-		"label": "zuluFactory2",
-		"id": 1,
-		"player": 5,
-		"type": 1
-	},
-
-
-	"object_25": {
-		"label": "zuluCommander1",
-		"id": 1202,
 		"player": 5,
 		"type": 0
 	},

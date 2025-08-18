@@ -247,7 +247,7 @@ function camRebuildTruck(index, force)
 		return false;
 	}
 
-	if (ti.truckDroid !== undefined)
+	if (camDef(ti.truckDroid) && ti.truckDroid !== null)
 	{
 		return false; // Truck already exists
 	}
@@ -725,7 +725,7 @@ function __camAssignTruck(droid)
 
 		// See if the player and template match
 		if (droid.player === __PLAYER && droid.body === __BODY 
-			&& droid.propulsion === __PROP && truckDroid === undefined)
+			&& droid.propulsion === __PROP && (!camDef(truckDroid) || truckDroid === null))
 		{
 			const truckPos = camMakePos(droid);
 			const basePos = ti.pos;
@@ -764,7 +764,7 @@ function __camCheckDeadTruck(obj)
 	{
 		const ti = __camTruckInfo[__INDEX];
 		// Unassign this truck if the id matches
-		if (ti.truckDroid !== undefined && obj.id === ti.truckDroid.id)
+		if (camDef(ti.truckDroid) && ti.truckDroid !== null && obj.id === ti.truckDroid.id)
 		{
 			ti.truckDroid = undefined;
 

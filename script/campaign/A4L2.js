@@ -1124,7 +1124,7 @@ function eventStartLevel()
 	deltaDetected = false;
 	deltaActive = false;
 	deltaAggro = false;
-	uplinkTimeRemaining = camMinutesToMilliseconds(10);
+	uplinkTimeRemaining = camMinutesToMilliseconds(12);
 	missionTimeRemaining = -1;
 	deltaRank = (difficulty <= MEDIUM) ? 6 : difficulty + 4; // Elite to Hero
 

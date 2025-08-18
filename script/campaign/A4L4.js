@@ -13,16 +13,14 @@ const mis_infestedResearch = [
 ];
 const mis_zuluExtraResearch = [ // Added on top of everything the player has at the start of the level
 	"R-Wpn-Cannon-Damage07", "R-Wpn-Howitzer-Damage03", "R-Wpn-MG-Damage07",
-	"R-Vehicle-Metals06", "R-Cyborg-Metals06", "R-Vehicle-Armor-Heat03",
-	"R-Cyborg-Armor-Heat03", "R-Wpn-Cannon-ROF04", "R-Wpn-Mortar-ROF04",
-	"R-Wpn-Howitzer-ROF03",
+	"R-Wpn-Cannon-ROF04", "R-Wpn-Mortar-ROF04", "R-Wpn-Howitzer-ROF03",
 ];
 
 const MIS_TEAM_CHARLIE = 1;
 const MIS_TEAM_ZULU = 5;
 const MIS_CHARLIE_COMMANDER_RANK = "Hero";
 const MIS_CHARLIE_RANK = "Regular";
-const MIS_ZULU_COMMANDER_DELAY = camChangeOnDiff(camMinutesToMilliseconds(12));
+const MIS_ZULU_COMMANDER_DELAY = camChangeOnDiff(camMinutesToMilliseconds(18));
 
 // Zulu difficulty-based templates
 // These switch to more durable Collective bodies on higher difficulties
@@ -905,7 +903,7 @@ function expandMap()
 	});
 
 	// Manage trucks...
-	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds((tweakOptions.rec_timerlessMode) ? 55 : 110));
+	const TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds((tweakOptions.rec_timerlessMode) ? 60 : 150));
 	const ENGINEER_TIME = camChangeOnDiff(camSecondsToMilliseconds((tweakOptions.rec_timerlessMode) ? 30 : 60));
 	// Zulu trucks...
 	camManageTrucks(
@@ -1486,7 +1484,6 @@ function absorbZulu()
 	if (!camAllArtifactsPickedUp())
 	{
 		enableResearch("R-Wpn-Cannon-Damage07", CAM_HUMAN_PLAYER);
-		enableResearch("R-Vehicle-Metals06", CAM_HUMAN_PLAYER);
 		enableResearch("R-Wpn-Cannon-ROF04", CAM_HUMAN_PLAYER);
 
 		playSound(cam_sounds.technologyTransferred);
@@ -1543,8 +1540,7 @@ function eventStartLevel()
 
 	camSetArtifacts({
 		"zuluResearch1": { tech: "R-Wpn-Cannon-Damage07" }, // HVAPFSDS Cannon Rounds
-		"zuluResearch2": { tech: "R-Vehicle-Metals06" }, // Dense Composite Alloys Mk3
-		"zuluResearch3": { tech: "R-Wpn-Cannon-ROF04" }, // Cannon Rapid Loader
+		"zuluResearch2": { tech: "R-Wpn-Cannon-ROF04" }, // Cannon Rapid Loader
 	});
 
 	camSetEnemyBases({
@@ -1609,9 +1605,9 @@ function eventStartLevel()
 		},
 	});
 
-	const FACTORY_TIME = camChangeOnDiff(camSecondsToMilliseconds(80));
+	const FACTORY_TIME = camChangeOnDiff(camSecondsToMilliseconds(120));
 	const CYBORG_FACTORY_TIME = camChangeOnDiff(camSecondsToMilliseconds(40));
-	const VTOL_FACTORY_TIME = camChangeOnDiff(camSecondsToMilliseconds(90));
+	const VTOL_FACTORY_TIME = camChangeOnDiff(camSecondsToMilliseconds(110));
 	camSetFactories({
 		"zuluFactory1": {
 			throttle: FACTORY_TIME,

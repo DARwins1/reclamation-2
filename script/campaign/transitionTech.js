@@ -274,6 +274,8 @@ const camA4L4AllyResearch = camAct4StartResearch.concat([
 	"R-Defense-WallUpgrade06", // Artifact
 	"R-Struc-Materials06",
 	"R-Struc-Power-Upgrade03", // Artifact
+	"R-Vehicle-Metals06", // Artifact
+	"R-Cyborg-Metals06", "R-Vehicle-Armor-Heat03", "R-Cyborg-Armor-Heat03",
 ]);
 
 // Used to grant research to team Delta and team Charlie on A4L5 & A4L6
@@ -281,8 +283,6 @@ const camA4L5AllyResearch = camA4L4AllyResearch.concat([
 	// A4L4
 	"R-Wpn-Cannon-Damage07", // Artifact
 	"R-Wpn-Howitzer-Damage03", "R-Wpn-MG-Damage07",
-	"R-Vehicle-Metals06", // Artifact
-	"R-Cyborg-Metals06", "R-Vehicle-Armor-Heat03", "R-Cyborg-Armor-Heat03",
 	"R-Wpn-Cannon-ROF04", // Artifact
 	"R-Wpn-AAGun-ROF04", "R-Wpn-Mortar-ROF04", "R-Wpn-Howitzer-ROF03",
 ]);

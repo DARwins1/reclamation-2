@@ -399,6 +399,7 @@ function eventStartLevel()
 		"golfResearch1": { tech: "R-Wpn-Bomb-Damage02" }, // Improved Bomb Warhead
 		"golfResearch2": { tech: "R-Defense-WallUpgrade06" }, // Supercrete Mk3
 		"golfPower": { tech: "R-Struc-Power-Upgrade03" }, // Gas Turbine Generator Mk3
+		"golfFactory3": { tech: "R-Vehicle-Metals06" }, // Dense Composite Alloys Mk3
 	});
 
 	camCompleteRequiredResearch(camAct4StartResearch, MIS_TEAM_FOXTROT);

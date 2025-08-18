@@ -468,17 +468,8 @@ function sendCollectiveReinforcements()
 	if (stage === 1)
 	{
 		groundEntrances = [
-			"groundEntry3", "groundEntry6", "groundEntry7",
-			"groundEntry8",
+			"groundEntry7", "groundEntry8",
 		];
-		if (difficulty >= HARD)
-		{
-			groundEntrances.push("groundEntry5");
-			if (difficulty === INSANE)
-			{
-				groundEntrances.push("groundEntry4");
-			}
-		}
 
 		groundCompositions = [
 			[
@@ -511,23 +502,12 @@ function sendCollectiveReinforcements()
 	else if (stage === 2)
 	{
 		groundEntrances = [
-			"groundEntry3", "groundEntry6", "groundEntry7",
-			"groundEntry8", "groundEntry9", "groundEntry11", 
-			"groundEntry13", "groundEntry15",
+			"groundEntry9", "groundEntry11", "groundEntry13",
+			"groundEntry15",
 		];
 		hoverEntrances = [
 			"hoverEntry3", "hoverEntry4", "hoverEntry6",
 		];
-		if (difficulty >= HARD)
-		{
-			groundEntrances.push("groundEntry5", "groundEntry12");
-			hoverEntrances.push("hoverEntry5");
-			if (difficulty === INSANE)
-			{
-				groundEntrances.push("groundEntry2", "groundEntry4", "groundEntry10", "groundEntry14");
-				hoverEntrances.push("hoverEntry1", "hoverEntry2");
-			}
-		}
 
 		groundCompositions = [
 			[
@@ -568,51 +548,18 @@ function sendCollectiveReinforcements()
 	else // stage 3
 	{
 		// More entrances are enabled as the timer ticks down
-		// groundEntrances = [
-		// 	"groundEntry3", "groundEntry6", "groundEntry7",
-		// 	"groundEntry8", "groundEntry9", "groundEntry11", 
-		// 	"groundEntry13", "groundEntry15", "groundEntry16",
-		// ];
 		hoverEntrances = [
 			"hoverEntry3", "hoverEntry4", "hoverEntry6",
 		];
 		if (difficulty >= HARD || getMissionTime() < camMinutesToSeconds(16))
 		{
-			groundEntrances.push("groundEntry2", "groundEntry5", "groundEntry12");
 			hoverEntrances.push("hoverEntry5");
+
 			if (difficulty === INSANE || getMissionTime() < camMinutesToSeconds(8))
 			{
-				groundEntrances.push("groundEntry1", "groundEntry4", "groundEntry10", "groundEntry14");
 				hoverEntrances.push("hoverEntry1", "hoverEntry2");
 			}
 		}
-
-		// groundCompositions = [
-		// 	[
-		// 		cTempl.cybag, cTempl.cybag, cTempl.cybag, cTempl.cybag, // 4 Assault Gunners
-		// 		cTempl.comatt, cTempl.comatt, cTempl.comatt, cTempl.comatt, // 4 Lancers
-		// 		cTempl.cominft, cTempl.cominft, // 2 Infernos
-		// 	],
-		// 	[
-		// 		cTempl.scymc, cTempl.scymc, cTempl.scymc, // 3 Super Heavy Gunners
-		// 		cTempl.scyac, cTempl.scyac, // 2 Super Auto Gunners
-		// 		cTempl.commcant, cTempl.commcant, cTempl.commcant, // 3 Medium Cannons
-		// 		cTempl.comacant, cTempl.comacant, // 2 Assault Cannons
-		// 		cTempl.cohhcant, // 1 Heavy Cannon
-		// 	],
-		// 	[
-		// 		cTempl.comagt, cTempl.comagt, cTempl.comagt, cTempl.comagt, // 4 Assault Guns
-		// 		cTempl.scygr, cTempl.scygr, cTempl.scygr, cTempl.scygr, // 4 Super Grenadiers
-		// 		cTempl.cohbbt, // 1 Bunker Buster
-		// 	],
-		// 	[
-		// 		cTempl.cybth, cTempl.cybth, cTempl.cybth, cTempl.cybth, // 4 Thermite Flamer Cyborgs
-		// 		cTempl.cybla, cTempl.cybla, cTempl.cybla, // 3 Lancer Cyborgs
-		// 		cTempl.scytk, // 1 Super TK Cyborg
-		// 		cTempl.comhatt, cTempl.comhatt, // 2 Tank Killers
-		// 		cTempl.cohhrat, cTempl.cohhrat, // 2 HRAs
-		// 	],
-		// ];
 
 		hoverTemplates = [
 			cTempl.comhpvh, cTempl.comhpvh,
@@ -861,6 +808,11 @@ function setVictory()
 	camSetStandardWinLossConditions(CAM_VICTORY_SCRIPTED, CAM_A4_OUT, {
 		showArtifacts: false
 	});
+
+	camSetExtraObjectiveMessage(
+		[_("Use Trucks to escort civilians back to the haven"),
+			"Don't lose " + truckLostThreshold + " Transport Trucks (" + trucksLost + " LOST)"]
+	);
 }
 
 function eventAttacked(victim, attacker)
@@ -2041,7 +1993,7 @@ camAreaEvent("deltaReturnZone", function(droid)
 			{
 				deltaRescued = true;
 				donateObject(droid, MIS_TEAM_DELTA); // Donate it back to team Delta
-				queue("deltaGroupAlive", camSecondsToMilliseconds(0.1)); // Check if there's any remaining members
+				queue("deltaGroupAlive", camSecondsToMilliseconds(0.4)); // Check if there's any remaining members
 			}
 		}
 	}
@@ -2139,7 +2091,10 @@ function setStageThree()
 	hackRemoveMessage("DELTA_DEPOSIT", PROX_MSG, CAM_HUMAN_PLAYER);
 
 	// Set the mission timer to 20 minutes
-	setMissionTime(camMinutesToSeconds(20));
+	let finalMissionTime = camMinutesToSeconds(20);
+	if (difficulty >= HARD) finalMissionTime += camMinutesToSeconds(2); // 22 min on HARD
+	if (difficulty === INSANE) finalMissionTime += camMinutesToSeconds(2); // 24 min on INSANE
+	setMissionTime(finalMissionTime);
 	camSetExtraObjectiveMessage(_("Survive at all costs"));
 
 	// More VTOL attacks
@@ -2278,7 +2233,7 @@ function groundAssault6()
 
 	// Live Delta Reaction:
 	camQueueDialogue([
-		{text: "DELTA: Holy-", delay: 2, sound: CAM_RCLICK},
+		{text: "DELTA: Oh, COME ON!", delay: 2, sound: CAM_RCLICK},
 		{text: "DELTA: How many of them ARE there?!", delay: 2, sound: CAM_RCLICK},
 	]);
 }
@@ -2748,9 +2703,9 @@ function airAssaultWave(index)
 				{limit: 4},
 			];
 
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos4", "vtolRemoveZone2", wave3Vtols[0], undefined, undefined, wave3Extras[0]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos4", "vtolRemoveZone2", wave3Vtols[1], undefined, undefined, wave3Extras[1]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos4", "vtolRemoveZone2", wave3Vtols[2], undefined, undefined, wave3Extras[2]);
+			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos4", "vtolRemoveZone2", wave2Vtols[0], undefined, undefined, wave3Extras[0]);
+			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos4", "vtolRemoveZone2", wave2Vtols[1], undefined, undefined, wave3Extras[1]);
+			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos4", "vtolRemoveZone2", wave2Vtols[2], undefined, undefined, wave3Extras[2]);
 			break;
 		case "3":
 			const wave3Vtols = [

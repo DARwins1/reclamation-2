@@ -31,6 +31,7 @@ const MIS_AIR_ASSAULT_DELAY = camSecondsToMilliseconds(15);
 
 var heartbeatDarkness;
 var killTeamsEnabled;
+var trucksEnabled;
 var infestedEnabled;
 var transportPlaced;
 var colCommanderIndex;
@@ -274,12 +275,12 @@ function sendReinforcements()
 			}});
 			entrances.splice(INDEX, 1);
 		}
+	}
 
-		// Also try to send in trucks
-		if (!transportPlaced)
-		{
-			sendCollectiveTrucks();
-		}
+	// Also try to send in trucks
+	if (trucksEnabled && !transportPlaced)
+	{
+		sendCollectiveTrucks();
 	}
 }
 
@@ -340,6 +341,7 @@ function sendCollectiveTrucks()
 function enableKillTeams()
 {
 	killTeamsEnabled = true;
+	trucksEnabled = true;
 }
 
 function disableInfested()
@@ -389,6 +391,8 @@ function groundAssault4()
 	activateGroundBlip(5);
 	activateGroundBlip(6);
 	activateGroundBlip(7);
+
+	killTeamsEnabled = false; // Stop spawning Collective kill teams
 	
 	playSound(cam_sounds.enemyUnitDetected);
 
@@ -422,18 +426,18 @@ function groundAssault6()
 	queue("groundAssaultWave", MIS_GROUND_ASSAULT_DELAY, "6");
 }
 
-function groundAssault7()
-{
-	activateGroundBlip(4);
-	activateGroundBlip(5);
-	activateGroundBlip(6);
-	activateGroundBlip(7);
-	activateGroundBlip(10);
+// function groundAssault7()
+// {
+// 	activateGroundBlip(4);
+// 	// activateGroundBlip(5);
+// 	activateGroundBlip(6);
+// 	activateGroundBlip(7);
+// 	activateGroundBlip(10);
 	
-	playSound(cam_sounds.enemyUnitDetected);
+// 	playSound(cam_sounds.enemyUnitDetected);
 
-	queue("groundAssaultWave", MIS_GROUND_ASSAULT_DELAY, "7");
-}
+// 	queue("groundAssaultWave", MIS_GROUND_ASSAULT_DELAY, "7");
+// }
 
 function activateGroundBlip(index)
 {
@@ -598,7 +602,8 @@ function groundAssaultWave(index)
 				],
 			];
 			sendCollectiveGroundWave("colEntry4", wave5Templates[0]);
-			sendCollectiveGroundWave("colEntry5", wave5Templates[1], cTempl.cohcomt);
+			// sendCollectiveGroundWave("colEntry5", wave5Templates[1], cTempl.cohcomt);
+			deltaArrival(); // NOTE: Team Delta spawns from entry 5 instead of a Collective wave
 			sendCollectiveGroundWave("colEntry8", wave5Templates[2]);
 			sendCollectiveGroundWave("colEntry9", wave5Templates[3], cTempl.cohcomt);
 			sendCollectiveGroundWave("colEntry11", wave5Templates[4]);
@@ -663,39 +668,38 @@ function groundAssaultWave(index)
 			sendCollectiveGroundWave("colEntry9", wave6Templates[4]);
 			sendCollectiveGroundWave("colEntry11", wave6Templates[5]);
 			break;
-		case "7":
-			const wave7Templates = [
-				[ // Northeast corner entry (+commander)
-					cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, // 6 Assault Cannons
-					cTempl.cominft, cTempl.cominft, cTempl.cominft, cTempl.cominft, // 4 Infernos
-					cTempl.comhrept, cTempl.comhrept, cTempl.comhrept, cTempl.comhrept, // 4 Heavy Repair Turrets
-					cTempl.comhaat, cTempl.comhaat, // 2 Cyclones
-				],
-				[ // Southeast entry
-					cTempl.comaght, cTempl.comaght, cTempl.comaght, cTempl.comaght, // 4 Assault Guns
-					cTempl.comhpvht, cTempl.comhpvht, cTempl.comhpvht, cTempl.comhpvht, // 4 HVCs
-					cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk, // 4 Super Tank Killer Cyborgs
-					cTempl.scyac, cTempl.scyac, cTempl.scyac, cTempl.scyac, // 4 Super Auto Cannon Cyborgs
-				],
-				[ // South entry (+commander)
-					cTempl.cohbbt, cTempl.cohbbt, cTempl.cohbbt, cTempl.cohbbt, // 4 Bunker Busters
-					cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, // 6 Tank Killers
-					cTempl.cominft, cTempl.cominft, cTempl.cominft, cTempl.cominft, // 4 Infernos
-					cTempl.cohraat, cTempl.cohraat, // 2 Whirlwinds
-				],
-				[ // West entry (+commander)
-					cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, // 6 Heavy Cannons
-					cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, // 4 HRAs
-					cTempl.comhrept, cTempl.comhrept, cTempl.comhrept, cTempl.comhrept, // 4 Heavy Repair Turrets
-					cTempl.cohraat, cTempl.cohraat, // 2 Whirlwinds
-				],
-			];
-			sendCollectiveGroundWave("colEntry4", wave7Templates[0], cTempl.comcomt);
-			deltaArrival(); // NOTE: Team Delta spawns from entry 5 instead of a Collective wave
-			sendCollectiveGroundWave("colEntry6", wave7Templates[1]);
-			sendCollectiveGroundWave("colEntry7", wave7Templates[2], cTempl.cohcomt);
-			sendCollectiveGroundWave("colEntry10", wave7Templates[3], cTempl.cohcomt);
-			break;
+		// case "7":
+		// 	const wave7Templates = [
+		// 		[ // Northeast corner entry (+commander)
+		// 			cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, // 6 Assault Cannons
+		// 			cTempl.cominft, cTempl.cominft, cTempl.cominft, cTempl.cominft, // 4 Infernos
+		// 			cTempl.comhrept, cTempl.comhrept, cTempl.comhrept, cTempl.comhrept, // 4 Heavy Repair Turrets
+		// 			cTempl.comhaat, cTempl.comhaat, // 2 Cyclones
+		// 		],
+		// 		[ // Southeast entry
+		// 			cTempl.comaght, cTempl.comaght, cTempl.comaght, cTempl.comaght, // 4 Assault Guns
+		// 			cTempl.comhpvht, cTempl.comhpvht, cTempl.comhpvht, cTempl.comhpvht, // 4 HVCs
+		// 			cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk, // 4 Super Tank Killer Cyborgs
+		// 			cTempl.scyac, cTempl.scyac, cTempl.scyac, cTempl.scyac, // 4 Super Auto Cannon Cyborgs
+		// 		],
+		// 		[ // South entry (+commander)
+		// 			cTempl.cohbbt, cTempl.cohbbt, cTempl.cohbbt, cTempl.cohbbt, // 4 Bunker Busters
+		// 			cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, // 6 Tank Killers
+		// 			cTempl.cominft, cTempl.cominft, cTempl.cominft, cTempl.cominft, // 4 Infernos
+		// 			cTempl.cohraat, cTempl.cohraat, // 2 Whirlwinds
+		// 		],
+		// 		[ // West entry (+commander)
+		// 			cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, // 6 Heavy Cannons
+		// 			cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, // 4 HRAs
+		// 			cTempl.comhrept, cTempl.comhrept, cTempl.comhrept, cTempl.comhrept, // 4 Heavy Repair Turrets
+		// 			cTempl.cohraat, cTempl.cohraat, // 2 Whirlwinds
+		// 		],
+		// 	];
+		// 	sendCollectiveGroundWave("colEntry4", wave7Templates[0], cTempl.comcomt);
+		// 	sendCollectiveGroundWave("colEntry6", wave7Templates[1]);
+		// 	sendCollectiveGroundWave("colEntry7", wave7Templates[2], cTempl.cohcomt);
+		// 	sendCollectiveGroundWave("colEntry10", wave7Templates[3], cTempl.cohcomt);
+		// 	break;
 	}
 }
 
@@ -1246,10 +1250,10 @@ function eventStartLevel()
 	queue("groundAssault5", camMinutesToMilliseconds(23)); // at 7 minutes remaining
 	queue("airAssault7", camMinutesToMilliseconds(24)); // at 6 minutes remaining
 	queue("airAssault8", camMinutesToMilliseconds(24.5)); // at 5.5 minutes remaining
-	queue("groundAssault6", camMinutesToMilliseconds(25)); // at 5 minutes remaining
 	queue("airAssault9", camMinutesToMilliseconds(25.5)); // at 4.5 minutes remaining
+	queue("groundAssault6", camMinutesToMilliseconds(26)); // at 4 minutes remaining
 	queue("airAssault10", camMinutesToMilliseconds(26.5)); // at 3.5 minutes remaining
-	queue("groundAssault7", camMinutesToMilliseconds(27)); // at 3 minutes remaining
+	// queue("groundAssault7", camMinutesToMilliseconds(27)); // at 3 minutes remaining
 	queue("airAssault11", camMinutesToMilliseconds(28)); // at 2 minutes remaining
 
 	// Most Infested units start out pre-damaged
@@ -1257,6 +1261,7 @@ function eventStartLevel()
 
 	heartbeatDarkness = false;
 	killTeamsEnabled = false;
+	trucksEnabled = false;
 	infestedEnabled = true;
 	transportPlaced = false;
 	colCommanderIndex = 1;

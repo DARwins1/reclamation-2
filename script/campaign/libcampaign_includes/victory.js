@@ -457,7 +457,8 @@ function __camVictoryOffworld()
 		return;
 	}
 
-	if (countDroid(DROID_ANY, CAM_HUMAN_PLAYER) === 0 && __camVictoryData.defeatOnDeath)
+	const __TOTAL = countDroid(DROID_ANY, CAM_HUMAN_PLAYER); // for future use
+	if (__TOTAL === 0 && __camVictoryData.defeatOnDeath)
 	{
 		__camGameLost();
 		return;
