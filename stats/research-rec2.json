@@ -358,8 +358,8 @@
         "requiredResearch": [
             "R-Wpn-RailGun01"
         ],
-        "researchPoints": 14400,
-        "researchPower": 450,
+        "researchPoints": 1400,
+        "researchPower": 310,
         "resultComponents": [
             "Cyb-Wpn-Rail1"
         ],
@@ -1867,8 +1867,8 @@
         "requiredResearch": [
             "R-Wpn-RailGun01"
         ],
-        "researchPoints": 14400,
-        "researchPower": 450,
+        "researchPoints": 1200,
+        "researchPower": 290,
         "resultStructures": [
             "GuardTower-Rail1"
         ],
