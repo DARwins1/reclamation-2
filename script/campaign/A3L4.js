@@ -532,7 +532,7 @@ function eventStartLevel()
 	camSetObjectVision(MIS_TEAM_CHARLIE);
 	changePlayerColour(MIS_TEAM_CHARLIE, (playerData[0].colour !== 11) ? 11 : 5); // Charlie to bright blue or blue
 
-	setMissionTime(camMinutesToSeconds(22));
+	setMissionTime(camMinutesToSeconds(18));
 
 	camCompleteRequiredResearch(mis_collectiveResearch, CAM_THE_COLLECTIVE);
 	camCompleteRequiredResearch(mis_infestedResearch, CAM_INFESTED);

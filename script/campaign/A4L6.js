@@ -1474,7 +1474,7 @@ camAreaEvent("depositZone", function(droid)
 			playSound(cam_sounds.rescue.civilianRescued);
 		}
 	}
-	else if (droid.player === MIS_CIVS)
+	else if (droid.player === MIS_CIVS || droid.player === MIS_CIV_ESCORTS)
 	{
 		// If we have a normal civilian, just remove it
 		camSafeRemoveObject(droid);
@@ -2165,8 +2165,6 @@ function setStageThree()
 		{text: "CHARLIE: Lieutenant!", delay: 3, sound: CAM_RCLICK},
 		{text: "CHARLIE: We're picking up Collective forces moving away from the city.", delay: 2, sound: CAM_RCLICK},
 		{text: "CHARLIE: It looks like they're heading this way, and...", delay: 3, sound: CAM_RCLICK},
-		{text: "CHARLIE: ...", delay: 3, sound: CAM_RCLICK},
-		{text: "CHARLIE: Sir, there's...", delay: 3, sound: CAM_RCLICK},
 		{text: "CHARLIE: ...There's a LOT of them, sir.", delay: 2, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: ...", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Commanders, hunker down and get ready to fight.", delay: 3, sound: CAM_RCLICK},

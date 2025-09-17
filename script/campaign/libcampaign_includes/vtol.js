@@ -282,7 +282,8 @@ function __camRetreatVtols()
 	for (let idx = 0; idx < __camVtolDataSystem.length; ++idx)
 	{
 		const vds = __camVtolDataSystem[idx];
-		if (camDef(vds.exitPosition.x) &&
+		if (vds.active &&
+			camDef(vds.exitPosition.x) &&
 			camDef(vds.exitPosition.y) &&
 			enumStruct(vds.player, REARM_PAD).length === 0)
 		{

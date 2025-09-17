@@ -794,5 +794,5 @@ function eventStartLevel()
 	// Shift the sun towards the east
 	camSetSunPos(-450.0, -400.0, 225.0);
 	// Add a purple-blue tint
-	camSetSunIntensity(.55, .5, .6);
+	camSetSunIntensity(.5, .45, .55);
 }

@@ -229,7 +229,7 @@ function endStealthPhase()
 	setScrollLimits(0, 0, 160, 56);
 
 	// HACK: Move the sun position slightly to avoid weird shadows when expanding the map
-	camSetSunPos(-225.0, -601.0, 450.0);
+	camSetSunPos(225.0, -601.0, 450.0);
 }
 
 // Activate the Collective and all allies
@@ -769,7 +769,7 @@ function stealthBreakDialogue()
 		{text: "LIEUTENANT: Commander Bravo, I'll leave the first strike to you.", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Once you open fire, Commanders Charlie and Golf will support you.", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Remember; even though Clayde's diversion should prevent enemy reinforcements, the Collective are sure to have a large force stationed here.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Make sure you're ready when you attack, because there's no going back now...", delay: 4, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Make sure you're ready when you attack, because there's no turning back now...", delay: 4, sound: CAM_RCLICK},
 	]);
 }
 

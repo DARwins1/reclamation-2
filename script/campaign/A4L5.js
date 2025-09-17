@@ -338,7 +338,7 @@ function sendCollectiveTrucks()
 	}
 }
 
-function enableKillTeams()
+function startKillTeams()
 {
 	killTeamsEnabled = true;
 	trucksEnabled = true;
@@ -1105,6 +1105,16 @@ function transitionSetup()
 	{
 		setMissionTime(-1);
 	}
+
+	if (difficulty >= HARD)
+	{
+		// Start spawning kill teams again
+		killTeamsEnabled = true;
+	}
+	else
+	{
+		camSetVtolSpawnStateAll(false); // Stop spawning VTOLs (both Collective & Delta's)
+	}
 }
 
 // Fluctuate the sky's color over time
@@ -1237,7 +1247,7 @@ function eventStartLevel()
 	heliAttack();
 
 	// Queue large telegraphed Collective ground and air attacks
-	queue("enableKillTeams", camMinutesToMilliseconds(5)); // at 25 minutes remaining
+	queue("startKillTeams", camMinutesToMilliseconds(5)); // at 25 minutes remaining
 	queue("vtolAttack", camMinutesToMilliseconds(6)); // at 24 minutes remaining
 	queue("airAssault1", camMinutesToMilliseconds(8)); // at 22 minutes remaining
 	queue("groundAssault1", camMinutesToMilliseconds(10)); // at 20 minutes remaining

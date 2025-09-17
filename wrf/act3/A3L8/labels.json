@@ -573,6 +573,14 @@
 
 
 	"object_22": {
+		"label": "colFactory2",
+		"id": 9,
+		"player": 2,
+		"type": 1
+	},
+
+
+	"object_23": {
 		"label": "colCybFactory3",
 		"id": 6,
 		"player": 2,
@@ -580,7 +588,7 @@
 	},
 
 
-	"object_23": {
+	"object_24": {
 		"label": "colCommander1",
 		"id": 833,
 		"player": 2,
@@ -588,7 +596,7 @@
 	},
 
 
-	"object_24": {
+	"object_25": {
 		"label": "colTruck4",
 		"id": 815,
 		"player": 2,
@@ -596,7 +604,7 @@
 	},
 
 
-	"object_25": {
+	"object_26": {
 		"label": "colVtolCBTower1",
 		"id": 129,
 		"player": 2,
@@ -604,7 +612,7 @@
 	},
 
 
-	"object_26": {
+	"object_27": {
 		"label": "colCommander3",
 		"id": 715,
 		"player": 2,
@@ -612,7 +620,7 @@
 	},
 
 
-	"object_27": {
+	"object_28": {
 		"label": "infFactory",
 		"id": 10,
 		"player": 4,
@@ -620,7 +628,7 @@
 	},
 
 
-	"object_28": {
+	"object_29": {
 		"label": "colTruck2",
 		"id": 816,
 		"player": 2,
@@ -628,17 +636,9 @@
 	},
 
 
-	"object_29": {
+	"object_30": {
 		"label": "colVtolCBTower2",
 		"id": 230,
-		"player": 2,
-		"type": 1
-	},
-
-
-	"object_30": {
-		"label": "colFactory2",
-		"id": 9,
 		"player": 2,
 		"type": 1
 	},

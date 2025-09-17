@@ -567,16 +567,15 @@ function eventStartLevel()
 	{
 		setMissionTime(camChangeOnDiff(camMinutesToSeconds(70)));
 	}
-
+	// 3 Transports on INSANE
+	// 4 Transports on HARD
+	// 5 Transports on all other difficulties
+	const NUM_TRANSPORTS = Math.min(7 - difficulty, 5);
 	startedFromMenu = false;
 
 	// Only if starting Act 3 directly from the menu
 	if (enumDroid(CAM_HUMAN_PLAYER, DROID_SUPERTRANSPORTER).length === 0)
 	{
-		// 3 Transports on INSANE
-		// 4 Transports on HARD
-		// 5 Transports on all other difficulties
-		const NUM_TRANSPORTS = Math.min(7 - difficulty, 5);
 		startedFromMenu = true;
 
 		// Send a transport with a commander and some high-rank droids
@@ -650,17 +649,18 @@ function eventStartLevel()
 			// NOTE: We can't give the offworld droid XP here, since the scripting API can't find it.
 			// Instead, we'll grant XP when the transport drops it off.
 		}
+	
+	}
+	// else
+	// {
+	// 	// Grant 200 power for every droid the player saved from the last campaign
+	// 	let numDroids = enumDroid(CAM_HUMAN_PLAYER).length - 1; // Don't count the transporter itself
+	// 	// Also include the cargo of the first transport
+	// 	numDroids += enumDroid(CAM_HUMAN_PLAYER, DROID_SUPERTRANSPORTER)[0].cargoCount - 1; // Cargo count seems to always have at least 1?
+	// 	setPower(numDroids * 200, CAM_HUMAN_PLAYER);
+	// }
 
-		setPower(NUM_TRANSPORTS * 1000, CAM_HUMAN_PLAYER);		
-	}
-	else
-	{
-		// Grant 300 power for every droid the player saved from the last campaign
-		let numDroids = enumDroid(CAM_HUMAN_PLAYER).length - 1; // Don't count the transporter itself
-		// Also include the cargo of the first transport
-		numDroids += enumDroid(CAM_HUMAN_PLAYER, DROID_SUPERTRANSPORTER)[0].cargoCount - 1; // Cargo count seems to always have at least 1?
-		setPower(numDroids * 300, CAM_HUMAN_PLAYER);
-	}
+	setPower(NUM_TRANSPORTS * 2000, CAM_HUMAN_PLAYER);
 	setReinforcementTime(camMinutesToSeconds(1)); // 1 minute
 
 	firstTransport = true;

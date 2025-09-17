@@ -10,14 +10,16 @@ const MIS_FOXTROT_FACTORY_TIME = camChangeOnDiff(camSecondsToMilliseconds(90));
 const MIS_GOLF_FACTORY_TIME = camChangeOnDiff(camSecondsToMilliseconds(120));
 const MIS_CYBORG_FACTORY_TIME = camChangeOnDiff(camSecondsToMilliseconds(60));
 const MIS_VTOL_FACTORY_TIME = camChangeOnDiff(camSecondsToMilliseconds(130));
-const MIS_FOXTROT_COMMANDER_DELAY = camChangeOnDiff(camMinutesToMilliseconds(6));
+const MIS_FOXTROT_COMMANDER_DELAY = camChangeOnDiff(camMinutesToMilliseconds(8));
 
 var foxtrotCommanderDeathTime;
 var foxtrotRank;
+var foxtrotDefeated;
 
 var golfSensorsGroup;
 var golfVtolAttackGroup;
 var golfVtolStrikeGroup;
+var golfDefeated;
 
 const mis_infestedResearch = [
 	"R-Wpn-MG-Damage05", "R-Wpn-Rocket-Damage05", "R-Wpn-Mortar-Damage05", 
@@ -54,6 +56,8 @@ function heliAttack()
 // Activate Infested stuff
 function activateInfested()
 {
+	// Call this twice to spawn twice the reinforcements on the first wave
+	sendInfestedReinforcements();
 	sendInfestedReinforcements();
 	heliAttack();
 	setTimer("sendInfestedReinforcements", camChangeOnDiff(camSecondsToMilliseconds(60)));
@@ -65,6 +69,9 @@ function activateInfested()
 	camEnableFactory("infHvyFactory");
 	camEnableFactory("infCybFactory1");
 	camEnableFactory("infCybFactory2");
+
+	// TODO: More dialogue?
+	camQueueDialogue({text: "--- ANOMALOUS SIGNAL DETECTED ---", delay: 0, sound: cam_sounds.beacon});
 }
 
 function activateFactories()
@@ -187,17 +194,141 @@ function boostTeams()
 	// TODO: Make more groups bigger/change group behavior?
 }
 
-function surrenderTeams()
+function eventDestroyed(obj)
 {
-	// TODO: Dialogue
+	if (obj.player === MIS_TEAM_FOXTROT)
+	{
+		if (obj.type === DROID)
+		{
+			if (obj.droidType === DROID_COMMAND)
+			{
+				// Mark the time that the Foxtrot commander died
+				foxtrotCommanderDeathTime = gameTime;
+			}
+			else if (obj.droidType === DROID_CONSTRUCT)
+			{
+				// Foxtrot Truck/Engineer destroyed
+				checkFoxtrotDefeated();
+			}
+		}
+		else if (obj.type === STRUCTURE 
+			&& (obj.stattype === FACTORY
+				|| obj.stattype === CYBORG_FACTORY
+				|| obj.stattype === RESEARCH_LAB
+				|| obj.stattype === POWER_GEN
+				|| obj.stattype === COMMAND_CONTROL
+				|| obj.stattype === HQ))
+		{
+			// Foxtrot base structure destroyed
+			checkFoxtrotDefeated();
+		}
+	}
+	else if (obj.player === MIS_TEAM_GOLF)
+	{
+		if (obj.type === DROID && obj.droidType === DROID_CONSTRUCT)
+		{
+			// Golf Truck destroyed
+			checkGolfDefeated();
+		}
+		else if (obj.type === STRUCTURE 
+			&& (obj.stattype === FACTORY
+				|| obj.stattype === VTOL_FACTORY
+				|| obj.stattype === RESEARCH_LAB
+				|| obj.stattype === POWER_GEN
+				|| obj.stattype === COMMAND_CONTROL
+				|| obj.stattype === HQ))
+		{
+			// Golf base structure destroyed
+			checkGolfDefeated();
+		}
+	}
+}
 
-	// Grab all of the teams' droids and structures
-	const objs = enumDroid(MIS_TEAM_FOXTROT).concat(enumStruct(MIS_TEAM_FOXTROT)).concat(enumDroid(MIS_TEAM_GOLF)).concat(enumStruct(MIS_TEAM_GOLF));
+// Foxtrot/Golf are "defeated" when:
+// All "base" structures are destroyed (Factories/HQs/Command Relays/Generators/Research Facilities)
+// All Trucks/Engineers assigned to their main bases are destroyed
+
+// Called when Foxtrot objects are destroyed
+function checkFoxtrotDefeated()
+{
+	// Check if Foxtrot has any "base structures" remaining
+	if (enumStruct(MIS_TEAM_FOXTROT, FACTORY).length === 0 // No Factories...
+		&& enumStruct(MIS_TEAM_FOXTROT, CYBORG_FACTORY).length === 0 // No Cyborg Factories...
+		&& enumStruct(MIS_TEAM_FOXTROT, RESEARCH_LAB).length === 0 // No Research Facilities...
+		&& enumStruct(MIS_TEAM_FOXTROT, POWER_GEN).length === 0 // No Power Generators...
+		&& enumStruct(MIS_TEAM_FOXTROT, COMMAND_CONTROL).length === 0 // No Command Relay Posts...
+		&& enumStruct(MIS_TEAM_FOXTROT, HQ).length === 0) // No Command Centers...
+	{
+		// Check if Foxtrot has any Trucks/Engineers that can rebuild those structures
+		const mainTrucks = camGetTrucksFromLabel("foxtrotMainBase").concat(camGetTrucksFromLabel("foxtrotAltBase"));
+		let foundTruck = false;
+		for (const truck of mainTrucks)
+		{
+			if (camDef(truck) && truck !== null)
+			{
+				foundTruck = true;
+			}
+		}
+
+		// Surrender if no constructors are found
+		if (!foundTruck)
+		{
+			camCallOnce("foxtrotDefeat");
+		}
+	}
+}
+
+// Called when Golf objects are destroyed
+function checkGolfDefeated()
+{
+	// Check if Golf has any "base structures" remaining
+	if (enumStruct(MIS_TEAM_GOLF, FACTORY).length === 0 // No Factories...
+		&& enumStruct(MIS_TEAM_GOLF, VTOL_FACTORY).length === 0 // No VTOL Factories...
+		&& enumStruct(MIS_TEAM_GOLF, RESEARCH_LAB).length === 0 // No Research Facilities...
+		&& enumStruct(MIS_TEAM_GOLF, POWER_GEN).length === 0 // No Power Generators...
+		&& enumStruct(MIS_TEAM_GOLF, COMMAND_CONTROL).length === 0 // No Command Relay Posts...
+		&& enumStruct(MIS_TEAM_GOLF, HQ).length === 0) // No Command Centers...
+	{
+		// Check if Golf has any Trucks that can rebuild those structures
+		const mainTrucks = camGetTrucksFromLabel("golfMainBase").concat(camGetTrucksFromLabel("golfVtolBase"));
+		let foundTruck = false;
+		for (const truck of mainTrucks)
+		{
+			if (camDef(truck) && truck !== null)
+			{
+				foundTruck = true;
+			}
+		}
+
+		// Surrender if no constructors are found
+		if (!foundTruck)
+		{
+			camCallOnce("golfDefeat");
+		}
+	}
+}
+
+function foxtrotDefeat()
+{
+	camSetBaseAffiliation("foxtrotMainBase", true);
+	camSetBaseAffiliation("foxtrotAltBase", true);
+	camSetBaseAffiliation("foxtrotEastRidgeBase", true);
+	camSetBaseAffiliation("foxtrotNorthHillBase", true);
+	camSetBaseAffiliation("foxtrotCraterHillBase", true);
+	camSetBaseAffiliation("foxtrotWestRidgeBase", true);
+	camSetBaseAffiliation("foxtrotWaterRidgeBase", true);
+
+	setAlliance(CAM_HUMAN_PLAYER, MIS_TEAM_FOXTROT, true);
+
+	// TODO: Dialogue here
+
+	// Grab all of Foxtrot's droids and structures
+	const objs = enumDroid(MIS_TEAM_FOXTROT).concat(enumStruct(MIS_TEAM_FOXTROT));
 
 	// Donate them all to the player
 	for (const obj of objs)
 	{
-		// TODO: Give droids some EXP?
+		// Give the droids some EXP
 		if (obj.type === DROID && obj.droidType !== DROID_COMMAND)
 		{
 			camSetDroidRank(obj, "Regular");
@@ -205,58 +336,57 @@ function surrenderTeams()
 
 		donateObject(obj, CAM_HUMAN_PLAYER);
 	}
-}
 
-function camEnemyBaseEliminated_foxtrotMainBase()
-{
-	checkTeamBases();
-}
-
-function camEnemyBaseEliminated_foxtrotAltBase()
-{
-	checkTeamBases();
-}
-
-function camEnemyBaseEliminated_golfMainBase()
-{
-	checkTeamBases();
-}
-
-function camEnemyBaseEliminated_golfBridgeBase()
-{
-	checkTeamBases();
-}
-
-function camEnemyBaseEliminated_golfVtolBase()
-{
-	checkTeamBases();
-}
-
-// Check the status of the team bases.
-// If either Foxtrot's or Golf's main bases are destroyed, boost team production.
-// If all main bases are destroyed, surrender.
-function checkTeamBases()
-{
-	if ((camBaseIsEliminated("foxtrotMainBase") && camBaseIsEliminated("foxtrotAltBase")) 
-		|| (camBaseIsEliminated("golfMainBase") && camBaseIsEliminated("golfBridgeBase") && camBaseIsEliminated("golfVtolBase")))
+	if (golfDefeated)
 	{
-		camCallOnce("boostTeams");
+		camSetExtraObjectiveMessage();
+	}
+	else
+	{
+		camSetExtraObjectiveMessage(_("Defeat Team Golf"));
 	}
 
-	if (camBaseIsEliminated("foxtrotMainBase") && camBaseIsEliminated("foxtrotAltBase")
-		&& camBaseIsEliminated("golfMainBase") && camBaseIsEliminated("golfBridgeBase") && camBaseIsEliminated("golfVtolBase"))
-	{
-		camCallOnce("surrenderTeams");
-	}
+	foxtrotDefeated = true;
+	camCallOnce("boostTeams");
 }
 
-function eventDestroyed(obj)
+function golfDefeat()
 {
-	if (obj.player === MIS_TEAM_FOXTROT && obj.type === DROID && obj.droidType === DROID_COMMAND)
+	camSetBaseAffiliation("golfMainBase", true);
+	camSetBaseAffiliation("golfBridgeBase", true);
+	camSetBaseAffiliation("golfVtolBase", true);
+	camSetBaseAffiliation("golfForwardBase", true);
+
+	setAlliance(CAM_HUMAN_PLAYER, MIS_TEAM_GOLF, true);
+
+	// TODO: Dialogue here
+
+	// Grab all of Golf's droids and structures
+	const objs = enumDroid(MIS_TEAM_GOLF).concat(enumStruct(MIS_TEAM_GOLF));
+
+	// Donate them all to the player
+	for (const obj of objs)
 	{
-		// Mark the time that the commander died
-		foxtrotCommanderDeathTime = gameTime;
+		// Give the droids some EXP
+		if (obj.type === DROID)
+		{
+			camSetDroidRank(obj, "Regular");
+		}
+
+		donateObject(obj, CAM_HUMAN_PLAYER);
 	}
+
+	if (foxtrotDefeated)
+	{
+		camSetExtraObjectiveMessage();
+	}
+	else
+	{
+		camSetExtraObjectiveMessage(_("Defeat Team Foxtrot"));
+	}
+
+	golfDefeated = true;
+	camCallOnce("boostTeams");
 }
 
 function eventDroidBuilt(droid, structure)
@@ -402,8 +532,9 @@ function eventStartLevel()
 	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, "A4L4S", {
 		ignoreInfestedUnits: true
 	});
+	camSetExtraObjectiveMessage([_("Defeat Team Foxtrot"), _("Defeat Team Golf")]);
 
-	setAlliance(MIS_TEAM_GOLF, MIS_TEAM_FOXTROT, true);
+	setAlliance(MIS_TEAM_FOXTROT, MIS_TEAM_GOLF, true);
 
 	changePlayerColour(MIS_TEAM_FOXTROT, (playerData[0].colour !== 13) ? 13 : 4); // Foxtrot to infrared or red
 	changePlayerColour(MIS_TEAM_GOLF, (playerData[0].colour !== 7) ? 7 : 0); // Golf to cyan or green
@@ -1131,7 +1262,7 @@ function eventStartLevel()
 			pos: camMakePos("golfVtolAssembly2"),
 	});
 
-	// Remove some of the teams starting groups based on difficulty
+	// Remove the droids from some of the starting groups based on difficulty
 	let deleteDroids = [];
 	if (difficulty < HARD)
 	{
@@ -1151,6 +1282,8 @@ function eventStartLevel()
 
 	foxtrotCommanderDeathTime = 0;
 	foxtrotRank = (difficulty <= MEDIUM) ? 6 : difficulty + 4; // Elite to Hero
+	foxtrotDefeated = false;
+	golfDefeated = false;
 
 	camAutoReplaceObjectLabel(["golfVtolTower1", "golfVtolTower2", "golfVtolCBTower1", "golfVtolCBTower2", "golfCBTower1", "golfCBTower2"]);
 
@@ -1160,7 +1293,6 @@ function eventStartLevel()
 
 	queue("activateInfested", camChangeOnDiff(camMinutesToMilliseconds(2)));
 	queue("activateFactories", camChangeOnDiff(camMinutesToMilliseconds(3)));
-	// queue("boostTeams", camChangeOnDiff(camMinutesToMilliseconds(60)));
 
 	// // Placeholder for the actual briefing sequence
 	// // camQueueDialogue([

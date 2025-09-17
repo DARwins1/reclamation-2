@@ -421,11 +421,11 @@ const camA4L3FoxtrotForwardStructs1 = [
 	{stat: "Emplacement-Ballista", x: 122, y: 28}, {stat: "AASite-QuadBof", x: 125, y: 24, rot: 1}, {stat: "Emplacement-MRLHvy-pit", x: 125, y: 26},
 	{stat: "Tower-Projector", x: 119, y: 32}, {stat: "TankTrapC", x: 119, y: 33}, {stat: "TankTrapC", x: 119, y: 34}, {stat: "PillBoxTK", x: 119, y: 35},
 	{stat: "GuardTower-RotMg", x: 120, y: 33}, {stat: "Emplacement-MRLHvy-pit", x: 122, y: 32}, {stat: "AASite-QuadBof", x: 123, y: 34},
-	{stat: "GuardTower-TK", x: 125, y: 35}, {stat: "AASite-QuadBof", x: 126, y: 36},
+	{stat: "GuardTower-TK", x: 125, y: 35}, {stat: "AASite-QuadBof", x: 126, y: 36}, {stat: "A0ResourceExtractor", x: 124, y: 31},
 ];
 const camA4L3FoxtrotForwardStructs2 = [
 	{stat: "AASite-QuadBof", x: 98, y: 3}, {stat: "AASite-QuadBof", x: 96, y: 4}, {stat: "GuardTower-TK", x: 96, y: 6},
-	{stat: "Emplacement-MRLHvy-pit", x: 96, y: 7}, {stat: "A0ResourceExtractor", x: 99, y: 7}, {stat: "AASite-QuadBof", x: 100, y: 4},
+	{stat: "Emplacement-MRLHvy-pit", x: 96, y: 7}, {stat: "AASite-QuadBof", x: 100, y: 4},
 	{stat: "PillBoxTK", x: 97, y: 9}, {stat: "GuardTower-RotMg", x: 98, y: 10}, {stat: "TankTrapC", x: 99, y: 11},
 	{stat: "Emplacement-MRLHvy-pit", x: 100, y: 10}, {stat: "TankTrapC", x: 100, y: 11}, {stat: "Tower-Projector", x: 101, y: 11},
 ];
@@ -433,10 +433,10 @@ const camA4L3FoxtrotForwardStructs3 = [
 	{stat: "Tower-Projector", x: 91, y: 17}, {stat: "Tower-Projector", x: 88, y: 21}, {stat: "TankTrapC", x: 88, y: 22},
 	{stat: "TankTrapC", x: 88, y: 23}, {stat: "GuardTower-RotMg", x: 89, y: 23}, {stat: "PillBoxTK", x: 91, y: 20},
 	{stat: "TankTrapC", x: 92, y: 17}, {stat: "TankTrapC", x: 93, y: 17}, {stat: "GuardTower-RotMg", x: 92, y: 18},
-	{stat: "TankTrapC", x: 94, y: 17}, {stat: "Emplacement-Ballista", x: 92, y: 22}, {stat: "Emplacement-Ballista", x: 94, y: 21},
-	{stat: "Emplacement-Ballista", x: 95, y: 23}, {stat: "TankTrapC", x: 88, y: 24}, {stat: "Emplacement-Ballista", x: 93, y: 24},
+	{stat: "TankTrapC", x: 94, y: 17}, {stat: "Emplacement-Ballista", x: 92, y: 21}, {stat: "Emplacement-Ballista", x: 95, y: 20},
+	{stat: "Emplacement-Ballista", x: 92, y: 24}, {stat: "TankTrapC", x: 88, y: 24}, {stat: "Emplacement-Ballista", x: 95, y: 23},
 	{stat: "GuardTower-RotMg", x: 92, y: 26}, {stat: "PillBoxTK", x: 95, y: 26}, {stat: "PillBoxTK", x: 97, y: 23},
-	{stat: "Sys-SensoTower02", x: 96, y: 25},
+	{stat: "Sys-SensoTower02", x: 96, y: 25}, {stat: "A0ResourceExtractor", x: 93, y: 23},
 ];
 const camA4L3FoxtrotForwardStructs4 = [
 	{stat: "Sys-SensoTower02", x: 75, y: 29}, {stat: "Pillbox-RotMG", x: 78, y: 28}, {stat: "AASite-QuadBof", x: 78, y: 31},

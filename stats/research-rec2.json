@@ -1315,7 +1315,7 @@
     "R-Defense-MRLHvy": {
         "iconID": "IMAGE_RES_DEFENCE",
         "id": "R-Defense-MRLHvy",
-        "msgName": "RES_EMP_MRL",
+        "msgName": "RES_EMP_MRLHVY",
         "name": "Heavy Rocket Battery",
         "redStructures": [
             "Emplacement-MRL-pit"
@@ -1506,8 +1506,7 @@
         "name": "Heavy Machinegun Hardpoint",
         "requiredResearch": [
             "R-Defense-HardcreteWall",
-            "R-Wpn-MG3Mk1",
-            "R-Defense-Pillbox01"
+            "R-Wpn-MG3Mk1"
         ],
         "researchPoints": 600,
         "researchPower": 37,
@@ -1762,7 +1761,8 @@
             "PillBox1"
         ],
         "requiredResearch": [
-            "R-Wpn-MG4"
+            "R-Wpn-MG4",
+            "R-Defense-Pillbox01"
         ],
         "researchPoints": 400,
         "researchPower": 150,
@@ -1780,7 +1780,8 @@
             "GuardTower3"
         ],
         "requiredResearch": [
-            "R-Wpn-MG4"
+            "R-Wpn-MG4",
+            "R-Defense-HardcreteWall"
         ],
         "researchPoints": 300,
         "researchPower": 150,
@@ -1817,7 +1818,7 @@
         ],
         "requiredResearch": [
             "R-Wpn-MG4",
-            "R-Defense-RotMG"
+            "R-Defense-WallTower01"
         ],
         "researchPoints": 400,
         "researchPower": 150,
