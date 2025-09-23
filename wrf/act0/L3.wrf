@@ -1,11 +1,11 @@
 /*
- * Cam3b.wrf
+ * L3.wrf
  *
  */
 
 /* Directory for Proximity messages and mission briefs */
 directory	"messages"
-file		SMSG		"briefL3.txt"
+file		FLIC		"briefL3.json"
 file		SMSG		"proxL3.txt"
 
 directory "script"

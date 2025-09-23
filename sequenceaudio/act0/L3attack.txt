@@ -1,0 +1,2 @@
+-100 50		3.0		7.0		_("<CLAYDE>: Commander, we're detecting multiple groups of scavengers approaching from the south!")
+-100 50		7.0		10.0	_("<CLAYDE>: We cannot afford to lose this site, repulse this attack immediately!")
