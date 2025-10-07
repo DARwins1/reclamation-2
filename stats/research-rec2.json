@@ -1756,7 +1756,7 @@
         "iconID": "IMAGE_RES_DEFENCE",
         "id": "R-Defense-Pillbox-RotMG",
         "msgName": "RES_DEF_RotMG",
-        "name": "Rotary MG Bunker",
+        "name": "Assault Gun Bunker",
         "redStructures": [
             "PillBox1"
         ],
@@ -3622,10 +3622,10 @@
     "R-Wpn-Flamer-Damage03": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Flamer-Damage03",
-        "keyTopic": 1,
         "name": "High Temperature Flamer Gel Mk3",
         "requiredResearch": [
-            "R-Wpn-Flamer-Damage02"
+            "R-Wpn-Flamer-Damage02",
+            "R-Wpn-Flamer-ROF02"
         ],
         "researchPoints": 1200,
         "researchPower": 75,
@@ -3682,10 +3682,10 @@
     "R-Wpn-Flamer-Damage05": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Flamer-Damage05",
+        "keyTopic": 1,
         "name": "Superhot Flamer Gel Mk2",
         "requiredResearch": [
-            "R-Wpn-Flamer-Damage04",
-            "R-Wpn-Flamer-ROF02"
+            "R-Wpn-Flamer-Damage04"
         ],
         "researchPoints": 1800,
         "researchPower": 287,

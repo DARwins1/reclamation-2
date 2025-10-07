@@ -489,7 +489,7 @@ function eventStartLevel()
 	camSetArtifacts({
 		"redFactory2": { tech: "R-Wpn-Rocket-Accuracy01" }, // Stabilized Rockets
 		"orangeFactory3": { tech: "R-Wpn-Mortar-Damage03" }, // HE Mortar Shells Mk3
-		"redFactory5": { tech: "R-Wpn-Flamer-Damage03" }, // High Temperature Flamer Gel Mk3
+		"redFactory5": { tech: "R-Wpn-Flamer-ROF02" }, // Flamer Autoloader Mk2
 	});
 
 	camCompleteRequiredResearch(mis_scavResearch, MIS_ORANGE_SCAVS);
