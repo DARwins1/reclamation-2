@@ -290,53 +290,6 @@
 
 
 	"object_3": {
-		"label": "redFactory2",
-		"id": 4,
-		"player": 6,
-		"type": 1
-	},
-
-
-	"object_4": {
-		"label": "orangeFactory2",
-		"id": 6,
-		"player": 4,
-		"type": 1
-	},
-
-
-	"object_5": {
-		"label": "orangeFactory3",
-		"id": 7,
-		"player": 4,
-		"type": 1
-	},
-
-
-	"object_7": {
-		"label": "redFactory4",
-		"id": 3,
-		"player": 6,
-		"type": 1
-	},
-
-	"object_6": {
-		"label": "orangeFactory1",
-		"id": 8,
-		"player": 4,
-		"type": 1
-	},
-
-
-	"object_8": {
-		"label": "redFactory5",
-		"id": 137,
-		"player": 6,
-		"type": 1
-	},
-
-
-	"object_9": {
 		"label": "heliTower2",
 		"id": 122,
 		"player": 6,
@@ -344,10 +297,58 @@
 	},
 
 
-	"object_10": {
+	"object_4": {
+		"label": "redFactory5",
+		"id": 137,
+		"player": 6,
+		"type": 1
+	},
+
+
+	"object_5": {
+		"label": "redFactory2",
+		"id": 4,
+		"player": 6,
+		"type": 1
+	},
+
+
+	"object_6": {
+		"label": "orangeFactory2",
+		"id": 6,
+		"player": 4,
+		"type": 1
+	},
+
+
+	"object_7": {
+		"label": "orangeFactory3",
+		"id": 7,
+		"player": 4,
+		"type": 1
+	},
+
+
+	"object_8": {
 		"label": "orangeFactory4",
 		"id": 5,
 		"player": 4,
+		"type": 1
+	},
+
+
+	"object_9": {
+		"label": "orangeFactory1",
+		"id": 8,
+		"player": 4,
+		"type": 1
+	},
+
+
+	"object_10": {
+		"label": "redFactory4",
+		"id": 3,
+		"player": 6,
 		"type": 1
 	},
 

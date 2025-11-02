@@ -189,7 +189,7 @@ function sendCollectiveHeavyWave()
 			cTempl.comagt, cTempl.comagt, // 2 Assault Guns
 			cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, // 4 Assault Cannons
 			cTempl.comhaat, // 1 Cyclone
-			cTempl.comhrept, // 1 Heavy Repair Turret
+			cTempl.comrept, // 1 Repair Turret
 		];
 		camSendReinforcement(CAM_THE_COLLECTIVE, getObject("colEntry6"), commanderDroids1, CAM_REINFORCE_GROUND, {
 			order: CAM_ORDER_FOLLOW, data: {leader: "colCommander1", suborder: CAM_ORDER_ATTACK}
@@ -259,7 +259,7 @@ function sendCollectiveHeavyWave()
 			cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, // 4 Assault Cannons
 			cTempl.cominft, cTempl.cominft, // 2 Infernos
 			cTempl.cohraat, // 1 Whirlwind
-			cTempl.comhrept, // 1 Heavy Repair Turret
+			cTempl.comrept, // 1 Repair Turret
 		];
 		camSendReinforcement(CAM_THE_COLLECTIVE, getObject("colEntry6"), commanderDroids2, CAM_REINFORCE_GROUND, {
 			order: CAM_ORDER_FOLLOW, data: {leader: "colCommander2", suborder: CAM_ORDER_ATTACK}

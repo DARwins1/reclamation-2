@@ -330,7 +330,7 @@ function eventStartLevel()
 
 	// Set up refillable groups and trucks
 	// Collective commander group
-	// (2 Heavy Machineguns, 4 Super Heavy-Gunners, 1 VTOL Strike Turret, 1 Lancer, 1 Cyclone AA, 1 Heavy Repair Turret)
+	// (2 Heavy Machineguns, 4 Super Heavy-Gunners, 1 VTOL Strike Turret, 1 Lancer, 1 Cyclone AA, 1 Repair Turret)
 	// NOTE: The 2 Heavy Cannon Tigers that spawn with this commander are not rebuilt (and not included here)
 	const commandTemplates = [
 		cTempl.comhmgt, cTempl.comhmgt,
@@ -338,7 +338,7 @@ function eventStartLevel()
 		cTempl.comstriket,
 		cTempl.comatt,
 		cTempl.comhaat,
-		cTempl.comhrept,
+		cTempl.comrept,
 	];
 	if (difficulty >= HARD)
 	{

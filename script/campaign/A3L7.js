@@ -861,7 +861,7 @@ function eventStartLevel()
 				cTempl.scyac, cTempl.scyac, // 2 Super Auto-Cannons
 				cTempl.scytk, cTempl.scytk, // 2 Super Tank Killers
 				cTempl.cohraat, // 1 Whirlwind
-				cTempl.comhrept, // 1 Heavy Repair Turret
+				cTempl.comrept, // 1 Repair Turret
 			],
 			globalFill: true,
 			player: CAM_THE_COLLECTIVE,
@@ -910,7 +910,7 @@ function eventStartLevel()
 			templates: [
 				cTempl.plmacant, cTempl.plmacant, cTempl.plmacant, cTempl.plmacant, // 4 Assault Cannons
 				cTempl.scygr, cTempl.scygr, cTempl.scygr, cTempl.scygr, // 4 Super Grenadiers
-				cTempl.plmhrept, cTempl.plmhrept, // 2 Heavy Repair Turrets
+				cTempl.plmhrept, cTempl.plmhrept, // 2 Repair Turrets
 			]
 		}, CAM_ORDER_COMPROMISE, {
 			pos: camMakePos("colBase5"),
@@ -922,7 +922,7 @@ function eventStartLevel()
 			templates: [
 				cTempl.plmacant, cTempl.plmacant, cTempl.plmacant, cTempl.plmacant, // 4 Assault Cannons
 				cTempl.scygr, cTempl.scygr, cTempl.scygr, cTempl.scygr, // 4 Super Grenadiers
-				cTempl.plmhrept, cTempl.plmhrept, // 2 Heavy Repair Turrets
+				cTempl.plmhrept, cTempl.plmhrept, // 2 Repair Turrets
 			]
 		}, CAM_ORDER_COMPROMISE, {
 			pos: camMakePos("colBase5"),

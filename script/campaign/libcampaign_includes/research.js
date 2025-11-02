@@ -95,16 +95,19 @@ function __camGrantSpecialResearch()
 	}
 }
 
-// Give the player the next Black Box schematic (if any exist)
+// Give the player the next Black Box schematic (if any more exist)
 function __camGrantBlackBoxResearch()
 {
-	const partialName = "R-Special-0";
-	let idx = 1;
-	let research = getResearch(partialName + idx, CAM_HUMAN_PLAYER);
-	while (research !== null && (camResearchIsAvailable(partialName + idx) || research.done))
+	const partialName = "R-Special";
+	let idxNum = 1;
+	let resIdx = (idxNum < 10) ? ("0" + idxNum) : idxNum;
+	let research = getResearch(partialName + resIdx, CAM_HUMAN_PLAYER);
+	while (research !== null && (camResearchIsAvailable(partialName + resIdx) || research.done))
 	{
-		idx++;
-		research = getResearch(partialName + idx, CAM_HUMAN_PLAYER);
+		// If this schematic has already been granted, check the next one
+		idxNum++;
+		resIdx = (idxNum < 10) ? ("0" + idxNum) : idxNum;
+		research = getResearch(partialName + resIdx, CAM_HUMAN_PLAYER);
 	}
 
 	if (research === null)
@@ -114,6 +117,6 @@ function __camGrantBlackBoxResearch()
 	}
 	else
 	{
-		enableResearch(partialName + idx, CAM_HUMAN_PLAYER);
+		enableResearch(partialName + resIdx, CAM_HUMAN_PLAYER);
 	}
 }

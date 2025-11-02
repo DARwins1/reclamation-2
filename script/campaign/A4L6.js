@@ -226,7 +226,7 @@ function sendDeltaTransporter()
 	if (firstDeltaTransport)
 	{
 		// If this is Delta's first transport, also include some attack units
-		droids.push(cTempl.plhcomt, cTempl.plhasgnt, cTempl.plhasgnt, cTempl.plhhrepht, cTempl.plhacant, cTempl.plhacant);
+		droids.push(cTempl.plhcomt, cTempl.plhasgnt, cTempl.plhasgnt, cTempl.plhrepht, cTempl.plhacant, cTempl.plhacant);
 	}
 	camSendReinforcement(MIS_TEAM_DELTA, camMakePos("landingZoneDelta"), droids,
 		CAM_REINFORCE_TRANSPORT, {
@@ -292,7 +292,7 @@ function sendCollectiveTransporter()
 			cTempl.comhatht, // Tank Killer
 			cTempl.comhpvht, // HVC
 			cTempl.comaght, // Assault Gun
-			cTempl.comhrepht, // Heavy Repair Turret
+			cTempl.comrepht, // Repair Turret
 		];
 	}
 	else // stage 3
@@ -307,7 +307,7 @@ function sendCollectiveTransporter()
 			cTempl.comhatht, // Tank Killer
 			cTempl.comhpvht, // HVC
 			cTempl.comaght, // Assault Gun
-			cTempl.comhrepht, // Heavy Repair Turret
+			cTempl.comrepht, // Repair Turret
 		];
 	}
 
@@ -2392,7 +2392,7 @@ function groundAssaultWave(index)
 					cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, // 4 Heavy Cannons
 					cTempl.cohbbt, cTempl.cohbbt, cTempl.cohbbt, cTempl.cohbbt, // 4 Bunker Busters
 					cTempl.cominft, cTempl.cominft, cTempl.cominft, cTempl.cominft, // 4 Infernos
-					cTempl.comhrept, cTempl.comhrept, // 2 Heavy Repair Turrets
+					cTempl.comrept, cTempl.comrept, // 2 Repair Turrets
 					cTempl.cohraat, cTempl.cohraat, // 2 Whirlwinds
 				],
 				[ // Southeast base entry templates
@@ -2404,11 +2404,11 @@ function groundAssaultWave(index)
 				[ // Southeast trench entry templates (+commander)
 					cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, // 6 Assault Cannons
 					cTempl.comagt, cTempl.comagt, cTempl.comagt, cTempl.comagt, cTempl.comagt, cTempl.comagt, // 6 Assault Guns
-					cTempl.comhrept, cTempl.comhrept, cTempl.comhrept, cTempl.comhrept, // 4 Heavy Repair Turrets
+					cTempl.comrept, cTempl.comrept, cTempl.comrept, cTempl.comrept, // 4 Repair Turrets
 				],
 				[ // East entry templates (+commander)
 					cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, // 6 HRAs
-					cTempl.comhrept, cTempl.comhrept, cTempl.comhrept, cTempl.comhrept, // 4 Heavy Repair Turrets
+					cTempl.comrept, cTempl.comrept, cTempl.comrept, cTempl.comrept, // 4 Repair Turrets
 					cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, // 4 Cyclones
 					cTempl.comsamt, cTempl.comsamt, // 2 Avenger SAMs
 				],
@@ -2417,7 +2417,7 @@ function groundAssaultWave(index)
 					cTempl.commcant, cTempl.commcant, cTempl.commcant, cTempl.commcant,
 					cTempl.commcant, cTempl.commcant, cTempl.commcant, cTempl.commcant, // 8 Medium Cannons
 					cTempl.comhmgt, cTempl.comhmgt, cTempl.comhmgt, cTempl.comhmgt, cTempl.comhmgt, cTempl.comhmgt, // 6 HMGs
-					cTempl.comhrept, cTempl.comhrept, cTempl.comhrept, cTempl.comhrept, // 4 Heavy Repair Turrets
+					cTempl.comrept, cTempl.comrept, cTempl.comrept, cTempl.comrept, // 4 Repair Turrets
 				],
 			];
 			sendCollectiveGroundWave("groundEntry8", wave4Templates[0], cTempl.cohcomt);
@@ -2431,19 +2431,19 @@ function groundAssaultWave(index)
 				[ // Southwest road entry templates (+commander)
 					cTempl.cohbbt, cTempl.cohbbt, cTempl.cohbbt, cTempl.cohbbt, // 4 Bunker Busters
 					cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, // 6 Assault Cannons
-					cTempl.comhrept, cTempl.comhrept, cTempl.comhrept, cTempl.comhrept, // 4 Heavy Repair Turrets
+					cTempl.comrept, cTempl.comrept, cTempl.comrept, cTempl.comrept, // 4 Repair Turrets
 					cTempl.cohraat, cTempl.cohraat, // 2 Whirlwinds
 				],
 				[ // North road entry templates (+commander)
 					cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant,
 					cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, // 8 Heavy Cannons
 					cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, // 6 HRAs
-					cTempl.comhrept, cTempl.comhrept, // 2 Heavy Repair Turrets
+					cTempl.comrept, cTempl.comrept, // 2 Repair Turrets
 				],
 				[ // Southeast road entry templates (+commander)
 					cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, // 6 HRAs
 					cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, // 4 Tank Killers
-					cTempl.comhrept, cTempl.comhrept, // 2 Heavy Repair Turrets
+					cTempl.comrept, cTempl.comrept, // 2 Repair Turrets
 					cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, // 4 Cyclones
 				],
 				[ // North base entry templates
@@ -2501,19 +2501,19 @@ function groundAssaultWave(index)
 					cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, 
 					cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, // 8 Tank Killers
 					cTempl.cominft, cTempl.cominft, cTempl.cominft, cTempl.cominft, // 4 Infernos
-					cTempl.comhrept, cTempl.comhrept, // 2 Heavy Repair Turrets
+					cTempl.comrept, cTempl.comrept, // 2 Repair Turrets
 					cTempl.cohraat, cTempl.cohraat, // 2 Whirlwinds
 				],
 				[ // Northeast road entry
 					cTempl.cohacant, cTempl.cohacant, cTempl.cohacant, cTempl.cohacant, cTempl.cohacant, cTempl.cohacant, // 6 Assault Cannons
 					cTempl.comhpvt, cTempl.comhpvt, cTempl.comhpvt, cTempl.comhpvt, cTempl.comhpvt, cTempl.comhpvt, // 6 HVCs
-					cTempl.comhrept, cTempl.comhrept, // 2 Heavy Repair Turrets
+					cTempl.comrept, cTempl.comrept, // 2 Repair Turrets
 					cTempl.comsamt, cTempl.comsamt, // 2 Avenger SAMs
 				],
 				[ // Southeast road entry 2
 					cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant,
 					cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, // 8 Heavy Cannons
-					cTempl.comhrept, cTempl.comhrept, cTempl.comhrept, cTempl.comhrept, // 4 Heavy Repair Turrets
+					cTempl.comrept, cTempl.comrept, cTempl.comrept, cTempl.comrept, // 4 Repair Turrets
 					cTempl.cohraat, cTempl.cohraat, cTempl.cohraat, cTempl.cohraat, // 4 Whirlwinds
 				],
 				[ // Southeast trench entry
@@ -2543,7 +2543,7 @@ function groundAssaultWave(index)
 				[ // Southwest marsh entry (+commander)
 					cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, // 6 Heavy Cannons
 					cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, // 4 Assault Cannons
-					cTempl.comhrept, cTempl.comhrept, // 2 Heavy Repair Turrets
+					cTempl.comrept, cTempl.comrept, // 2 Repair Turrets
 					cTempl.cohraat, cTempl.cohraat, cTempl.cohraat, cTempl.cohraat, // 4 Whirlwinds
 				],
 				[ // South marsh entry
@@ -3593,18 +3593,18 @@ function eventStartLevel()
 	});
 	deltaCommandGroup = camMakeRefillableGroup(
 		undefined, {
-			templates: [ // 6 Assault Cannons, 4 Assault Guns, 3 Heavy Repair Turrets, 2 Whirlwinds, 6 Super Grenadiers, 1 VTOL Strike Turret
+			templates: [ // 6 Assault Cannons, 4 Assault Guns, 3 Repair Turrets, 2 Whirlwinds, 6 Super Grenadiers, 1 VTOL Strike Turret
 				cTempl.plhacant, cTempl.plhacant,
 				cTempl.plhasgnt, cTempl.plhasgnt,
-				cTempl.plhhrepht,
+				cTempl.plhrepht,
 				cTempl.plhraat,
 				cTempl.plhstriket,
 				cTempl.plhacant, cTempl.plhacant,
 				cTempl.plhasgnt, cTempl.plhasgnt,
-				cTempl.plhhrepht,
+				cTempl.plhrepht,
 				cTempl.plhraat, 
 				cTempl.plhacant, cTempl.plhacant,
-				cTempl.plhhrepht,
+				cTempl.plhrepht,
 				cTempl.scygr, cTempl.scygr, cTempl.scygr, cTempl.scygr, cTempl.scygr, cTempl.scygr,
 			],
 			globalFill: true,

@@ -1,5 +1,5 @@
 {
-    "Script-Infest": {
+    "R-Script-Infest": {
         "excludeFromCheats": 1,
         "iconID": "IMAGE_RES_COMPUTERTECH",
         "id": "Script-Infest",
@@ -89,9 +89,58 @@
         ],
         "statID": "InfCyborgChaingun"
     },
-    "R-Special-01": {
+    "R-Script-Log01": {
+        "excludeFromCheats": 1,
         "iconID": "IMAGE_RES_COMPUTERTECH",
-        "id": "R-Special-01",
+        "id": "R-Script-Log01",
+        "imdName": "mibox.PIE",
+        "name": "Log #1 Collected"
+    },
+    "R-Script-Log02": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log02",
+        "imdName": "mibox.PIE",
+        "name": "Log #2 Collected"
+    },
+    "R-Script-Log03": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log03",
+        "imdName": "mibox.PIE",
+        "name": "Log #3 Collected"
+    },
+    "R-Script-Log04": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log04",
+        "imdName": "mibox.PIE",
+        "name": "Log #4 Collected"
+    },
+    "R-Script-Log05": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log05",
+        "imdName": "mibox.PIE",
+        "name": "Log #5 Collected"
+    },
+    "R-Script-Log06": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log06",
+        "imdName": "mibox.PIE",
+        "name": "Log #6 Collected"
+    },
+    "R-Script-Log07": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log07",
+        "imdName": "mibox.PIE",
+        "name": "Log #7 Collected"
+    },
+    "R-Special01": {
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Special01",
         "imdName": "mibox.PIE",
         "keyTopic": 1,
         "msgName": "RES_SPECIAL1",
@@ -99,19 +148,19 @@
         "researchPoints": 1200,
         "researchPower": 50
     },
-    "R-Special-02": {
+    "R-Special02": {
         "iconID": "IMAGE_RES_COMPUTERTECH",
-        "id": "R-Special-02",
+        "id": "R-Special02",
         "imdName": "mibox.PIE",
         "keyTopic": 1,
         "msgName": "RES_SPECIAL2",
-        "name": "High-Capacity Liquid Storage",
+        "name": "Thermite Filaments",
         "researchPoints": 1200,
         "researchPower": 50
     },
-    "R-Special-03": {
+    "R-Special03": {
         "iconID": "IMAGE_RES_COMPUTERTECH",
-        "id": "R-Special-03",
+        "id": "R-Special03",
         "imdName": "mibox.PIE",
         "keyTopic": 1,
         "msgName": "RES_SPECIAL3",
@@ -119,9 +168,9 @@
         "researchPoints": 1200,
         "researchPower": 50
     },
-    "R-Special-04": {
+    "R-Special04": {
         "iconID": "IMAGE_RES_COMPUTERTECH",
-        "id": "R-Special-04",
+        "id": "R-Special04",
         "imdName": "mibox.PIE",
         "keyTopic": 1,
         "msgName": "RES_SPECIAL4",
@@ -129,9 +178,9 @@
         "researchPoints": 1200,
         "researchPower": 50
     },
-    "R-Special-05": {
+    "R-Special05": {
         "iconID": "IMAGE_RES_COMPUTERTECH",
-        "id": "R-Special-05",
+        "id": "R-Special05",
         "imdName": "mibox.PIE",
         "keyTopic": 1,
         "msgName": "RES_SPECIAL5",
@@ -139,13 +188,13 @@
         "researchPoints": 1200,
         "researchPower": 50
     },
-    "R-Special-06": {
+    "R-Special06": {
         "iconID": "IMAGE_RES_COMPUTERTECH",
-        "id": "R-Special-06",
+        "id": "R-Special06",
         "imdName": "mibox.PIE",
         "keyTopic": 1,
         "msgName": "RES_SPECIAL6",
-        "name": "Parallel Nozzle Projection System",
+        "name": "Twin-Linked Nozzle System",
         "researchPoints": 1200,
         "researchPower": 50
     },
@@ -957,12 +1006,12 @@
         "name": "Heavy Flamer - Inferno",
         "requiredResearch": [
 			"R-Wpn-Flamer01Mk1",
-            "R-Special-01",
-            "R-Special-02",
-            "R-Special-03",
-            "R-Special-04",
-            "R-Special-05",
-            "R-Special-06"
+            "R-Special01",
+            "R-Special02",
+            "R-Special03",
+            "R-Special04",
+            "R-Special05",
+            "R-Special06"
         ],
         "researchPoints": 1800,
         "researchPower": 225,

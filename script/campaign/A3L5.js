@@ -535,7 +535,7 @@ function eventStartLevel()
 				cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, // 4 Assault Cannons
 				cTempl.cominft, cTempl.cominft, cTempl.cominft, // 3 Infernos
 				cTempl.comhatt, cTempl.comhatt, // 2 Tank Killers
-				cTempl.comhrept, // 1 Heavy Repair Turret
+				cTempl.comrept, // 1 Repair Turret
 			]
 		}, CAM_ORDER_DEFEND, { // Wait for further orders...
 			pos: camMakePos("colArtiGroup")

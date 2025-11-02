@@ -157,6 +157,26 @@ function __camProcessResearchGatedGuideTopics(research = null)
 	{
 		addGuideTopic("wz2100::units::propulsions::hover", showFlags);
 	}
+
+	// Also re-add previously collected Logs
+	if (research == null)
+	{
+		const partialName = "R-Script-Log";
+		let idxNum = 1;
+		let resIdx = (idxNum < 10) ? ("0" + idxNum) : idxNum;
+		let research = getResearch(partialName + resIdx, CAM_HUMAN_PLAYER);
+		while (research !== null)
+		{
+			// If this topic is already completed, re-add the log entry
+			if (research.done)
+			{
+				__camAddNewLogTopic(idxNum, true)
+			}
+			idxNum++;
+			resIdx = (idxNum < 10) ? ("0" + idxNum) : idxNum;
+			research = getResearch(partialName + resIdx, CAM_HUMAN_PLAYER);
+		}
+	}
 }
 
 function __camEnableGuideTopics()
@@ -227,8 +247,34 @@ function __camEnableGuideTopicsForTransport(transport)
 	}
 }
 
-function __camAddNewLogTopic(list, index)
+function __camAddNewLogTopic(index, reAdd)
 {
-	const topicString = "wz2100::logs::R" + list + "L" + index;
-	addGuideTopic(topicString, SHOWTOPIC_FIRSTADD);
+	let listNum;
+	if (camDiscoverCampaign() === __CAM_RECLAMATION_CAMPAIGN_NUMBER)
+	{
+		// Reclamation 1 black boxes
+		listNum = 1;
+		boxInfo = __camRec1BlackBoxes;
+	}
+	else
+	{
+		// Reclamation 2 black boxes
+		listNum = 2;
+		boxInfo = __camRec2BlackBoxes;
+	}
+
+	if (index < 10)
+	{
+		index = "0" + index;
+	}
+
+	// Remember that this log has been collected when saveloading
+	if (!reAdd)
+	{
+		completeResearch("R-Script-Log" + index, CAM_HUMAN_PLAYER);
+	}
+	
+	const showFlag = (reAdd) ? 0 : SHOWTOPIC_FIRSTADD;
+	const topicString = "wz2100::logs::R" + listNum + "L" + index;
+	addGuideTopic(topicString, showFlag);
 }

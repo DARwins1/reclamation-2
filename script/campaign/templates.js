@@ -121,9 +121,11 @@ plhraaht: { body: "Body11ABT", prop: "HalfTrack", weap: "QuadRotAAGun" }, // Whi
 pllrepw: { body: "Body1REC", prop: "wheeled01", weap: "LightRepair1" }, // Repair Turret Viper Wheels
 pllrept: { body: "Body1REC", prop: "tracked01", weap: "LightRepair1" }, // Repair Turret Viper Tracks
 plmrept: { body: "Body5REC", prop: "tracked01", weap: "LightRepair1" }, // Repair Turret Cobra Tracks
-plmhrept: { body: "Body5REC", prop: "tracked01", weap: "HeavyRepair" }, // Heavy Repair Turret Cobra Tracks
-plhhrepht: { body: "Body11ABT", prop: "HalfTrack", weap: "HeavyRepair" }, // Heavy Repair Turret Python Half-tracks
-plhhrept: { body: "Body11ABT", prop: "tracked01", weap: "HeavyRepair" }, // Heavy Repair Turret Python Tracks
+plhrepht: { body: "Body11ABT", prop: "HalfTrack", weap: "LightRepair1" }, // Repair Turret Python Half-tracks
+plhrept: { body: "Body11ABT", prop: "tracked01", weap: "LightRepair1" }, // Repair Turret Python Tracks
+// plmhrept: { body: "Body5REC", prop: "tracked01", weap: "HeavyRepair" }, // Heavy Repair Turret Cobra Tracks
+// plhhrepht: { body: "Body11ABT", prop: "HalfTrack", weap: "HeavyRepair" }, // Heavy Repair Turret Python Half-tracks
+// plhhrept: { body: "Body11ABT", prop: "tracked01", weap: "HeavyRepair" }, // Heavy Repair Turret Python Tracks
 
 plltmgt: { body: "Body1REC", prop: "tracked01", weap: "MG2Mk1" }, // Twin Machinegun Viper Tracks
 pllhmght: { body: "Body1REC", prop: "HalfTrack", weap: "MG3Mk1" }, // Heavy Machinegun Viper Half-tracks
@@ -343,8 +345,8 @@ colrepht: { body: "Body2SUP", prop: "HalfTrack", weap: "LightRepair1" }, // Repa
 colrept: { body: "Body2SUP", prop: "tracked01", weap: "LightRepair1" }, // Repair Turret Leopard Tracks
 comrepht: { body: "Body6SUPP", prop: "HalfTrack", weap: "LightRepair1" }, // Repair Turret Panther Half-tracks
 comrept: { body: "Body6SUPP", prop: "tracked01", weap: "LightRepair1" }, // Repair Turret Panther Tracks
-comhrepht: { body: "Body6SUPP", prop: "HalfTrack", weap: "HeavyRepair" }, // Heavy Repair Turret Panther Half-tracks
-comhrept: { body: "Body6SUPP", prop: "tracked01", weap: "HeavyRepair" }, // Heavy Repair Turret Panther Tracks
+// comhrepht: { body: "Body6SUPP", prop: "HalfTrack", weap: "HeavyRepair" }, // Heavy Repair Turret Panther Half-tracks
+// comhrept: { body: "Body6SUPP", prop: "tracked01", weap: "HeavyRepair" }, // Heavy Repair Turret Panther Tracks
 
 colaaht: { body: "Body2SUP", prop: "HalfTrack", weap: "QuadMg1AAGun" }, // Hurricane Leopard Half-tracks
 comaaht: { body: "Body6SUPP", prop: "HalfTrack", weap: "QuadMg1AAGun" }, // Hurricane Panther Half-tracks

@@ -303,7 +303,39 @@ const __camRec1BlackBoxes = [
 	{ scripts: ["L6"], x: 8, y: 29 }, // #7
 ];
 const __camRec2BlackBoxes = [
-
+	// Prologue
+	{ scripts: ["P2"], x: 25, y: 59 }, // #1
+	// Act 1
+	{ scripts: ["A1L1", "A1L2s", "A1L3", "A1L4s", "A1L5s", "A1L6"], x: 3, y: 49 }, // #2
+	{ scripts: ["A1L2"], x: 3, y: 76 }, // #3
+	{ scripts: ["A1L3", "A1L4s", "A1L5s", "A1L6"], x: 123, y: 15 }, // #4
+	{ scripts: ["A1L4"], x: 60, y: 76 }, // #5
+	{ scripts: ["A1L5"], x: 4, y: 24 }, // #6
+	// Act 2
+	{ scripts: ["A2L1", "A2L2s", "A2L3", "A2L4s", "A2L5", "A2L6s", "A2L7"], x: 88, y: 117 }, // #7
+	{ scripts: ["A2L2"], x: 43, y: 8 }, // #8
+	{ scripts: ["A2L1", "A2L2s", "A2L3", "A2L4s", "A2L5", "A2L6s", "A2L7"], x: 66, y: 120 }, // #9
+	{ scripts: ["A2L4"], x: 3, y: 18 }, // #10
+	{ scripts: ["A2L5", "A2L6s", "A2L7"], x: 124, y: 37 }, // #11
+	{ scripts: ["A2L6"], x: 3, y: 27 }, // #12
+	// Act 3
+	{ scripts: ["A3L1", "A3L2", "A3L3s", "A3L4", "A3L5s", "A3L6", "A3L7s", "A3L8", "A3L9"], x: 141, y: 2 }, // #13
+	{ scripts: ["A3L1", "A3L2", "A3L3s", "A3L4", "A3L5s", "A3L6", "A3L7s", "A3L8", "A3L9"], x: 86, y: 75 }, // #14
+	{ scripts: ["A3L3"], x: 50, y: 12 }, // #15
+	{ scripts: ["A3L5"], x: 23, y: 12 }, // #16
+	{ scripts: ["A3L6", "A3L7s", "A3L8", "A3L9"], x: 195, y: 85 }, // #17
+	{ scripts: ["A3L6", "A3L7s", "A3L8", "A3L9"], x: 158, y: 103 }, // #18
+	{ scripts: ["A3L7"], x: 74, y: 109 }, // #19
+	{ scripts: ["A3L7"], x: 5, y: 4 }, // #20
+	{ scripts: ["A3L8", "A3L9"], x: 30, y: 4 }, // #21
+	{ scripts: ["A3L8", "A3L9"], x: 45, y: 132 }, // #22
+	// Act 4
+	{ scripts: ["A4L1", "A4L2s", "A4L3", "A4L4s", "A4L5"], x: 141, y: 2 }, // #23
+	{ scripts: ["A4L2"], x: 3, y: 11 }, // #24
+	{ scripts: ["A4L3", "A4L4s", "A4L5"], x: 128, y: 164 }, // #25
+	{ scripts: ["A4L3", "A4L4s", "A4L5"], x: 172, y: 29 }, // #26
+	{ scripts: ["A4L4"], x: 84, y: 33 }, // #27
+	{ scripts: ["A4L6"], x: 4, y: 8 }, // #28
 ];
 
 //dialogue

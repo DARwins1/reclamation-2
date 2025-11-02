@@ -837,7 +837,7 @@ function eventStartLevel()
 			templates: [ 
 				cTempl.plhacant, cTempl.plhacant, cTempl.plhacant, cTempl.plhacant, cTempl.plhacant, cTempl.plhacant, // 6 Assault Cannons
 				cTempl.plhasgnt, cTempl.plhasgnt, // 2 Assault Guns
-				cTempl.plhhrepht, cTempl.plhhrepht, cTempl.plhhrepht, // 3 Heavy Repair Turrets
+				cTempl.plhrepht, cTempl.plhrepht, cTempl.plhrepht, // 3 Repair Turrets
 				cTempl.plhhaat, cTempl.plhhaat, // 2 Cyclones
 				cTempl.scygr, cTempl.scygr, cTempl.scygr, cTempl.scygr, // 4 Super Grenadiers
 				cTempl.plhstriket, // 1 VTOL Strike Turret
@@ -951,7 +951,7 @@ function eventStartLevel()
 				cTempl.cohhrat, cTempl.cohhrat, // 2 HRAs
 				cTempl.comagt, cTempl.comagt, cTempl.comagt, cTempl.comagt, // 4 Assault Guns
 				cTempl.cominft, cTempl.cominft, // 2 Infernos
-				cTempl.comhrept, cTempl.comhrept, // 2 Heavy Repair Turrets
+				cTempl.comrept, cTempl.comrept, // 2 Repair Turrets
 				cTempl.scyac, cTempl.scyac, cTempl.scyac, cTempl.scyac, // 4 Super Auto-Cannons
 			],
 			factories: ["colFactory1", "colFactory3", "colCybFactory2", "colCybFactory3", "colCybFactory4"],

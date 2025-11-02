@@ -305,6 +305,14 @@
 
 
 	"object_4": {
+		"label": "repairFacility",
+		"id": 4787,
+		"player": 6,
+		"type": 1
+	},
+
+
+	"object_5": {
 		"label": "scavOuterFactory2",
 		"id": 4284,
 		"player": 6,
@@ -312,7 +320,7 @@
 	},
 
 
-	"object_5": {
+	"object_6": {
 		"label": "scavInnerFactory1",
 		"id": 4288,
 		"player": 6,
@@ -320,7 +328,7 @@
 	},
 
 
-	"object_6": {
+	"object_7": {
 		"label": "scavOuterFactory5",
 		"id": 4286,
 		"player": 6,
@@ -328,7 +336,7 @@
 	},
 
 
-	"object_7": {
+	"object_8": {
 		"label": "scavInnerFactory2",
 		"id": 4289,
 		"player": 6,
@@ -336,7 +344,7 @@
 	},
 
 
-	"object_8": {
+	"object_9": {
 		"label": "heliTower2",
 		"id": 4281,
 		"player": 6,
@@ -344,7 +352,7 @@
 	},
 
 
-	"object_9": {
+	"object_10": {
 		"label": "scavOuterFactory3",
 		"id": 4326,
 		"player": 6,
@@ -352,7 +360,7 @@
 	},
 
 
-	"object_10": {
+	"object_11": {
 		"label": "scavOuterFactory4",
 		"id": 4285,
 		"player": 6,
@@ -360,17 +368,9 @@
 	},
 
 
-	"object_11": {
+	"object_12": {
 		"label": "scavInnerFactory3",
 		"id": 4287,
-		"player": 6,
-		"type": 1
-	},
-
-
-	"object_12": {
-		"label": "repairFacility",
-		"id": 4787,
 		"player": 6,
 		"type": 1
 	},

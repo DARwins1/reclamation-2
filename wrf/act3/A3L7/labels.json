@@ -361,18 +361,18 @@
 
 
 	"object_20": {
-		"label": "colTruckLz",
-		"id": 584,
-		"player": 2,
-		"type": 0
-	},
-
-
-	"object_21": {
 		"label": "colPower",
 		"id": 498,
 		"player": 2,
 		"type": 1
+	},
+
+
+	"object_21": {
+		"label": "colTruckLz",
+		"id": 584,
+		"player": 2,
+		"type": 0
 	},
 
 

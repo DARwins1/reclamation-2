@@ -254,19 +254,19 @@ function collectiveAttackWaves()
 						cTempl.comhmgt, cTempl.comhmgt, // 2 HMGs
 						cTempl.commcant, cTempl.commcant, cTempl.commcant, cTempl.commcant, // 4 Medium Cannons
 						cTempl.comhaat, // 1 Cyclone
-						cTempl.comhrept, // 1 Heavy Repair Turret
+						cTempl.comrept, // 1 Repair Turret
 					],
 					[
 						cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, // 4 Heavy Cannons
 						cTempl.comhaat, cTempl.comhaat, // 2 Cyclones
 						cTempl.commrat, cTempl.commrat, // 2 MRAs
-						cTempl.comhrept, cTempl.comhrept, // 2 Heavy Repair Turrets
+						cTempl.comrept, cTempl.comrept, // 2 Repair Turrets
 					],
 					[
 						cTempl.comhmgt, cTempl.comhmgt, cTempl.comhmgt, cTempl.comhmgt, // 4 HMGs
 						cTempl.comatt, cTempl.comatt, cTempl.comatt, cTempl.comatt, // 4 Lancers
 						cTempl.comhaat, // 1 Cyclone
-						cTempl.comhrept, // 1 Heavy Repair Turret
+						cTempl.comrept, // 1 Repair Turret
 					],
 				]);
 				// Improve the commander's templates over time...

@@ -321,18 +321,23 @@ function infestedEndWaves()
 	const CORE_SIZE = 4 + camRand(3); // Maximum of 6 core units.
 	const FODDER_SIZE = 14 + camRand(3); // 14 - 16 extra Infested Civilians to the swarm.
 
-	camSendReinforcement(CAM_INFESTED, camMakePos("nBaseEntry"), camRandInfTemplates(nBaseDroids, CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND);
-	camSendReinforcement(CAM_INFESTED, camMakePos("neRoadEntry"), camRandInfTemplates(neRoadDroids, CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND);
+	// Don't spawn another wave if there's already too many units on the map
+	if (enumDroid(CAM_INFESTED).length < 500)
+	{		
+		camSendReinforcement(CAM_INFESTED, camMakePos("nBaseEntry"), camRandInfTemplates(nBaseDroids, CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND);
+		camSendReinforcement(CAM_INFESTED, camMakePos("neRoadEntry"), camRandInfTemplates(neRoadDroids, CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND);
 
-	if (numWaves > 5)
-	{
-		camSendReinforcement(CAM_INFESTED, camMakePos("nwRoadEntry"), camRandInfTemplates(nwRoadDroids, CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND);
+		if (numWaves > 5)
+		{
+			camSendReinforcement(CAM_INFESTED, camMakePos("nwRoadEntry"), camRandInfTemplates(nwRoadDroids, CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND);
+		}
+		if (numWaves > 11)
+		{
+			camSendReinforcement(CAM_INFESTED, camMakePos("wHighwayEntry"), camRandInfTemplates(wHighwayDroids, CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND);
+			camSendReinforcement(CAM_INFESTED, camMakePos("eHighwayEntry"), camRandInfTemplates(eHighwayDroids, CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND);
+		}
 	}
-	if (numWaves > 11)
-	{
-		camSendReinforcement(CAM_INFESTED, camMakePos("wHighwayEntry"), camRandInfTemplates(wHighwayDroids, CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND);
-		camSendReinforcement(CAM_INFESTED, camMakePos("eHighwayEntry"), camRandInfTemplates(eHighwayDroids, CORE_SIZE, FODDER_SIZE), CAM_REINFORCE_GROUND);
-	}
+
 	if (numWaves === 16)
 	{
 		// Give the player an angry message about how slow they are

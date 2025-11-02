@@ -43,7 +43,7 @@
             }
         ]
     },
-    "Script-Infest": {
+    "R-Script-Infest": {
         "excludeFromCheats": 1,
         "iconID": "IMAGE_RES_COMPUTERTECH",
         "id": "Script-Infest",
@@ -132,6 +132,422 @@
             "Rocket-Pod:InfRocket-Pod"
         ],
         "statID": "InfCyborgChaingun"
+    },
+    "R-Script-Log01": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log01",
+        "imdName": "mibox.PIE",
+        "name": "Log #1 Collected"
+    },
+    "R-Script-Log02": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log02",
+        "imdName": "mibox.PIE",
+        "name": "Log #2 Collected"
+    },
+    "R-Script-Log03": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log03",
+        "imdName": "mibox.PIE",
+        "name": "Log #3 Collected"
+    },
+    "R-Script-Log04": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log04",
+        "imdName": "mibox.PIE",
+        "name": "Log #4 Collected"
+    },
+    "R-Script-Log05": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log05",
+        "imdName": "mibox.PIE",
+        "name": "Log #5 Collected"
+    },
+    "R-Script-Log06": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log06",
+        "imdName": "mibox.PIE",
+        "name": "Log #6 Collected"
+    },
+    "R-Script-Log07": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log07",
+        "imdName": "mibox.PIE",
+        "name": "Log #7 Collected"
+    },
+    "R-Script-Log08": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log08",
+        "imdName": "mibox.PIE",
+        "name": "Log #8 Collected"
+    },
+    "R-Script-Log09": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log09",
+        "imdName": "mibox.PIE",
+        "name": "Log #9 Collected"
+    },
+    "R-Script-Log10": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log10",
+        "imdName": "mibox.PIE",
+        "name": "Log #10 Collected"
+    },
+    "R-Script-Log11": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log11",
+        "imdName": "mibox.PIE",
+        "name": "Log #11 Collected"
+    },
+    "R-Script-Log12": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log12",
+        "imdName": "mibox.PIE",
+        "name": "Log #12 Collected"
+    },
+    "R-Script-Log13": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log13",
+        "imdName": "mibox.PIE",
+        "name": "Log #13 Collected"
+    },
+    "R-Script-Log14": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log14",
+        "imdName": "mibox.PIE",
+        "name": "Log #14 Collected"
+    },
+    "R-Script-Log15": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log15",
+        "imdName": "mibox.PIE",
+        "name": "Log #15 Collected"
+    },
+    "R-Script-Log16": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log16",
+        "imdName": "mibox.PIE",
+        "name": "Log #16 Collected"
+    },
+    "R-Script-Log17": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log17",
+        "imdName": "mibox.PIE",
+        "name": "Log #17 Collected"
+    },
+    "R-Script-Log18": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log18",
+        "imdName": "mibox.PIE",
+        "name": "Log #18 Collected"
+    },
+    "R-Script-Log19": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log19",
+        "imdName": "mibox.PIE",
+        "name": "Log #19 Collected"
+    },
+    "R-Script-Log20": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log20",
+        "imdName": "mibox.PIE",
+        "name": "Log #20 Collected"
+    },
+    "R-Script-Log21": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log21",
+        "imdName": "mibox.PIE",
+        "name": "Log #21 Collected"
+    },
+    "R-Script-Log22": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log22",
+        "imdName": "mibox.PIE",
+        "name": "Log #22 Collected"
+    },
+    "R-Script-Log23": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log23",
+        "imdName": "mibox.PIE",
+        "name": "Log #23 Collected"
+    },
+    "R-Script-Log24": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log24",
+        "imdName": "mibox.PIE",
+        "name": "Log #24 Collected"
+    },
+    "R-Script-Log25": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log25",
+        "imdName": "mibox.PIE",
+        "name": "Log #25 Collected"
+    },
+    "R-Script-Log26": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log26",
+        "imdName": "mibox.PIE",
+        "name": "Log #26 Collected"
+    },
+    "R-Script-Log27": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log27",
+        "imdName": "mibox.PIE",
+        "name": "Log #27 Collected"
+    },
+    "R-Script-Log28": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Script-Log28",
+        "imdName": "mibox.PIE",
+        "name": "Log #28 Collected"
+    },
+    "R-Special01": {
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Special01",
+        "imdName": "mibox.PIE",
+        "keyTopic": 1,
+        "msgName": "RES_SPECIAL1",
+        "name": "Low-Friction Metallic Lining",
+        "researchPoints": 1200,
+        "researchPower": 50
+    },
+    "R-Special02": {
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Special02",
+        "imdName": "mibox.PIE",
+        "keyTopic": 1,
+        "msgName": "RES_SPECIAL2",
+        "name": "High-Potential Capacitors",
+        "researchPoints": 1200,
+        "researchPower": 50
+    },
+    "R-Special03": {
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Special03",
+        "imdName": "mibox.PIE",
+        "keyTopic": 1,
+        "msgName": "RES_SPECIAL3",
+        "name": "Recoil Dampeners",
+        "researchPoints": 1200,
+        "researchPower": 50
+    },
+    "R-Special04": {
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Special04",
+        "imdName": "mibox.PIE",
+        "keyTopic": 1,
+        "msgName": "RES_SPECIAL4",
+        "name": "Magnetic Composite",
+        "researchPoints": 1200,
+        "researchPower": 50
+    },
+    "R-Special05": {
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Special05",
+        "imdName": "mibox.PIE",
+        "keyTopic": 1,
+        "msgName": "RES_SPECIAL5",
+        "name": "High-Precision EM Alignment",
+        "researchPoints": 1200,
+        "researchPower": 50
+    },
+    "R-Special06": {
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Special06",
+        "imdName": "mibox.PIE",
+        "keyTopic": 1,
+        "msgName": "RES_SPECIAL6",
+        "name": "Heat-Resistant Conductive Plating",
+        "researchPoints": 1200,
+        "researchPower": 50
+    },
+    "R-Special07": {
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Special07",
+        "imdName": "mibox.PIE",
+        "keyTopic": 1,
+        "msgName": "RES_SPECIAL7",
+        "name": "Gas-Based Coolant Conduit",
+        "researchPoints": 1200,
+        "researchPower": 50
+    },
+    "R-Special08": {
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Special08",
+        "imdName": "mibox.PIE",
+        "keyTopic": 1,
+        "msgName": "RES_SPECIAL8",
+        "name": "Tempered Housing Braces",
+        "researchPoints": 1200,
+        "researchPower": 50
+    },
+    "R-Special09": {
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Special09",
+        "imdName": "mibox.PIE",
+        "keyTopic": 1,
+        "msgName": "RES_SPECIAL9",
+        "name": "Ablation-Resistant Projectiles",
+        "researchPoints": 1200,
+        "researchPower": 50
+    },
+    "R-Special-10": {
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Special-10",
+        "imdName": "mibox.PIE",
+        "keyTopic": 1,
+        "msgName": "RES_SPECIAL10",
+        "name": "Synchronized Discharge Systems",
+        "researchPoints": 1200,
+        "researchPower": 50
+    },
+    "R-Special-11": {
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Special-11",
+        "imdName": "mibox.PIE",
+        "keyTopic": 1,
+        "msgName": "RES_SPECIAL11",
+        "name": "Extra Circuit Shielding",
+        "researchPoints": 1200,
+        "researchPower": 50
+    },
+    "R-Special-12": {
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Special-12",
+        "imdName": "mibox.PIE",
+        "keyTopic": 1,
+        "msgName": "RES_SPECIAL12",
+        "name": "Dense Metallic Projectiles",
+        "researchPoints": 1200,
+        "researchPower": 50
+    },
+    "R-Special-13": {
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Special-13",
+        "imdName": "mibox.PIE",
+        "keyTopic": 1,
+        "msgName": "RES_SPECIAL13",
+        "name": "Ultra-Precise Magnetic Alignment",
+        "researchPoints": 1200,
+        "researchPower": 50
+    },
+    "R-Special-14": {
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Special-14",
+        "imdName": "mibox.PIE",
+        "keyTopic": 1,
+        "msgName": "RES_SPECIAL14",
+        "name": "Projectile Pre-Injection System",
+        "researchPoints": 1200,
+        "researchPower": 50
+    },
+    "R-Special-15": {
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Special-15",
+        "imdName": "mibox.PIE",
+        "keyTopic": 1,
+        "msgName": "RES_SPECIAL15",
+        "name": "Reinforced Magnetic Casing",
+        "researchPoints": 1200,
+        "researchPower": 50
+    },
+    "R-Special-16": {
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Special-16",
+        "imdName": "mibox.PIE",
+        "keyTopic": 1,
+        "msgName": "RES_SPECIAL16",
+        "name": "EM Interference Dampeners",
+        "researchPoints": 1200,
+        "researchPower": 50
+    },
+    "R-Special-17": {
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Special-17",
+        "imdName": "mibox.PIE",
+        "keyTopic": 1,
+        "msgName": "RES_SPECIAL17",
+        "name": "Anti-Adhesive Lining",
+        "researchPoints": 1200,
+        "researchPower": 50
+    },
+    "R-Special-18": {
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Special-18",
+        "imdName": "mibox.PIE",
+        "keyTopic": 1,
+        "msgName": "RES_SPECIAL18",
+        "name": "Abrasion Diagnostic Systems",
+        "researchPoints": 1200,
+        "researchPower": 50
+    },
+    "R-Special-19": {
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Special-19",
+        "imdName": "mibox.PIE",
+        "keyTopic": 1,
+        "msgName": "RES_SPECIAL19",
+        "name": "Ultra-Performant Regulators",
+        "researchPoints": 1200,
+        "researchPower": 50
+    },
+    "R-Special-20": {
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Special-20",
+        "imdName": "mibox.PIE",
+        "keyTopic": 1,
+        "msgName": "RES_SPECIAL20",
+        "name": "Reinforced Muzzle Bindings",
+        "researchPoints": 1200,
+        "researchPower": 50
+    },
+    "R-Special-21": {
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Special-21",
+        "imdName": "mibox.PIE",
+        "keyTopic": 1,
+        "msgName": "RES_SPECIAL21",
+        "name": "Precision Hyper Velocity Targeting Systems",
+        "researchPoints": 1200,
+        "researchPower": 50
+    },
+    "R-Special-22": {
+        "iconID": "IMAGE_RES_COMPUTERTECH",
+        "id": "R-Special-22",
+        "imdName": "mibox.PIE",
+        "keyTopic": 1,
+        "msgName": "RES_SPECIAL22",
+        "name": "Magnetic Rail Assembly",
+        "researchPoints": 1200,
+        "researchPower": 50
     },
     "R-Comp-CommandTurret01": {
         "iconID": "IMAGE_RES_COMPUTERTECH",
@@ -2460,7 +2876,7 @@
             {
                 "class": "Repair",
                 "parameter": "RepairPoints",
-                "value": 25
+                "value": 30
             }
         ],
         "statID": "A0RepairCentre3",
@@ -2486,7 +2902,7 @@
             {
                 "class": "Repair",
                 "parameter": "RepairPoints",
-                "value": 25
+                "value": 30
             }
         ],
         "statID": "A0RepairCentre3",
@@ -2512,7 +2928,7 @@
             {
                 "class": "Repair",
                 "parameter": "RepairPoints",
-                "value": 25
+                "value": 30
             }
         ],
         "statID": "A0RepairCentre3",
@@ -3022,6 +3438,7 @@
     "R-Sys-MobileRepairTurretHvy": {
         "iconID": "IMAGE_RES_SYSTEMTECH",
         "id": "R-Sys-MobileRepairTurretHvy",
+        "keyTopic": 1,
         "msgName": "RES_REPTUHVY",
         "name": "Heavy Repair Turret",
         "requiredResearch": [
@@ -6130,9 +6547,32 @@
     "R-Wpn-RailGun01": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-RailGun01",
-        "keyTopic": 1,
         "msgName": "RES_W_RAIL1",
         "name": "Needle Gun",
+        "requiredResearch": [
+            "R-Special01",
+            "R-Special02",
+            "R-Special03",
+            "R-Special04",
+            "R-Special05",
+            "R-Special06",
+            "R-Special07",
+            "R-Special08",
+            "R-Special09",
+            "R-Special-10",
+            "R-Special-11",
+            "R-Special-12",
+            "R-Special-13",
+            "R-Special-14",
+            "R-Special-15",
+            "R-Special-16",
+            "R-Special-17",
+            "R-Special-18",
+            "R-Special-19",
+            "R-Special-20",
+            "R-Special-21",
+            "R-Special-22"
+        ],
         "researchPoints": 2100,
         "researchPower": 450,
         "resultComponents": [
@@ -6203,10 +6643,10 @@
     "R-Wpn-Rail-Damage02": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Rail-Damage02",
-        "keyTopic": 1,
         "name": "Hardened Rail Dart Mk2",
         "requiredResearch": [
-            "R-Wpn-Rail-Damage01"
+            "R-Wpn-Rail-Damage01",
+            "R-Wpn-Cannon-Damage07"
         ],
         "researchPoints": 2000,
         "researchPower": 450,
@@ -6266,7 +6706,8 @@
         "msgName": "RES_W_RAIL_ROF1",
         "name": "Rail Gun ROF",
         "requiredResearch": [
-            "R-Wpn-Rail-Accuracy01"
+            "R-Wpn-Rail-Damage01",
+            "R-Wpn-Cannon-ROF04"
         ],
         "researchPoints": 1800,
         "researchPower": 450,
@@ -6292,6 +6733,7 @@
     "R-Wpn-Rail-ROF02": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Rail-ROF02",
+        "keyTopic": 1,
         "name": "Rail Gun ROF Mk2",
         "requiredResearch": [
             "R-Wpn-Rail-ROF01",

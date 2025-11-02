@@ -1666,7 +1666,7 @@ function __camInfestObj(obj, fromPlayer)
 		else
 		{
 			// Let the research handle its components
-			completeResearch("Script-Infest", CAM_INFESTED, true);
+			completeResearch("R-Script-Infest", CAM_INFESTED, true);
 
 			// Add the unit to the Infested global attack group
 			if (!camDef(__camInfestedGlobalAttackGroup))

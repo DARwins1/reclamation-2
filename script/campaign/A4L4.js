@@ -546,16 +546,16 @@ function expandMap()
 	});
 	camMakeRefillableGroup(
 		camMakeGroup("zuluCommandGroup1"), {
-			templates: [ // 8 Heavy Cannons, 5 Heavy Repair Turrets, 4 Whirlwinds, and 1 VTOL Strike Turret
+			templates: [ // 8 Heavy Cannons, 5 Repair Turrets, 4 Whirlwinds, and 1 VTOL Strike Turret
 				cTempl.plhhcant, cTempl.plhhcant,
-				cTempl.plhhrept, cTempl.plhhrept,
+				cTempl.plhrept, cTempl.plhrept,
 				cTempl.plhraat, cTempl.plhraat,
 				cTempl.plhstriket,
 				cTempl.plhhcant, cTempl.plhhcant,
-				cTempl.plhhrept, cTempl.plhhrept,
+				cTempl.plhrept, cTempl.plhrept,
 				cTempl.plhraat, cTempl.plhraat,
 				cTempl.plhhcant, cTempl.plhhcant,
-				cTempl.plhhrept,
+				cTempl.plhrept,
 				cTempl.plhhcant, cTempl.plhhcant,
 			],
 			factories: ["zuluFactory1", "zuluFactory2", "zuluFactory3", "zuluFactory4"],

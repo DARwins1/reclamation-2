@@ -17,17 +17,15 @@
 function camCollectBlackBox(x, y)
 {
 	let boxInfo;
-	let listNum;
+
 	if (camDiscoverCampaign() === __CAM_RECLAMATION_CAMPAIGN_NUMBER)
 	{
 		// Reclamation 1 black boxes
-		listNum = 1;
 		boxInfo = __camRec1BlackBoxes;
 	}
 	else
 	{
 		// Reclamation 2 black boxes
-		listNum = 2;
 		boxInfo = __camRec2BlackBoxes;
 	}
 
@@ -61,7 +59,7 @@ function camCollectBlackBox(x, y)
 		console(_("Black Box #") + __LOG_INDEX + _(" collected"));
 
 		// Display coorisponding guide page
-		__camAddNewLogTopic(listNum, __LOG_INDEX);
+		__camAddNewLogTopic(__LOG_INDEX);
 
 		// Grant special research
 		__camGrantBlackBoxResearch();

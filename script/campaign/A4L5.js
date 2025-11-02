@@ -137,7 +137,7 @@ function sendCollectiveTransporter()
 		cTempl.comhatht, // Tank Killer
 		cTempl.comhpvht, // HVC
 		cTempl.comaght, // Assault Gun
-		cTempl.comhrepht, // Heavy Repair Turret
+		cTempl.comrepht, // Repair Turret
 	];
 
 	// Generate a list of droids to send
@@ -517,7 +517,7 @@ function groundAssaultWave(index)
 					cTempl.cohbbt, cTempl.cohbbt, // 2 Bunker Busters
 					cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, // 4 Tank Killers
 					cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, // 4 Cyclones
-					cTempl.cominft, cTempl.cominft, // 2 Heavy Repair Turrets
+					cTempl.cominft, cTempl.cominft, // 2 Repair Turrets
 				],
 				[ // Southwest entry
 					cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, // 4 HRAs
@@ -535,8 +535,8 @@ function groundAssaultWave(index)
 				[ // North entry (+commander)
 					cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, // 6 Heavy Cannons
 					cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, // 4 Assault Cannons
-					cTempl.comhrept, cTempl.comhrept, cTempl.comhrept, cTempl.comhrept, // 4 Heavy Repair Turrets
-					cTempl.cominft, cTempl.cominft, // 2 Heavy Repair Turrets
+					cTempl.comrept, cTempl.comrept, cTempl.comrept, cTempl.comrept, // 4 Repair Turrets
+					cTempl.cominft, cTempl.cominft, // 2 Repair Turrets
 				],
 				[ // Northeast entry
 					cTempl.comsensht, // 1 Sensor
@@ -594,13 +594,13 @@ function groundAssaultWave(index)
 					cTempl.cohbbt, cTempl.cohbbt, cTempl.cohbbt, cTempl.cohbbt, cTempl.cohbbt, cTempl.cohbbt, // 6 Bunker Busters
 					cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, // 4 Tank Killers
 					cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, // 4 Cyclones
-					cTempl.comhrept, cTempl.comhrept, // 2 Heavy Repair Turrets
+					cTempl.comrept, cTempl.comrept, // 2 Repair Turrets
 				],
 				[ // Northwest entry
 					cTempl.comsensht, // 1 Sensor
 					cTempl.comhatht, cTempl.comhatht, cTempl.comhatht, // 3 Tank Killers
 					cTempl.comhmortht, cTempl.comhmortht, cTempl.comhmortht, cTempl.comhmortht, // 4 Bombards
-					cTempl.comhrepht, cTempl.comhrepht, cTempl.comhrepht, cTempl.comhrepht, // 4 Heavy Repair Turrets
+					cTempl.comrepht, cTempl.comrepht, cTempl.comrepht, cTempl.comrepht, // 4 Repair Turrets
 					cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, // 4 Cyclones
 					cTempl.cohhowt, cTempl.cohhowt, cTempl.cohhowt, cTempl.cohhowt, // 4 Howitzers
 				],
@@ -677,7 +677,7 @@ function groundAssaultWave(index)
 		// 		[ // Northeast corner entry (+commander)
 		// 			cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, // 6 Assault Cannons
 		// 			cTempl.cominft, cTempl.cominft, cTempl.cominft, cTempl.cominft, // 4 Infernos
-		// 			cTempl.comhrept, cTempl.comhrept, cTempl.comhrept, cTempl.comhrept, // 4 Heavy Repair Turrets
+		// 			cTempl.comrept, cTempl.comrept, cTempl.comrept, cTempl.comrept, // 4 Repair Turrets
 		// 			cTempl.comhaat, cTempl.comhaat, // 2 Cyclones
 		// 		],
 		// 		[ // Southeast entry
@@ -695,7 +695,7 @@ function groundAssaultWave(index)
 		// 		[ // West entry (+commander)
 		// 			cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, // 6 Heavy Cannons
 		// 			cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, // 4 HRAs
-		// 			cTempl.comhrept, cTempl.comhrept, cTempl.comhrept, cTempl.comhrept, // 4 Heavy Repair Turrets
+		// 			cTempl.comrept, cTempl.comrept, cTempl.comrept, cTempl.comrept, // 4 Repair Turrets
 		// 			cTempl.cohraat, cTempl.cohraat, // 2 Whirlwinds
 		// 		],
 		// 	];
@@ -1313,15 +1313,15 @@ function eventStartLevel()
 	});
 	deltaCommandGroup = camMakeRefillableGroup(
 		undefined, {
-			templates: [ // 6 Assault Cannons, 4 Assault Guns, 4 Heavy Repair Turrets, 2 Whirlwinds, 6 Super Grenadiers
+			templates: [ // 6 Assault Cannons, 4 Assault Guns, 4 Repair Turrets, 2 Whirlwinds, 6 Super Grenadiers
 				cTempl.plhacant, cTempl.plhacant,
 				cTempl.plhasgnt, cTempl.plhasgnt,
-				cTempl.plhhrepht, cTempl.plhhrepht,
+				cTempl.plhrepht, cTempl.plhrepht,
 				cTempl.plhraat,
 				cTempl.scygr, cTempl.scygr, cTempl.scygr,
 				cTempl.plhacant, cTempl.plhacant,
 				cTempl.plhasgnt, cTempl.plhasgnt,
-				cTempl.plhhrepht, cTempl.plhhrepht,
+				cTempl.plhrepht, cTempl.plhrepht,
 				cTempl.plhraat,
 				cTempl.plhacant, cTempl.plhacant,
 				cTempl.scygr, cTempl.scygr, cTempl.scygr,

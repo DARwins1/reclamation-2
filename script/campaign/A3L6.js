@@ -513,7 +513,7 @@ function eventStartLevel()
 				cTempl.comagt, cTempl.comagt, // 2 Assault Guns
 				cTempl.cominft, cTempl.cominft, // 2 Infernos
 				cTempl.cohraat, // 1 Whirlwind
-				cTempl.comhrept, // 1 Heavy Repair Turret
+				cTempl.comrept, // 1 Repair Turret
 			],
 			factories: ["colFactory1", "colCybFactory1"],
 			obj: "colCommander" // Stop refilling this group when the commander dies

@@ -550,7 +550,7 @@ function eventStartLevel()
 				cTempl.comagt, cTempl.comagt, // 2 Assault Guns
 				cTempl.cominft, cTempl.cominft, // 2 Infernos
 				cTempl.comhaat, // 1 Cyclone
-				cTempl.comhrept, // 1 Heavy Repair Turret
+				cTempl.comrept, // 1 Repair Turret
 			],
 			factories: ["colFactory1", "colFactory2", "colCybFactory2", "colCybFactory1"],
 			obj: "colCommander1" // Stop refilling this group when the commander dies
@@ -580,7 +580,7 @@ function eventStartLevel()
 				cTempl.cohhcant, cTempl.cohhcant, // 2 Heavy Cannons
 				cTempl.comagt, cTempl.comagt, cTempl.comagt, cTempl.comagt, // 4 Assault Guns
 				cTempl.cohraat, // 1 Whirlwind
-				cTempl.comhrept, cTempl.comhrept, // 2 Heavy Repair Turrets
+				cTempl.comrept, cTempl.comrept, // 2 Repair Turrets
 				cTempl.comstriket, // 1 VTOL Strike Turret
 			],
 			factories: ["colFactory1", "colFactory2", "colCybFactory2"],
@@ -613,7 +613,7 @@ function eventStartLevel()
 				cTempl.comagt, cTempl.comagt, // 2 Assault Guns
 				cTempl.cominft, cTempl.cominft, // 2 Infernos
 				cTempl.cohraat, cTempl.cohraat, // 2 Whirlwinds
-				cTempl.comhrept, // 1 Heavy Repair Turret
+				cTempl.comrept, // 1 Repair Turret
 				cTempl.comsenst, // 1 Sensor Turret
 			],
 			factories: ["colFactory1", "colFactory2"],

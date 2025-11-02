@@ -9,7 +9,7 @@
         "model": "GNMREPAR.PIE",
         "mountModel": "TRMECM1.PIE",
         "name": "Repair Turret",
-        "repairPoints": 15,
+        "repairPoints": 25,
         "time": 7,
         "weight": 800
     },
@@ -22,7 +22,7 @@
         "model": "cy_rep.pie",
         "mountModel": "cybody.pie",
         "name": "Mechanic Cyborg",
-        "repairPoints": 10,
+        "repairPoints": 20,
         "time": 7,
         "weight": 150
     },

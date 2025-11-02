@@ -1058,7 +1058,7 @@
         "id": "CO-M-HRepair-T",
         "name": "*CO-M-HRepair-T*",
         "propulsion": "tracked01",
-        "repair": "HeavyRepair",
+        "repair": "LightRepair1",
         "type": "DROID"
     },
     "CO-M-Rocket-HvyA-T-Track": {
@@ -2735,17 +2735,17 @@
     "PythonHvyRepairHalftrack": {
         "body": "Body11ABT",
         "id": "PythonHvyRepairHalftrack",
-        "name": "Heavy Repair Turret Python Half-tracks",
+        "name": "Repair Turret Python Half-tracks",
         "propulsion": "HalfTrack",
-        "repair": "HeavyRepair",
+        "repair": "LightRepair1",
         "type": "DROID"
     },
     "PythonHvyRepairTrack": {
         "body": "Body11ABT",
         "id": "PythonHvyRepairTrack",
-        "name": "Heavy Repair Turret Python Tracks",
+        "name": "Repair Turret Python Tracks",
         "propulsion": "tracked01",
-        "repair": "HeavyRepair",
+        "repair": "LightRepair1",
         "type": "DROID"
     },
     "P0-M-PBomb-V": {

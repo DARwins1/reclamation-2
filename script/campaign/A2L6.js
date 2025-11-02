@@ -298,14 +298,14 @@ function activateCollective()
 			repair: 60,
 			suborder: CAM_ORDER_ATTACK
 	});
-	const commandTemplates2 = [ // 2 HVCs, 2 HMGs, 2 Lancer Cyborgs, 2 Super Heavy-Gunners, 2 Heavy Cannons, 1 Cyclone, 1 Heavy Repair Turret
+	const commandTemplates2 = [ // 2 HVCs, 2 HMGs, 2 Lancer Cyborgs, 2 Super Heavy-Gunners, 2 Heavy Cannons, 1 Cyclone, 1 Repair Turret
 		cTempl.comhpvt, cTempl.comhpvt,
 		cTempl.comhmgt, cTempl.comhmgt,
 		cTempl.cybla, cTempl.cybla,
 		cTempl.scymc, cTempl.scymc,
 		cTempl.cohhcant, cTempl.cohhcant,
 		cTempl.comhaat,
-		cTempl.comhrept,
+		cTempl.comrept,
 	];
 	if (difficulty >= HARD)
 	{

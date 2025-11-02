@@ -204,22 +204,14 @@
 
 
 	"object_2": {
-		"label": "orangeFactory2",
-		"id": 81,
+		"label": "orangeFactory1",
+		"id": 82,
 		"player": 4,
 		"type": 1
 	},
 
 
 	"object_3": {
-		"label": "pinkFactory2",
-		"id": 2,
-		"player": 5,
-		"type": 1
-	},
-
-
-	"object_4": {
 		"label": "redFactory2",
 		"id": 7,
 		"player": 6,
@@ -227,10 +219,18 @@
 	},
 
 
+	"object_4": {
+		"label": "pinkFactory2",
+		"id": 2,
+		"player": 5,
+		"type": 1
+	},
+
+
 	"object_5": {
-		"label": "redMiniPit",
-		"id": 206,
-		"player": 6,
+		"label": "orangeFactory2",
+		"id": 81,
+		"player": 4,
 		"type": 1
 	},
 
@@ -244,17 +244,17 @@
 
 
 	"object_7": {
-		"label": "pinkFactory3",
-		"id": 1,
-		"player": 5,
+		"label": "redMiniPit",
+		"id": 206,
+		"player": 6,
 		"type": 1
 	},
 
 
 	"object_8": {
-		"label": "orangeFactory1",
-		"id": 82,
-		"player": 4,
+		"label": "pinkFactory3",
+		"id": 1,
+		"player": 5,
 		"type": 1
 	},
 
