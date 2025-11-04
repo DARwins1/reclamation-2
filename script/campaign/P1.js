@@ -856,23 +856,26 @@ function eventStartLevel()
 
 	// setTimer("resetMinimap", camSecondsToMilliseconds(0.5));
 
+	// Give player briefing.
+	camPlayVideos({video: "P1_BRIEF", type: MISS_MSG});
+
 	// Placeholder for the actual briefing sequence
-	camQueueDialogue([
-		{text: "---- BRIEFING PLACEHOLDER ----", delay: 0},
-		{text: "CLAYDE: Greetings, Commander, I am General Clayde.", delay: 2, sound: CAM_RCLICK},
-		{text: "CLAYDE: You have assigned to lead team Bravo.", delay: 2, sound: CAM_RCLICK},
-		{text: "CLAYDE: You, along with team Charlie, are to assist with my operations in this sector.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: I assume you have already been briefed on the current situation before arriving...", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: For a lack of a better term, an \"infestation\" has run rampant among the population.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: Even worse, team Alpha, the team sent here before you, has gone rogue.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: Therefore, we'll need to work quickly in order to salvage the situation.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: Commander Charlie has already begun setting up a safe haven nearby.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: Commander Bravo, your objective is to investigate this town.", delay: 4, sound: CAM_RCLICK},
-		{text: "CLAYDE: After the initial outbreak, a large amount of the infested converged on this area, and have remained here since.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: We want to find out why the infested have lingered here specifically.", delay: 4, sound: CAM_RCLICK},
-		{text: "CLAYDE: So we're sending you in to investigate.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: Take a squad and make your way towards this area.", delay: 2, sound: CAM_RCLICK},
-		{text: "CLAYDE: Expect heavy infestation, and especially as you approach the main town.", delay: 2, sound: CAM_RCLICK},
-		{text: "CLAYDE: Good luck, Commander Bravo.", delay: 3, sound: CAM_RCLICK},
-	]);
+	// camQueueDialogue([
+	// 	{text: "---- BRIEFING PLACEHOLDER ----", delay: 0},
+	// 	{text: "CLAYDE: Greetings, Commander, I am General Clayde.", delay: 2, sound: CAM_RCLICK},
+	// 	{text: "CLAYDE: You have been assigned to lead team Bravo.", delay: 2, sound: CAM_RCLICK},
+	// 	{text: "CLAYDE: You, along with Commander Charlie, are to assist with my operations in this sector.", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "CLAYDE: I assume you have already been briefed on the current situation before arriving...", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "CLAYDE: For a lack of a better term, an \"infestation\" has run rampant among the population.", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "CLAYDE: Even worse, the members of Team Alpha, the team sent here before you, have gone rogue.", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "CLAYDE: Therefore, we'll need to work quickly in order to salvage the situation.", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "CLAYDE: Commander Charlie has already begun setting up a safe haven nearby.", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "CLAYDE: Commander Bravo, your objective is to investigate this town.", delay: 4, sound: CAM_RCLICK},
+	// 	{text: "CLAYDE: After the initial outbreak, a large amount of the infested converged on this area, and have remained here since.", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "CLAYDE: We want to find out why they've lingered here specifically.", delay: 4, sound: CAM_RCLICK},
+	// 	{text: "CLAYDE: So we're sending you in to investigate.", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "CLAYDE: Take a squad and make your way towards this area.", delay: 2, sound: CAM_RCLICK},
+	// 	{text: "CLAYDE: Expect heavy infestation, especially as you approach the main town.", delay: 2, sound: CAM_RCLICK},
+	// 	{text: "CLAYDE: Good luck, Commander Bravo.", delay: 3, sound: CAM_RCLICK},
+	// ]);
 }

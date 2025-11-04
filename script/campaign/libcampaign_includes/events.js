@@ -302,8 +302,13 @@ function cam_eventDestroyed(obj)
 		{
 			if (obj.weapons[0].id === "BoomTickSac")
 			{
+
+				const BOOM_BAIT_ID = addDroid(CAM_INFESTED, obj.x, obj.y, "Boom Bait",
+					"BoomBaitBody", "BaBaLegs", "", "", "InfestedMelee").id; // Spawn an special infested civilian where the boom tick died...
+				queue("__camDetonateBoomtick", __CAM_TICKS_PER_FRAME, BOOM_BAIT_ID + ""); // ...then blow them up
+
 				// Cause an explosion at the location of the Boom Tick
-				fireWeaponAtLoc("BoomTickBlast", obj.x, obj.y, CAM_INFESTED);
+				// fireWeaponAtLoc("BoomTickBlast", obj.x, obj.y, CAM_INFESTED);
 				// fireWeaponAtLoc("SmallExplosion", obj.x, obj.y, CAM_INFESTED);
 			}
 			else if (obj.weapons[0].id === "InfestedSpade1Trans")

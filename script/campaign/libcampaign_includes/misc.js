@@ -1574,6 +1574,28 @@ function __camAiPowerReset()
 	}
 }
 
+// Cause an explosion after a boomtick dies
+function __camDetonateBoomtick(boomBaitId)
+{
+	const bait = getObject(DROID, CAM_INFESTED, boomBaitId);
+	if (!camDef(bait))
+	{
+		return;
+	}
+	else
+	{
+		fireWeaponAtObj("BoomTickBlast", bait, CAM_INFESTED);
+		// Remove the bait after the boom
+		queue("__camRemoveBoomBait", __CAM_TICKS_PER_FRAME, boomBaitId + "");
+	}
+}
+
+// Loudly remove the boom bait object
+function __camRemoveBoomBait(boomBaitId)
+{
+	camSafeRemoveObject(getObject(DROID, CAM_INFESTED, boomBaitId), true);
+}
+
 // This used to be in `rules.js``
 function __camResetPower()
 {	

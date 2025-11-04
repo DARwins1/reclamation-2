@@ -112,20 +112,13 @@ camAreaEvent("safeZone", function(droid)
 		// Play dialogue, then donate the base to the player
 		// TODO: Convert one or more of these dialogue blocks into sequences instead
 		camQueueDialogue([
-			{text: "CHARLIE: General, team Bravo has arrived at the haven.", delay: 2, sound: CAM_RCLICK},
+			{text: "CHARLIE: General, Commander Bravo has arrived at the haven.", delay: 2, sound: CAM_RCLICK},
 			{text: "CLAYDE: Right on time.", delay: 3, sound: CAM_RCLICK},
-			{text: "CLAYDE: Commander Charlie, how are the evacuation efforts?", delay: 2, sound: CAM_RCLICK},
-			{text: "CHARLIE: We've managed to set up our base in the location you specified, General.", delay: 3, sound: CAM_RCLICK},
-			{text: "CHARLIE: Transports with civilians around the sector have been arriving regularly, but...", delay: 3, sound: CAM_RCLICK},
-			{text: "CHARLIE: We've detected some groups that have tried to make it here on foot.", delay: 3, sound: CAM_RCLICK},
-			{text: "CHARLIE: It seems like they've been pinned down in the hills north of us, sir.", delay: 3, sound: CAM_RCLICK},
-			{text: "CLAYDE: Commander Charlie, grant command of the base to Commander Bravo.", delay: 3, sound: CAM_RCLICK},
-			{text: "CHARLIE: Yes, sir!", delay: 3, sound: CAM_RCLICK, callback: "donateBase"},
+			{text: "CLAYDE: Let's get down to business.", delay: 2, sound: CAM_RCLICK},
+			{delay: 3, callback: "donateBase"},
 		]);
 
 		hackRemoveMessage("SAFE_HAVEN", PROX_MSG, CAM_HUMAN_PLAYER);
-
-		// queue("donateBase", camSecondsToMilliseconds(27));
 	}
 	else
 	{
@@ -156,20 +149,11 @@ function donateBase()
 	const lz = getObject("landingZone");
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 
-	// Play more dialogue about saving the civilians, then expand the map
-	camQueueDialogue([
-		{text: "CLAYDE: Hmm... This complicates matters.", delay: 2, sound: CAM_RCLICK},
-		{text: "CLAYDE: We shouldn't leave anyone behind, if it can be avoided.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: Commander Bravo, find the any civilian holdouts in your area, and escort them back to the haven.", delay: 3, sound: CAM_RCLICK},
-		{text: "CHARLIE: Commander Bravo, if I can give a suggestion?", delay: 5, sound: CAM_RCLICK},
-		{text: "CHARLIE: Escorting the civilians on foot would be risky.", delay: 3, sound: CAM_RCLICK},
-		{text: "CHARLIE: We could load the civilians onto the backs of our Trucks instead.", delay: 3, sound: CAM_RCLICK},
-		{text: "CHARLIE: That way we could just drive the civilians back to the haven ourselves.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: That's... a sound idea, Commander Charlie.", delay: 3, sound: CAM_RCLICK},
-		{text: "CHARLIE: Commander Bravo, bring a truck to each of the civilian holdouts, and then escort the truck back to haven.", delay: 2, sound: CAM_RCLICK},
-	]);
+	// Transmission about the new objective
+	camPlayVideos({video: "P2_CIVS", type: MISS_MSG});
 
-	queue("expandMap", camSecondsToMilliseconds(29));
+	// queue("expandMap", camSecondsToMilliseconds(29));
+	expandMap();
 
 	setTimer("sendCharlieTransport", camMinutesToMilliseconds(2));
 }
@@ -1083,7 +1067,7 @@ function playerReallyAlive()
 
 function strikeTargets()
 {
-	return enumStruct(CAM_HUMAN_PLAYER).concat(enumStruct(CAM_HUMAN_PLAYER));
+	return enumStruct(CAM_HUMAN_PLAYER).concat(enumDroid(CAM_HUMAN_PLAYER));
 }
 
 function eventStartLevel()
@@ -1285,39 +1269,35 @@ function eventStartLevel()
 
 	camAutoReplaceObjectLabel("heliTower");
 
+	// Give player briefing.
+	camPlayVideos({video: "P2_BRIEF", type: MISS_MSG});
+
 	// Placeholder for the actual briefing sequence
-	camQueueDialogue([
-		{text: "---- BRIEFING PLACEHOLDER ----", delay: 0},
-		{text: "CLAYDE: Commander Bravo, excellent work on securing the town.", delay: 2, sound: CAM_RCLICK},
-		{text: "CLAYDE: I would like to introduce you to my Lieutenant.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: He has been reviewing the numerous devices and documents that you have helped recover from the previous mission.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Greetings, Commander Bravo.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: It seems that the device that you found within the town was a sort of \"lure\" for the infested.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: The device sends out a signal that can be detected from miles away, and draws the infested towards it.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: It appears that the scavengers who had set up fortifications in the town had inadvertently activated the Lure.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: And, well...", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: Yes, I think we can all guess what happened to them.", delay: 2, sound: CAM_RCLICK},
-		{text: "CLAYDE: Lieutenant, do we know why this device was in that town in the first place?", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Yes, sir. It would appear that some of our suspicions were correct.", delay: 4, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: We're still reviewing the material brought back from the town, but...", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: But what, Lieutenant?", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: ...Uh, we recovered a plethora of documents from the town that confirm that these Lures pre-date the Collapse.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: We're now certain that both the items we've found and the Infested themselves are all part of a Pre-Collapse weapons program.", delay: 4, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: This appears to the culmination of the top-secret \"Project X\" program.", delay: 4, sound: CAM_RCLICK},
-		{text: "CLAYDE: ...I see.", delay: 4, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: These Project X items we recovered were brought from a local laboratory.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: After arriving in that town, they were to be discreetly shipped to a distant military site.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: But then there was the Collapse.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: And instead, these items were left here collecting dust for years.", delay: 2, sound: CAM_RCLICK},
-		{text: "CLAYDE: ...What else have we found in that town, Lieutenant?", delay: 4, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Well, we've recovered at least 3 functional Lures.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Among the documents, there also appears to be schematics for the Lures themselves.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: And, there's these large capsule-like containers...", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: But we have yet to identify what could be inside.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: Understood. Continue your work, Lieutenant.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Yes, sir!", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: Commander Bravo, continue making your way to team Charlie's haven.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: Once you arrive, assist them in any way you can with their objective.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: Meanwhile, I believe we now have the solution to our infestation problem...", delay: 3, sound: CAM_RCLICK},
-	]);
+	// camQueueDialogue([
+	// 	{text: "---- BRIEFING PLACEHOLDER ----", delay: 0},
+	// 	{text: "CLAYDE: Commander Bravo, excellent work on securing the town.", delay: 2, sound: CAM_RCLICK},
+	// 	{text: "CLAYDE: I would like to introduce you to my Lieutenant.", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "CLAYDE: He has been reviewing what you recovered from the previous mission.", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "LIEUTENANT: Greetings, Commander Bravo.", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "LIEUTENANT: The device that you found appears to be a sort of \"lure\" for the infested.", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "LIEUTENANT: When activated, it emits a signal that draws the infested towards it.", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "LIEUTENANT: It's likely that the scavengers who had set up fortifications in the town had activated the Lure by accident.", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "LIEUTENANT: And, well...", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "CLAYDE: Yes, I think we can all guess what happened to them.", delay: 2, sound: CAM_RCLICK},
+	// 	{text: "CLAYDE: Lieutenant, do we know why this device was here in the first place?", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "LIEUTENANT: Yes, sir. It would appear that our suspicions were correct.", delay: 4, sound: CAM_RCLICK},
+	// 	{text: "LIEUTENANT: We recovered a plethora of documents from the town that confirm that these Lures pre-date the Collapse.", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "LIEUTENANT: The items we've found and the Infested themselves were all part of a Pre-Collapse weapons program, known only as \"Project X\".", delay: 4, sound: CAM_RCLICK},
+	// 	{text: "LIEUTENANT: Apparently, they were to be discreetly shipped from this town to other military sites.", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "LIEUTENANT: But after the Collapse, they were left collecting dust here.", delay: 2, sound: CAM_RCLICK},
+	// 	{text: "CLAYDE: What else have we found in that town?", delay: 4, sound: CAM_RCLICK},
+	// 	{text: "LIEUTENANT: Besides the Lures themselves, there also appears to be schematics for fabricating them.", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "LIEUTENANT: And, there's these large capsule-like containers...", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "LIEUTENANT: But we have yet to identify what is inside.", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "CLAYDE: Understood. Continue your work, Lieutenant.", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "LIEUTENANT: Yes, sir.", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "CLAYDE: Commander Bravo, continue making your way to Team Charlie's haven.", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "CLAYDE: Once you arrive, assist them in any way you can with their objective.", delay: 3, sound: CAM_RCLICK},
+	// 	{text: "CLAYDE: Meanwhile, I believe we now have the solution to our infestation problem...", delay: 3, sound: CAM_RCLICK},
+	// ]);
 }
