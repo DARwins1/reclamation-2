@@ -60,6 +60,10 @@ function cam_eventChat(from, to, message)
 	{
 		__camShowVictoryConditions();
 	}
+	if (message === "skip")
+	{
+		camSkipDialogue();
+	}
 	if (!camIsCheating())
 	{
 		return;

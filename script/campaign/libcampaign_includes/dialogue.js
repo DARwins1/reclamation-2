@@ -53,15 +53,27 @@ function camQueueDialogue(text, delay, sound, callback)
 	__camQueuedDialogue.push({text: text, time: __camLatestDialogueTime, sound: sound, callback: callback})
 }
 
-//;; ## camInterruptDialogue()
+//;; ## camSkipDialogue()
 //;;
-//;; Stop all queued dialogue. Useful for preventing dialogue from interrupting events, 
+//;; Skip all queued dialogue. Useful for preventing dialogue from interrupting events, 
 //;; or for starting new dialogue without waiting for old ones to finish.
+//;; If any `callback` functions are defined in the dialogue queue, they are called immediately.
 //;;
 //;; @returns {void}
 //;;
-function camInterruptDialogue()
+function camSkipDialogue()
 {
+	// Check for any callback functions
+	for (const diaInfo of __camQueuedDialogue)
+	{
+		if (camDef(diaInfo.callback))
+		{
+			// If a callback function is defined, call it
+			__camGlobalContext()[diaInfo.callback]();
+		}
+	}
+
+	// Wipe out any queued dialogue
 	__camQueuedDialogue = [];
 	__camLatestDialogueTime = gameTime;
 }

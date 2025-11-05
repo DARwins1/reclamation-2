@@ -167,7 +167,7 @@ function eventChat(from, to, message)
 	{
 		// Interrupt the monologue and skip straight to the end
 		endMonologue();
-		camInterruptDialogue();
+		camSkipDialogue();
 
 		camQueueDialogue([
 			{text: "CLAYDE: As you wish.", delay: 3, sound: CAM_RCLICK},
@@ -178,7 +178,7 @@ function eventChat(from, to, message)
 	{
 		// If we receive any non-"skip" type message, interrupt and re-queue Clayde's dialogue.
 		// NOTE: This can be repeated multiple times if the player keeps sending messages
-		camInterruptDialogue();
+		camSkipDialogue();
 
 		camQueueDialogue([
 			{text: "CLAYDE: I suppose that will do.", delay: 5, sound: CAM_RCLICK, callback: "endMonologue"},

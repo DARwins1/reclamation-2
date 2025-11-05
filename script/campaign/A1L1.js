@@ -695,6 +695,9 @@ function eventStartLevel()
 			// The player didn't find the MRA in the prologue...
 			camAddArtifact({"redMiniPit": { tech: "R-Wpn-Rocket02-MRL" }}); // Mini-Rocket Array
 		}
+
+		// In case the player skipped the end of P2 through Debug Mode
+		camCompleteRequiredResearch(["R-Script-InfSensor-Debuff-Undo"], CAM_INFESTED);
 	}
 
 	sendPlayerTransporter();

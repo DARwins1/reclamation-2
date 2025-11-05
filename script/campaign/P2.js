@@ -34,16 +34,10 @@ var infestedThreatFactorMin;
 var truckLostThreshold;
 
 // Civilian holdout groups
-var civGroup1;
-var civGroup2;
-var civGroup3;
-var civGroup4;
+var civGroups;
 
 // Whether each civilian group has been loaded onto a truck
-var civ1Loaded;
-var civ2Loaded;
-var civ3Loaded;
-var civ4Loaded;
+var civsLoaded;
 
 // Whether each truck has arrived the deposit zone
 var truck1Safe;
@@ -110,7 +104,6 @@ camAreaEvent("safeZone", function(droid)
 	if (droid.player === CAM_HUMAN_PLAYER)
 	{
 		// Play dialogue, then donate the base to the player
-		// TODO: Convert one or more of these dialogue blocks into sequences instead
 		camQueueDialogue([
 			{text: "CHARLIE: General, Commander Bravo has arrived at the haven.", delay: 2, sound: CAM_RCLICK},
 			{text: "CLAYDE: Right on time.", delay: 3, sound: CAM_RCLICK},
@@ -245,17 +238,18 @@ function expandMap()
 function startInfestedWaves()
 {
 	infestedActive = true;
-	sendInfestedReinforcements();
+	// sendInfestedReinforcements();
 	setTimer("sendInfestedReinforcements", camSecondsToMilliseconds((difficulty >= MEDIUM) ? 40 : 60));
 
 	// Dialogue about the infested groups along the highway
 	camQueueDialogue([
-		{text: "CHARLIE: General!", delay: 0, sound: CAM_RCLICK},
-		{text: "CHARLIE: We've detected groups of infested moving along the roads nearby!", delay: 2, sound: CAM_RCLICK},
+		{text: "--- ANOMALOUS SIGNAL DETECTED ---", delay: 0, sound: cam_sounds.beacon},
+		{text: "CHARLIE: General!", delay: 30, sound: CAM_RCLICK},
+		{text: "CHARLIE: We've detected groups of infested moving south along the roads nearby!", delay: 2, sound: CAM_RCLICK},
 		{text: "CLAYDE: There's no need for alarm, Commander Charlie.", delay: 4, sound: CAM_RCLICK},
 		{text: "CLAYDE: Those infested are being drawn away by a Lure.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: They shouldn't pose a threat to your mission.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: Commander Bravo, try to avoid the Infested if you can.", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: Commander Bravo, try to avoid the Infested if you can.", delay: 4, sound: CAM_RCLICK},
 		{text: "CLAYDE: Focus on escorting those civilians back to the haven.", delay: 5, sound: CAM_RCLICK},
 		{text: "CLAYDE: The Infested should be avoidable if you can maintain your distance from them.", delay: 3, sound: CAM_RCLICK},
 	]);
@@ -306,8 +300,8 @@ function donateSensor()
 
 	// Dialogue about the using the sensor to spot the Infested
 	camQueueDialogue([
-		{text: "CHARLIE: Commander Bravo, we can use Sensor Towers like this one to monitor enemies from a safe distance.", delay: 2, sound: CAM_RCLICK},
-		{text: "CHARLIE: That'll make it easier to avoid running into the Infested.", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: Commander Bravo, we can use sensor like this one to monitor enemies from a safe distance.", delay: 2, sound: CAM_RCLICK},
+		{text: "CHARLIE: That should make it easier to avoid the Infested.", delay: 3, sound: CAM_RCLICK},
 	]);
 }
 
@@ -319,13 +313,13 @@ camAreaEvent("civZone1", function(droid)
 		&& droid.propulsion !== "CyborgLegs" && !camDef(getLabel(droid)))
 	{
 		const pos = camMakePos(droid);
-		for (const civ of enumGroup(civGroup1))
+		for (const civ of enumGroup(civGroups[1]))
 		{
 			// Move the civs towards the truck
 			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
 		}
 
-		queue("loadTruck1", camSecondsToMilliseconds(3));
+		queue("loadTruck", camSecondsToMilliseconds(3), "1");
 
 	}
 	else
@@ -334,30 +328,95 @@ camAreaEvent("civZone1", function(droid)
 	}
 });
 
-function loadTruck1()
+camAreaEvent("civZone2", function(droid)
 {
-	const trucks = enumArea("civZone1", CAM_HUMAN_PLAYER, false).filter((obj) => (
+	if (droid.player === CAM_HUMAN_PLAYER && droid.droidType === DROID_CONSTRUCT 
+		&& droid.propulsion !== "CyborgLegs" && !camDef(getLabel(droid)))
+	{
+		const pos = camMakePos(droid);
+		for (const civ of enumGroup(civGroups[2]))
+		{
+			// Move the civs towards the truck
+			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
+		}
+
+		queue("loadTruck", camSecondsToMilliseconds(3), "2");
+
+	}
+	else
+	{
+		resetLabel("civZone2", CAM_HUMAN_PLAYER);
+	}
+});
+
+camAreaEvent("civZone3", function(droid)
+{
+	if (droid.player === CAM_HUMAN_PLAYER && droid.droidType === DROID_CONSTRUCT 
+		&& droid.propulsion !== "CyborgLegs" && !camDef(getLabel(droid)))
+	{
+		const pos = camMakePos(droid);
+		for (const civ of enumGroup(civGroups[3]))
+		{
+			// Move the civs towards the truck
+			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
+		}
+
+		queue("loadTruck", camSecondsToMilliseconds(3), "3");
+
+	}
+	else
+	{
+		resetLabel("civZone3", CAM_HUMAN_PLAYER);
+	}
+});
+
+camAreaEvent("civZone4", function(droid)
+{
+	if (droid.player === CAM_HUMAN_PLAYER && droid.droidType === DROID_CONSTRUCT 
+		&& droid.propulsion !== "CyborgLegs" && !camDef(getLabel(droid)))
+	{
+		const pos = camMakePos(droid);
+		for (const civ of enumGroup(civGroups[4]))
+		{
+			// Move the civs towards the truck
+			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
+		}
+
+		queue("loadTruck", camSecondsToMilliseconds(3), "4");
+
+	}
+	else
+	{
+		resetLabel("civZone4", CAM_HUMAN_PLAYER);
+	}
+});
+
+function loadTruck(index)
+{
+	const civArea = "civZone" + index;
+
+	const trucks = enumArea(civArea, CAM_HUMAN_PLAYER, false).filter((obj) => (
 		obj.type === DROID && obj.droidType === DROID_CONSTRUCT 
 		&& obj.propulsion !== "CyborgLegs" && !camDef(getLabel(obj))
 	));
 	// Abort if there's no longer a truck in the civilian zone
 	if (trucks.length == 0)
 	{
-		const pos = camMakePos("civZone1");
-		for (const civ of enumGroup(civGroup1))
+		const pos = camMakePos(civArea);
+		for (const civ of enumGroup(civGroups[index]))
 		{
 			// Move the civs back into their holdout
 			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
 		}
-		resetLabel("civZone1", CAM_HUMAN_PLAYER);
+		resetLabel(civArea, CAM_HUMAN_PLAYER);
 		return;
 	}
 	else
 	{
 		// Just change the first truck we find into a Transport Truck
-		const transTruck = convertToTransport(trucks[0], "civTruck1");
+		const transTruck = convertToTransport(trucks[0], "civTruck" + index);
 
-		for (const droid of enumGroup(civGroup1))
+		for (const droid of enumGroup(civGroups[index]))
 		{
 			if (camDroidMatchesTemplate(droid, cTempl.civ))
 			{
@@ -372,209 +431,16 @@ function loadTruck1()
 			}
 		}
 
-		civ1Loaded = true;
+		camCallOnce("truckLoadedDialogue");
 
-		hackRemoveMessage("CIVS1", PROX_MSG, CAM_HUMAN_PLAYER);
+		civsLoaded[index] = true;
+
+		hackRemoveMessage("CIVS" + index, PROX_MSG, CAM_HUMAN_PLAYER);
 		if (!depositBeaconActive)
 		{
 			hackAddMessage("CIV_DEPOSIT", PROX_MSG, CAM_HUMAN_PLAYER);
 			depositBeaconActive = true;
 		}
-	}
-}
-
-camAreaEvent("civZone2", function(droid)
-{
-	if (droid.player === CAM_HUMAN_PLAYER && droid.droidType === DROID_CONSTRUCT 
-		&& droid.propulsion !== "CyborgLegs" && !camDef(getLabel(droid)))
-	{
-		const pos = camMakePos(droid);
-		for (const civ of enumGroup(civGroup2))
-		{
-			// Move the civs towards the truck
-			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
-		}
-
-		queue("loadTruck2", camSecondsToMilliseconds(3));
-
-	}
-	else
-	{
-		resetLabel("civZone2", CAM_HUMAN_PLAYER);
-	}
-});
-
-function loadTruck2()
-{
-	const trucks = enumArea("civZone2", CAM_HUMAN_PLAYER, false).filter((obj) => (
-		obj.type === DROID && obj.droidType === DROID_CONSTRUCT 
-		&& obj.propulsion !== "CyborgLegs" && !camDef(getLabel(obj))
-	));
-
-	if (trucks.length == 0)
-	{
-		const pos = camMakePos("civZone2");
-		for (const civ of enumGroup(civGroup2))
-		{
-			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
-		}
-		resetLabel("civZone2", CAM_HUMAN_PLAYER);
-		return;
-	}
-	else
-	{
-		const transTruck = convertToTransport(trucks[0], "civTruck2");
-
-		for (const droid of enumGroup(civGroup2))
-		{
-			if (camDroidMatchesTemplate(droid, cTempl.civ))
-			{
-				camSafeRemoveObject(droid);
-			}
-			else
-			{
-				orderDroidObj(droid, DORDER_GUARD, transTruck);
-			}
-		}
-	}
-
-	civ2Loaded = true;
-
-	hackRemoveMessage("CIVS2", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (!depositBeaconActive)
-	{
-		hackAddMessage("CIV_DEPOSIT", PROX_MSG, CAM_HUMAN_PLAYER);
-		depositBeaconActive = true;
-	}
-}
-
-camAreaEvent("civZone3", function(droid)
-{
-	if (droid.player === CAM_HUMAN_PLAYER && droid.droidType === DROID_CONSTRUCT 
-		&& droid.propulsion !== "CyborgLegs" && !camDef(getLabel(droid)))
-	{
-		const pos = camMakePos(droid);
-		for (const civ of enumGroup(civGroup3))
-		{
-			// Move the civs towards the truck
-			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
-		}
-
-		queue("loadTruck3", camSecondsToMilliseconds(3));
-
-	}
-	else
-	{
-		resetLabel("civZone3", CAM_HUMAN_PLAYER);
-	}
-});
-
-function loadTruck3()
-{
-	const trucks = enumArea("civZone3", CAM_HUMAN_PLAYER, false).filter((obj) => (
-		obj.type === DROID && obj.droidType === DROID_CONSTRUCT 
-		&& obj.propulsion !== "CyborgLegs" && !camDef(getLabel(obj))
-	));
-
-	if (trucks.length == 0)
-	{
-		const pos = camMakePos("civZone3");
-		for (const civ of enumGroup(civGroup3))
-		{
-			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
-		}
-		resetLabel("civZone3", CAM_HUMAN_PLAYER);
-		return;
-	}
-	else
-	{
-		const transTruck = convertToTransport(trucks[0], "civTruck3");
-
-		for (const droid of enumGroup(civGroup3))
-		{
-			if (camDroidMatchesTemplate(droid, cTempl.civ))
-			{
-				camSafeRemoveObject(droid);
-			}
-			else
-			{
-				orderDroidObj(droid, DORDER_GUARD, transTruck);
-			}
-		}
-	}
-
-	civ3Loaded = true;
-
-	hackRemoveMessage("CIVS3", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (!depositBeaconActive)
-	{
-		hackAddMessage("CIV_DEPOSIT", PROX_MSG, CAM_HUMAN_PLAYER);
-		depositBeaconActive = true;
-	}
-}
-
-camAreaEvent("civZone4", function(droid)
-{
-	if (droid.player === CAM_HUMAN_PLAYER && droid.droidType === DROID_CONSTRUCT 
-		&& droid.propulsion !== "CyborgLegs" && !camDef(getLabel(droid)))
-	{
-		const pos = camMakePos(droid);
-		for (const civ of enumGroup(civGroup4))
-		{
-			// Move the civs towards the truck
-			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
-		}
-
-		queue("loadTruck4", camSecondsToMilliseconds(3));
-
-	}
-	else
-	{
-		resetLabel("civZone4", CAM_HUMAN_PLAYER);
-	}
-});
-
-function loadTruck4()
-{
-	const trucks = enumArea("civZone4", CAM_HUMAN_PLAYER, false).filter((obj) => (
-		obj.type === DROID && obj.droidType === DROID_CONSTRUCT 
-		&& obj.propulsion !== "CyborgLegs" && !camDef(getLabel(obj))
-	));
-
-	if (trucks.length == 0)
-	{
-		const pos = camMakePos("civZone4");
-		for (const civ of enumGroup(civGroup4))
-		{
-			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
-		}
-		resetLabel("civZone4", CAM_HUMAN_PLAYER);
-		return;
-	}
-	else
-	{
-		const transTruck = convertToTransport(trucks[0], "civTruck4");
-
-		for (const droid of enumGroup(civGroup4))
-		{
-			if (camDroidMatchesTemplate(droid, cTempl.civ))
-			{
-				camSafeRemoveObject(droid);
-			}
-			else
-			{
-				orderDroidObj(droid, DORDER_GUARD, transTruck);
-			}
-		}
-	}
-
-	civ4Loaded = true;
-
-	hackRemoveMessage("CIVS4", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (!depositBeaconActive)
-	{
-		hackAddMessage("CIV_DEPOSIT", PROX_MSG, CAM_HUMAN_PLAYER);
-		depositBeaconActive = true;
 	}
 }
 
@@ -691,6 +557,17 @@ function convertToTruck(transTruck)
 	camSafeRemoveObject(transTruck);
 }
 
+// Dialogue when civilians are first loaded onto a Truck
+function truckLoadedDialogue()
+{
+	camQueueDialogue([
+		{text: "CHARLIE: Alright, the civilians are on board.", delay: 2, sound: CAM_RCLICK},
+		{text: "CHARLIE: Now, drive that Truck back to the haven.", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: I've marked the drop off point.", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: Just move the Truck there and the civilians will be safe.", delay: 2, sound: CAM_RCLICK},
+	]);
+}
+
 // Activate the eastern factory
 function camEnemyBaseDetected_eastScavBase()
 {
@@ -739,7 +616,7 @@ function sendInfestedReinforcements()
 		// Choose a random number that is infestedThreatFactor +/- 5.
 		// Then we add template to the Infested group based on the number chosen.
 		// The templates chosen based on the following rules:
-		// If [0:7], choose from the "fodder" templates (which is just one template lol)
+		// If [0:7], choose from the "fodder" templates (which is just infested civs)
 		// If [8:14], choose from the "mild" templates
 		// If [15:24], choose from the "spicy" templates
 		// If >25, choose from the "hot" templates
@@ -778,6 +655,11 @@ function sendInfestedReinforcements()
 		camSendReinforcement(CAM_INFESTED, getObject("infEntry2"), droids, CAM_REINFORCE_GROUND, 
 			{order: CAM_ORDER_DEFEND, data: {pos: camMakePos("infExit"), radius: 0}}
 		);
+	}
+
+	if (infestedThreatFactor >= 20)
+	{
+		camCallOnce("infestedThreatDialogue");
 	}
 
 	// Decrease the threat factor over time if it's above the minimum
@@ -825,6 +707,15 @@ function eventAttacked(victim, attacker)
 	}
 }
 
+// Dialogue if the Infested threat level gets too high
+function infestedThreatDialogue()
+{
+	camQueueDialogue([
+		{text: "CLAYDE: Commander Bravo, we don't have time to waste fighting the Infested.", delay: 2, sound: CAM_RCLICK},
+		{text: "CLAYDE: Try to AVOID confronting the groups traveling along the road.", delay: 3, sound: CAM_RCLICK},
+	]);
+}
+
 // Drop off civilians at the haven
 function eventTransporterLanded(transport)
 {
@@ -841,13 +732,14 @@ function eventTransporterLanded(transport)
 
 	// Add some civilians to the LZ
 	const NUM_CIVS = camRand(5) + 6; // 6 to 10 civilians
-	const depositPos = camMakePos("depositZone");
+	const civDroids = [];
 	for (let i = 0; i < NUM_CIVS; i++)
 	{
-		// Spawn civilians, and then move them towards the deposit zone
-		const civ = camAddDroid(MIS_CIVS, camRandPosIn("landingZone"), cTempl.civ, _("Civilian"));
-		orderDroidLoc(civ, DORDER_MOVE, depositPos.x, depositPos.y);
+		// Spawn civilians
+		civDroids.push(camAddDroid(MIS_CIVS, camRandPosIn("landingZone"), cTempl.civ, _("Civilian")));
 	}
+	// ...and then move them towards the deposit zone
+	camManageGroup(camMakeGroup(civDroids), CAM_ORDER_DEFEND, {pos: camMakePos("depositZone")});
 }
 
 function eventDestroyed(obj)
@@ -909,10 +801,12 @@ function checkCivsDone()
 	// The player has loaded all civilians into Transport Trucks
 	// The player does not currently have any Transport Trucks
 	if (trucksLost < truckLostThreshold 
-		&& civ1Loaded && civ2Loaded && civ3Loaded && civ4Loaded
+		&& civsLoaded[1] && civsLoaded[2] && civsLoaded[3] && civsLoaded[4]
 		&& getObject("civTruck1") === null && getObject("civTruck2") === null
 		&& getObject("civTruck3") === null && getObject("civTruck4") === null)
 	{
+		playSound(cam_sounds.objective.primObjectiveCompleted);
+
 		if (!tweakOptions.rec_timerlessMode)
 		{
 			setMissionTime(camMinutesToSeconds(5));
@@ -920,9 +814,9 @@ function checkCivsDone()
 
 		// Tell the player to hunker down in the haven
 		camQueueDialogue([
-			{text: "CHARLIE: General Clayde, team Bravo has escorted as many civilians as they can.", delay: 2, sound: CAM_RCLICK},
+			{text: "CHARLIE: General Clayde, Bravo has escorted as many civilians as they can.", delay: 6, sound: CAM_RCLICK},
 			{text: "CLAYDE: Well done, Commander Bravo.", delay: 4, sound: CAM_RCLICK},
-			{text: "CLAYDE: Now, take all of your forces, and fall back to the safe haven as quickly as possible.", delay: 4, sound: CAM_RCLICK},
+			{text: "CLAYDE: Now, take all of your forces, and fall back to the safe haven as soon as possible.", delay: 4, sound: CAM_RCLICK},
 			{text: "CHARLIE: You heard the man, Bravo.", delay: 8, sound: CAM_RCLICK},
 			{text: "CHARLIE: Bring your guys back home!", delay: 2, sound: CAM_RCLICK},
 		]);
@@ -956,13 +850,12 @@ function checkHaven()
 		setScrollLimits(39, 42, 78, 63);
 
 		// Dialogue...
-		camInterruptDialogue(); // Stop any previous conversations
+		camSkipDialogue(); // Stop any previous conversations
 		camQueueDialogue([
-			{text: "CHARLIE: General, team Bravo has returned to the haven.", delay: 2, sound: CAM_RCLICK},
+			{text: "CHARLIE: General, Bravo has regrouped at the haven.", delay: 2, sound: CAM_RCLICK},
 			{text: "CHARLIE: What are our-", delay: 3, sound: CAM_RCLICK},
+			{delay: 1, callback: "nukeMap"},
 		]);
-
-		queue("nukeMap", camSecondsToMilliseconds(6));
 
 		camSetExtraObjectiveMessage();
 		setMissionTime(-1);
@@ -974,12 +867,13 @@ function checkHaven()
 // Blow up everything on the map that's not in the safe haven
 function nukeMap()
 {
-	// Remove the base in the rare event an auto-explosion triggers as we nuke the base here.
+	// Remove the enemy bases.
 	camSetEnemyBases({});
 	const nukedObjs = enumArea(0, 0, mapWidth, mapHeight, ALL_PLAYERS, false);
 	const safeObjs = enumArea("safeZone", ALL_PLAYERS, false).filter((obj) => (!(obj.type === DROID && isVTOL(obj))));
 	let foundUnit = false;
 
+	// Blow up everything outside of the safe haven
 	for (let i = 0, len = nukedObjs.length; i < len; ++i)
 	{
 		let nukeIt = true;
@@ -1005,24 +899,24 @@ function nukeMap()
 	}
 
 	// Make a big explosion south of the haven
-	fireWeaponAtLoc("LargeExplosion", 34, 62, CAM_HUMAN_PLAYER);
+	fireWeaponAtLoc("LargeExplosion", 54, 62, CAM_HUMAN_PLAYER);
 
 	// Make the world go red
 	camSetSunPos(0, -0.2, 0.3);
 	camSetSunIntensity(0.7, 0.5, 0.5, 1.4, 0.6, 0.6);
-
-	// Stop snowing
+	camSetFog(140, 100, 100);
 	camSetWeather(CAM_WEATHER_CLEAR);
 
-	// Set the fog to its default colours
-	camSetFog();
+	// Don't keep this debuff around for later missions
+	camCompleteRequiredResearch(["R-Script-InfSensor-Debuff-Undo"], CAM_INFESTED);
 
 	// End-mission dialogue
 	camQueueDialogue([
 		{text: "CHARLIE: WOAH!", delay: 1, sound: CAM_RCLICK},
-		{text: "CLAYDE: And THAT, means we're done in this sector.", delay: 4, sound: CAM_RCLICK},
+		{text: "CLAYDE: And THAT....", delay: 5, sound: CAM_RCLICK},
+		{text: "CLAYDE: Means we're done here.", delay: 2, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: And what about Commander Alpha?", delay: 4, sound: CAM_RCLICK},
-		{text: "CLAYDE: Commander Alpha is dead.", delay: 4, sound: CAM_RCLICK},
+		{text: "CLAYDE: Team Alpha is dead.", delay: 4, sound: CAM_RCLICK},
 		{text: "CLAYDE: The Infested have been eradicated.", delay: 2, sound: CAM_RCLICK},
 		{text: "CLAYDE: There's nothing left here but smoldering ruins.", delay: 2, sound: CAM_RCLICK},
 		{text: "CHARLIE: If it's all gone...", delay: 4, sound: CAM_RCLICK},
@@ -1030,19 +924,17 @@ function nukeMap()
 		{text: "CLAYDE: ...We may have have been set back today.", delay: 4, sound: CAM_RCLICK},
 		{text: "CLAYDE: But.", delay: 2, sound: CAM_RCLICK},
 		{text: "CLAYDE: This operation was not in vain.", delay: 2, sound: CAM_RCLICK},
-		{text: "CLAYDE: Before the traitors of team Alpha were atomized...", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: Before those traitors in Team Alpha were atomized...", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: We were able to pull all the data from the NASDA site that they had set up around.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: And I believe we may have found something even more important than any warhead or secret weapon.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: ...Commanders Bravo and Charlie, make preparations for transport by the end of the day.", delay: 4, sound: CAM_RCLICK},
-		{text: "CLAYDE: I believe our next operation is about to begin...", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: Our next operation is about to begin...", delay: 3, sound: CAM_RCLICK},
+		{delay: 4, callback: "camEndMission"}, // End the mission after the dialogue is finished
 	]);
 
 	// Used to allow the player to bring prologue units into A1L1
 	camCompleteRequiredResearch(["R-Script-ProloguePlayed"], CAM_HUMAN_PLAYER);
 	setReticuleFlash(2, false);
-
-	// End the mission after the dialogue is finished
-	queue("camEndMission", camSecondsToMilliseconds(52));
 }
 
 function checkTrucksLost()
@@ -1099,6 +991,9 @@ function eventStartLevel()
 	camCompleteRequiredResearch(mis_scavResearch, MIS_CYAN_SCAVS);
 	camCompleteRequiredResearch(camRec2StartResearch, MIS_CIVS);
 	camCompleteRequiredResearch(camRec2StartResearch, MIS_TEAM_CHARLIE);
+
+	// Make the Infested groups easier to bypass by nerfing their vision range
+	camCompleteRequiredResearch(["R-Script-InfSensor-Debuff"], CAM_INFESTED);
 
 	// Set up bases
 	camSetEnemyBases({
@@ -1186,10 +1081,20 @@ function eventStartLevel()
 	truck3Safe = false;
 	truck4Safe = false;
 	trucksLost = 0;
-	civGroup1 = camNewGroup();
-	civGroup2 = camNewGroup();
-	civGroup3 = camNewGroup();
-	civGroup4 = camNewGroup();
+	civGroups = [
+		null,
+		camNewGroup(), // #1
+		camNewGroup(), // #2
+		camNewGroup(), // #3
+		camNewGroup()  // #4
+	];
+	civsLoaded = [
+		null,
+		false, // #1
+		false, // #2
+		false, // #3
+		false  // #4
+	];
 	infestedThreatFactor = 5;
 	infestedThreatFactorMin = 5;
 	truckLostThreshold = (difficulty >= MEDIUM) ? 2 : 3;
@@ -1214,14 +1119,14 @@ function eventStartLevel()
 		cTempl.bjeep, cTempl.bjeep, cTempl.bjeep,
 		cTempl.moncan,
 	];
-	const templateLists = [civ1Templates, civ2Templates, civ3Templates, civ4Templates];
-	const civZones = ["civZone1", "civZone2", "civZone3", "civZone4"];
-	const civGroups = [civGroup1, civGroup2, civGroup3, civGroup4];
-	for (let i = 0; i < 4; i++)
+
+	// These lists "start" at index 1
+	const templateLists = [null, civ1Templates, civ2Templates, civ3Templates, civ4Templates];
+	const civZones = [null, "civZone1", "civZone2", "civZone3", "civZone4"];
+	for (let i = 1; i <= 4; i++)
 	{
 		const templates = templateLists[i];
 		const zone = getObject(civZones[i]);
-		const civGroup = civGroups[i];
 
 		for (template of templates)
 		{
@@ -1254,7 +1159,7 @@ function eventStartLevel()
 			}
 
 			const newDroid = camAddDroid(MIS_CIVS, camRandPosIn(zone), template, droidName);
-			groupAdd(civGroup, newDroid);
+			groupAdd(civGroups[i], newDroid);
 		}
 	}
 
@@ -1271,33 +1176,4 @@ function eventStartLevel()
 
 	// Give player briefing.
 	camPlayVideos({video: "P2_BRIEF", type: MISS_MSG});
-
-	// Placeholder for the actual briefing sequence
-	// camQueueDialogue([
-	// 	{text: "---- BRIEFING PLACEHOLDER ----", delay: 0},
-	// 	{text: "CLAYDE: Commander Bravo, excellent work on securing the town.", delay: 2, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: I would like to introduce you to my Lieutenant.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: He has been reviewing what you recovered from the previous mission.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "LIEUTENANT: Greetings, Commander Bravo.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "LIEUTENANT: The device that you found appears to be a sort of \"lure\" for the infested.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "LIEUTENANT: When activated, it emits a signal that draws the infested towards it.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "LIEUTENANT: It's likely that the scavengers who had set up fortifications in the town had activated the Lure by accident.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "LIEUTENANT: And, well...", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: Yes, I think we can all guess what happened to them.", delay: 2, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: Lieutenant, do we know why this device was here in the first place?", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "LIEUTENANT: Yes, sir. It would appear that our suspicions were correct.", delay: 4, sound: CAM_RCLICK},
-	// 	{text: "LIEUTENANT: We recovered a plethora of documents from the town that confirm that these Lures pre-date the Collapse.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "LIEUTENANT: The items we've found and the Infested themselves were all part of a Pre-Collapse weapons program, known only as \"Project X\".", delay: 4, sound: CAM_RCLICK},
-	// 	{text: "LIEUTENANT: Apparently, they were to be discreetly shipped from this town to other military sites.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "LIEUTENANT: But after the Collapse, they were left collecting dust here.", delay: 2, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: What else have we found in that town?", delay: 4, sound: CAM_RCLICK},
-	// 	{text: "LIEUTENANT: Besides the Lures themselves, there also appears to be schematics for fabricating them.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "LIEUTENANT: And, there's these large capsule-like containers...", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "LIEUTENANT: But we have yet to identify what is inside.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: Understood. Continue your work, Lieutenant.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "LIEUTENANT: Yes, sir.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: Commander Bravo, continue making your way to Team Charlie's haven.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: Once you arrive, assist them in any way you can with their objective.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: Meanwhile, I believe we now have the solution to our infestation problem...", delay: 3, sound: CAM_RCLICK},
-	// ]);
 }

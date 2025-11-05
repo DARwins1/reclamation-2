@@ -38,7 +38,7 @@ var lz4BeaconPlaced;
 
 // How many waves of infested units can be brought in
 // Once reserves are depleted, reinforcement waves stop and all factories are disabled
-// Reserves are added as the player progresses through the level
+// Reserves are added as the player progresses through the level, and subtracted every time Infested reinforcements are spawned
 var infestedReserves;
 const MIS_MAX_RESERVES = 12;
 
@@ -55,7 +55,7 @@ camAreaEvent("attackTrigger1", function(droid)
 			// Play dialogue telling the player to start clearing LZs
 			camQueueDialogue([
 				{text: "CLAYDE: Commander Charlie, is there any way you can reinforce team Bravo?", delay: 0, sound: CAM_RCLICK},
-				{text: "CHARLIE: There's some suitable LZs nearby, Commander Bravo.", delay: 3, sound: CAM_RCLICK},
+				{text: "CHARLIE: There are some suitable LZs nearby, Commander Bravo.", delay: 3, sound: CAM_RCLICK},
 				{text: "CLAYDE: If you can clear them, I can deliver you reinforcements.", delay: 3, sound: CAM_RCLICK},
 			]);
 			hackAddMessage("LZ1", PROX_MSG, CAM_HUMAN_PLAYER);
@@ -66,7 +66,7 @@ camAreaEvent("attackTrigger1", function(droid)
 			// Play dialogue about another potential LZ to the south
 			camQueueDialogue([
 				{text: "CHARLIE: General, we've spotted another potential LZ to the south of Bravo's position.", delay: 0, sound: CAM_RCLICK},
-				{text: "CHARLIE: If they can clear the area, I'll be able to send additional reinforcements.", delay: 3, sound: CAM_RCLICK},
+				{text: "CHARLIE: I'll be able to send additional reinforcements, if they can clear out that area.", delay: 3, sound: CAM_RCLICK},
 				{text: "CLAYDE: Very well.", delay: 4, sound: CAM_RCLICK},
 				{text: "CLAYDE: Commander Bravo, make sure to secure that LZ when you reach that area.", delay: 2, sound: CAM_RCLICK},
 			]);
@@ -119,7 +119,7 @@ camAreaEvent("progTrigger1", function(droid)
 		setStageOne();
 		// Play dialogue telling the player to start clearing LZs
 		camQueueDialogue([
-			{text: "CHARLIE: Commander Bravo, we've spotted another LZ to the south of your position.", delay: 2, sound: CAM_RCLICK},
+			{text: "CHARLIE: Commander Bravo, we've spotted another LZ south of you.", delay: 2, sound: CAM_RCLICK},
 		]);
 		hackAddMessage("LZ3", PROX_MSG, CAM_HUMAN_PLAYER);
 		lz3BeaconPlaced = true;
@@ -138,8 +138,8 @@ camAreaEvent("progTrigger2", function(droid)
 	{
 		setStageTwo();
 		camQueueDialogue([
-			{text: "CHARLIE: Bravo, we've spotted one last LZ to the northeast of your position.", delay: 2, sound: CAM_RCLICK},
-			{text: "CHARLIE: Make sure you secure it before you push into the main town.", delay: 3, sound: CAM_RCLICK},
+			{text: "CHARLIE: Bravo, we've spotted one last LZ to the northeast.", delay: 2, sound: CAM_RCLICK},
+			{text: "CHARLIE: Make sure to secure it before you push into the main town.", delay: 3, sound: CAM_RCLICK},
 		]);
 		hackAddMessage("LZ4", PROX_MSG, CAM_HUMAN_PLAYER);
 		lz4BeaconPlaced = true;
@@ -203,10 +203,10 @@ function camEnemyBaseEliminated_northTown()
 		{text: "CHARLIE: General, Commander Bravo has secured the town.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: Excellent work, Bravo.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: I knew that you could handle this.", delay: 2, sound: CAM_RCLICK},
-		{text: "CLAYDE: Now, time to find out why the infested are drawn here...", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: Now, to find out why the infested are drawn here...", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: Take a look around the town, see if there's anything suspicious.", delay: 3, sound: CAM_RCLICK},
+		{delay: 3, callback: "enableWarehouseDestruction"}
 	]);
-	queue("enableWarehouseDestruction", camSecondsToMilliseconds(18));
 
 	// Also call for replacements
 	sendTransport5();
@@ -274,10 +274,8 @@ function checkLZ1Tower()
 			{text: "CLAYDE: Commander Charlie, send a transport to Commander Bravo.", delay: 2, sound: CAM_RCLICK},
 			{text: "CLAYDE: They'll need reinforcements in order to secure the town.", delay: 3, sound: CAM_RCLICK},
 			{text: "CHARLIE: Roger that, General.", delay: 4, sound: CAM_RCLICK},
-			{text: "CLAYDE: Transport on the way.", delay: 2, sound: CAM_RCLICK},
+			{text: "CLAYDE: Transport on the way.", delay: 2, sound: CAM_RCLICK, callback: "sendTransport1"},
 		]);
-
-		queue("sendTransport1", camSecondsToMilliseconds(10));
 	}
 }
 
@@ -419,9 +417,9 @@ function sendTransport2()
 
 	camQueueDialogue([
 		{text: "CHARLIE: Reinforcements on the way, Bravo.", delay: 2, sound: CAM_RCLICK},
-		{text: "CHARLIE: These Flamers should help with any bunkers you run into.", delay: 3, sound: CAM_RCLICK},
-		{text: "CHARLIE: They're excellent against groups of enemies too!", delay: 3, sound: CAM_RCLICK},
-		{text: "CHARLIE: ...Just keep their short range in mind.", delay: 4, sound: CAM_RCLICK},
+		{text: "CHARLIE: These flamers should help with any bunkers you run into.", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: They're great against groups of enemies, too.", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: But, keep in mind that their range is quite short.", delay: 4, sound: CAM_RCLICK},
 	]);
 
 	if (lz2BeaconPlaced)
@@ -452,9 +450,9 @@ function sendTransport3()
 
 	camQueueDialogue([
 		{text: "CHARLIE: Transport on the way.", delay: 2, sound: CAM_RCLICK},
-		{text: "CHARLIE: These Mortars should be able to take down those uglies from a safe distance.", delay: 3, sound: CAM_RCLICK},
-		{text: "CHARLIE: Just make sure you keep them protected.", delay: 4, sound: CAM_RCLICK},
-		{text: "CHARLIE: ...They're definitely not the sturdiest vehicles we've got.", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: These mortars should be able to take down those uglies from a safe distance.", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: But make sure you keep them protected.", delay: 4, sound: CAM_RCLICK},
+		{text: "CHARLIE: They're not very effective on their own.", delay: 3, sound: CAM_RCLICK},
 	]);
 
 	if (lz3BeaconPlaced)
@@ -486,7 +484,7 @@ function sendTransport4()
 	camQueueDialogue([
 		{text: "CHARLIE: Reinforcements on the way.", delay: 3, sound: CAM_RCLICK},
 		{text: "CHARLIE: Hope you're ready for what's in that town, Bravo.", delay: 5, sound: CAM_RCLICK},
-		{text: "CHARLIE: ...It looks pretty ugly in there.", delay: 4, sound: CAM_RCLICK},
+		{text: "CHARLIE: ...It's bound to be ugly in there.", delay: 4, sound: CAM_RCLICK},
 	]);
 
 	if (lz4BeaconPlaced)
@@ -503,12 +501,15 @@ function sendTransport5()
 	// If the player is missing units, replace them.
 	let droids = getMissingPlayerDroids();
 
-	camSendReinforcement(MIS_TEAM_CHARLIE, camMakePos("landingZone5"), droids,
-		CAM_REINFORCE_TRANSPORT, {
-			entry: { x: 2, y: 2 },
-			exit: { x: 2, y: 2 }
-		}
-	);
+	if (droids.length > 0)
+	{
+		camSendReinforcement(MIS_TEAM_CHARLIE, camMakePos("landingZone5"), droids,
+			CAM_REINFORCE_TRANSPORT, {
+				entry: { x: 2, y: 2 },
+				exit: { x: 2, y: 2 }
+			}
+		);
+	}
 
 	const lz = getObject("landingZone5");
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
@@ -539,10 +540,8 @@ function disableWarehouseDestruction()
 		{text: "CLAYDE: I'll send a transport to retrieve what you've found.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: Once you're done, start making your way towards Charlie's base.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: General Clayde, signing off.", delay: 3, sound: CAM_RCLICK},
+		{delay: 4, callback: "camEndMission"}, // End the mission after the dialogue is finished
 	]);
-
-	// End the mission after the dialogue is finished
-	queue("camEndMission", camSecondsToMilliseconds(22));
 }
 
 function eventDestroyed(obj)
@@ -693,13 +692,6 @@ function eventChat(from, to, message)
 	playSound("beep6.ogg");
 }
 
-// HACK: rules.js automatically disables the minimap when units are transferred and it realizes the player has no HQ
-function resetMinimap()
-{
-	// Re-grant the player a minimap
-	setMiniMap(true);
-}
-
 // Returns false if the player if the player has no units, true otherwise
 function playerReallyAlive()
 {
@@ -721,10 +713,6 @@ function eventStartLevel()
 		callback: "playerReallyAlive"
 	});
 	camSetExtraObjectiveMessage(_("Investigate the infested town"));
-
-	// Grant the player a minimap
-	// The player will get a real HQ in P2
-	setMiniMap(true);
 
 	// Set alliances
 	setAlliance(MIS_CIVS, CAM_HUMAN_PLAYER, true);
@@ -848,34 +836,11 @@ function eventStartLevel()
 	camSetWeather(CAM_WEATHER_SNOWSTORM);
 
 	// All Infested structures start out partially damaged
-	// preDamageInfested();
 	camSetPreDamageModifier(CAM_INFESTED, [50, 80], [30, 60]);
 
 	// NOTE: Timerless mode does not affect this mission at all
 	setMissionTime(-1);
 
-	// setTimer("resetMinimap", camSecondsToMilliseconds(0.5));
-
 	// Give player briefing.
 	camPlayVideos({video: "P1_BRIEF", type: MISS_MSG});
-
-	// Placeholder for the actual briefing sequence
-	// camQueueDialogue([
-	// 	{text: "---- BRIEFING PLACEHOLDER ----", delay: 0},
-	// 	{text: "CLAYDE: Greetings, Commander, I am General Clayde.", delay: 2, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: You have been assigned to lead team Bravo.", delay: 2, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: You, along with Commander Charlie, are to assist with my operations in this sector.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: I assume you have already been briefed on the current situation before arriving...", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: For a lack of a better term, an \"infestation\" has run rampant among the population.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: Even worse, the members of Team Alpha, the team sent here before you, have gone rogue.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: Therefore, we'll need to work quickly in order to salvage the situation.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: Commander Charlie has already begun setting up a safe haven nearby.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: Commander Bravo, your objective is to investigate this town.", delay: 4, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: After the initial outbreak, a large amount of the infested converged on this area, and have remained here since.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: We want to find out why they've lingered here specifically.", delay: 4, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: So we're sending you in to investigate.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: Take a squad and make your way towards this area.", delay: 2, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: Expect heavy infestation, especially as you approach the main town.", delay: 2, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: Good luck, Commander Bravo.", delay: 3, sound: CAM_RCLICK},
-	// ]);
 }

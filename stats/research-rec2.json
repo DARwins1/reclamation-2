@@ -9,6 +9,40 @@
         "researchPoints": 10,
         "researchPower": 10
     },
+    "R-Script-InfSensor-Debuff": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_SYSTEMTECH",
+        "id": "R-Script-Sensor-Debuff",
+        "imdName": "GNLSNSR1.PIE",
+        "keyTopic": 1,
+        "name": "Infested Sensor Debuff",
+        "researchPoints": 10,
+        "researchPower": 10,
+        "results": [
+            {
+                "class": "Sensor",
+                "parameter": "Range",
+                "value": -35
+            }
+        ]
+    },
+    "R-Script-InfSensor-Debuff-Undo": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_SYSTEMTECH",
+        "id": "R-Script-Sensor-Debuff-Undo",
+        "imdName": "GNLSNSR1.PIE",
+        "keyTopic": 1,
+        "name": "Undo Infested Sensor Debuff",
+        "researchPoints": 10,
+        "researchPower": 10,
+        "results": [
+            {
+                "class": "Sensor",
+                "parameter": "Range",
+                "value": 35
+            }
+        ]
+    },
     "R-Script-Sensor-Debuff": {
         "excludeFromCheats": 1,
         "iconID": "IMAGE_RES_SYSTEMTECH",
