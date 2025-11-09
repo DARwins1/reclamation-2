@@ -431,14 +431,6 @@
 
 
 	"object_13": {
-		"label": "deltaTruck",
-		"id": 507,
-		"player": 7,
-		"type": 0
-	},
-
-
-	"object_14": {
 		"label": "zuluTruck1",
 		"id": 508,
 		"player": 5,
@@ -446,11 +438,19 @@
 	},
 
 
-	"object_15": {
+	"object_14": {
 		"label": "zuluVtolFactory",
 		"id": 509,
 		"player": 5,
 		"type": 1
+	},
+
+
+	"object_15": {
+		"label": "deltaTruck",
+		"id": 545,
+		"player": 7,
+		"type": 0
 	},
 
 

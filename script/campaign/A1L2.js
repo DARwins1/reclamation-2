@@ -512,10 +512,14 @@ function updateExtraObjectiveMessage()
 
 function eventDestroyed(obj)
 {
-	if (obj.type === STRUCTURE && obj.player === MIS_YELLOW_SCAVS)
+	if (obj.type !== STRUCTURE)
+	{
+		return;
+	}
+
+	if (obj.player === MIS_YELLOW_SCAVS)
 	{
 		// Check if any of the component zones are clear (and ready for capture)
-
 		if (!powerClear && enumArea("powerCaptureZone", MIS_YELLOW_SCAVS, false).filter((obj) => (obj.type === STRUCTURE)).length == 0)
 		{
 			powerClear = true;
@@ -536,6 +540,14 @@ function eventDestroyed(obj)
 			hackAddMessage("VTOL_ZONE", PROX_MSG, CAM_HUMAN_PLAYER);
 			camCallOnce("captureDialogue");
 		}
+	}
+	else if (obj.player === MIS_NASDA || obj.player === MIS_CLAYDE)
+	{
+		// If an important structure is destroyed, just quietly replace it
+		// NOTE: ".Id" is correct here!
+		addStructure(camGetCompStats(obj.name, "Building").Id, obj.player, obj.x * 128, obj.y * 128);
+
+		// This won't replace the modules on the power generators, but oh well :/
 	}
 }
 
@@ -582,6 +594,7 @@ function isNasdaStructure(struct)
 function finalDialogue()
 {
 	playSound(cam_sounds.objective.primObjectiveCompleted);
+	camGrantBonusPower();
 
 	camQueueDialogue([
 		{text: "CLAYDE: Excellent work, Commanders.", delay: 4, sound: CAM_RCLICK},

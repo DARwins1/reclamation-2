@@ -59,6 +59,11 @@
                     "ENDTRAN"
                 ], "video": "dummy.ogv" }
             ]
+        },
+        "A1L4_ESCAPE": {
+            "sequences": [
+                { "loop": 0, "subtitles": "BLANK", "video": "act1/A1L4escape.ogv" }
+            ]
         }
     }
 }

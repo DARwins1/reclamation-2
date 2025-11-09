@@ -12,6 +12,7 @@ var extraAntiAir;
 var chaingunArtifactPlaced;
 var collectiveDetected;
 var backupTruckSpawned;
+var collectiveTimeFlag;
 
 var colRepairGroup;
 var colUplinkPatrolGroup;
@@ -190,8 +191,8 @@ function sendCollectiveTransporter()
 		{
 			// Add misc. attack units
 			templates = [
-			cTempl.colhmght, cTempl.colhmght, // HMG
-			cTempl.colcanht, cTempl.colcanht, // Light Cannon
+			cTempl.colhmght, // HMG
+			cTempl.colcanht, cTempl.colcanht, cTempl.colcanht, // Light Cannon
 			cTempl.colmrat, // MRA
 			cTempl.colflamt, // Flamer
 			];
@@ -265,6 +266,83 @@ function eventTransporterLanded(transport)
 	// NOTE: Remaining reinforcements that aren't assigned here will be handled like normal reinforcement units
 }
 
+function camEnemyBaseEliminated_redRoadblockBase()
+{
+	checkCollectiveIntroduction();
+}
+
+function camEnemyBaseEliminated_redNorthRoadBase()
+{
+	checkCollectiveIntroduction();
+}
+
+function camEnemyBaseEliminated_redPlateauBase()
+{
+	checkCollectiveIntroduction();
+}
+
+function camEnemyBaseEliminated_redSouthRoadBase()
+{
+	checkCollectiveIntroduction();
+}
+
+function camEnemyBaseEliminated_redUplinkBase()
+{
+	checkCollectiveIntroduction();
+}
+
+function camEnemyBaseEliminated_orangeNorthRoadBase()
+{
+	checkCollectiveIntroduction();
+}
+
+function camEnemyBaseEliminated_orangePlateauBase()
+{
+	checkCollectiveIntroduction();
+}
+
+function camEnemyBaseEliminated_orangeSouthCraterBase()
+{
+	checkCollectiveIntroduction();
+}
+
+function camEnemyBaseEliminated_orangeNorthCraterBase()
+{
+	checkCollectiveIntroduction();
+}
+
+function setCollectiveTimeFlag()
+{
+	collectiveTimeFlag = true;
+	checkCollectiveIntroduction();
+}
+
+// Introduce the Collective onto the map if 4 scavenger bases are destroyed
+// If (collectiveTimeFlag == true), then we only need 3 bases destroyed
+function checkCollectiveIntroduction() 
+{
+	const bases = [
+		"redRoadblockBase", "redNorthRoadBase", "redPlateauBase",
+		"redSouthRoadBase", "redUplinkBase", "orangeNorthRoadBase",
+		"orangePlateauBase", "orangeSouthCraterBase", "orangeNorthCraterBase",
+	];
+	let numBasesDestroyed = 0;
+
+	for (const base of bases)
+	{
+		if (camBaseIsEliminated(base))
+		{
+			numBasesDestroyed++;
+		}
+	}
+
+	if (numBasesDestroyed >= 4 ||
+		(collectiveTimeFlag && numBasesDestroyed >= 3))
+	{
+		camCallOnce("introduceCollective");
+	}
+}
+
 // Bring Collective units into the level, and set up refillable groups and trucks
 function introduceCollective()
 {
@@ -303,12 +381,12 @@ function introduceCollective()
 			repair: 60,
 			repairPos: camMakePos("collectiveRepairPos")
 	});
-	// Mortars to be assigned to a sensor (6 Mortars)
+	// Mortars to be assigned to a sensor (4 Mortars)
 	colMortarGroup = camMakeRefillableGroup(
 		undefined, {
 			templates: [
-				cTempl.colmortht, cTempl.colmortht, cTempl.colmortht,
-				cTempl.colmortht, cTempl.colmortht, cTempl.colmortht,
+				cTempl.colmortht, cTempl.colmortht,
+				cTempl.colmortht, cTempl.colmortht,
 			]
 		}, CAM_ORDER_FOLLOW, {
 			leader: "colSensorDroid", // NOTE: This droid doesn't exist at the start of the mission!
@@ -336,6 +414,20 @@ function introduceCollective()
 			structset: camA1L3UplinkStructs,
 			// This truck is brought in later!
 	});
+
+	// Upgrade Collective structures on harder difficulties
+	if (difficulty >= HARD)
+	{
+		// Hardened towers
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "GuardTower1", "GuardTower3"); // HMG Towers
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "GuardTower6", "GuardTower6H"); // MRP Towers
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "Sys-SensoTower01", "Sys-SensoTower02"); // Sensor Towers
+	}
+	if (difficulty == INSANE)
+	{
+		// Bunkers instead of emplacements
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "Cannon-Emplacement", "PillBox4"); // Cannon Emplacements/Bunkers
+	}
 
 	if (difficulty >= HARD) addCollectiveAntiAir(); // Do this immediately on Hard+
 
@@ -678,24 +770,11 @@ function eventStartLevel()
 		},
 	});
 
-	// Upgrade Collective structures on harder difficulties
-	if (difficulty >= HARD)
-	{
-		// Hardened towers
-		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "GuardTower1", "GuardTower3");
-		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "GuardTower6", "GuardTower6H");
-		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "Sys-SensoTower01", "Sys-SensoTower02");
-	}
-	if (difficulty == INSANE)
-	{
-		// Bunkers instead of emplacements
-		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "Cannon-Emplacement", "PillBox4");
-	}
-
 	extraAntiAir = false;
 	chaingunArtifactPlaced = false;
 	collectiveDetected = false;
 	backupTruckSpawned = false;
+	collectiveTimeFlag = false;
 
 	// Start these immediately
 	camEnableFactory("redFactory1");
@@ -802,7 +881,7 @@ function eventStartLevel()
 	queue("heliAttack1", camChangeOnDiff(camMinutesToMilliseconds(3)));
 	queue("activateSecondFactories", camChangeOnDiff(camMinutesToMilliseconds(6)));
 	queue("heliAttack2", camChangeOnDiff(camMinutesToMilliseconds(8)));
-	queue("introduceCollective", camChangeOnDiff(camMinutesToMilliseconds(10)));
+	queue("setCollectiveTimeFlag", camChangeOnDiff(camMinutesToMilliseconds(10)));
 	queue("activateFinalFactories", camChangeOnDiff(camMinutesToMilliseconds(12)));
 
 	// Give player briefing.

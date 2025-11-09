@@ -589,7 +589,7 @@ function spawnCollectiveCommander()
 function eventDestroyed(obj)
 {
 	if (obj.player === MIS_NASDA_POWER 
-		&& enumArea("nasdaPowerArea", MIS_NASDA_POWER, false).filter((obj) => (obj.type === STRUCTURE)).length === 0)
+		&& enumArea("nasdaPowerArea", MIS_NASDA_POWER, false).filter((obj) => (obj.type === STRUCTURE && obj.name === "Nuclear Reactor")).length === 0)
 	{
 		powerDestroyed = true;
 		hackRemoveMessage("NASDA_POWER", PROX_MSG, CAM_HUMAN_PLAYER);
@@ -618,7 +618,8 @@ function eventStartLevel()
 		message: "RET_LZ",
 		area: "compromiseZone",
 		retlz: true,
-		reinforcements: camMinutesToSeconds(1.5),
+		reinforcements: camMinutesToSeconds(1.25),
+		victoryVideo: {video: "A1L4_ESCAPE", type: CAMP_MSG},
 		callback: "canEscape"
 	});
 	camSetExtraObjectiveMessage("Defend NASDA Central");
@@ -740,14 +741,13 @@ function eventStartLevel()
 	// Set up refillable groups for the player's allies
 	// Also set up allied and Collective trucks
 
-	// Delta patrol group (4 Light Cannons, 2 Heavy Machinegunners, 3 Mechanics, 3 Grenadiers)
+	// Delta patrol group (5 Light Cannons, 3 Mechanics, 4 Grenadiers)
 	deltaPatrolGroup = camMakeRefillableGroup(
 		camMakeGroup("deltaPatrolGroup"), {
 			templates: [
-				cTempl.pllcant, cTempl.pllcant, cTempl.pllcant, cTempl.pllcant,
-				cTempl.cybhg, cTempl.cybhg,
+				cTempl.pllcanht, cTempl.pllcanht, cTempl.pllcanht, cTempl.pllcanht, cTempl.pllcanht,
 				cTempl.cybrp, cTempl.cybrp, cTempl.cybrp,
-				cTempl.cybgr, cTempl.cybgr, cTempl.cybgr,
+				cTempl.cybgr, cTempl.cybgr, cTempl.cybgr, cTempl.cybgr,
 		]}, CAM_ORDER_PATROL, {
 			pos: [
 				camMakePos("patrolPos1"),
@@ -756,7 +756,7 @@ function eventStartLevel()
 			],
 			interval: camSecondsToMilliseconds(28),
 			count: 10,
-			morale: 80,
+			// morale: 80,
 			repair: 50
 	});
 	// Delta Mortar group
@@ -923,6 +923,22 @@ function eventStartLevel()
 			rebuildBase: true,
 			structset: camA1L4ColLZ3Structs
 	});
+
+	// Downgrade Collective structures on lower difficulties
+	if (difficulty <= EASY)
+	{
+		// Emplacements instead of bunkers
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "PillBox4", "Cannon-Emplacement"); // Cannon Bunkers
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "PillBox1", "Cannon-Emplacement"); // HMG Bunkers
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "PillBox5", "Flamer-Emplacement"); // Flamer Bunkers
+	}
+	if (difficulty == SUPER_EASY)
+	{
+		// Un-hardened towers
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "GuardTower3", "GuardTower1"); // HMG Towers
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "GuardTower6H", "GuardTower6"); // MRP Towers
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "Sys-SensoTower02", "Sys-SensoTower01"); // Sensor Towers
+	}
 
 	phaseTwo = false;
 	phaseTwoTime = 0;

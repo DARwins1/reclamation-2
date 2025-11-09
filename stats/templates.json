@@ -3022,6 +3022,16 @@
             "Cannon1Mk1"
         ]
     },
+    "ViperLtCannonHalfTracks": {
+        "body": "Body1REC",
+        "id": "ViperLtCannonHalfTracks",
+        "name": "Light Cannon Viper Half-tracks",
+        "propulsion": "HalfTrack",
+        "type": "DROID",
+        "weapons": [
+            "Cannon1Mk1"
+        ]
+    },
     "ViperLtCannonWheels": {
         "body": "Body1REC",
         "id": "ViperLtCannonWheels",

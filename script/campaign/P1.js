@@ -554,14 +554,12 @@ function eventDestroyed(obj)
 			if (numWarehousesDestroyed == 1)
 			{
 				// Spawn an oil drum
-				const pos = camMakePos(obj);
-				addFeature("OilDrum", pos.x, pos.y);
+				addFeature("OilDrum", obj.x, obj.y);
 			}
 			else if (numWarehousesDestroyed == 3)
 			{
 				// Spawn a Lure
-				const pos = camMakePos(obj);
-				addStructure("Sys-InfLure", MIS_CIVS, pos.x * 128, pos.y * 128);
+				addStructure("Sys-InfLure", MIS_CIVS, obj.x * 128, obj.y * 128);
 				disableWarehouseDestruction();
 				hackRemoveMessage("OLD_TOWN", PROX_MSG, CAM_HUMAN_PLAYER);
 
@@ -570,11 +568,11 @@ function eventDestroyed(obj)
 				cameraSlide(obj.x * 128, obj.y * 128);
 			}
 		}
-	else if (obj.type === STRUCTURE && obj.player === MIS_CIVS)
-	{
-		// Warehouse destroyed early; replace it
-		addStructure("CivWarehouse2", MIS_CIVS, pos.x * 128, pos.y * 128);
-	}
+		else if (obj.type === STRUCTURE && obj.player === MIS_CIVS)
+		{
+			// Warehouse destroyed early; replace it
+			addStructure("CivWarehouse2", MIS_CIVS, obj.x * 128, obj.y * 128);
+		}
 	}
 }
 

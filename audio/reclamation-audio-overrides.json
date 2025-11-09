@@ -14,6 +14,12 @@
             { "fileName": "weld-1.ogg", "loop": false, "range": 1800, "volume": 70, "z_comment": "We can't add new weapon SFX, so this now is a stinger projectile sound" }
         ]
     },
+    "MissionMessages": {
+        "_name": "Mission message sounds",
+        "data": [
+            { "fileName": "pcv478.ogg", "loop": false, "range": 1800, "volume": 0, "z_comment": "Alliance Broken (Silenced)" }
+        ]
+    },
     "Extra": {
         "_name": "Extra sounds",
         "data": [

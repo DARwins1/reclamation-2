@@ -328,37 +328,57 @@ function transportReturnAlert()
 	}
 }
 
+// Called when the player "dies"
 function checkIfLaunched()
 {
-	// Set the player's power to whatever they've managed to stash
-	// setPower(savedPower, CAM_HUMAN_PLAYER);
-
 	if (allowWin)
 	{
-		// camCallOnce("playLastVideo");
 		return true;
 	}
+}
+
+// End the "warm-up" phase
+function eventMissionTimeout()
+{
+	// Grant infinite time for the rest of the mission
+	setMissionTime(-1);
+
+	camSetStandardWinLossConditions(CAM_VICTORY_EVACUATION, "A2L1", {
+		reinforcements: camMinutesToSeconds(3.5), // Duration the transport "leaves" map.
+		gameOverOnDeath: false, // Don't fail when the player runs out of stuff
+		callback: "checkIfLaunched"
+	});
+
+	const startPos = camMakePos("landingZone");
+	const entryPos = camMakePos("transportEntryPos");
+
+	// Place the transporter
+	camSetupTransporter(startPos.x, startPos.y, entryPos.x, entryPos.y);
+	playSound(cam_sounds.lz.returnToLZ);
+
+	// Queue enemy attacks
+	queue("heliAttack", camChangeOnDiff(camMinutesToMilliseconds(2)));
+	queue("vtolAttack", camChangeOnDiff(camMinutesToMilliseconds(6)));
+	setTimer("collectiveAttackWaves", camChangeOnDiff(MIS_GROUND_WAVE_DELAY));
+	setTimer("checkEnemyVtolArea", camSecondsToMilliseconds(1));
+	setTimer("sendCollectiveTransporter", camChangeOnDiff(camMinutesToMilliseconds(2)));
 }
 
 // This entire mission is basically just sending attack waves over and over until the player loses/evacuates all of their stuff.
 // It's basically impossible for the player to truly "lose" this level. Instead, the player has to focus on saving as many of their units/resources as possible
 function eventStartLevel()
 {
-	camSetStandardWinLossConditions(CAM_VICTORY_EVACUATION, "A2L1", {
-		reinforcements: camMinutesToSeconds(3.5), // Duration the transport "leaves" map.
-		gameOverOnDeath: false, // Don't fail when the player runs out of stuff
-		callback: "checkIfLaunched"
-	});
+	camSetStandardWinLossConditions(CAM_VICTORY_SCRIPTED, "A2L1"); // Temporary until the warm-up phase is over
 	camSetExtraObjectiveMessage(_("Evacuate as many units as possible"));
-	setMissionTime(-1); // Infinite time
+
+	// 1 minute "warm up" phase where nothing happens
+	setMissionTime(camMinutesToSeconds(1));
 
 	const startPos = camMakePos("landingZone");
 	const lz = getObject("landingZone");
-	const entryPos = camMakePos("transportEntryPos")
 
 	centreView(startPos.x, startPos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
-	camSetupTransporter(startPos.x, startPos.y, entryPos.x, entryPos.y);
 
 	camCompleteRequiredResearch(mis_collectiveResearch, CAM_THE_COLLECTIVE);
 
@@ -425,13 +445,6 @@ function eventStartLevel()
 	waveIndex = 0;
 	vtolsDetected = false;
 	lastTransportAlert = 0;
-	// camPlayVideos([{video: "MB2_DII_MSG", type: CAMP_MSG}, {video: "MB2_DII_MSG2", type: MISS_MSG}]);
-
-	queue("heliAttack", camChangeOnDiff(camMinutesToMilliseconds(2)));
-	queue("vtolAttack", camChangeOnDiff(camMinutesToMilliseconds(6)));
-	setTimer("collectiveAttackWaves", camChangeOnDiff(MIS_GROUND_WAVE_DELAY));
-	setTimer("checkEnemyVtolArea", camSecondsToMilliseconds(1));
-	setTimer("sendCollectiveTransporter", camChangeOnDiff(camMinutesToMilliseconds(2)));
 
 	// Place the satellite uplink from A1L3
 	const NASDA = 1;

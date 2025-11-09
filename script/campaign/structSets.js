@@ -29,9 +29,9 @@ const camGolfA1L2Structs = [
 // A1L3
 // Collective LZ ground defenses
 const camA1L3LZStructs = [
-	{stat: "A0TankTrap", x: 119, y: 28}, {stat: "A0TankTrap", x: 123, y: 28}, {stat: "A0TankTrap", x: 118, y: 29},
+	{stat: "A0TankTrap", x: 118, y: 29},
 	{stat: "A0TankTrap", x: 124, y: 29}, {stat: "A0TankTrap", x: 118, y: 33}, {stat: "A0TankTrap", x: 124, y: 33},
-	{stat: "A0TankTrap", x: 119, y: 34}, {stat: "A0TankTrap", x: 123, y: 34}, {stat: "Cannon-Emplacement", x: 121, y: 28},
+	{stat: "Cannon-Emplacement", x: 121, y: 28},
 	{stat: "Cannon-Emplacement", x: 118, y: 31}, {stat: "Cannon-Emplacement", x: 124, y: 31}, {stat: "Cannon-Emplacement", x: 121, y: 34},
 	{stat: "GuardTower1", x: 119, y: 29}, {stat: "GuardTower1", x: 123, y: 29}, {stat: "GuardTower1", x: 119, y: 33},
 	{stat: "GuardTower1", x: 123, y: 33}, {stat: "GuardTower6", x: 119, y: 18}, {stat: "GuardTower6", x: 114, y: 24},
