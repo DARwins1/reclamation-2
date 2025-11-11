@@ -30,6 +30,7 @@ const mis_infestedResearch = [
 var stealthPhase;
 var playerHidden;
 var survivedInfested;
+var storedMissionTime;
 
 var charlieCommander;
 var charlieCommandGroup;
@@ -38,8 +39,12 @@ var golfSensorGroup;
 var golfAttackGroup;
 var golfVtolGroup;
 var charlieTruckJob1;
+var charlieTruckJob2;
+var charlieTruckJob3;
 var golfTruckJob1;
 var golfTruckJob2;
+var golfTruckJob3;
+var golfTruckJob4;
 
 camAreaEvent("vtolRemoveZone", function(droid)
 {
@@ -61,7 +66,10 @@ function heliAttack()
 // Called shortly after the player breaks stealth
 function vtolAttack1()
 {
-	playSound(cam_sounds.enemyVtolsDetected);
+	if (getObject("colCC1") !== null)
+	{
+		playSound(cam_sounds.enemyVtolsDetected);
+	}
 
 	const templates = [cTempl.colatv, cTempl.colhmgv]; // Lancers and HMGs
 	const ext = {
@@ -75,7 +83,10 @@ function vtolAttack1()
 // Called after a long delay or when the player advances far enough
 function vtolAttack2()
 {
-	playSound(cam_sounds.enemyVtolsDetected);
+	if (getObject("colCC2") !== null)
+	{
+		playSound(cam_sounds.enemyVtolsDetected);
+	}
 
 	const templates = [cTempl.colatv, cTempl.combombv]; // Lancers and Cluster Bombs
 	const ext = {
@@ -119,11 +130,26 @@ function eventAttacked(victim, attacker)
 	}
 }
 
+function eventDestroyed(obj)
+{
+	if (!allianceExistsBetween(CAM_HUMAN_PLAYER, MIS_LZ_SCAVS))
+	{
+		return;
+	}
+
+	if (obj.type === STRUCTURE && obj.player === MIS_LZ_SCAVS)
+	{
+		// Prison safehouse destroyed; queitly replace it (shhhh)
+		addStructure("CivWarehouse1", MIS_LZ_SCAVS, obj.x * 128, obj.y * 128);
+	}
+}
+
 function activateLzScavs()
 {
 	// Undo the sensor debuff
 	camCompleteRequiredResearch(["R-Script-Sensor-Debuff-Undo"], MIS_LZ_SCAVS);
 	// NOTE: This part is timed even in timerless mode!
+	storedMissionTime = getMissionTime();
 	setMissionTime(camChangeOnDiff(70));
 	camEnableFactory("lzScavFactory");
 }
@@ -140,7 +166,7 @@ function camEnemyBaseEliminated_scavLZBase()
 	if (!tweakOptions.rec_timerlessMode)
 	{
 		// Set to the "real" mission time
-		setMissionTime(camChangeOnDiff(camHoursToSeconds(1.75)));
+		setMissionTime(storedMissionTime + camChangeOnDiff(camHoursToSeconds(1.75)));
 	}
 	else
 	{
@@ -206,7 +232,7 @@ function sendCollectiveScouts()
 	]);
 }
 
-// End the stealth phase expand the map
+// End the stealth phase and expand the map
 function endStealthPhase()
 {
 	// Transmission about Clayde's "diversion"
@@ -453,6 +479,7 @@ function activateCollective()
 			template: cTempl.comtruckt,
 			structset: camAreaToStructSet("colBase7")
 	});
+
 	if (tweakOptions.rec_timerlessMode)
 	{
 		const CRANE_TIME = camChangeOnDiff(camSecondsToMilliseconds(70));
@@ -505,6 +532,31 @@ function activateCollective()
 			});
 		}
 	}
+
+	// Upgrade Collective structures on higher difficulties
+	if (difficulty == HARD)
+	{
+		// Only replace these when destroyed
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "GuardTower1", "GuardTower3", true); // HMG Towers
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "Sys-SensoTower01", "Sys-SensoTower02", true); // Sensor Towers
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "WallTower02", "WallTower03", true); // Cannon Hardpoints
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "Emplacement-MRL-pit", "Emplacement-MRLHvy-pit", true); // MRA Emplacements
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "AASite-QuadMg1", "AASite-QuadBof", true); // AA Sites
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "Emplacement-MortarPit01", "Emplacement-MortarPit02", true); // Mortar Pits
+	}
+	else if (difficulty == INSANE)
+	{
+		// Proactively demolish/replace these
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "Emplacement-MRL-pit", "Emplacement-MRLHvy-pit"); // MRA Emplacements
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "AASite-QuadMg1", "AASite-QuadBof"); // AA Sites
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "Emplacement-MortarPit01", "Emplacement-MortarPit02"); // Mortar Pits
+
+		// Only replace these when destroyed
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "WallTower02", "WallTower03", true); // Cannon Hardpoints
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "PillBox4", "PillBoxHPC", true); // Cannon Bunkers
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "Sys-SensoTower01", "Sys-SensoTower02", true); // Sensor Towers
+	}
+
 	// Allied Trucks
 	charlieTruckJob1 = camManageTrucks(
 		MIS_TEAM_CHARLIE, {
@@ -512,6 +564,18 @@ function activateCollective()
 			rebuildBase: true,
 			truckDroid: getObject("charlieEngineer"),
 			structset: camAreaToStructSet("charlieStructZone")
+	});
+	charlieTruckJob2 = camManageTrucks(
+		MIS_TEAM_CHARLIE, {
+			label: "charlieForward",
+			rebuildBase: true,
+			structset: camA2L6CharlieForwardStructs1
+	});
+	charlieTruckJob2 = camManageTrucks(
+		MIS_TEAM_CHARLIE, {
+			label: "charliePrison",
+			rebuildBase: true,
+			structset: camA2L6CharlieForwardStructs2
 	});
 	golfTruckJob1 = camManageTrucks(
 		MIS_TEAM_GOLF, {
@@ -527,6 +591,18 @@ function activateCollective()
 			truckDroid: getObject("golfTruck2"),
 			structset: camAreaToStructSet("golfStructZone")
 	});
+	golfTruckJob3 = camManageTrucks(
+		MIS_TEAM_GOLF, {
+			label: "golfLZ",
+			rebuildBase: true,
+			structset: camA2L6GolfForwardStructs
+	});
+	golfTruckJob4 = camManageTrucks(
+		MIS_TEAM_GOLF, {
+			label: "golfLZ",
+			rebuildBase: true,
+			structset: camA2L6GolfForwardStructs
+	});
 
 	// Start timers and queues
 	setTimer("sendCharlieTransporter", camMinutesToMilliseconds(1.75));
@@ -534,6 +610,7 @@ function activateCollective()
 	queue("heliAttack", camChangeOnDiff(camMinutesToMilliseconds(1.25)));
 	queue("vtolAttack1", camChangeOnDiff(camMinutesToMilliseconds(2.5)));
 	queue("enableMoreFactories", camChangeOnDiff(camMinutesToMilliseconds(8)));
+	queue("golfBodyCheck", camChangeOnDiff(camMinutesToMilliseconds(10)));
 	queue("vtolAttack2", camChangeOnDiff(camMinutesToMilliseconds(12)));
 	queue("enableFinalFactories", camChangeOnDiff(camMinutesToMilliseconds(16)));
 
@@ -572,6 +649,8 @@ function sendCharlieTransporter()
 	let droidQueue = [];
 
 	if (!camDef(camGetTruck(charlieTruckJob1))) droidQueue.push(cTempl.cyben);
+	if (camBaseIsEliminated("colNorthCanalBase") && !camDef(camGetTruck(charlieTruckJob2))) droidQueue.push(cTempl.plmtruckht);
+	if (camBaseIsEliminated("colMainBase") && !camDef(camGetTruck(charlieTruckJob3))) droidQueue.push(cTempl.plmtruckht);
 
 	droidQueue = droidQueue.concat(camGetRefillableGroupTemplates([charlieCommander, charlieCommandGroup]));
 
@@ -603,6 +682,9 @@ function sendGolfTransporter()
 
 	if (!camDef(camGetTruck(golfTruckJob1))) droidQueue.push(cTempl.plmtruckt);
 	if (!camDef(camGetTruck(golfTruckJob2))) droidQueue.push(cTempl.plmtruckt);
+	if (camBaseIsEliminated("colNorthCanalBase") && !camDef(camGetTruck(golfTruckJob2))) droidQueue.push(cTempl.plmtruckt);
+	if (camBaseIsEliminated("colNorthCanalBase") && !camDef(camGetTruck(golfTruckJob3))) droidQueue.push(cTempl.plmtruckt);
+
 
 	droidQueue = droidQueue.concat(camGetRefillableGroupTemplates([golfSensor, golfSensorGroup, golfAttackGroup, golfVtolGroup]));
 
@@ -646,13 +728,13 @@ function eventTransporterLanded(transport)
 	{
 		case MIS_TEAM_CHARLIE:
 		{
-			truckJobs = [charlieTruckJob1];
+			truckJobs = [charlieTruckJob1, charlieTruckJob2, charlieTruckJob3];
 			otherGroups = [charlieCommander, charlieCommandGroup];
 			break;
 		}
 		case MIS_TEAM_GOLF:
 		{
-			truckJobs = [golfTruckJob1, golfTruckJob2];
+			truckJobs = [golfTruckJob1, golfTruckJob2, golfTruckJob3, golfTruckJob4];
 			otherGroups = [golfSensor, golfSensorGroup, golfAttackGroup, golfVtolGroup];
 			break;
 		}
@@ -696,6 +778,13 @@ function eventTransporterLanded(transport)
 		{
 			// New Golf sensor tank
 			addLabel(droid, "golfSensor");
+		}
+
+		if (droid.droidType !== DROID_COMMAND)
+		{
+			// Give standard combat units some rank
+			const STANDARD_RANK = "Trained";
+			camSetDroidRank(droid, STANDARD_RANK);
 		}
 	}
 
@@ -750,6 +839,44 @@ function enableFinalFactories()
 	camEnableFactory("colFactory4");
 	camEnableFactory("colCybFactory5");
 	camCallOnce("diversionDialogue");
+}
+
+// Check how many "Collective" bodies the player is using
+function golfBodyCheck()
+{
+	const playerDroids = enumDroid(CAM_HUMAN_PLAYER);
+	let vehicleNum = 0;
+	let colNum = 0;
+	for (const droid of playerDroids)
+	{
+		if (droid.droidType === DROID_WEAPON)
+		{
+			// NOTE: This doesn't count trucks!
+			vehicleNum++;
+			if (droid.body === "Body2SUP"
+				|| droid.body === "Body6SUPP"
+				|| droid.body === "Body9REC")
+			{
+				colNum++;
+			}
+		}
+	}
+
+	// If the player has >= 40% Collective bodies on their vehicles, have Golf comment about it
+	if ((colNum / playerDroids) >= 0.4)
+	{
+		camQueueDialogue([
+			{text: "GOLF: Hey, Bravo!", delay: 0, sound: CAM_RCLICK},
+			{text: "GOLF: Why're you using the Collective's vehicle bodies?", delay: 3, sound: CAM_RCLICK},
+			{text: "GOLF: Our chassis just aren't cutting it for you, huh?", delay: 3, sound: CAM_RCLICK},
+			{text: "LIEUTENANT: Commander Bravo has a right to use any vehicle design they want.", delay: 4, sound: CAM_RCLICK},
+			{text: "LIEUTENANT: Just like you and Commander Charlie.", delay: 3, sound: CAM_RCLICK},
+			{text: "GOLF: Oh yeah?", delay: 4, sound: CAM_RCLICK},
+			{text: "GOLF: Well, I think I'll stick with OUR vehicle bodies.", delay: 3, sound: CAM_RCLICK},
+			{text: "GOLF: Thank-you-very-much!", delay: 3, sound: CAM_RCLICK},
+			{text: "CHARLIE: Whatever you say, Golf.", delay: 5, sound: CAM_RCLICK},
+		]);
+	}
 }
 
 // Dialogue telling the player to clear the LZ
@@ -808,6 +935,13 @@ function campCleared()
 	playSound(cam_sounds.objective.primObjectiveCompleted);
 	// Remove the mission timer and grant bonus power as if the mission ended
 	camGrantBonusPower();
+
+	// Order Charlie's group to defend the prison
+	camManageGroup(charlieCommander, CAM_ORDER_DEFEND, {
+		removable: false,
+		pos: camMakePos("colBase7"),
+		repair: 50
+	})
 
 	camQueueDialogue([
 		{text: "CHARLIE: We did it!", delay: 4, sound: CAM_RCLICK},
@@ -1031,6 +1165,22 @@ function eventStartLevel()
 			cleanup: "golfStructZone",
 			friendly: true,
 			player: MIS_TEAM_GOLF
+		},
+		// Allied forward bases:
+		"charlieForward": {
+			cleanup: "colBase3",
+			player: MIS_TEAM_CHARLIE,
+			friendly: true
+		},
+		"golfForward": {
+			cleanup: "colBase3",
+			player: MIS_TEAM_GOLF,
+			friendly: true
+		},
+		"charliePrison": {
+			cleanup: "colBase7",
+			player: MIS_TEAM_CHARLIE,
+			friendly: true
 		},
 	});
 

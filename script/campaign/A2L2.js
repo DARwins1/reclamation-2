@@ -19,6 +19,21 @@ var lzAmbushGroup;
 var echoStrikeGroup;
 var echoDiscovered;
 
+var echoCommanderDeathTime;
+var echoRank;
+var echoCommanderDelay;
+
+// Needed to ensure the spy sensor fleeing scene can be triggered after a save/load
+function eventGameLoaded()
+{
+	const spyDroid = getObject("echoSpySensor");
+	if (camDef(spyDroid) && spyDroid !== null)
+	{
+		addLabel({ type: GROUP, id: camMakeGroup(spyDroid) }, "echoSpySensorST", false);
+		resetLabel("echoSpySensorST", CAM_HUMAN_PLAYER); // subscribe for eventGroupSeen
+	}
+}
+
 camAreaEvent("heliRemoveZone", function(droid)
 {
 	camSafeRemoveObject(droid, false);
@@ -57,16 +72,13 @@ camAreaEvent("ambushTrigger", function(droid)
 camAreaEvent("spyEscapeTrigger", function(droid)
 {
 	// Remove the fleeing spy
-	if (!mapExpanded)
+	if (droid.player === CAM_THE_COLLECTIVE && getLabel(droid) === "echoSpySensor")
 	{
-		if (droid.player == CAM_THE_COLLECTIVE)
-		{
-			camSafeRemoveObject(droid, false);
-		}
-		else
-		{
-			resetLabel("spyEscapeTrigger", CAM_THE_COLLECTIVE);
-		}
+		camSafeRemoveObject(droid, false);
+	}
+	else
+	{
+		resetLabel("spyEscapeTrigger", CAM_THE_COLLECTIVE);
 	}
 });
 
@@ -77,10 +89,15 @@ function checkLzAmbushGroup()
 		camCallOnce("evacDelta");
 		removeTimer("checkLzAmbushGroup");
 
+		camSetObjectVision(MIS_TEAM_DELTA);
+
 		// Tell the player to investigate Echo's base (and call reinforcements)
 		camPlayVideos([cam_sounds.incoming.incomingTransmission, {video: "A2L2_DELTA", type: MISS_MSG}]);
 
 		queue("echoDialogue", camMinutesToMilliseconds(4));
+
+		// If the spy sensor hasn't already fled, do that now
+		camCallOnce("spyFlee");
 	}
 }
 
@@ -128,9 +145,6 @@ function evacDelta()
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 
 	hackRemoveMessage("DELTA_LZ", PROX_MSG, CAM_HUMAN_PLAYER);
-
-	// If the spy sensor hasn't already fled, do that now
-	camCallOnce("spyFlee");
 }
 
 // Expand the map, donate remaining Delta objects to the player, let the player call in reinforcements, set up enemy groups, and queue up events for later
@@ -158,7 +172,7 @@ function expandMap()
 	playSound(cam_sounds.reinforcementsAreAvailable);
 	if (!tweakOptions.rec_timerlessMode)
 	{
-		setMissionTime(camChangeOnDiff(camHoursToSeconds(1.25)));
+		setMissionTime(getMissionTime() + camChangeOnDiff(camHoursToSeconds(1.25)));
 	}
 
 	// Expand the map boundaries
@@ -180,14 +194,6 @@ function expandMap()
 		interval: camSecondsToMilliseconds(22),
 		repair: 80
 	});
-	camManageGroup(camMakeGroup("echoCommander"), CAM_ORDER_PATROL, {
-		pos: [
-			camMakePos("patrolPos2"), camMakePos("patrolPos3"), camMakePos("patrolPos4")
-			// More positions are added later
-		],
-		interval: camSecondsToMilliseconds(28),
-		repair: 75
-	});
 
 	// Set up refillable groups and trucks
 	// Echo patrol group (2 Lancer Cyborgs, 2 HMG Cyborgs, 1 Hurricane)
@@ -206,7 +212,21 @@ function expandMap()
 			interval: camSecondsToMilliseconds(28),
 			repair: 75
 	});
-	// Echo commander group
+	// Echo commander group (escorts)
+	camMakeRefillableGroup(
+		camMakeGroup("echoCommander"), {
+			templates: [cTempl.pllcomht],
+			factories: ["colFactory2"],
+			callback: "allowEchoCommanderRebuild"
+		}, CAM_ORDER_PATROL, {
+			pos: [
+				camMakePos("patrolPos2"), camMakePos("patrolPos3"), camMakePos("patrolPos4")
+				// More positions are added later
+			],
+			interval: camSecondsToMilliseconds(28),
+			repair: 75
+	});
+	// Echo commander group (escorts)
 	// (3 Lancer Cyborgs, 3 HMG Cyborgs, 2 Hurricanes)
 	const commandTemplates = [
 		cTempl.cybla, cTempl.cybla, cTempl.cybla,
@@ -493,13 +513,23 @@ function sendCollectiveTransporter()
 // Reassign the VTOL strike turret's label when it's rebuilt
 function eventDroidBuilt(droid, structure)
 {
-	if (droid.player === CAM_THE_COLLECTIVE && camDroidMatchesTemplate(droid, cTempl.pllstrikeht))
+	if (droid.player !== CAM_THE_COLLECTIVE)
+	{
+		return;
+	}
+
+	if (camDroidMatchesTemplate(droid, cTempl.pllstrikeht))
 	{
 		addLabel(droid, "echoVtolSensor");
 	}
+	else if (camDroidMatchesTemplate(droid, cTempl.pllcomht))
+	{
+		// Echo commander rebuilt
+		addLabel(droid, "echoCommander");
+		camSetDroidRank(droid, echoRank);
+	}
 }
 
-// If the spy sensor is attacked, make it flee
 // If an Echo unit is attacked after the map expands, play some dialogue
 function eventAttacked(victim, attacker) 
 {
@@ -511,17 +541,31 @@ function eventAttacked(victim, attacker)
 	if (victim.player == CAM_THE_COLLECTIVE && attacker.player == CAM_HUMAN_PLAYER)
 	{
 		// Check if the victim was any Echo vehicle
-		if (victim.type === DROID && (victim.body === "Body1REC" || victim.body === "Body5REC"))
+		if (mapExpanded && victim.type === DROID && (victim.body === "Body1REC" || victim.body === "Body5REC"))
 		{
-			if (!mapExpanded)
-			{
-				camCallOnce("spyFlee");
-			}
-			else
-			{
-				camCallOnce("discoverEcho");
-			}
+			camCallOnce("discoverEcho");
 		}
+	}
+}
+
+// If the spy sensor is spotted, make it flee
+function eventGroupSeen(viewer, group)
+{
+	const spyDroid = getObject("echoSpySensor");
+	if (camDef(spyDroid) && spyDroid !== null 
+		&& group === spyDroid.group)
+	{
+		// Run away!
+		camCallOnce("spyFlee");
+	}
+}
+
+function eventDestroyed(obj)
+{
+	if (obj.player === CAM_THE_COLLECTIVE && obj.type === DROID && obj.droidType === DROID_COMMAND)
+	{
+		// Mark the time that the Echo commander died
+		echoCommanderDeathTime = gameTime;
 	}
 }
 
@@ -562,8 +606,11 @@ function landingDialogue()
 // Dialogue once Echo has been dealt with appropriately
 function echoEradicatedDialogue()
 {
+	playSound(cam_sounds.objective.primObjectiveCompleted);
+	camGrantBonusPower();
+
 	camQueueDialogue([
-		{text: "LIEUTENANT: Sir... They're gone sir.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Sir... They're gone sir.", delay: 6, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Team Echo has been eradicated.", delay: 2, sound: CAM_RCLICK},
 		{text: "CLAYDE: Good.", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: ...General?", delay: 6, sound: CAM_RCLICK},
@@ -622,6 +669,13 @@ function echoEradicated()
 
 	} 
 	return undefined;
+}
+
+// Delay when Echo can rebuild their commander (if they can at all...)
+function allowEchoCommanderRebuild()
+{	
+	// Allow Echo to rebuild their commander if we're on Hard+ (and enough time has passed)
+	return (gameTime >= echoCommanderDeathTime + echoCommanderDelay) && (enumStruct(CAM_THE_COLLECTIVE, COMMAND_CONTROL).length > 0);
 }
 
 function eventStartLevel()
@@ -784,9 +838,11 @@ function eventStartLevel()
 
 	mapExpanded = false;
 	echoDiscovered = false;
+	echoCommanderDeathTime = 0;
 
-	const COMMANDER_RANK = (difficulty <= MEDIUM) ? "Green" : "Trained";
-	camSetDroidRank(getObject("echoCommander"), COMMANDER_RANK);
+	echoRank = (difficulty <= MEDIUM) ? "Green" : "Trained";
+	echoCommanderDelay = (difficulty < INSANE) ? camMinutesToMilliseconds(12) : camMinutesToMilliseconds(8);
+	camSetDroidRank(getObject("echoCommander"), echoRank);
 
 	// NOTE: The unit with the label "echoVtolSensor" should also be auto-replaced, but we have to do that manually in this level script
 	camAutoReplaceObjectLabel(["heliTower1", "heliTower2", "echoVtolTower1", "echoVtolTower2", "echoVtolTower3"]);
@@ -795,6 +851,9 @@ function eventStartLevel()
 	setScrollLimits(0, 0, 42, 48);
 
 	hackAddMessage("DELTA_LZ", PROX_MSG, CAM_HUMAN_PLAYER);
+
+	addLabel({ type: GROUP, id: camMakeGroup(getObject("echoSpySensor")) }, "echoSpySensorST", false);
+	resetLabel("echoSpySensorST", CAM_HUMAN_PLAYER); // subscribe for eventGroupSeen
 
 	// Darken the fog to 1/2 default brightness
 	camSetFog(8, 8, 32);

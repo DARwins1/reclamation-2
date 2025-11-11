@@ -3240,7 +3240,7 @@ function eventStartLevel()
 			detectSnd: cam_sounds.baseDetection.enemyLZDetected,
 			eliminateSnd: cam_sounds.baseElimination.enemyLZEradicated,
 		},
-
+		// Friendly bases
 		"charlieMainBase": {
 			cleanup: "charlieBase1",
 			friendly: true
@@ -3259,7 +3259,6 @@ function eventStartLevel()
 			player: MIS_TEAM_CHARLIE,
 			friendly: true
 		},
-
 		"deltaMainBase": {
 			cleanup: "deltaBase1",
 			friendly: true

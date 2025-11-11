@@ -41,7 +41,11 @@ function vtolAttack()
 	{
 		return;
 	}
-	playSound(cam_sounds.enemyVtolsDetected);
+
+	if (getObject("colCC") !== null)
+	{
+		playSound(cam_sounds.enemyVtolsDetected);
+	}
 
 	const templates = [cTempl.colatv, cTempl.colhmgv, cTempl.colbombv]; // Lancers, HMGs, and Cluster Bombs
 	const ext = {
@@ -74,6 +78,7 @@ function landingDialogue()
 function clearDialogue()
 {
 	playSound(cam_sounds.objective.primObjectiveCompleted);
+	camGrantBonusPower();
 
 	camQueueDialogue([
 		{text: "CLAYDE: Well done, Commander Bravo.", delay: 4, sound: CAM_RCLICK},
@@ -404,6 +409,24 @@ function eventStartLevel()
 					structset: camAreaToStructSet("colBase3")
 			});
 		}
+	}
+
+	// Upgrade Collective structures on higher difficulties
+	if (difficulty == HARD)
+	{
+		// Only replace these when destroyed
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "Sys-SensoTower01", "Sys-SensoTower02", true); // Sensor Towers
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "WallTower02", "WallTower03", true); // Cannon Hardpoints
+	}
+	else if (difficulty == INSANE)
+	{
+		// Proactively demolish/replace these
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "Sys-SensoTower01", "Sys-SensoTower02"); // Sensor Towers
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "WallTower02", "WallTower03"); // Cannon Hardpoints
+
+		// Only replace these when destroyed
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "Emplacement-MortarPit01", "Emplacement-MortarPit02", true); // Mortar Pits
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "AASite-QuadMg1", "AASite-QuadBof", true); // AA Sites
 	}
 
 	camManageGroup(camMakeGroup("cyborgPatrolGroup"), CAM_ORDER_PATROL, {

@@ -8,6 +8,7 @@ function eventStartLevel()
 	if (!tweakOptions.rec_timerlessMode)
 	{
 		setMissionTime(camChangeOnDiff(camHoursToSeconds(0.5)));
+		camSetExtraObjectiveMessage(_("Additional mission time available later"));
 	}
 	else
 	{

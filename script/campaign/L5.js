@@ -21,14 +21,15 @@ const MIS_CYAN_SCAVS = 2;
 const MIS_YELLOW_SCAVS = 3;
 
 // ID of the scav monster bus used to trigger Boom Tick demonstration
-var showBus;
+var showBusId;
 
 // Needed to ensure the Boom Tick showcase can be triggered after a save/load
 function eventGameLoaded()
 {
-	if (camDef(getObject(DROID, MIS_CYAN_SCAVS, showBus)) && getObject(DROID, MIS_CYAN_SCAVS, showBus) !== null)
+	const showBusDroid = getObject(DROID, MIS_CYAN_SCAVS, showBusId);
+	if (camDef(showBusDroid) && showBusDroid !== null)
 	{
-		addLabel({ type: GROUP, id: camMakeGroup(getObject(DROID, MIS_CYAN_SCAVS, showBus)) }, "showBusST", false);
+		addLabel({ type: GROUP, id: camMakeGroup(showBusDroid) }, "showBusST", false);
 		resetLabel("showBusST", CAM_HUMAN_PLAYER); // subscribe for eventGroupSeen
 	}
 }
@@ -84,11 +85,13 @@ function eventDestroyed(obj)
 	}
 }
 
-// Used to trigger Boom Tick demonstration (when the player sees the monste bus)
+// Used to trigger Boom Tick demonstration (when the player sees the monster bus)
 function eventGroupSeen(viewer, group)
 {
-	if (camDef(getObject(DROID, MIS_CYAN_SCAVS, showBus)) && getObject(DROID, MIS_CYAN_SCAVS, showBus) !== null 
-		&& group === getObject(DROID, MIS_CYAN_SCAVS, showBus).group)
+	const showBusDroid = getObject(DROID, MIS_CYAN_SCAVS, showBusId);
+
+	if (camDef(showBusDroid) && showBusDroid !== null 
+		&& group === showBusDroid.group)
 	{
 		// Unleash the thingamabob
 		camManageGroup(camMakeGroup("boomShowcaseGroup"), CAM_ORDER_ATTACK, {targetPlayer: CAM_HUMAN_PLAYER});
@@ -630,9 +633,10 @@ function eventStartLevel()
 
 	// Spawn a scav Monster Bus tank (to be blown up)
 	const busPos = camMakePos("boomShowcaseGroup");
-	showBus = camAddDroid(MIS_CYAN_SCAVS, busPos, cTempl.moncan, "Battle Bus 4").id;
-	setHealth(getObject(DROID, MIS_CYAN_SCAVS, showBus), 30); // Starts very damaged
-	addLabel({ type: GROUP, id: camMakeGroup(getObject(DROID, MIS_CYAN_SCAVS, showBus)) }, "showBusST", false);
+	const showBusDroid = camAddDroid(MIS_CYAN_SCAVS, busPos, cTempl.moncan, "Battle Bus 4");
+	showBusId = showBusDroid.id;
+	setHealth(showBusDroid, 30); // Starts very damaged
+	addLabel({ type: GROUP, id: camMakeGroup(showBusDroid) }, "showBusST", false);
 	resetLabel("showBusST", CAM_HUMAN_PLAYER); // subscribe for eventGroupSeen (used to trigger Boom Tick demonstration)
 
 	camUpgradeOnMapStructures("Sys-SensoTower01", "Sys-RustSensoTower01", MIS_CYAN_SCAVS);

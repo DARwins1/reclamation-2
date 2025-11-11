@@ -95,6 +95,28 @@ const camA1L6ColLZ4Structs = [
 	{stat: "A0TankTrap", x: 9, y: 48}, {stat: "Sys-SensoTower02", x: 9, y: 49}, {stat: "A0TankTrap", x: 10, y: 49},
 ];
 
+// A2L6
+// Allied forward outposts
+const camA2L6CharlieForwardStructs1 = [
+	{stat: "Walltower06", x: 78, y: 14}, {stat: "A0HardcreteMk1Wall", x: 79, y: 14}, {stat: "Walltower06", x: 80, y: 14},
+	{stat: "A0RepairCentre3", x: 78, y: 17}, {stat: "Emplacement-MRL-pit", x: 81, y: 18}, {stat: "PillBox1", x: 84, y: 15},
+	{stat: "AASite-QuadBof", x: 80, y: 25}, {stat: "AASite-QuadBof", x: 82, y: 26}, {stat: "GuardTower6H", x: 84, y: 25},
+];
+const camA2L6GolfForwardStructs = [
+	{stat: "AASite-QuadBof", x: 69, y: 14}, {stat: "AASite-QuadBof", x: 70, y: 13}, {stat: "AASite-QuadBof", x: 71, y: 12},
+	{stat: "Emplacement-MortarPit02", x: 74, y: 10}, {stat: "Emplacement-MortarPit02", x: 75, y: 11}, {stat: "Emplacement-MortarPit02", x: 76, y: 10},
+	{stat: "GuardTower6H", x: 67, y: 8}, {stat: "A0RepairCentre3", x: 76, y: 6}, {stat: "WallTower03", x: 80, y: 6},
+	{stat: "A0HardcreteMk1Wall", x: 80, y: 7}, {stat: "A0HardcreteMk1Wall", x: 80, y: 8}, {stat: "WallTower03", x: 80, y: 9},
+	{stat: "Sys-CB-Tower01", x: 84, y: 7}, {stat: "Sys-SensoTower02", x: 84, y: 8}, {stat: "PillBox6", x: 84, y: 10},
+];
+const camA2L6CharlieForwardStructs2 = [
+	{stat: "PillBox1", x: 137, y: 24}, {stat: "PillBox1", x: 137, y: 29}, {stat: "PillBox1", x: 133, y: 34},
+	{stat: "PillBox1", x: 147, y: 27}, {stat: "PillBox1", x: 140, y: 28}, {stat: "PillBox1", x: 140, y: 37},
+	{stat: "GuardTower6H", x: 141, y: 28}, {stat: "GuardTower6H", x: 148, y: 28}, {stat: "GuardTower6H", x: 141, y: 36},
+	{stat: "GuardTower6H", x: 148, y: 37}, {stat: "Emplacement-MRL-pit", x: 138, y: 30}, {stat: "Emplacement-MRL-pit", x: 147, y: 28},
+	{stat: "Sys-SensoTower02", x: 142, y: 33}, {stat: "AASite-QuadBof", x: 140, y: 32, rot: 3}, {stat: "AASite-QuadBof", x: 140, y: 34, rot: 3},
+];
+
 // A2L7
 // Collective LZ defenses
 const camA2L7ColLZ1Structs = [

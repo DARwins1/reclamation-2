@@ -47,7 +47,10 @@ function heliAttack2()
 
 function vtolAttack()
 {
-	playSound(cam_sounds.enemyVtolsDetected);
+	if (getObject("colCC") !== null)
+	{
+		playSound(cam_sounds.enemyVtolsDetected);
+	}
 
 	// Focus towards the player's LZ
 	const templates = [cTempl.colatv, cTempl.colhmgv]; // Lancers and HMGs
@@ -429,6 +432,23 @@ function eventStartLevel()
 	else
 	{
 		setMissionTime(camChangeOnDiff(camHoursToSeconds(1.25)));
+	}
+
+	// Upgrade Collective structures on higher difficulties
+	if (difficulty == HARD)
+	{
+		// Only replace these when destroyed
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "Sys-SensoTower01", "Sys-SensoTower02", true); // Sensor Towers
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "WallTower02", "WallTower03", true); // Cannon Hardpoints
+	}
+	else if (difficulty == INSANE)
+	{
+		// Proactively demolish/replace these
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "Sys-SensoTower01", "Sys-SensoTower02"); // Sensor Towers
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "WallTower02", "WallTower03"); // Cannon Hardpoints
+
+		// Only replace these when destroyed
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "Emplacement-MortarPit01", "Emplacement-MortarPit02", true); // Mortar Pits
 	}
 
 	camAutoReplaceObjectLabel(["scavHeliTower", "cScavHeliTower", "colCC"]);

@@ -544,6 +544,21 @@ function eventStartLevel()
 		setMissionTime(camChangeOnDiff(camHoursToSeconds(2)));
 	}
 
+	// Upgrade Collective structures on higher difficulties
+	if (difficulty == HARD)
+	{
+		// Only replace these when destroyed
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "Sys-SensoTower01", "Sys-SensoTower02", true); // Sensor Towers
+	}
+	else if (difficulty == INSANE)
+	{
+		// Proactively demolish/replace these
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "Sys-SensoTower01", "Sys-SensoTower02"); // Sensor Towers
+
+		// Only replace these when destroyed
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "AASite-QuadMg1", "AASite-QuadBof", true); // AA Sites
+	}
+
 	camAutoReplaceObjectLabel(["heliTower1", "heliTower2", "colVtolTower1", "colVtolTower2", "colVtolTower3", "colVtolCBTower"]);
 
 	// These factories are active immediately

@@ -405,6 +405,22 @@ function eventStartLevel()
 		}
 	}
 
+	// Upgrade Collective structures on higher difficulties
+	if (difficulty == HARD)
+	{
+		// Hardened towers (only replace once destroyed)
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "GuardTower1", "GuardTower3", true); // HMG Towers
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "GuardTower6", "GuardTower6H", true); // MRP Towers
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "Sys-SensoTower01", "Sys-SensoTower02", true); // Sensor Towers
+	}
+	else if (difficulty == INSANE)
+	{
+		// Hardened towers (also proactively demolish/replace them)
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "GuardTower1", "GuardTower3"); // HMG Towers
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "GuardTower6", "GuardTower6H"); // MRP Towers
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "Sys-SensoTower01", "Sys-SensoTower02"); // Sensor Towers
+	}
+
 	camAutoReplaceObjectLabel(["heliTower1", "heliTower2"]);
 
 	baitActive = false;

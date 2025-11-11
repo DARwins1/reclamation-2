@@ -57,7 +57,10 @@ function heliAttack2()
 
 function vtolAttack()
 {
-	playSound(cam_sounds.enemyVtolsDetected);
+	if (getObject("colCC") !== null)
+	{
+		playSound(cam_sounds.enemyVtolsDetected);
+	}
 
 	// Focus towards the player's LZ
 	const templates = [cTempl.colatv, cTempl.colhmgv]; // Lancers and HMGs
@@ -654,6 +657,25 @@ function eventStartLevel()
 	else
 	{
 		setMissionTime(camChangeOnDiff(camHoursToSeconds(1.5)));
+	}
+
+	// Upgrade Collective structures on higher difficulties
+	if (difficulty == HARD)
+	{
+		// Hardened towers (only replace once destroyed)
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "GuardTower1", "GuardTower3", true); // HMG Towers
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "GuardTower6", "GuardTower6H", true); // MRP Towers
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "Sys-SensoTower01", "Sys-SensoTower02", true); // Sensor Towers
+	}
+	else if (difficulty == INSANE)
+	{
+		// Hardened towers (also proactively demolish/replace them)
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "GuardTower1", "GuardTower3"); // HMG Towers
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "GuardTower6", "GuardTower6H"); // MRP Towers
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "Sys-SensoTower01", "Sys-SensoTower02"); // Sensor Towers
+
+		// Also replace hardpoints (only if destroyed)
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "WallTower02", "WallTower03", true); // Cannon Hardpoints
 	}
 
 	// 2 Transports on INSANE

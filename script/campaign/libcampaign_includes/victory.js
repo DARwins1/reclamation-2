@@ -618,7 +618,9 @@ function __camShowVictoryConditions()
 
 	if (__camWinLossCallback === CAM_VICTORY_PRE_OFFWORLD)
 	{
-		return; // do not need this on these missions.
+		// Only show the extra objective message (if one exists)
+		__camShowExtraObjectiveMessage();
+		return;
 	}
 
 	const __TOTAL_ARTIFACTS = Object.keys(__camArtifacts).length;
@@ -698,6 +700,11 @@ function __camShowVictoryConditions()
 	}
 
 	//More specific messages set through the mission scripts.
+	__camShowExtraObjectiveMessage();
+}
+
+function __camShowExtraObjectiveMessage()
+{
 	if (camDef(__camExtraObjectiveMessage))
 	{
 		if (__camExtraObjectiveMessage instanceof Array)
