@@ -1932,21 +1932,13 @@ function setStageTwo()
 	// Hack to prevent the east half of the map from being dark after the expansion
 	camSetSunPos(-450.0, -401.0, 225.0); // Move the sun just a wee bit 
 
+	// Transmission about Delta's crashed transport
+	camPlayVideos([cam_sounds.incoming.incomingTransmission, {video: "A4L6_DELTA", type: MISS_MSG}]);
+
 	// Dialogue...
 	camCallOnce("collectiveDialogue");
-	camQueueDialogue([
-		{text: "DELTA: Lieutenant!", delay: 3, sound: CAM_RCLICK},
-		{text: "DELTA: The Collective just downed one of our transports some sort of surface-to-air missile!", delay: 2, sound: CAM_RCLICK},
-		{text: "DELTA: It's crashed to the east of our position!", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: ...", delay: 4, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Commander Bravo, take a rescue team, and bring the survivors of that crash back to base.", delay: 4, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Commanders Charlie, Delta, cover team Bravo and keep the Collective off of their back.", delay: 4, sound: CAM_RCLICK},
-		// Delay...
-		{text: "CHARLIE: Heads up, Bravo!", delay: 12, sound: CAM_RCLICK},
-		{text: "CHARLIE: We're detecting some Collective bases to the east.", delay: 2, sound: CAM_RCLICK},
-		{text: "CHARLIE: You'll have to break through their blockade to reach the crash site!", delay: 4, sound: CAM_RCLICK},
-		// Long delay...
-		{text: "CHARLIE: Lieutenant, we're detecting more of those SAM launchers in the areas surrounding our base.", delay: 60, sound: CAM_RCLICK},
+	camQueueDialogue([ // Additional dialogue after a long delay...
+		{text: "CHARLIE: Lieutenant, we've detected more of those SAM launchers in the areas surrounding our base.", delay: 60, sound: CAM_RCLICK},
 		{text: "CHARLIE: The Collective is trying to box us in!", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: ...This just keeps getting worse, huh?", delay: 4, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: We're not going to be able to flee using transports until we come up with a backup plan.", delay: 3, sound: CAM_RCLICK},
@@ -2157,19 +2149,8 @@ function setStageThree()
 	camGradualSunIntensity(camMinutesToMilliseconds(2), .35,.35,.35);
 	camSetWeather(CAM_WEATHER_RAINSTORM);
 
-	// Dialogue...
-	camQueueDialogue([
-		{text: "DELTA: Lieutenant, team Bravo has returned the survivors from our transport.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Thank you, Commander Bravo.", delay: 2, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: We're about to need all the manpower we can get.", delay: 2, sound: CAM_RCLICK},
-		{text: "CHARLIE: Lieutenant!", delay: 3, sound: CAM_RCLICK},
-		{text: "CHARLIE: We're picking up Collective forces moving away from the city.", delay: 2, sound: CAM_RCLICK},
-		{text: "CHARLIE: It looks like they're heading this way, and...", delay: 3, sound: CAM_RCLICK},
-		{text: "CHARLIE: ...There's a LOT of them, sir.", delay: 2, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: ...", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Commanders, hunker down and get ready to fight.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: ...It looks like there's only one way out of this now.", delay: 4, sound: CAM_RCLICK},
-	]);
+	// Transmission about the incoming Collective onslaught
+	camPlayVideos([cam_sounds.incoming.incomingTransmission, {video: "A4L6_COLLECTIVE", type: MISS_MSG}]);
 }
 
 function groundAssault1()
@@ -3105,7 +3086,8 @@ camAreaEvent("collectiveRetreatZone", function(droid)
 // End the campaign in victory
 function endGame()
 {
-	camEndMission(true);
+	camPlayVideos({video: "A4L6_TRANSPORT", type: CAMP_MSG});
+	queue("camEndMission", camSecondsToMilliseconds(0.1));
 }
 
 // Stage 3 only fails if the player is wiped out
@@ -3976,6 +3958,9 @@ function eventStartLevel()
 	camEnableFactory("deltaCybFactory2");
 	camEnableFactory("deltaVtolFactory1");
 	camEnableFactory("deltaVtolFactory2");
+
+	// Give player briefing.
+	camPlayVideos({video: "A4L6_BRIEF", type: MISS_MSG});
 
 	queue("trackTransporter", camSecondsToMilliseconds(0.25));
 	queue("startDeltaTransports", camSecondsToMilliseconds(40));

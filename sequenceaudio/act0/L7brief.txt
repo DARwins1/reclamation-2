@@ -4,7 +4,7 @@
 -120 60		13.0		17.0	_("our evacuation is still behind schedule.")
 -120 50		17.0		20.0	_("<ASSOCIATE>: We're still picking up groups of stragglers")
 -120 60		17.0		20.0	_("from around your sector.")
--120 50		20.0		24.0	_("<ASSOCIATE>: But the infested are on the move,")
+-120 50		20.0		24.0	_("<ASSOCIATE>: But the Infested are on the move,")
 -120 60		20.0		24.0	_("and are closing in on us even now.")
 -120 50		24.0		28.0	_("<ASSOCIATE>: We don't have much time left;")
 -120 60		24.0		28.0	_("you must defend the base while we finish the evacuation.")

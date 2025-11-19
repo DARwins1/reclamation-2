@@ -280,14 +280,9 @@ function __camGameWon()
 		camPlayVideos(__camVictoryData.victoryVideo);
 	}
 
-	if (camDef(__camNextLevel))
+	if (camDef(__camNextLevel) && !(__camNextLevel === CAM_A0_OUT || __camNextLevel === CAM_A4_OUT))
 	{
 		camTrace(__camNextLevel);
-		if (__camNextLevel === CAM_A0_OUT || __camNextLevel === CAM_A4_OUT)
-		{
-			gameOverMessage(true, false, false);
-			return;
-		}
 		camNextLevel(__camNextLevel);
 	}
 	else

@@ -275,6 +275,11 @@ function sendDeltaTransporter()
 
 function eventTransporterLanded(transport)
 {
+	if (transport.player === CAM_HUMAN_PLAYER)
+	{
+		camCallOnce("charlieDialogue");
+	}
+
 	if (transport.player !== MIS_TEAM_DELTA)
 	{
 		return;
@@ -322,6 +327,17 @@ function eventTransporterLanded(transport)
 	camAssignToRefillableGroups(transOther, otherGroups);
 }
 
+// Dialogue about what Charlie's doing in the background
+function charlieDialogue()
+{
+	camQueueDialogue([
+		{text: "LIEUTENANT: In the meantime, Commander Charlie...", delay: 6, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Start gathering any civilians that you can find.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Once Bravo finds a safe spot, we should start moving people immediately.", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: Roger that, Lieutenant.", delay: 4, sound: CAM_RCLICK},
+	]);
+}
+
 function eventAttacked(victim, attacker) 
 {
 	if (!camDef(victim) || !camDef(attacker))
@@ -342,7 +358,8 @@ function detectDelta()
 		return;
 	}
 
-	// TODO: Dialogue...
+	// Transmission about Delta in the area
+	camPlayVideos([cam_sounds.incoming.incomingTransmission, {video: "A4L2_DELTA", type: MISS_MSG}]);
 
 	deltaDetected = true;
 }

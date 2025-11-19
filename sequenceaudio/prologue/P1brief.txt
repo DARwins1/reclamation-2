@@ -12,7 +12,7 @@
 -120 60		34.5	37.5	_("in order to salvage this situation.")
 -120 50		38.5	41.5	_("<CLAYDE>: Commander Charlie has already begun setting up a safe haven nearby.")
 -120 50		41.5	44.5	_("<CLAYDE>: Commander Bravo, your objective is to investigate this town.")
--120 50		44.5	49.5	_("<CLAYDE>: After the initial outbreak, a large amount of the infested")
+-120 50		44.5	49.5	_("<CLAYDE>: After the initial outbreak, a large amount of the Infested")
 -120 60		44.5	49.5	_("converged on this area, and have remained here since.")
 -120 50		49.5	52.5	_("<CLAYDE>: We want to find out why they've lingered here specifically.")
 -120 50		52.5	55.5	_("<CLAYDE>: Take a squad and make your way towards this area.")

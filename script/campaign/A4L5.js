@@ -1087,15 +1087,17 @@ function eventMissionTimeout()
 	}
 }
 
-// Set up a player transport to move to the next mission
-// NOTE: Only the large assault waves stop at this point!
+// Set up a player transport and allow moving on to the next mission
 function transitionSetup()
 {
 	camSetupTransporter(68, 66, 40, 52);
 	transportPlaced = true;
 
 	camSetStandardWinLossConditions(CAM_VICTORY_PRE_OFFWORLD, "A4L6");
-	camSetExtraObjectiveMessage([_("Escape the sector")]);
+	camSetExtraObjectiveMessage([_("Escape via transport")]);
+
+	// Transmission about escaping
+	camPlayVideos([cam_sounds.incoming.incomingTransmission, {video: "A4L5_EVAC", type: MISS_MSG}]);
 
 	if (!tweakOptions.rec_timerlessMode)
 	{
@@ -1393,21 +1395,8 @@ function eventStartLevel()
 			structset: camA4L5ColLZ10Structs
 	});
 
-	// Placeholder for the actual briefing sequence
-	// <LIEUTENANT>: Well, what's done is done.
-	// <LIEUTENANT>: General Clayde is dead, and what remains of NARS leadership has rejoined us.
-	// <LIEUTENANT>: And without him operating the Lures, Clayde's Infested are running amok.
-	// <LIEUTENANT>: The Collective are making short work of them all over the city, incinerating entire city blocks.
-	// <LIEUTENANT>: There's nothing left for us here; it's time to leave this city.
-	// <LIEUTENANT>: Team Charlie is currently using all of our remaining transports to evacuate civilians and NARS staff.
-	// <LIEUTENANT>: Once that's done, they can evacuate the rest of us.
-	// <LIEUTENANT>: But we're not out of this yet.
-	// <LIEUTENANT>: The Infested is getting wiped out, but there's still plenty of them wandering around this burning city.
-	// <LIEUTENANT>: We're also detecting dozens of Collective kill teams hunting them down.
-	// <LIEUTENANT>: And most worryingly, Team Delta is still out there somewhere.
-	// <LIEUTENANT>: Commander Bravo, defend your position against any hostiles until we can evacuate you.
-	// <LIEUTENANT>: I have a feeling this is going to get ugly before it gets better.
-	// <LIEUTENANT>: So be ready for anything, Commander.
+	// Give player briefing.
+	camPlayVideos({video: "A4L5_BRIEF", type: MISS_MSG});
 
 	// It's supposed to be ash...
 	camSetWeather(CAM_WEATHER_SNOWSTORM);

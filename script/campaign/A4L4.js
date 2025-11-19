@@ -150,6 +150,7 @@ function eventDestroyed(obj)
 			else if (obj.droidType === DROID_SUPERTRANSPORTER)
 			{
 				// Zulu's evac transport was destroyed
+				camPlayVideos({video: "A4L4_CRASH", type: CAMP_MSG});
 				zuluSurrender();
 			}
 		}

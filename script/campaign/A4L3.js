@@ -30,11 +30,10 @@ const mis_infestedResearch = [
 	"R-Wpn-AAGun-Damage02", "R-Vehicle-Engine04",
 ];
 const mis_teamExtraResearch = [ // Added on top of everything the player starts Act 4 with
-	"R-Wpn-Cannon-Damage06", "R-Wpn-Cannon-ROF03", "R-Wpn-AAGun-ROF02",
-	"R-Wpn-Mortar-Damage06", "R-Wpn-Howitzer-ROF02", "R-Struc-RprFac-Upgrade03",
+	"R-Wpn-Cannon-Damage06", "R-Wpn-Cannon-ROF03", "R-Wpn-Bomb-Damage02",
 	"R-Struc-VTOLPad-Upgrade03", "R-Wpn-Flamer-ROF03", "R-Wpn-Flamer-Damage06",
-	"R-Struc-RprFac-Upgrade03", "R-Struc-VTOLPad-Upgrade03",
-	"R-Wpn-Bomb-Damage02", "R-Wpn-AAGun-Damage03"
+	"R-Struc-RprFac-Upgrade03", "R-Struc-VTOLPad-Upgrade03", "R-Struc-RprFac-Upgrade03",
+	"R-Wpn-Howitzer-ROF02",
 ];
 
 camAreaEvent("heliRemoveZone", function(droid)
@@ -1294,19 +1293,8 @@ function eventStartLevel()
 	queue("activateInfested", camChangeOnDiff(camMinutesToMilliseconds(2)));
 	queue("activateFactories", camChangeOnDiff(camMinutesToMilliseconds(3)));
 
-	// Placeholder for the actual briefing sequence
-	// <LIEUTENANT>: That... was not ideal.
-	// <LIEUTENANT>: But, at least we have a place to start sending people to.
-	// <LIEUTENANT>: Commander Charlie, have you started the evacuation runs?
-	// <CHARLIE>: Already working on it, Lieutenant.
-	// <LIEUTENANT>: Great. We'll need to move fast.
-	// <LIEUTENANT>: Clayde might not know where we are, but that encounter with Team Delta definitely means that he's on to us now.
-	// <LIEUTENANT>: Commander Bravo, you should help Team Charlie with the evacuation efforts.
-	// <LIEUTENANT>: Once we've...
-	// <CHARLIE>: Lieutenant?
-	// <LIEUTENANT>: Holy Hell, BRAVO!
-	// <LIEUTENANT>: You've got incoming contacts in two directions!
-	// <LIEUTENANT>: Scramble everything! And whatever you do, stay alive!
+	// Give player briefing.
+	camPlayVideos({video: "A4L3_BRIEF", type: MISS_MSG});
 
 	// Most Infested units start out pre-damaged
 	camSetPreDamageModifier(CAM_INFESTED, [50, 80], [60, 90], CAM_INFESTED_PREDAMAGE_EXCLUSIONS);

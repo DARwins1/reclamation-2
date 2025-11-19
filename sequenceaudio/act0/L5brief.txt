@@ -18,6 +18,6 @@
 -120 50		45.0		49.0	_("<CLAYDE>: Your primary objective now is to curtail the spread")
 -120 60		45.0		49.0	_("of this infestation, by any means necessary.")
 -120 50		49.0		54.0	_("<CLAYDE>: According to scavenger radio chatter, there's a nearby")
--120 60		49.0		54.0	_("industrial town currently under attack by the infested.")
+-120 60		49.0		54.0	_("industrial town currently under attack by the Infested.")
 -120 50		54.0		57.0	_("<CLAYDE>: Take your forces there and purge the town.")
 -120 50		57.0		60.0	_("<CLAYDE>: We must move swiftly and act decisively in order to succeed.")

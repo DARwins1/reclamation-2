@@ -966,33 +966,8 @@ function eventStartLevel()
 		drainPlayerExp();
 	}
 
-	// Placeholder for the actual briefing sequence
-	// [L7 recording]
-	// <CLAYDE>: I had hoped that you would help us achieve great things.
-	// <CLAYDE>: But someone has to take the fall for this mess.
-	// <CLAYDE>: And my role is far too important to squander; especially with what comes next.
-	// <CLAYDE>: However, you still have one crucial role to fulfill...
-	// <CLAYDE>: Bait.
-	// <CLAYDE>: The infested are approaching your base from every direction.
-	// <CLAYDE>: Every single unit in the sector is converging on your position.
-	// <CLAYDE>: And the nuclear warheads stored in those silos have been primed to detonate.
-	// <CLAYDE>: In a single blast, both you and the infested will all be reduced to ashes.
-	// <CLAYDE>: In the end, I will be remembered as the one who triumphed over hostile scavenger clans, a rampaging infection...
-	// <CLAYDE>: ...And a treacherous Commander.
-	// <CLAYDE>: As for you?
-	// <CLAYDE>: You will be remembered as another obstacle overcame by the great General Edmund Clayde.
-	// <CLAYDE>: Goodbye, Commander.
-	// [recording ends]
-	// <LIEUTENANT>: Commander Bravo, Team Charlie has already set up a base for us.
-	// <LIEUTENANT>: It's located deep in the city center, the most contaminated section of the city.
-	// <LIEUTENANT>: I know, it's risky.
-	// <LIEUTENANT>: But after our encounter with Foxtrot and Golf, I didn't want to take any chances.
-	// <LIEUTENANT>: I'm sure Clayde is scouring the city right now, hunting for us.
-	// <LIEUTENANT>: But this place is one of the last places he'd think to check. Hopefully.
-	// <LIEUTENANT>: So take your forces, and establish yourself here.
-	// <LIEUTENANT>: We'll need a solid base of operations in order to plan our next moves.
-	// <LIEUTENANT>: And be careful, Charlie reports that this place is infested top to bottom.
-	// <LIEUTENANT>: The Infested shouldn't make any moves on us without Clayde's Lures, but who knows what might set them off.
+	// Give player briefing.
+	camPlayVideos({video: "A4L1_BRIEF", type: MISS_MSG});
 
 	// Most Infested units start out pre-damaged
 	camSetPreDamageModifier(CAM_INFESTED, [50, 80], [60, 90], CAM_INFESTED_PREDAMAGE_EXCLUSIONS);
