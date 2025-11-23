@@ -250,6 +250,13 @@
 	},
 
 
+	"area_23": {
+		"label": "infEntry12",
+		"pos1": [10368, 896],
+		"pos2": [10624, 1408]
+	},
+
+
 	"object_0": {
 		"label": "colTruck1",
 		"id": 691,

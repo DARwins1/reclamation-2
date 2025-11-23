@@ -394,6 +394,14 @@
 
 
 	"object_1": {
+		"label": "lzScavFactory",
+		"id": 8,
+		"player": 1,
+		"type": 1
+	},
+
+
+	"object_2": {
 		"label": "charlieCommander",
 		"id": 739,
 		"player": 5,
@@ -401,7 +409,7 @@
 	},
 
 
-	"object_2": {
+	"object_3": {
 		"label": "cScavFactory3",
 		"id": 211,
 		"player": 2,
@@ -409,7 +417,7 @@
 	},
 
 
-	"object_3": {
+	"object_4": {
 		"label": "cScavFactory1",
 		"id": 66,
 		"player": 2,
@@ -417,18 +425,10 @@
 	},
 
 
-	"object_4": {
+	"object_5": {
 		"label": "colCybFactory1",
 		"id": 107,
 		"player": 2,
-		"type": 1
-	},
-
-
-	"object_5": {
-		"label": "lzScavFactory",
-		"id": 8,
-		"player": 1,
 		"type": 1
 	},
 
