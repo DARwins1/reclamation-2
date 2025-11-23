@@ -37,6 +37,7 @@ var colCommanderGroup;
 var colKillGroup;
 var deltaCommander;
 var deltaCommandGroup;
+var deltaGrenadierGroup;
 var deltaVtolSensGroup;
 var deltaVtolCbGroup;
 var deltaVtolTowerGroup1;
@@ -62,6 +63,7 @@ var uplinkTimeRemaining;
 var uplinkSecure;
 var lastUplinkCheckTime;
 var missionTimeRemaining;
+var allowDeltaEscape;
 var deltaRank;
 
 camAreaEvent("vtolRemoveZone", function(droid)
@@ -72,7 +74,10 @@ camAreaEvent("vtolRemoveZone", function(droid)
 
 function vtolAttack()
 {
-	playSound(cam_sounds.enemyVtolsDetected);
+	if (getObject("colCC") !== null)
+	{
+		playSound(cam_sounds.enemyVtolsDetected);
+	}
 	
 	// HEAP Bombs, Tank Killers, and Thermite Bombs
 	const templates = [cTempl.comhbombv, cTempl.comhatv, cTempl.comthermv];
@@ -203,11 +208,11 @@ function sendDeltaTransporter()
 	}
 
 	// Make a list of droids to bring in in order of importance:
-	// Trucks -> Commander -> Command Group -> VTOLs
+	// Trucks -> Commander -> Command Group -> Grenadier Group -> VTOLs
 	let droidQueue = [];
 
 	// Python trucks on Hard+
-	const tTemplate = (difficulty < HARD) ? cTempl.plmtruckt : cTempl.plhtruckt;
+	const tTemplate = (difficulty < HARD) ? cTempl.plmtruckht : cTempl.plhtruckht;
 
 	if (!camDef(camGetTruck(deltaTruckJob1))) droidQueue.push(tTemplate);
 	if (!camDef(camGetTruck(deltaTruckJob2))) droidQueue.push(tTemplate);
@@ -235,13 +240,13 @@ function sendDeltaTransporter()
 	}
 
 	// Delay when Delta's commander can be rebuilt
-	if (gameTime >= deltaCommanderDeathTime + MIS_DELTA_COMMANDER_DELAY)
+	if (difficulty > EASY && gameTime >= deltaCommanderDeathTime + MIS_DELTA_COMMANDER_DELAY)
 	{
 		// Bring in a new commander if needed
 		droidQueue = droidQueue.concat(camGetRefillableGroupTemplates(deltaCommander));
 	}
 
-	droidQueue = droidQueue.concat(camGetRefillableGroupTemplates([deltaCommandGroup, deltaVtolSensGroup, deltaVtolCbGroup, deltaVtolTowerGroup1]));
+	droidQueue = droidQueue.concat(camGetRefillableGroupTemplates([deltaCommandGroup, deltaGrenadierGroup, deltaVtolSensGroup, deltaVtolCbGroup, deltaVtolTowerGroup1]));
 
 	// Check if the corresponding VTOL tower exists before resupplying...
 	if (getObject("deltaVtolTower2"))
@@ -287,7 +292,7 @@ function eventTransporterLanded(transport)
 
 	const transDroids = camGetTransporterDroids(transport.player);
 	const truckJobs = [deltaTruckJob1, deltaTruckJob2, deltaTruckJob3, deltaTruckJob4, deltaTruckJob5, deltaTruckJob6, deltaTruckJob7, deltaTruckJob8, deltaTruckJob9];
-	const otherGroups = [deltaCommander, deltaCommandGroup, deltaVtolSensGroup, deltaVtolCbGroup, deltaVtolTowerGroup1];
+	const otherGroups = [deltaCommander, deltaCommandGroup, deltaGrenadierGroup, deltaVtolSensGroup, deltaVtolCbGroup, deltaVtolTowerGroup1];
 
 	const transTrucks = transDroids.filter((droid) => (droid.droidType == DROID_CONSTRUCT));
 	const transOther = transDroids.filter((droid) => (droid.droidType != DROID_CONSTRUCT));
@@ -348,6 +353,7 @@ function eventAttacked(victim, attacker)
 	if (victim.player === MIS_TEAM_DELTA && attacker.player === CAM_HUMAN_PLAYER)
 	{
 		detectDelta();
+		camCallOnce("deltaAttackDialogue");
 	}
 }
 
@@ -362,6 +368,31 @@ function detectDelta()
 	camPlayVideos([cam_sounds.incoming.incomingTransmission, {video: "A4L2_DELTA", type: MISS_MSG}]);
 
 	deltaDetected = true;
+}
+
+function deltaAttackDialogue()
+{
+	camQueueDialogue([
+		{text: "DELTA: Bravo?!", delay: 4, sound: CAM_RCLICK},
+		{text: "DELTA: What are you doing here?!", delay: 2, sound: CAM_RCLICK},
+		{text: "DELTA: Clayde said that you'd-", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Delta, stop!", delay: 2, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Clayde is a traitor!", delay: 2, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: We're trying to-", delay: 2, sound: CAM_RCLICK},
+		{text: "DELTA: You expect me to believe you?", delay: 2, sound: CAM_RCLICK},
+		{text: "DELTA: You abandoned NARS.", delay: 2, sound: CAM_RCLICK},
+		{text: "DELTA: If I were you, I'd have run as far away as I could.", delay: 2, sound: CAM_RCLICK},
+		{text: "DELTA: But instead, you've come here for our uplink.", delay: 3, sound: CAM_RCLICK},
+		{text: "DELTA: You know that Clayde wants these, Lieutenant.", delay: 3, sound: CAM_RCLICK},
+		{text: "DELTA: And surely, you know that Clayde wants YOU.", delay: 3, sound: CAM_RCLICK},
+		{text: "DELTA: I don't want to fight you, Bravo.", delay: 4, sound: CAM_RCLICK},
+		{text: "DELTA: But orders are orders.", delay: 3, sound: CAM_RCLICK},
+		{text: "DELTA: And I have to carry them out.", delay: 2, sound: CAM_RCLICK},
+		// Long delay...
+		{text: "LIEUTENANT: ...Stay on your guard, Bravo.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: We need that uplink data.", delay: 2, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: If Team Delta tries to stop us, you might have to fight them off as well.", delay: 2, sound: CAM_RCLICK},
+	]);
 }
 
 // Activate everything
@@ -434,7 +465,7 @@ function activateTeamDelta()
 		],
 		radius: 20
 	});
-	camManageGroup(deltaCommandGroup, CAM_ORDER_FOLLOW, {
+	camManageGroup(deltaCommandGroup, CAM_ORDER_FOLLOW, { // Overwrite the group's suborder
 		leader: "deltaCommander",
 		repair: 50,
 		suborder: CAM_ORDER_COMPROMISE,
@@ -446,9 +477,70 @@ function activateTeamDelta()
 			radius: 20
 		}
 	});
+	camManageGroup(deltaGrenadierGroup, CAM_ORDER_ATTACK, {
+		repair: 50,
+		removable: false,
+		pos: [
+			camMakePos("outpostStructArea"),
+			camMakePos("uplinkStructArea")
+		],
+		radius: 20
+	});
 }
 
-// Make team Delta's commander more aggressive against the player 
+// Make Delta give up
+// Called if the player destroys Delta's LZ
+function deactivateTeamDelta()
+{
+	// Stop calling transports
+	removeTimer("sendDeltaTransporter");
+
+	camQueueDialogue([
+		{text: "DELTA: General! Bravo's pushing us back!", delay: 2, sound: CAM_RCLICK},
+		{text: "DELTA: We're trying to hold our ground, but they just-", delay: 3, sound: CAM_RCLICK},
+		{text: "DELTA: ...", delay: 2},
+		{text: "DELTA: What?! You can't be serious!", delay: 3, sound: CAM_RCLICK},
+		{text: "DELTA: I'm not-", delay: 2, sound: CAM_RCLICK},
+		{text: "DELTA: ...", delay: 2},
+		{text: "DELTA: No, you know what? Screw this.", delay: 3, sound: CAM_RCLICK, callback: "deltaFlee"},
+		{text: "DELTA: We're getting out of here!", delay: 3, sound: CAM_RCLICK},
+		{text: "DELTA: If you want them dead so badly, do it yourself!", delay: 2, sound: CAM_RCLICK},
+	]);
+}
+
+// Disable all Delta group management, and make all of their units run towards the escape area
+function deltaFlee()
+{
+	allowDeltaEscape = true;
+
+	// Disable Delta's trucks
+	camDisableTruck("deltaLZBase");
+	camDisableTruck("deltaOverlookBase");
+	camDisableTruck("deltaOutpost");
+	camDisableTruck("deltaUplinkBase");
+
+	// Grab ALL of Delta's units, put them in a group, and order them to escape
+	const deltaDroids = enumDroid(MIS_TEAM_DELTA).filter((obj) => (obj.droidType !== DROID_SUPERTRANSPORTER));
+	camMakeGroup(deltaDroids); // Stop libcampaign unit management
+	const escapePos = camMakePos("deltaEscape");
+	for (const droid of deltaDroids)
+	{
+		orderDroidLoc(droid, DORDER_MOVE, escapePos.x, escapePos.y);
+	}
+}
+
+// Remove Delta droids if they're fleeing
+camAreaEvent("deltaEscape", function(droid)
+{
+	if (allowDeltaEscape)
+	{
+		camSafeRemoveObject(droid, false);
+	}
+
+	resetLabel("deltaEscape", MIS_TEAM_DELTA);
+});
+
+// Make Delta's groups more aggressive against the player 
 function aggroTeamDelta()
 {
 	if (deltaAggro)
@@ -459,7 +551,23 @@ function aggroTeamDelta()
 	detectDelta();
 	deltaAggro = true;
 
-	// TODO: Dialogue...
+	// Dialogue...
+	camQueueDialogue([
+		{text: "DELTA: General-", delay: 4, sound: CAM_RCLICK},
+		{text: "DELTA: Supreme General, sir Team Bravo has-", delay: 1, sound: CAM_RCLICK},
+		{text: "DELTA: ...", delay: 2},
+		{text: "DELTA: Sir, I don't know if we-", delay: 4, sound: CAM_RCLICK},
+		{text: "DELTA: ...", delay: 2},
+		{text: "DELTA: I understand the reasoning, sir.", delay: 4, sound: CAM_RCLICK},
+		{text: "DELTA: But do we really have to-.", delay: 3, sound: CAM_RCLICK},
+		{text: "DELTA: ...", delay: 2},
+		{text: "DELTA: Yes, Supreme General, sir.", delay: 4, sound: CAM_RCLICK},
+		{text: "DELTA: ...I'm on it.", delay: 3, sound: CAM_RCLICK},
+		// Long delay...
+		{text: "LIEUTENANT: Bravo, I'm detecting transmissions from Clayde to Commander Delta.", delay: 8, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: But I can't decipher what the General is saying, I don't have enough clearance.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Be careful.", delay: 3, sound: CAM_RCLICK},
+	]);
 
 	// Attack the player directly
 	camManageGroup(deltaCommander, CAM_ORDER_ATTACK, {
@@ -467,13 +575,23 @@ function aggroTeamDelta()
 		removable: false,
 		targetPlayer: CAM_HUMAN_PLAYER
 	});
+	camManageGroup(deltaGrenadierGroup, CAM_ORDER_ATTACK, {
+		repair: 50,
+		removable: false,
+		targetPlayer: CAM_HUMAN_PLAYER
+	});
 }
 
-// Returns true the uplink has been held by the player for long enough
+function camEnemyBaseEliminated_deltaLZBase()
+{
+	camCallOnce("deactivateTeamDelta");
+}
+
+// Returns true the uplink has been held by the player for long enough, or if all enemy bases are destroyed
 // Returns false if the Uplink is destroyed
 function dataDownloaded()
 {
-	if (uplinkTimeRemaining <= 0)
+	if (uplinkTimeRemaining <= 0 || camAllEnemyBasesEliminated())
 	{
 		if (uplinkSecure && !tweakOptions.rec_timerlessMode)
 		{
@@ -481,16 +599,19 @@ function dataDownloaded()
 		}
 		if (uplinkSecure)
 		{
-			playSound(cam_sounds.objective.primObjectiveCompleted);
-			updateExtraObjectiveMessage();
 			uplinkSecure = false;
 		}
 
+		if (camAllEnemyBasesEliminated())
+		{
+			// Extra dialogue if the player eradicated all bases
+			camCallOnce("eradicateDialogue");
+		}
+
 		// Player can leave
+		camCallOnce("clearObjective");
 		return true;
 	}
-
-	// TODO: Alternate win condition if all enemies are dead
 
 	// Fail if Uplink is destroyed
 	if (enumStruct(MIS_UPLINK).length == 0)
@@ -543,6 +664,27 @@ function dataDownloaded()
 
 		lastUplinkCheckTime = gameTime;
 		uplinkSecure = false;
+	}
+}
+
+// Tell the player that they've won
+function clearObjective()
+{
+	playSound(cam_sounds.objective.primObjectiveCompleted);
+	camSetExtraObjectiveMessage();
+}
+
+function eradicateDialogue()
+{
+	if (uplinkTimeRemaining > 0)
+	{
+		// The player destroyed all enemy bases instead of holding the uplink
+		// Have the Lieutenant comment about it
+		camQueueDialogue([
+			{text: "LIEUTENANT: Woah...", delay: 4, sound: CAM_RCLICK},
+			{text: "LIEUTENANT: Well, I guess that's one way to make sure the uplink is secure.", delay: 3, sound: CAM_RCLICK},
+			{text: "LIEUTENANT: Come on back whenever you're done out there.", delay: 3, sound: CAM_RCLICK},
+		]);
 	}
 }
 
@@ -843,7 +985,7 @@ function eventStartLevel()
 	// Delta groups...
 	deltaCommander = camMakeRefillableGroup(
 		camMakeGroup("deltaCommander"), {
-			templates: [cTempl.plhcomt]
+			templates: [cTempl.plhcomht]
 		}, CAM_ORDER_DEFEND, {
 			repair: 50,
 			pos: camMakePos("deltaCommandGroup"),
@@ -852,12 +994,13 @@ function eventStartLevel()
 	deltaCommandGroup = camMakeRefillableGroup(
 		camMakeGroup("deltaCommandGroup"), {
 			templates: [ 
-				cTempl.plhacant, cTempl.plhacant, cTempl.plhacant, cTempl.plhacant, cTempl.plhacant, cTempl.plhacant, // 6 Assault Cannons
-				cTempl.plhasgnt, cTempl.plhasgnt, // 2 Assault Guns
+				cTempl.plhacanht, cTempl.plhacanht, cTempl.plhacanht, cTempl.plhacanht, cTempl.plhacanht, cTempl.plhacanht, // 6 Assault Cannons
+				cTempl.scyac, cTempl.scyac, cTempl.scyac, cTempl.scyac, cTempl.scyac, cTempl.scyac, // 6 Super Auto-Cannon Cyborgs
 				cTempl.plhrepht, cTempl.plhrepht, cTempl.plhrepht, // 3 Repair Turrets
-				cTempl.plhhaat, cTempl.plhhaat, // 2 Cyclones
-				cTempl.scygr, cTempl.scygr, cTempl.scygr, cTempl.scygr, // 4 Super Grenadiers
-				cTempl.plhstriket, // 1 VTOL Strike Turret
+				cTempl.plhhaaht, cTempl.plhhaaht, // 2 Cyclones
+				cTempl.plhstrikeht, // 1 VTOL Strike Turret
+				cTempl.scyac, cTempl.scyac, // 2 Super Auto-Cannon Cyborgs (Insane)
+				cTempl.plhacanht, cTempl.plhacanht, // 2 Assault Cannons (Hard+)
 			],
 		}, CAM_ORDER_FOLLOW, {
 			leader: "deltaCommander",
@@ -867,6 +1010,17 @@ function eventStartLevel()
 				pos: camMakePos("deltaCommandGroup"),
 				radius: 20
 			}
+	});
+	deltaGrenadierGroup = camMakeRefillableGroup(
+		undefined, {
+			templates: [ // 8 Super Grenadiers
+				cTempl.scygr, cTempl.scygr, cTempl.scygr, cTempl.scygr,
+				cTempl.scygr, cTempl.scygr, cTempl.scygr, cTempl.scygr,
+			],
+		}, CAM_ORDER_DEFEND, {
+			repair: 50,
+			pos: camMakePos("deltaCommandGroup"),
+			radius: 20
 	});
 	deltaVtolSensGroup = camMakeRefillableGroup(
 		camMakeGroup("deltaVtolSensGroup"), {
@@ -1136,6 +1290,18 @@ function eventStartLevel()
 		});
 	}
 
+	// Upgrade Collective structures on higher difficulties
+	if (difficulty == HARD)
+	{
+		// Only replace these when destroyed
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "AASite-QuadBof", "AASite-QuadRotMg", true); // AA Sites
+	}
+	else if (difficulty == INSANE)
+	{
+		// Proactively demolish/replace these
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "AASite-QuadBof", "AASite-QuadRotMg"); // AA Sites
+	}
+
 	allowExtraWaves = false;
 	deltaCommanderDeathTime = 0;
 	deltaDetected = false;
@@ -1143,7 +1309,8 @@ function eventStartLevel()
 	deltaAggro = false;
 	uplinkTimeRemaining = camMinutesToMilliseconds(12);
 	missionTimeRemaining = -1;
-	deltaRank = (difficulty <= MEDIUM) ? 6 : difficulty + 4; // Elite to Hero
+	allowDeltaEscape = false;
+	deltaRank = (difficulty <= EASY) ? 6 : difficulty + 4; // Elite to Hero
 
 	hackAddMessage("UPLINK_BEACON", PROX_MSG, CAM_HUMAN_PLAYER);
 

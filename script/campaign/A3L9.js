@@ -445,12 +445,8 @@ function sendFoxtrotGroundReinforcements()
 			}
 		});
 
-		const droids = enumGroup(reinforcements);
-		for (const droid of transDroids)
-		{
-			// Assign the standard rank
-			camSetDroidRank(droid, teamUnitRank);
-		}
+		// Assign the standard rank
+		camSetDroidRank(enumGroup(reinforcements), teamUnitRank);
 	}
 }
 
@@ -638,11 +634,8 @@ function eventTransporterLanded(transport)
 	{
 		const transDroids = camGetTransporterDroids(transport.player);
 
-		for (const droid of transDroids)
-		{
-			// Assign the standard rank
-			camSetDroidRank(droid, teamUnitRank);
-		}
+		// Assign the standard rank
+		camSetDroidRank(transDroids, teamUnitRank);
 
 		camAssignToRefillableGroups(transDroids, golfPatrolGroup); // Any leftovers will attack the player
 	}
@@ -984,6 +977,8 @@ function eventStartLevel()
 				cTempl.plhhatw, cTempl.plhhatw,
 				cTempl.plhbbw, cTempl.plhbbw,
 				cTempl.plhinfw, cTempl.plhinfw,
+				cTempl.plhhatw, cTempl.plhhatw, // 2 Tank Killers (Hard+)
+				cTempl.plhbbw, cTempl.plhbbw, // 2 Bunker Busters (Insane)
 			],
 		}, CAM_ORDER_FOLLOW, {
 			leader: "foxtrotCommander",

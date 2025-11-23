@@ -330,25 +330,17 @@ function eventStartLevel()
 
 	// Set up refillable groups and trucks
 	// Collective commander group
-	// (2 Heavy Machineguns, 4 Super Heavy-Gunners, 1 VTOL Strike Turret, 1 Lancer, 1 Cyclone AA, 1 Repair Turret)
-	// NOTE: The 2 Heavy Cannon Tigers that spawn with this commander are not rebuilt (and not included here)
-	const commandTemplates = [
-		cTempl.comhmgt, cTempl.comhmgt,
-		cTempl.scymc, cTempl.scymc, cTempl.scymc, cTempl.scymc,
-		cTempl.comstriket,
-		cTempl.comatt,
-		cTempl.comhaat,
-		cTempl.comrept,
-	];
-	if (difficulty >= HARD)
-	{
-		// Add an extra 2 Lancers on Hard+
-		commandTemplates.push(cTempl.comatt);
-		commandTemplates.push(cTempl.comatt);
-	}
 	camMakeRefillableGroup(
 		camMakeGroup("colCommandGroup"), {
-			templates: commandTemplates,
+			templates: [ // NOTE: The 2 Heavy Cannon Tigers that spawn with this commander are not rebuilt (and not included here)
+				cTempl.comhmgt, cTempl.comhmgt, // 2 HMGs
+				cTempl.scymc, cTempl.scymc, cTempl.scymc, cTempl.scymc, // 4 Super Heavy Gunners
+				cTempl.comstriket, // 1 VTOL Strike
+				cTempl.comatt, // 1 Lancer
+				cTempl.comhaat, // 1 Cyclone
+				cTempl.comrept, // 1 Repair Turret
+				cTempl.comatt, cTempl.comatt, // 2 Lancers (Hard+)
+			],
 			factories: ["colFactory2", "colFactory3", "colCybFactory1", "colCybFactory2", "colCybFactory3"],
 			obj: "colCommander" // Stop refilling this group when the commander dies
 		}, CAM_ORDER_FOLLOW, {

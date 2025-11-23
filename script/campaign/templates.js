@@ -153,6 +153,7 @@ plmsenst: { body: "Body5REC", prop: "tracked01", weap: "SensorTurret1Mk1" }, // 
 plhsenst: { body: "Body11ABT", prop: "tracked01", weap: "SensorTurret1Mk1" }, // Sensor Python Tracks
 plhsensht: { body: "Body11ABT", prop: "HalfTrack", weap: "SensorTurret1Mk1" }, // Sensor Python Half-tracks
 plhsensh: { body: "Body11ABT", prop: "hover01", weap: "SensorTurret1Mk1" }, // Sensor Python Hover
+plhstrikeht: { body: "Body11ABT", prop: "HalfTrack", weap: "Sys-VstrikeTurret01" }, // VTOL Strike Turret Python Half-tracks
 plhstriket: { body: "Body11ABT", prop: "tracked01", weap: "Sys-VstrikeTurret01" }, // VTOL Strike Turret Python Tracks
 
 plltruckht: { body: "Body1REC", prop: "HalfTrack", weap: "Spade1Mk1" }, // Truck Viper Half-tracks
@@ -337,6 +338,7 @@ comacant: { body: "Body6SUPP", prop: "tracked01", weap: "Cannon5VulcanMk1" }, //
 cohhpvt: { body: "Body9REC", prop: "tracked01", weap: "Cannon4AUTOMk1" }, // Hyper Velocity Cannon Tiger Tracks
 cohacant: { body: "Body9REC", prop: "tracked01", weap: "Cannon5VulcanMk1" }, // Assault Cannon Tiger Tracks
 cohhcant: { body: "Body9REC", prop: "tracked01", weap: "Cannon375mmMk1" }, // Heavy Cannon Tiger Tracks
+cohhcanh: { body: "Body9REC", prop: "hover01", weap: "Cannon375mmMk1" }, // Heavy Cannon Tiger Hover
 
 colflamht: { body: "Body2SUP", prop: "HalfTrack", weap: "Flame1Mk1" }, // Flamer Leopard Half-tracks
 colflamt: { body: "Body2SUP", prop: "tracked01", weap: "Flame1Mk1" }, // Flamer Leopard Tracks
@@ -386,50 +388,39 @@ comacanv: { body: "Body6SUPP", prop: "V-Tol", weap: "Cannon5Vulcan-VTOL" }, // A
 cohacanv: { body: "Body9REC", prop: "V-Tol", weap: "Cannon5Vulcan-VTOL" }, // Assault Cannon Tiger VTOL
 
 // NEXUS Units
-// CAM_3_A
-nxtruckh: { body: "Body7ABT", prop: "hover02", weap: "Spade1Mk1" },
-nxmserh: { body: "Body7ABT", prop: "hover02", weap: "Missile-MdArt" },
-nxmreph: { body: "Body7ABT", prop: "hover02", weap: "LightRepair1" },
-nxlsensh: { body: "Body3MBT", prop: "hover02", weap: "SensorTurret1Mk1" },
-nxmrailh: { body: "Body7ABT", prop: "hover02", weap: "RailGun2Mk1" },
-nxmscouh: { body: "Body7ABT", prop: "hover02", weap: "Missile-A-T" },
+nxlsensh: { body: "Body3MBT", prop: "hover02", weap: "SensorTurret1Mk1" }, // Sensor Retaliation Hover
+nxmsens: { body: "Body7ABT", prop: "hover02", weap: "SensorTurret1Mk1" }, // Sensor Retribution Hover
 
-nxlneedv: { body: "Body3MBT", prop: "V-Tol02", weap: "RailGun1-VTOL" },
-nxlscouv: { body: "Body3MBT", prop: "V-Tol02", weap: "Missile-VTOL-AT" },
-nxmtherv: { body: "Body7ABT", prop: "V-Tol02", weap: "Bomb4-VTOL-HvyINC" },
+nxtruckh: { body: "Body7ABT", prop: "hover02", weap: "Spade1Mk1" }, // Truck Retribution Hover
 
+nxmcommh: { body: "Body7ABT", prop: "hover02", weap: "CommandTurret1" }, // Command Turret Retribution Hover
 
-// CAM_3_1
-nxmcommh: { body: "Body7ABT", prop: "hover02", weap: "CommandTurret1" },
+nxllinkh: { body: "Body3MBT", prop: "hover02", weap: "NEXUSlink" }, // NEXUS Link Turret Retaliation Hover
+nxmlinkh: { body: "Body7ABT", prop: "hover02", weap: "NEXUSlink" }, // NEXUS Link Turret Retribution Hover
 
+nxlflash: { body: "Body3MBT", prop: "hover02", weap: "Laser3BEAMMk1" }, // Flashlight Retaliation Hover
+nxmpulseh: { body: "Body7ABT", prop: "hover02", weap: "Laser2PULSEMk1" }, // Pulse Laser Retribution Hover
 
-// CAM_3_B
-nxmlinkh: { body: "Body7ABT", prop: "hover02", weap: "NEXUSlink" },
-nxmsamh: { body: "Body7ABT", prop: "hover02", weap: "Missile-HvySAM" },
-nxmheapv: { body: "Body7ABT", prop: "V-Tol02", weap: "Bomb2-VTOL-HvHE" },
+nxmserh: { body: "Body7ABT", prop: "hover02", weap: "Missile-MdArt" }, // Seraph Retribution Hover
 
-// CAM_3_2
-nxlflash: { body: "Body3MBT", prop: "hover02", weap: "Laser3BEAMMk1" },
+nxmreph: { body: "Body7ABT", prop: "hover02", weap: "LightRepair1" }, // Repair Turret Retribution Hover
 
-// CAM_3_A_B
-nxmsens: { body: "Body7ABT", prop: "hover02", weap: "SensorTurret1Mk1" },
+nxlneedh: { body: "Body3MBT", prop: "hover02", weap: "RailGun1Mk1" }, // Needle Gun Retaliation Hover
+nxmrailh: { body: "Body7ABT", prop: "hover02", weap: "RailGun2Mk1" }, // Rail Gun Retribution Hover
+nxhgauss: { body: "Body10MBT", prop: "hover02", weap: "RailGun3Mk1" }, // Gauss Cannon Vengeance Hover
 
-// CAM_3_A_D_1
-nxmpulseh: { body: "Body7ABT", prop: "hover02", weap: "Laser2PULSEMk1" },
-nxlpulsev: { body: "Body3MBT", prop: "V-Tol02", weap: "Laser2PULSE-VTOL" },
+nxmscouh: { body: "Body7ABT", prop: "hover02", weap: "Missile-A-T" }, // Scourge Missile Retribution Hover
 
-// CAM_3_A_D_2
-nxhgauss: { body: "Body10MBT", prop: "hover02", weap: "RailGun3Mk1" },
-nxhrailv: { body: "Body10MBT", prop: "V-Tol02", weap: "RailGun2-VTOL" },
+nxmsamh: { body: "Body3MBT", prop: "hover02", weap: "Missile-LtSAM" }, // Avenger Retaliation Hover
+nxmhsamh: { body: "Body7ABT", prop: "hover02", weap: "Missile-HvySAM" }, // Vindicator Retribution Hover
 
-// CAM_3_4
-nxllinkh: { body: "Body3MBT", prop: "hover02", weap: "NEXUSlink" },
-nxmpulsev: { body: "Body7ABT", prop: "V-Tol02", weap: "Laser2PULSE-VTOL" },
+nxlneedv: { body: "Body3MBT", prop: "V-Tol02", weap: "RailGun1-VTOL" }, // Needle Gun Retaliation VTOL
+nxlscouv: { body: "Body3MBT", prop: "V-Tol02", weap: "Missile-VTOL-AT" }, // Scourge Missile Retaliation VTOL
+nxlpulsev: { body: "Body3MBT", prop: "V-Tol02", weap: "Laser2PULSE-VTOL" }, // Pulse Laser Retaliation VTOL
 
+nxmtherv: { body: "Body7ABT", prop: "V-Tol02", weap: "Bomb4-VTOL-HvyINC" }, // Thermite Bomb Retribution VTOL
+nxmheapv: { body: "Body7ABT", prop: "V-Tol02", weap: "Bomb2-VTOL-HvHE" }, // HEAP Bomb Retribution VTOL
+nxmpulsev: { body: "Body7ABT", prop: "V-Tol02", weap: "Laser2PULSE-VTOL" }, // Pulse Laser Retribution VTOL
 
-////////////////////////////////////////////////////////////////////////////////
-
-bubut: { body: "Body2SUP", prop: "tracked01", weap: "Rocket-BB" },
-sart: { body: "Body2SUP", prop: "tracked01", weap: "Rocket-LtA-TMk1" },
-
+nxhrailv: { body: "Body10MBT", prop: "V-Tol02", weap: "RailGun2-VTOL" }, // Rail Gun Vengeance VTOL
 };

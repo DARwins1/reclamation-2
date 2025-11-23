@@ -2,6 +2,11 @@ include("script/campaign/transitionTech.js");
 include("script/campaign/libcampaign.js");
 include("script/campaign/templates.js");
 include("script/campaign/structSets.js");
+// This missions's script has been split into multiple files because it's so big
+// But this missions is basically 3 different missions in a trenchcoat anyway
+include("script/campaign/A4L6s1.js");
+include("script/campaign/A4L6s2.js");
+include("script/campaign/A4L6s3.js");
 
 const MIS_TEAM_CHARLIE = 1;
 const MIS_TEAM_DELTA = 5;
@@ -13,11 +18,13 @@ const MIS_TRANSPORT_START_TIME = camMinutesToSeconds(2); // 2 minutes for the fi
 const MIS_TRANSPORT_TIME_INCREMENT = 15; // Increase transport time by 15 seconds per transport
 const DORDER_GUARD = 25; // Order number for guarding an droid/structure
 const MIS_ALLY_COMMANDER_RANK = "Hero";
+const MIS_ALLY_UNIT_RANK = "Regular";
 const MIS_ALLY_TRUCK_TIME = camChangeOnDiff(camSecondsToMilliseconds(65), true);
 const MIS_ALLY_ENGINEER_TIME = camChangeOnDiff(camSecondsToMilliseconds(35), true);
 const MIS_ALLY_COMMANDER_DELAY = camChangeOnDiff(camMinutesToMilliseconds(2.5), true);
 const MIS_GROUND_ASSAULT_DELAY = camSecondsToMilliseconds(20);
 const MIS_AIR_ASSAULT_DELAY = camSecondsToMilliseconds(15);
+const MIS_HOVER_THRESHOLD = 16;
 
 const mis_collectiveResearch = [
 	"R-Wpn-MG-Damage06", "R-Wpn-Rocket-Damage06", "R-Wpn-Mortar-Damage06", 
@@ -33,6 +40,10 @@ const mis_collectiveResearch = [
 	// Upgrades for the Avenger SAM:
 	"R-Wpn-Missile-Accuracy01", "R-Wpn-Missile-Damage01", "R-Wpn-Missile-ROF01",
 ];
+const mis_nexusBonusResearch = [
+	"R-Wpn-Missile-Accuracy01", "R-Wpn-Missile-Damage01", "R-Wpn-Missile-ROF01",
+	"R-Wpn-Rail-Damage01", "R-Wpn-Rail-ROF01",
+]
 
 // This mission is divided into 3 "stages"
 // stage 1: escort civilian groups using Transport Trucks back to the safe haven
@@ -43,7 +54,7 @@ var transportIndex;
 var transportTime;
 var depositBeaconActive;
 var deltaUnitIDs;
-var deltaRescued; // Becomes true if at least 1 unit makes it back to base
+var numDeltaRescued; // Becomes true if at least 1 unit makes it back to base
 var firstDeltaTransport;
 var reinforcementIndex;
 var charlieCommanderDeathTime;
@@ -53,6 +64,7 @@ var colCommanderIndex;
 var colCommanderRank;
 var truckLostThreshold;
 var holdoutDonated;
+var allowAllyExpansion;
 
 // Store structure sets for later
 var charlieMainBaseStructs;
@@ -73,7 +85,9 @@ var charlieCommander;
 var charlieCommandGroup;
 var deltaCommander;
 var deltaCommandGroup;
+var deltaGrenadierGroup;
 var deltaCrashGroup;
+var nxGroupST;
 
 // Truck jobs (wow there's a lot of these)
 var colBaseTruckJob1;
@@ -109,18 +123,10 @@ var deltaTruckJob3;
 var deltaTruckJob4;
 
 // Civilian holdout groups
-var civGroup1;
-var civGroup2;
-var civGroup3;
-var civGroup4;
-var civGroup5;
+var civGroups;
 
 // Whether each civilian group has been loaded onto a truck
-var civ1Loaded;
-var civ2Loaded;
-var civ3Loaded;
-var civ4Loaded;
-var civ5Loaded;
+var civsLoaded;
 
 // Whether each truck has arrived the deposit zone
 var truck1Safe;
@@ -128,69 +134,6 @@ var truck2Safe;
 var truck3Safe;
 var truck4Safe;
 var truck5Safe;
-
-camAreaEvent("vtolRemoveZone1", function(droid)
-{
-	if (stage === 1)
-	{
-		camSafeRemoveObject(droid, false);
-		resetLabel("vtolRemoveZone1", CAM_THE_COLLECTIVE);
-	}
-});
-
-camAreaEvent("vtolRemoveZone2", function(droid)
-{
-	camSafeRemoveObject(droid, false);
-	resetLabel("vtolRemoveZone2", CAM_THE_COLLECTIVE);
-});
-
-function stageOneVtolAttack()
-{
-	if (stage !== 1)
-	{
-		return;
-	}
-
-	playSound(cam_sounds.enemyVtolsDetected);
-
-	// Cluster Bombs, Lancers, Phosphor Bombs, and Assault Guns
-	const templates = [cTempl.colbombv, cTempl.colatv, cTempl.colphosv, cTempl.colagv];
-	const ext = {
-		limit: [2, 3, 2, 3],
-		alternate: true,
-		targetPlayer: CAM_HUMAN_PLAYER,
-		dynamic: true
-	};
-	camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos1", "vtolRemoveZone1", templates, camChangeOnDiff(camMinutesToMilliseconds(1)), undefined, ext);
-}
-
-function stageTwoVtolAttack()
-{	
-	// HEAP Bombs, Tank Killers, Thermite Bombs, and Assault Cannons
-	const templates = [cTempl.comhbombv, cTempl.comhatv, cTempl.comthermv, cTempl.comacanv];
-	const ext = {
-		limit: [2, 3, 2, 3],
-		alternate: true,
-		targetPlayer: CAM_HUMAN_PLAYER,
-		dynamic: true
-	};
-	camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos2", "vtolRemoveZone2", templates, camChangeOnDiff(camMinutesToMilliseconds(2)), "colCC", ext);
-}
-
-// NOTE: This function is called multiple times to increase the number of VTOL attacks over time
-function stageThreeVtolAttack()
-{
-	// Assault Guns, Tank Killers, and Assault Cannons
-	const templates = [cTempl.colagv, cTempl.comhatv, cTempl.comacanv];
-	const ext = {
-		limit: [5, 3, 4],
-		alternate: true,
-		targetPlayer: CAM_HUMAN_PLAYER,
-		dynamic: true
-	};
-	const positions = ["vtolAttackPos2", "vtolAttackPos3", "vtolAttackPos4", "vtolAttackPos5"];
-	camSetVtolData(CAM_THE_COLLECTIVE, positions, "vtolRemoveZone2", templates, camChangeOnDiff(camMinutesToMilliseconds(2)), "colCC", ext);
-}
 
 function sendCharlieTransporter()
 {
@@ -222,11 +165,11 @@ function sendDeltaTransporter()
 	}
 
 	// Bring in a few trucks
-	const droids = [cTempl.plhtruckt, cTempl.plhtruckt, cTempl.plhtruckt, cTempl.plhtruckt];
+	const droids = [cTempl.plhtruckht, cTempl.plhtruckht, cTempl.plhtruckht, cTempl.plhtruckht];
 	if (firstDeltaTransport)
 	{
 		// If this is Delta's first transport, also include some attack units
-		droids.push(cTempl.plhcomt, cTempl.plhasgnt, cTempl.plhasgnt, cTempl.plhrepht, cTempl.plhacant, cTempl.plhacant);
+		droids.push(cTempl.plhcomht, cTempl.scyac, cTempl.scyac, cTempl.plhrepht, cTempl.plhacanht, cTempl.plhacanht);
 	}
 	camSendReinforcement(MIS_TEAM_DELTA, camMakePos("landingZoneDelta"), droids,
 		CAM_REINFORCE_TRANSPORT, {
@@ -265,51 +208,18 @@ function sendCollectiveTransporter()
 	}
 
 	// Get a pool of possible templates
-	let droidPool;
-	if (stage === 1)
-	{
-		droidPool = [
-			cTempl.cybla, // Lancer Cyborg
-			cTempl.cybfl, // Flamer Cyborg
-			cTempl.cybhg, // Heavy Machinegunner Cyborg
-			cTempl.cybgr, // Grenadier Cyborg
-			cTempl.scymc, // Super Heavy Gunner Cyborg
-			cTempl.colaaht, // Hurricane
-			cTempl.comatht, // Lancer
-			cTempl.comhmght, // HMG
-			cTempl.comrepht, // Repair Turret
-		];
-	}
-	else if (stage === 2)
-	{
-		droidPool = [
-			cTempl.cybla, // Lancer Cyborg
-			cTempl.cybth, // Thermite Flamer Cyborg
-			cTempl.cybag, // Assault Gunner Cyborg
-			cTempl.scygr, // Super Grenadier Cyborg
-			cTempl.scyac, // Super Auto Gunner Cyborg
-			cTempl.comhaaht, // Cyclone
-			cTempl.comhatht, // Tank Killer
-			cTempl.comhpvht, // HVC
-			cTempl.comaght, // Assault Gun
-			cTempl.comrepht, // Repair Turret
-		];
-	}
-	else // stage 3
-	{
-		droidPool = [
-			cTempl.cybth, // Thermite Flamer Cyborg
-			cTempl.cybag, // Assault Gunner Cyborg
-			cTempl.scytk, // Super TK Cyborg
-			cTempl.scygr, // Super Grenadier Cyborg
-			cTempl.scyac, // Super Auto Gunner Cyborg
-			cTempl.comhaaht, // Cyclone
-			cTempl.comhatht, // Tank Killer
-			cTempl.comhpvht, // HVC
-			cTempl.comaght, // Assault Gun
-			cTempl.comrepht, // Repair Turret
-		];
-	}
+	let droidPool = [
+		cTempl.cybth, // Thermite Flamer Cyborg
+		cTempl.cybag, // Assault Gunner Cyborg
+		cTempl.scytk, // Super TK Cyborg
+		cTempl.scygr, // Super Grenadier Cyborg
+		cTempl.scyac, // Super Auto Gunner Cyborg
+		cTempl.comhaaht, // Cyclone
+		cTempl.comhatht, // Tank Killer
+		cTempl.comhpvht, // HVC
+		cTempl.comaght, // Assault Gun
+		cTempl.comrepht, // Repair Turret
+	];
 
 	// Generate a list of droids to send
 	const droids = [];
@@ -356,6 +266,15 @@ function eventTransporterLanded(transport)
 			}
 
 			queue("setVictory", camSecondsToMilliseconds(1));
+		}
+		else if (transportIndex === 1)
+		{
+			camQueueDialogue([
+				{text: "LIEUTENANT: Commander Bravo, Collective activity in the city is increasing.", delay: 4, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: It'll be increasingly difficult to get transports here from your old base.", delay: 3, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: Try to bring your most important units first.", delay: 3, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: Since it'll take longer for transports to arrive later on.", delay: 3, sound: CAM_RCLICK},
+			]);
 		}
 		transportIndex++;
 		transportTime = MIS_TRANSPORT_TIME_INCREMENT * (transportIndex - 1) + MIS_TRANSPORT_START_TIME;
@@ -429,6 +348,11 @@ function eventTransporterLanded(transport)
 					addLabel(droid, "deltaCommander");
 					camSetDroidRank(getObject("deltaCommander"), MIS_ALLY_COMMANDER_RANK);
 				}
+				else
+				{
+					// Set to default rank
+					camSetDroidRank(droid, MIS_ALLY_UNIT_RANK);
+				}
 			}
 
 			// Assign other units to their refillable groups
@@ -451,7 +375,7 @@ function civilianDropOff(spawnArea)
 	for (let i = 0; i < NUM_CIVS; i++)
 	{
 		// Spawn civilians
-		civDroids.push(camAddDroid(MIS_CIVS, spawnArea, cTempl.civ, _("Civilian")));
+		civDroids.push(camAddDroid(MIS_CIVS, camRandPosIn(spawnArea), cTempl.civ, _("Civilian")));
 	}
 	// ...and then move them towards the deposit zone
 	camManageGroup(camMakeGroup(civDroids), CAM_ORDER_DEFEND, {pos: camMakePos("depositZone")});
@@ -469,7 +393,7 @@ function sendCollectiveReinforcements()
 	if (stage === 1)
 	{
 		groundEntrances = [
-			"groundEntry7", "groundEntry8",
+			"groundEntry7", "groundEntry8", "groundEntry17",
 		];
 
 		groundCompositions = [
@@ -577,30 +501,9 @@ function sendCollectiveReinforcements()
 	{
 		for (const entrance of groundEntrances)
 		{
-			// Use the "spread" operator (...) here to make a shallow copy of the template list
-			// Since we don't want to modify the source templates when we add AA support
-			const droids = [...camRandFrom(groundCompositions)];
-
-			// Add AA support
-			if ((difficulty <= EASY && camRand(2) === 0) || difficulty >= MEDIUM)
-			{
-				droids.push(aaSupport);
-				if (difficulty === INSANE && camRand(2) === 0)
-				{
-					// 1/2 chance of adding an extra AA unit on Insane
-					droids.push(aaSupport);
-				}
-			}
-
-			camSendReinforcement(CAM_THE_COLLECTIVE, getObject(entrance), droids, CAM_REINFORCE_GROUND, {
-				order: CAM_ORDER_ATTACK,
-				data: {
-					targetPlayer: CAM_HUMAN_PLAYER
-				}
-			});
+			sendCollectiveGroundReinforcements(camRandFrom(groundCompositions), enntrance);
 		}
 	}
-	
 
 	// Spawn a few groups from the active hover entrances
 	if (hoverEntrances.length > 0)
@@ -611,42 +514,7 @@ function sendCollectiveReinforcements()
 		if (difficulty === INSANE) numHoverGroups++;
 		for (let i = 0; i < numHoverGroups; i++)
 		{
-			const GROUP_SIZE = difficulty + 4;
-			const droids = [];
-			for (const template of hoverTemplates)
-			{
-				droids.push(template);
-			}
-
-			const HOVER_THRESHOLD = 12;
-			let groupData;
-			if (enumDroid(CAM_THE_COLLECTIVE).filter((droid) => (droid.propulsion === "hover01")).length < HOVER_THRESHOLD)
-			{
-				// If there aren't already a bunch of hover tanks, tell the new group to patrol
-				groupData = {order: CAM_ORDER_PATROL, data: {
-					pos: [
-						camMakePos("hoverPatrolPos1"),
-						camMakePos("hoverPatrolPos2"),
-						camMakePos("hoverPatrolPos3"),
-						camMakePos("hoverPatrolPos4"),
-						camMakePos("hoverPatrolPos5"),
-						camMakePos("hoverPatrolPos6"),
-					],
-					interval: camSecondsToMilliseconds(28),
-					radius: 20,
-					repair: 60
-				}};
-			}
-			else
-			{
-				// Otherwise, tell the group to attack
-				groupData = {order: CAM_ORDER_ATTACK, data: {
-					targetPlayer: CAM_HUMAN_PLAYER,
-					repair: 40
-				}};
-			}
-
-			camSendReinforcement(CAM_THE_COLLECTIVE, getObject(camRandFrom(hoverEntrances)), droids, CAM_REINFORCE_GROUND, groupData);
+			sendCollectiveGroundReinforcements(hoverTemplates, camRandFrom(hoverEntrances));
 		}
 	}
 
@@ -657,6 +525,66 @@ function sendCollectiveReinforcements()
 	}
 
 	reinforcementIndex++;
+}
+
+function sendCollectiveGroundReinforcements(templates, entrance)
+{
+	// Add AA support
+	if ((difficulty <= EASY && camRand(2) === 0) || difficulty >= MEDIUM)
+	{
+		templates.push(aaSupport);
+		if (difficulty === INSANE && camRand(2) === 0)
+		{
+			// 1/2 chance of adding an extra AA unit on Insane
+			templates.push(aaSupport);
+		}
+	}
+
+	camSendReinforcement(CAM_THE_COLLECTIVE, getObject(entrance), templates, CAM_REINFORCE_GROUND, {
+		order: CAM_ORDER_ATTACK,
+		data: {
+			targetPlayer: CAM_HUMAN_PLAYER
+		}
+	});
+}
+
+function sendCollectiveGroundReinforcements(templates, entrance)
+{
+	const GROUP_SIZE = difficulty + 4;
+	const droids = [];
+	for (const template of templates)
+	{
+		droids.push(template);
+	}
+
+	let groupData;
+	if (enumDroid(CAM_THE_COLLECTIVE).filter((droid) => (droid.propulsion === "hover01")).length < MIS_HOVER_THRESHOLD)
+	{
+		// If there aren't already a bunch of hover tanks, tell the new group to patrol
+		groupData = {order: CAM_ORDER_PATROL, data: {
+			pos: [
+				camMakePos("hoverPatrolPos1"),
+				camMakePos("hoverPatrolPos2"),
+				camMakePos("hoverPatrolPos3"),
+				camMakePos("hoverPatrolPos4"),
+				camMakePos("hoverPatrolPos5"),
+				camMakePos("hoverPatrolPos6"),
+			],
+			interval: camSecondsToMilliseconds(28),
+			radius: 20,
+			repair: 60
+		}};
+	}
+	else
+	{
+		// Otherwise, tell the group to attack
+		groupData = {order: CAM_ORDER_ATTACK, data: {
+			targetPlayer: CAM_HUMAN_PLAYER,
+			repair: 40
+		}};
+	}
+
+	camSendReinforcement(CAM_THE_COLLECTIVE, getObject(entrance), droids, CAM_REINFORCE_GROUND, groupData);
 }
 
 function sendCollectiveTrucks()
@@ -672,15 +600,15 @@ function sendCollectiveTrucks()
 		camAssignTruck(camAddDroid(CAM_THE_COLLECTIVE, "groundEntry8", cTempl.comtruckt), colLZTruckJob2);
 	}
 	// Central LZ
-	if (civ3Loaded && camBaseIsEliminated("charlieCentralBase") && camAreaSecure("colLZ3", CAM_THE_COLLECTIVE))
+	if (camBaseIsEliminated("charlieCentralBase") && camAreaSecure("colLZ3", CAM_THE_COLLECTIVE))
 	{
 		if (!camDef(camGetTruck(colLZTruckJob3)))
 		{
-			camAssignTruck(camAddDroid(CAM_THE_COLLECTIVE, "groundEntry7", cTempl.comtruckht), colLZTruckJob3);
+			camAssignTruck(camAddDroid(CAM_THE_COLLECTIVE, "groundEntry17", cTempl.comtruckht), colLZTruckJob3);
 		}
 		if (!camDef(camGetTruck(colLZTruckJob4)))
 		{
-			camAssignTruck(camAddDroid(CAM_THE_COLLECTIVE, "groundEntry8", cTempl.comtruckht), colLZTruckJob4);
+			camAssignTruck(camAddDroid(CAM_THE_COLLECTIVE, "groundEntry17", cTempl.comtruckht), colLZTruckJob4);
 		}
 	}
 	// North LZ
@@ -708,7 +636,7 @@ function sendCollectiveTrucks()
 		}
 	}
 	// West LZ
-	if (civ5Loaded && camBaseIsEliminated("deltaNorthBase") && camAreaSecure("colLZ6", CAM_THE_COLLECTIVE))
+	if (civLoaded[5] && camBaseIsEliminated("deltaNorthBase") && camAreaSecure("colLZ6", CAM_THE_COLLECTIVE))
 	{
 		if (!camDef(camGetTruck(colLZTruckJob9)))
 		{
@@ -800,6 +728,162 @@ function sendCollectiveTrucks()
 			}
 		}
 	}
+}
+
+// Update Charlie's group orders as the level progresses
+function charlieGroupUpdate()
+{
+	// At the start (!allowAllyExpansion), defend the west side of the southern bridge
+	// If expansion is allowed, defending the west side of the southern bridge
+	// If the bridge base is built, move up and PATROL the south base area
+	// If the south base is built, move up and DEFEND the central base position
+	// If the central base is built AND the map has expanded (stage > 1), ATTACK towards the Collective's GS base
+	// If in the final defense stage (stage == 3), ATTACK
+
+	if (!allowAllyExpansion)
+	{
+		return; // do nothing here
+	}
+
+	let order;
+	let data;
+
+	if (stage == 3)
+	{
+		// ATTACK
+		order = CAM_ORDER_ATTACK;
+		data = {
+			repair: 75,
+			removable: false
+		};
+	}
+	else if (!camBaseIsEliminated("charlieCentralBase") && stage > 1)
+	{
+		// ATTACK towards the Collective's GS base
+		order = CAM_ORDER_ATTACK;
+		data = {
+			pos: camMakePos("colBase1"),
+			repair: 75,
+			removable: false
+		};
+	}
+	else if (!camBaseIsEliminated("charlieSouthBase"))
+	{
+		// DEFEND the central base position
+		order = CAM_ORDER_DEFEND;
+		data = {
+			pos: camMakePos("southPatrolPos1"),
+			radius: 32,
+			repair: 75,
+			removable: false
+		};
+	}
+	else if (!camBaseIsEliminated("charlieBridgeBase"))
+	{
+		// PATROL the south base area
+		order = CAM_ORDER_PATROL;
+		data = {
+			pos: [
+				camMakePos("hoverPatrolPos1"),
+				camMakePos("southPatrolPos2"),
+				camMakePos("southPatrolPos3"),
+			],
+			interval: camSecondsToMilliseconds(35),
+			radius: 32,
+			repair: 75,
+			removable: false
+		};
+	}
+	else // (allowAllyExpansion == true)
+	{
+		// DEFEND the west side of the southern bridge
+		order = CAM_ORDER_DEFEND;
+		data = {
+			pos: camMakePos("southPatrolPos1"),
+			radius: 32,
+			repair: 75,
+			removable: false
+		};
+	}
+
+	// Apply the new orders
+	camManageGroup(charlieCommander, order, data);
+	// NOTE: Charlie's command group (the units following the commander) have their suborders updated when reaching stage 2
+}
+
+// Update Delta's group orders as the level progresses
+function deltaGroupUpdate()
+{
+	// At the start (!allowAllyExpansion), defend nw bridges
+	// If expansion is allowed, move up and PATROL the north area of the map
+	// If the north base is built AND the map has expanded (stage > 1), move up and PATROL the east base area
+	// If the east base is built, ATTACK towards the Collective's factory base
+	// If in the final defense stage (stage == 3), ATTACK
+
+	if (!allowAllyExpansion)
+	{
+		return; // do nothing here
+	}
+
+	let order;
+	let data;
+
+	if (stage == 3)
+	{
+		// ATTACK
+		order = CAM_ORDER_ATTACK;
+		data = {
+			repair: 50,
+			removable: false
+		};
+	}
+	else if (!camBaseIsEliminated("deltaEastBase") && stage > 1)
+	{
+		// ATTACK towards the Collective's factory base
+		order = CAM_ORDER_ATTACK;
+		data = {
+			pos: camMakePos("colBase5"),
+			repair: 50,
+			removable: false
+		};
+	}
+	else if (!camBaseIsEliminated("deltaNorthBase") && stage > 1)
+	{
+		// PATROL the east base area
+		order = CAM_ORDER_PATROL;
+		data = {
+			pos: [
+				camMakePos("northPatrolPos5"),
+				camMakePos("southPatrolPos4"),
+				camMakePos("southPatrolPos6"),
+			],
+			interval: camSecondsToMilliseconds(75),
+			radius: 20,
+			repair: 50,
+			removable: false
+		};
+	}
+	else // (allowAllyExpansion == true)
+	{
+		// PATROL the north area of the map
+		order = CAM_ORDER_PATROL;
+		data = {
+			pos: [
+				camMakePos("northPatrolPos2"),
+				camMakePos("northPatrolPos3"),
+				camMakePos("northPatrolPos4"),
+			],
+			interval: camSecondsToMilliseconds(75),
+			radius: 20,
+			repair: 50,
+			removable: false
+		};
+	}
+
+	// Also make Delta's groups more aggressive
+	camManageGroup(deltaCommander, order, data);
+	camManageGroup(deltaGrenadierGroup, order, data);
+	// NOTE: Delta's command group (the units following the commander) have their suborders updated when reaching stage 2
 }
 
 // Set victory data
@@ -910,11 +994,19 @@ function eventDestroyed(obj)
 // Re-label Charlie's/Delta's commander/sensor
 function eventDroidBuilt(droid, structure)
 {
-	if (droid.player === MIS_TEAM_CHARLIE && droid.droidType === DROID_COMMAND)
+	if (droid.player === MIS_TEAM_CHARLIE)
 	{
-		// Charlie commander rebuilt
-		addLabel(droid, "charlieCommander");
-		camSetDroidRank(getObject("charlieCommander"), MIS_ALLY_COMMANDER_RANK);
+		if (droid.droidType === DROID_COMMAND)
+		{
+			// Charlie commander rebuilt
+			addLabel(droid, "charlieCommander");
+			camSetDroidRank(getObject("charlieCommander"), MIS_ALLY_COMMANDER_RANK);
+		}
+		else
+		{
+			// Set to default rank
+			camSetDroidRank(droid, MIS_ALLY_UNIT_RANK);
+		}
 	}
 	else if (droid.player === MIS_TEAM_DELTA)
 	{
@@ -924,11 +1016,18 @@ function eventDroidBuilt(droid, structure)
 			addLabel(droid, "deltaCommander");
 			camSetDroidRank(getObject("deltaCommander"), MIS_ALLY_COMMANDER_RANK);
 		}
-		else if (droid.droidType === DROID_SENSOR)
+		else
 		{
-			// Delta sensor
-			addLabel(droid, "deltaVtolSensor");
+			// Set to default rank
+			camSetDroidRank(droid, MIS_ALLY_UNIT_RANK);
+
+			if (droid.droidType === DROID_SENSOR)
+			{
+				// Delta sensor
+				addLabel(droid, "deltaVtolSensor");
+			}
 		}
+		
 	}
 }
 
@@ -973,7 +1072,7 @@ function eventObjectTransfer(obj, from)
 			}
 			else
 			{
-				// Otherwise, place it in Delta's command group (even if it's full)
+				// Otherwise, place it in Delta's command group (even if it's full!)
 				groupAdd(deltaCommandGroup, obj);
 			}
 		}
@@ -996,2101 +1095,12 @@ function allowCharlieGeneralVtolGroup()
 	return (stage >= 2);
 }
 
-// -------------------------------------
-// --- Stage 1 progression functions ---
-// -------------------------------------
-
-function startDeltaTransports()
-{
-	sendDeltaTransporter();
-	setTimer("sendDeltaTransporter", camMinutesToMilliseconds(4));
-
-	// Dialogue...
-	camQueueDialogue([
-		{text: "DELTA: Lieutenant.", delay: 0, sound: CAM_RCLICK},
-		{text: "DELTA: The Collective have pulled back from Bravo's old base.", delay: 2, sound: CAM_RCLICK},
-		{text: "DELTA: But it looks like they're still mobilizing most of their forces.", delay: 3, sound: CAM_RCLICK},
-		{text: "DELTA: We've started our transport runs now.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Hmm...", delay: 4, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Commanders, make sure to set up some defenses.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Be ready for anything.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: ...I have a feeling we're not quite out of this yet.", delay: 4, sound: CAM_RCLICK},
-	]);
-}
-
-function startCollectiveReinforcments()
-{
-	sendCollectiveReinforcements();
-	queue("stageOneVtolAttack", camChangeOnDiff(camMinutesToMilliseconds(1.5)));
-	setTimer("sendCollectiveReinforcements", camChangeOnDiff(camMinutesToMilliseconds(3)));
-	setTimer("sendCollectiveTransporter", camChangeOnDiff(camMinutesToMilliseconds(3.5)));
-
-	camCallOnce("collectiveDialogue");
-}
-
-function collectiveDialogue()
-{
-	camQueueDialogue([
-		{text: "CHARLIE: Lieutenant!", delay: 0, sound: CAM_RCLICK},
-		{text: "CHARLIE: We've spotted the Collective forces approaching from the east!", delay: 2, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: ...Why can't anything ever be simple?", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Commander Bravo, focus on escorting those refugees.", delay: 4, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Charlie, Delta, cover Bravo's flanks and help them keep the Collective at bay.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: We need to save as many people as we can before we can escape this damned place for good.", delay: 3, sound: CAM_RCLICK},
-	]);
-}
-
-// Returns true if any Transport Trucks are currently present
-function transportTrucksActive()
-{
-	return getObject("civTruck1") !== null || getObject("civTruck2") !== null
-			|| getObject("civTruck3") !== null || getObject("civTruck4") !== null
-			|| getObject("civTruck5") !== null;
-}
-
-// Check if all civs are accounted for and the mission can move to stage 2
-function checkCivsDone()
-{
-	// Allow the player to move on if:
-	// The player has not lost too many Transport Trucks
-	// The player has loaded all civilians into Transport Trucks
-	// The player does not currently have any Transport Trucks
-	if (trucksLost < truckLostThreshold 
-		&& civ1Loaded && civ2Loaded && civ3Loaded && civ4Loaded && civ5Loaded
-		&& !transportTrucksActive())
-	{
-		setStageTwo();
-	}
-}
-
-// Triggered when the player moves into the first civilian holdout
-camAreaEvent("civZone1", function(droid)
-{
-	// Only trigger if the player moves a Truck (NOT engineer) in which isn't already carrying civilians
-	if (droid.player === CAM_HUMAN_PLAYER && droid.droidType === DROID_CONSTRUCT 
-		&& droid.propulsion !== "CyborgLegs" && !camDef(getLabel(droid)))
-	{
-		const pos = camMakePos(droid);
-		for (const civ of enumGroup(civGroup1))
-		{
-			// Move the civs towards the truck
-			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
-		}
-
-		queue("loadTruck1", camSecondsToMilliseconds(3));
-
-	}
-	else
-	{
-		resetLabel("civZone1", CAM_HUMAN_PLAYER);
-	}
-});
-
-function loadTruck1()
-{
-	const trucks = enumArea("civZone1", CAM_HUMAN_PLAYER, false).filter((obj) => (
-		obj.type === DROID && obj.droidType === DROID_CONSTRUCT 
-		&& obj.propulsion !== "CyborgLegs" && !camDef(getLabel(obj))
-	));
-	// Abort if there's no longer a truck in the civilian zone
-	if (trucks.length == 0)
-	{
-		const pos = camMakePos("civZone1");
-		for (const civ of enumGroup(civGroup1))
-		{
-			// Move the civs back into their holdout
-			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
-		}
-		resetLabel("civZone1", CAM_HUMAN_PLAYER);
-		return;
-	}
-	else
-	{
-		// Just change the first truck we find into a Transport Truck
-		const transTruck = convertToTransport(trucks[0], "civTruck1");
-
-		for (const droid of enumGroup(civGroup1))
-		{
-			if (camDroidMatchesTemplate(droid, cTempl.civ))
-			{
-				// If we have a simple civilian, remove them quietly
-				// (They've "boarded" the truck)
-				camSafeRemoveObject(droid);
-			}
-			else
-			{
-				// If we have an armed civilian escort, (e.g. a Jeep), move it to the "escorts" team
-				donateObject(droid, MIS_CIV_ESCORTS);
-			}
-		}
-
-		civ1Loaded = true;
-
-		hackRemoveMessage("CIVS1", PROX_MSG, CAM_HUMAN_PLAYER);
-		if (!depositBeaconActive)
-		{
-			hackAddMessage("CIV_DEPOSIT", PROX_MSG, CAM_HUMAN_PLAYER);
-			depositBeaconActive = true;
-		}
-	}
-}
-
-camAreaEvent("civZone2", function(droid)
-{
-	if (droid.player === CAM_HUMAN_PLAYER && droid.droidType === DROID_CONSTRUCT 
-		&& droid.propulsion !== "CyborgLegs" && !camDef(getLabel(droid)))
-	{
-		const pos = camMakePos(droid);
-		for (const civ of enumGroup(civGroup2))
-		{
-			// Move the civs towards the truck
-			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
-		}
-
-		queue("loadTruck2", camSecondsToMilliseconds(3));
-
-	}
-	else
-	{
-		resetLabel("civZone2", CAM_HUMAN_PLAYER);
-	}
-});
-
-function loadTruck2()
-{
-	const trucks = enumArea("civZone2", CAM_HUMAN_PLAYER, false).filter((obj) => (
-		obj.type === DROID && obj.droidType === DROID_CONSTRUCT 
-		&& obj.propulsion !== "CyborgLegs" && !camDef(getLabel(obj))
-	));
-
-	if (trucks.length == 0)
-	{
-		const pos = camMakePos("civZone2");
-		for (const civ of enumGroup(civGroup2))
-		{
-			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
-		}
-		resetLabel("civZone2", CAM_HUMAN_PLAYER);
-		return;
-	}
-	else
-	{
-		const transTruck = convertToTransport(trucks[0], "civTruck2");
-
-		for (const droid of enumGroup(civGroup2))
-		{
-			if (camDroidMatchesTemplate(droid, cTempl.civ))
-			{
-				camSafeRemoveObject(droid);
-			}
-			else
-			{
-				donateObject(droid, MIS_CIV_ESCORTS);
-			}
-		}
-	}
-
-	civ2Loaded = true;
-
-	hackRemoveMessage("CIVS2", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (!depositBeaconActive)
-	{
-		hackAddMessage("CIV_DEPOSIT", PROX_MSG, CAM_HUMAN_PLAYER);
-		depositBeaconActive = true;
-	}
-}
-
-camAreaEvent("civZone3", function(droid)
-{
-	if (droid.player === CAM_HUMAN_PLAYER && droid.droidType === DROID_CONSTRUCT 
-		&& droid.propulsion !== "CyborgLegs" && !camDef(getLabel(droid)))
-	{
-		const pos = camMakePos(droid);
-		for (const civ of enumGroup(civGroup3))
-		{
-			// Move the civs towards the truck
-			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
-		}
-
-		queue("loadTruck3", camSecondsToMilliseconds(3));
-
-	}
-	else
-	{
-		resetLabel("civZone3", CAM_HUMAN_PLAYER);
-	}
-});
-
-function loadTruck3()
-{
-	const trucks = enumArea("civZone3", CAM_HUMAN_PLAYER, false).filter((obj) => (
-		obj.type === DROID && obj.droidType === DROID_CONSTRUCT 
-		&& obj.propulsion !== "CyborgLegs" && !camDef(getLabel(obj))
-	));
-
-	if (trucks.length == 0)
-	{
-		const pos = camMakePos("civZone3");
-		for (const civ of enumGroup(civGroup3))
-		{
-			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
-		}
-		resetLabel("civZone3", CAM_HUMAN_PLAYER);
-		return;
-	}
-	else
-	{
-		const transTruck = convertToTransport(trucks[0], "civTruck3");
-
-		for (const droid of enumGroup(civGroup3))
-		{
-			if (camDroidMatchesTemplate(droid, cTempl.civ))
-			{
-				camSafeRemoveObject(droid);
-			}
-			else
-			{
-				donateObject(droid, MIS_CIV_ESCORTS);
-			}
-		}
-	}
-
-	civ3Loaded = true;
-
-	// Make Charlie push up again
-	camCallOnce("advanceCharlie2");
-
-	hackRemoveMessage("CIVS3", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (!depositBeaconActive)
-	{
-		hackAddMessage("CIV_DEPOSIT", PROX_MSG, CAM_HUMAN_PLAYER);
-		depositBeaconActive = true;
-	}
-}
-
-camAreaEvent("civZone4", function(droid)
-{
-	if (droid.player === CAM_HUMAN_PLAYER && droid.droidType === DROID_CONSTRUCT 
-		&& droid.propulsion !== "CyborgLegs" && !camDef(getLabel(droid)))
-	{
-		const pos = camMakePos(droid);
-		for (const civ of enumGroup(civGroup4))
-		{
-			// Move the civs towards the truck
-			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
-		}
-
-		queue("loadTruck4", camSecondsToMilliseconds(3));
-
-	}
-	else
-	{
-		resetLabel("civZone4", CAM_HUMAN_PLAYER);
-	}
-});
-
-function loadTruck4()
-{
-	const trucks = enumArea("civZone4", CAM_HUMAN_PLAYER, false).filter((obj) => (
-		obj.type === DROID && obj.droidType === DROID_CONSTRUCT 
-		&& obj.propulsion !== "CyborgLegs" && !camDef(getLabel(obj))
-	));
-
-	if (trucks.length == 0)
-	{
-		const pos = camMakePos("civZone4");
-		for (const civ of enumGroup(civGroup4))
-		{
-			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
-		}
-		resetLabel("civZone4", CAM_HUMAN_PLAYER);
-		return;
-	}
-	else
-	{
-		const transTruck = convertToTransport(trucks[0], "civTruck4");
-
-		for (const droid of enumGroup(civGroup4))
-		{
-			if (camDroidMatchesTemplate(droid, cTempl.civ))
-			{
-				camSafeRemoveObject(droid);
-			}
-			else
-			{
-				donateObject(droid, MIS_CIV_ESCORTS);
-			}
-		}
-	}
-
-	civ4Loaded = true;
-
-	// Make Delta push up
-	camCallOnce("advanceDelta");
-
-	hackRemoveMessage("CIVS4", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (!depositBeaconActive)
-	{
-		hackAddMessage("CIV_DEPOSIT", PROX_MSG, CAM_HUMAN_PLAYER);
-		depositBeaconActive = true;
-	}
-}
-
-camAreaEvent("civZone5", function(droid)
-{
-	if (droid.player === CAM_HUMAN_PLAYER && droid.droidType === DROID_CONSTRUCT 
-		&& droid.propulsion !== "CyborgLegs" && !camDef(getLabel(droid)))
-	{
-		const pos = camMakePos(droid);
-		for (const civ of enumGroup(civGroup5))
-		{
-			// Move the civs towards the truck
-			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
-		}
-
-		queue("loadTruck5", camSecondsToMilliseconds(3));
-
-	}
-	else
-	{
-		resetLabel("civZone5", CAM_HUMAN_PLAYER);
-	}
-});
-
-function loadTruck5()
-{
-	const trucks = enumArea("civZone5", CAM_HUMAN_PLAYER, false).filter((obj) => (
-		obj.type === DROID && obj.droidType === DROID_CONSTRUCT 
-		&& obj.propulsion !== "CyborgLegs" && !camDef(getLabel(obj))
-	));
-
-	if (trucks.length == 0)
-	{
-		const pos = camMakePos("civZone5");
-		for (const civ of enumGroup(civGroup5))
-		{
-			orderDroidLoc(civ, DORDER_MOVE, pos.x, pos.y);
-		}
-		resetLabel("civZone5", CAM_HUMAN_PLAYER);
-		return;
-	}
-	else
-	{
-		const transTruck = convertToTransport(trucks[0], "civTruck5");
-
-		for (const droid of enumGroup(civGroup5))
-		{
-			if (camDroidMatchesTemplate(droid, cTempl.civ))
-			{
-				camSafeRemoveObject(droid);
-			}
-			else
-			{
-				donateObject(droid, MIS_CIV_ESCORTS);
-			}
-		}
-	}
-
-	civ5Loaded = true;
-
-	// Make Charlie push up
-	camCallOnce("advanceCharlie1");
-
-	hackRemoveMessage("CIVS5", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (!depositBeaconActive)
-	{
-		hackAddMessage("CIV_DEPOSIT", PROX_MSG, CAM_HUMAN_PLAYER);
-		depositBeaconActive = true;
-	}
-}
-
-// Replaces the given truck droid with a transport truck
-function convertToTransport(truck, transportLabel)
-{
-	const oldTruckName = truck.name;
-	const tBody = truck.body;
-	const tProp = truck.propulsion;
-	const tPos = camMakePos(truck);
-
-	// Get the un-modified name of this truck
-	const standardName = _("Truck") + " " + camGetCompNameFromId(tBody, "Body") + " " + camGetCompNameFromId(tProp, "Propulsion");
-
-	let newName;
-	if (oldTruckName === standardName)
-	{
-		// The player hasn't renamed this truck.
-		// Give it the default template name
-		newName = camNameTemplate("Spade1Trans", tBody, tProp);
-	}
-	else
-	{
-		// The player has renamed this truck
-		// Just slap "Transport" in front of the player's goofy name
-		newName = _("Transport") + " " + oldTruckName;
-	}
-
-	// Create the new truck
-	const newTruck = camAddDroid(CAM_HUMAN_PLAYER, tPos, {body: tBody, prop: tProp, weap: "Spade1Trans"}, newName);
-	addLabel(newTruck, transportLabel);
-
-	// Quietly remove the old truck...
-	camSafeRemoveObject(truck);
-
-	return newTruck;
-}
-
-// Triggered when something enters the deposit zone
-camAreaEvent("depositZone", function(droid)
-{
-	// Only trigger if the player moves a droid in
-	if (droid.player === CAM_HUMAN_PLAYER)
-	{
-		const label = getLabel(droid);
-		if (camDef(label))
-		{
-			if (label === "civTruck1")
-			{
-				truck1Safe = true;
-			}
-			else if (label === "civTruck2")
-			{
-				truck2Safe = true;
-			}
-			else if (label === "civTruck3")
-			{
-				truck3Safe = true;
-			}
-			else if (label === "civTruck4")
-			{
-				truck4Safe = true;
-			}
-			else if (label === "civTruck5")
-			{
-				truck5Safe = true;
-			}
-
-			convertToTruck(droid);
-
-			playSound(cam_sounds.rescue.civilianRescued);
-		}
-	}
-	else if (droid.player === MIS_CIVS || droid.player === MIS_CIV_ESCORTS)
-	{
-		// If we have a normal civilian, just remove it
-		camSafeRemoveObject(droid);
-	}
-	resetLabel("depositZone", ALL_PLAYERS);
-});
-
-// Replaces the given transport truck droid with a normal truck
-function convertToTruck(transTruck)
-{
-	const oldTruckName = transTruck.name;
-	const tBody = transTruck.body;
-	const tProp = transTruck.propulsion;
-	const tPos = camMakePos(transTruck);
-
-	// Get the un-modified name of this truck
-	const standardName = _("Transport Truck") + " " + camGetCompNameFromId(tBody, "Body") + " " + camGetCompNameFromId(tProp, "Propulsion");
-
-	let newName;
-	if (oldTruckName === standardName)
-	{
-		// The player didn't renamed the original truck.
-		// Give it the default template name
-		newName = camNameTemplate("Spade1Mk1", tBody, tProp)
-	}
-	else
-	{
-		// The player renamed the original truck.
-		// Remove the first instance of "Transport " we find
-		const prefix = _("Transport") + " ";
-		newName = oldTruckName.slice(prefix.length);
-	}
-
-	// Create the new truck
-	const newTruck = camAddDroid(CAM_HUMAN_PLAYER, tPos, {body: tBody, prop: tProp, weap: "Spade1Mk1"}, newName);
-
-	// Quietly remove the transport truck...
-	camSafeRemoveObject(transTruck);
-}
-
-// Make sure the player hasn't lost too many transport trucks
-// Fail the mission if too many die
-// Called during stage 1
-function checkTrucksLost()
-{
-	if (trucksLost >= truckLostThreshold)
-	{
-		// Player has lost too many Transport Trucks
-		camEndMission(false);
-	}
-}
-
-function advanceCharlie1()
-{
-	// Enable Charlie's bridge base
-	camManageTrucks(
-		MIS_TEAM_CHARLIE, {
-			label: "charlieBridgeBase",
-			rebuildBase: true,
-			respawnDelay: MIS_ALLY_TRUCK_TIME,
-			template: cTempl.plhtruckht,
-			structset: camA4L6CharlieBase2Structs
-	});
-	camManageTrucks(
-		MIS_TEAM_CHARLIE, {
-			label: "charlieBridgeBase",
-			rebuildBase: true,
-			respawnDelay: MIS_ALLY_ENGINEER_TIME,
-			template: cTempl.cyben,
-			structset: camA4L6CharlieBase2Structs
-	});
-}
-
-function advanceCharlie2()
-{
-	// Enable Charlie's south and central base
-	camManageTrucks(
-		MIS_TEAM_CHARLIE, {
-			label: "charlieSouthBase",
-			rebuildBase: true,
-			respawnDelay: MIS_ALLY_TRUCK_TIME,
-			template: cTempl.plhtruckht,
-			structset: camA4L6CharlieBase3Structs
-	});
-	camManageTrucks(
-		MIS_TEAM_CHARLIE, {
-			label: "charlieSouthBase",
-			rebuildBase: true,
-			respawnDelay: MIS_ALLY_ENGINEER_TIME,
-			template: cTempl.cyben,
-			structset: camA4L6CharlieBase3Structs
-	});
-	camManageTrucks(
-		MIS_TEAM_CHARLIE, {
-			label: "charlieSouthBase",
-			rebuildBase: true,
-			respawnDelay: MIS_ALLY_ENGINEER_TIME,
-			template: cTempl.cyben,
-			structset: camA4L6CharlieBase3Structs
-	});
-	camManageTrucks(
-		MIS_TEAM_CHARLIE, {
-			label: "charlieCentralBase",
-			rebuildBase: true,
-			respawnDelay: MIS_ALLY_TRUCK_TIME,
-			template: cTempl.plhtruckht,
-			structset: camA4L6CharlieBase4Structs
-	});
-	camManageTrucks(
-		MIS_TEAM_CHARLIE, {
-			label: "charlieCentralBase",
-			rebuildBase: true,
-			respawnDelay: MIS_ALLY_ENGINEER_TIME,
-			template: cTempl.cyben,
-			structset: camA4L6CharlieBase4Structs
-	});
-	camManageTrucks(
-		MIS_TEAM_CHARLIE, {
-			label: "charlieCentralBase",
-			rebuildBase: true,
-			respawnDelay: MIS_ALLY_ENGINEER_TIME,
-			template: cTempl.cyben,
-			structset: camA4L6CharlieBase4Structs
-	});
-
-	// Also make Charlie's commander more aggressive
-	camManageGroup(charlieCommander, CAM_ORDER_PATROL, {
-		pos: [
-			camMakePos("southPatrolPos1"),
-			camMakePos("southPatrolPos2"),
-			camMakePos("southPatrolPos3"),
-		],
-		interval: camSecondsToMilliseconds(35),
-		radius: 32,
-		repair: 75,
-		removable: false
-	});
-}
-
-function advanceDelta()
-{
-	// Enable Delta's north base
-	camManageTrucks(
-		MIS_TEAM_DELTA, {
-			label: "deltaNorthBase",
-			rebuildBase: true,
-			respawnDelay: MIS_ALLY_TRUCK_TIME,
-			template: cTempl.plhtruckt,
-			structset: camA4L6DeltaBase2Structs
-	});
-	camManageTrucks(
-		MIS_TEAM_DELTA, {
-			label: "deltaNorthBase",
-			rebuildBase: true,
-			respawnDelay: MIS_ALLY_TRUCK_TIME,
-			template: cTempl.plhtruckt,
-			structset: camA4L6DeltaBase2Structs
-	});
-	camManageTrucks(
-		MIS_TEAM_DELTA, {
-			label: "deltaNorthBase",
-			rebuildBase: true,
-			respawnDelay: MIS_ALLY_TRUCK_TIME,
-			template: cTempl.plhtruckt,
-			structset: camA4L6DeltaBase2Structs
-	});
-
-	// Also make Delta's commander more aggressive
-	camManageGroup(deltaCommander, CAM_ORDER_PATROL, {
-		pos: [
-			camMakePos("northPatrolPos2"),
-			camMakePos("northPatrolPos3"),
-		],
-		interval: camSecondsToMilliseconds(75),
-		radius: 20,
-		repair: 50,
-		removable: false
-	});
-}
-
-// -------------------------------------
-// --- Stage 2 progression functions ---
-// -------------------------------------
-
-// Expand the map, and order the player to rescue Delta's transport
-// Also make the Collective more aggressive and activate their eastern bases
-function setStageTwo()
-{
-	stage = 2;
-
-	camSetExtraObjectiveMessage([_("Escort team Delta's lost group back to base"), _("At least one Delta unit must survive")]);
-
-	// Expand the map
-	setScrollLimits(0, 0, 216, 96);
-
-	// Place a beacon on Delta's holdout
-	hackAddMessage("DELTA_HOLDOUT", PROX_MSG, CAM_HUMAN_PLAYER);
-
-	// Move Delta's group into the holdout
-	camManageGroup(deltaCrashGroup, CAM_ORDER_DEFEND, {
-		pos: camMakePos("crashDefensePos"),
-		radius: 10
-	})
-
-	// VTOL attack
-	camSetVtolSpawnStateAll(false); // Disable the stage 1 VTOLs
-	queue("stageTwoVtolAttack", camSecondsToMilliseconds(30));
-
-	// Enable Collective factories
-	camEnableFactory("colFactory1");
-	camEnableFactory("colFactory2");
-	camEnableFactory("colFactory3");
-	camEnableFactory("colCybFactory1");
-	camEnableFactory("colCybFactory2");
-
-	// Slow down Collective reinforcement waves
-	removeTimer("sendCollectiveReinforcements");
-	setTimer("sendCollectiveReinforcements", camChangeOnDiff(camMinutesToMilliseconds(5)));
-
-	// Manage Collective base trucks
-	colBaseTruckJob1 = camManageTrucks(
-		CAM_THE_COLLECTIVE, {
-			label: "colShakerBase",
-			rebuildBase: true,
-			rebuildTruck: false, // Collective trucks are brought in as reinforcements
-			template: cTempl.comtruckt,
-			structset: colBase1Structs
-	});
-	colBaseTruckJob2 = camManageTrucks(
-		CAM_THE_COLLECTIVE, {
-			label: "colShakerBase",
-			rebuildBase: true,
-			rebuildTruck: false,
-			template: cTempl.comtruckt,
-			structset: colBase1Structs
-	});
-	colBaseTruckJob3 = camManageTrucks(
-		CAM_THE_COLLECTIVE, {
-			label: "colShakerBase",
-			rebuildBase: true,
-			rebuildTruck: false,
-			template: cTempl.comtruckht,
-			structset: colBase1Structs
-	});
-	colBaseTruckJob4 = camManageTrucks(
-		CAM_THE_COLLECTIVE, {
-			label: "colShakerBase",
-			rebuildBase: true,
-			rebuildTruck: false,
-			template: cTempl.comtruckht,
-			structset: colBase1Structs
-	});
-	colBaseTruckJob5 = camManageTrucks(
-		CAM_THE_COLLECTIVE, {
-			label: "colOverlookBase",
-			rebuildBase: true,
-			rebuildTruck: false,
-			template: cTempl.comtruckt,
-			structset: colBase2Structs
-	});
-	colBaseTruckJob6 = camManageTrucks(
-		CAM_THE_COLLECTIVE, {
-			label: "colOverlookBase",
-			rebuildBase: true,
-			rebuildTruck: false,
-			template: cTempl.comtruckt,
-			structset: colBase2Structs
-	});
-	colBaseTruckJob7 = camManageTrucks(
-		CAM_THE_COLLECTIVE, {
-			label: "colRippleBase",
-			rebuildBase: true,
-			rebuildTruck: false,
-			template: cTempl.comtruckt,
-			structset: colBase3Structs
-	});
-	colBaseTruckJob8 = camManageTrucks(
-		CAM_THE_COLLECTIVE, {
-			label: "colRippleBase",
-			rebuildBase: true,
-			rebuildTruck: false,
-			template: cTempl.comtruckt,
-			structset: colBase3Structs
-	});
-	colBaseTruckJob9 = camManageTrucks(
-		CAM_THE_COLLECTIVE, {
-			label: "colTrenchOutpost", // NOTE: Don't rebuild this base if destroyed
-			rebuildTruck: false,
-			template: cTempl.comtruckht,
-			structset: colBase4Structs
-	});
-	colBaseTruckJob10 = camManageTrucks(
-		CAM_THE_COLLECTIVE, {
-			label: "colTrenchOutpost",
-			rebuildTruck: false,
-			template: cTempl.comtruckht,
-			structset: colBase4Structs
-	});
-	colBaseTruckJob11 = camManageTrucks(
-		CAM_THE_COLLECTIVE, {
-			label: "colFactoryBase",
-			rebuildBase: true,
-			rebuildTruck: false,
-			template: cTempl.comtruckt,
-			structset: colBase5Structs
-	});
-	colBaseTruckJob12 = camManageTrucks(
-		CAM_THE_COLLECTIVE, {
-			label: "colFactoryBase",
-			rebuildBase: true,
-			rebuildTruck: false,
-			template: cTempl.comtruckt,
-			structset: colBase5Structs
-	});
-	colBaseTruckJob13 = camManageTrucks(
-		CAM_THE_COLLECTIVE, {
-			label: "colFactoryBase",
-			rebuildBase: true,
-			rebuildTruck: false,
-			template: cTempl.comtruckht,
-			structset: colBase5Structs
-	});
-	// This base starts unbuilt
-	colBaseTruckJob14 = camManageTrucks(
-		CAM_THE_COLLECTIVE, {
-			label: "colCentralBase",
-			rebuildBase: true,
-			rebuildTruck: false,
-			structset: camA4L6ColBase6Structs
-	});
-	colBaseTruckJob15 = camManageTrucks(
-		CAM_THE_COLLECTIVE, {
-			label: "colCentralBase",
-			rebuildBase: true,
-			rebuildTruck: false,
-			structset: camA4L6ColBase6Structs
-	});
-	colBaseTruckJob16 = camManageTrucks(
-		CAM_THE_COLLECTIVE, {
-			label: "colCentralBase",
-			rebuildBase: true,
-			rebuildTruck: false,
-			structset: camA4L6ColBase6Structs
-	});
-
-	// Enable Delta's east base 
-	camManageTrucks(
-		MIS_TEAM_DELTA, {
-			label: "deltaEastBase",
-			rebuildBase: true,
-			respawnDelay: MIS_ALLY_TRUCK_TIME,
-			template: cTempl.plhtruckt,
-			structset: camA4L6DeltaBase3Structs
-	});
-	camManageTrucks(
-		MIS_TEAM_DELTA, {
-			label: "deltaEastBase",
-			rebuildBase: true,
-			respawnDelay: MIS_ALLY_TRUCK_TIME,
-			template: cTempl.plhtruckt,
-			structset: camA4L6DeltaBase3Structs
-	});
-	// Also tell Delta's crashed trucks to build defenses in the holdout
-	camManageTrucks(
-		MIS_TEAM_DELTA, {
-			label: "deltaCrashHoldout",
-			rebuildBase: true,
-			rebuildTruck: false,
-			truckDroid: getObject("deltaCrashTruck1"),
-			structset: deltaHoldoutStructs
-	});
-	camManageTrucks(
-		MIS_TEAM_DELTA, {
-			label: "deltaCrashHoldout",
-			rebuildBase: true,
-			rebuildTruck: false,
-			truckDroid: getObject("deltaCrashTruck2"),
-			structset: deltaHoldoutStructs
-	});
-
-	// Move Charlie/Delta groups further up
-	camManageGroup(charlieCommander, CAM_ORDER_PATROL, {
-		pos: [
-			camMakePos("southPatrolPos2"),
-			camMakePos("southPatrolPos3"),
-			camMakePos("southPatrolPos4"),
-			camMakePos("southPatrolPos5"),
-			camMakePos("southPatrolPos6"),
-		],
-		interval: camSecondsToMilliseconds(35),
-		radius: 32,
-		repair: 75,
-		removable: false
-	});
-	camManageGroup(charlieCommandGroup, CAM_ORDER_FOLLOW, {
-		leader: "charlieCommander",
-		repair: 75,
-		suborder: CAM_ORDER_PATROL, // Fall back a bit if the commander dies
-		data: {
-			pos: [
-				camMakePos("southPatrolPos1"),
-				camMakePos("southPatrolPos2"),
-				camMakePos("southPatrolPos3"),
-			],
-			interval: camSecondsToMilliseconds(35),
-			radius: 32,
-			repair: 75,
-			removable: false
-		}
-	});
-	camManageGroup(deltaCommander, CAM_ORDER_PATROL, {
-		pos: [
-			camMakePos("northPatrolPos3"),
-			camMakePos("northPatrolPos4"),
-			camMakePos("northPatrolPos5"),
-			camMakePos("northPatrolPos6"),
-		],
-		interval: camSecondsToMilliseconds(75),
-		radius: 20,
-		repair: 50,
-		removable: false
-	});
-	camManageGroup(deltaCommandGroup, CAM_ORDER_FOLLOW, {
-		leader: "deltaCommander",
-		repair: 50,
-		suborder: CAM_ORDER_PATROL, // Fall back a bit if the commander dies
-		data: {
-			pos: [
-				camMakePos("northPatrolPos1"),
-				camMakePos("northPatrolPos2"),
-				camMakePos("northPatrolPos3"),
-			],
-			interval: camSecondsToMilliseconds(75),
-			radius: 32,
-			repair: 50,
-			removable: false
-		}
-	});
-
-	// Pre-damage Delta's crashed units
-	for (const obj of enumArea("deltaCrashGroup", MIS_TEAM_DELTA, false))
-	{
-		// 40% to 60% HP
-		setHealth(obj, 40 + camRand(21));
-	}
-
-	// Spawn small harassment groups against Delta's transport
-	setTimer("sendTransportHarassGroup", camMinutesToMilliseconds(4));
-
-	// Gradually set the skies to be rainy
-	camGradualFog(camMinutesToMilliseconds(2), 149, 165, 169);
-	camGradualSunIntensity(camMinutesToMilliseconds(2), .45,.45,.45);
-	camSetWeather(CAM_WEATHER_RAIN);
-
-	// Hack to prevent the east half of the map from being dark after the expansion
-	camSetSunPos(-450.0, -401.0, 225.0); // Move the sun just a wee bit 
-
-	// Transmission about Delta's crashed transport
-	camPlayVideos([cam_sounds.incoming.incomingTransmission, {video: "A4L6_DELTA", type: MISS_MSG}]);
-
-	// Dialogue...
-	camCallOnce("collectiveDialogue");
-	camQueueDialogue([ // Additional dialogue after a long delay...
-		{text: "CHARLIE: Lieutenant, we've detected more of those SAM launchers in the areas surrounding our base.", delay: 60, sound: CAM_RCLICK},
-		{text: "CHARLIE: The Collective is trying to box us in!", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: ...This just keeps getting worse, huh?", delay: 4, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: We're not going to be able to flee using transports until we come up with a backup plan.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Commanders, make sure to fortify our position.", delay: 4, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Set up as many defenses as you can!", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: The Collective won't let us leave without a fight!", delay: 3, sound: CAM_RCLICK},
-	]);
-}
-
-// Triggered when the player enters Delta's transport holdout
-camAreaEvent("deltaBase4", function(droid)
-{
-	// Only trigger if the player moves a droid in
-	if (droid.player === CAM_HUMAN_PLAYER && !isVTOL(droid))
-	{
-		camCallOnce("donateHoldout");
-	}
-	else
-	{
-		resetLabel("deltaBase4", CAM_HUMAN_PLAYER);
-	}
-});
-
-// Triggered when the player enters Delta's main base
-camAreaEvent("deltaReturnZone", function(droid)
-{
-	// Only trigger if the player moves a droid in
-	if (droid.player === CAM_HUMAN_PLAYER && stage === 2)
-	{
-		// Check if this droid matches any of the IDs from Delta's transport group
-		for (const ID of deltaUnitIDs)
-		{
-			if (droid.id === ID)
-			{
-				deltaRescued = true;
-				donateObject(droid, MIS_TEAM_DELTA); // Donate it back to team Delta
-				queue("deltaGroupAlive", camSecondsToMilliseconds(0.4)); // Check if there's any remaining members
-			}
-		}
-	}
-	if (stage < 3) // Don't need this trigger after stage 2
-	{
-		resetLabel("deltaReturnZone", CAM_HUMAN_PLAYER);
-	}
-});
-
-function donateHoldout()
-{
-	holdoutDonated = true;
-
-	// Remove the holdout beacon
-	hackRemoveMessage("DELTA_HOLDOUT", PROX_MSG, CAM_HUMAN_PLAYER);
-	// Place a beacon at Delta's base
-	hackAddMessage("DELTA_DEPOSIT", PROX_MSG, CAM_HUMAN_PLAYER);
-
-	// Donate all units/structures in the holdout to the player
-	for (const obj of enumArea("deltaBase4", MIS_TEAM_DELTA, false))
-	{
-		donateObject(obj, CAM_HUMAN_PLAYER);
-	}
-
-	playSound(cam_sounds.unitsTransferred);
-
-	removeTimer("sendTransportHarassGroup");
-}
-
-// Triggered when a Collective unit enters Delta's transport from the south
-camAreaEvent("colDeaggroZone", function(droid)
-{
-	if (!holdoutDonated)
-	{
-		// "De-aggro" the Collective unit from the holdout (by deleting it)
-		if (droid.player === CAM_THE_COLLECTIVE && !isVTOL(droid))
-		{
-			camSafeRemoveObject(droid);
-		}
-		resetLabel("colDeaggroZone", CAM_THE_COLLECTIVE);
-	}
-});
-
-// Handle the player recycling one of Delta's transport units
-function eventObjectRecycled(obj)
-{
-	if (stage === 2 && obj.type === DROID && obj.player === CAM_HUMAN_PLAYER)
-	{
-		deltaGroupAlive();
-	}
-}
-
-// Spawn a very small group to attack Delta's crash site
-function sendTransportHarassGroup()
-{
-	const droidPool = [
-		cTempl.cybhg,
-		cTempl.cybag,
-		cTempl.cybca,
-		cTempl.cybfl,
-		cTempl.scymc,
-		cTempl.colpodt,
-		cTempl.colhmght,
-		cTempl.colflamt,
-		cTempl.commcant,
-	];
-
-	const NUM_DROIDS = 2;
-	let droids = [];
-	for (let i = 0; i < NUM_DROIDS; i++)
-	{
-		droids.push(camRandFrom(droidPool));
-	}
-
-	camSendReinforcement(CAM_THE_COLLECTIVE, getObject("groundEntry16"), droids, CAM_REINFORCE_GROUND, {
-		order: CAM_ORDER_ATTACK,
-		data: {
-			targetPlayer: MIS_TEAM_DELTA
-		}
-	});
-}
-
-// Make sure that at least one delta unit from the transport makes it back alive
-// Fail the mission if all units die before reaching Delta's base
-// Advance to stage 3 if at least one unit makes it back and the rest of the group is missing
-// Called during stage 2
-function deltaGroupAlive()
-{
-	if (deltaUnitIDs.length > 0)
-	{
-		unitFound = false;
-		for (const ID of deltaUnitIDs)
-		{
-			if (getObject(DROID, CAM_HUMAN_PLAYER, ID) !== null)
-			{
-				// The player still has one of Delta's units
-				unitFound = true;
-			}
-		}
-
-		if (!unitFound)
-		{
-			// No units found
-			if (deltaRescued)
-			{
-				// At least one unit made it back alive; move on to the final stage
-				setStageThree();
-			}
-			else
-			{
-				// No one made it back alive...
-				camEndMission(false);
-			}
-		}
-	}
-}
-
-// -------------------------------------
-// --- Stage 3 progression functions ---
-// -------------------------------------
-
-// Set a 20 minute timer, and make the Collective VERY aggressive
-// The player wins when the timer runs out
-function setStageThree()
-{
-	stage = 3;
-
-	// Remove Delta's beacon
-	hackRemoveMessage("DELTA_DEPOSIT", PROX_MSG, CAM_HUMAN_PLAYER);
-
-	// Set the mission timer to 20 minutes
-	let finalMissionTime = camMinutesToSeconds(20);
-	if (difficulty >= HARD) finalMissionTime += camMinutesToSeconds(2); // 22 min on HARD
-	if (difficulty === INSANE) finalMissionTime += camMinutesToSeconds(2); // 24 min on INSANE
-	setMissionTime(finalMissionTime);
-	camSetExtraObjectiveMessage(_("Survive at all costs"));
-
-	// More VTOL attacks
-	// NOTE: The stage 2 VTOL attacks linked to the Collective CC stay active during this stage
-	queue("stageThreeVtolAttack", camMinutesToMilliseconds(2)); // at 18 minutes remaining
-	queue("stageThreeVtolAttack", camMinutesToMilliseconds(8)); // at 12 minutes remaining
-	queue("stageThreeVtolAttack", camMinutesToMilliseconds(16)); // at 4 minutes remaining
-
-	// Queue large telegraphed ground and air attacks
-	queue("groundAssault1", camMinutesToMilliseconds(2)); // at 18 minutes remaining
-	queue("airAssault1", camMinutesToMilliseconds(3)); // at 17 minutes remaining
-	queue("groundAssault2", camMinutesToMilliseconds(4.5)); // at 15.5 minutes remaining
-	queue("airAssault2", camMinutesToMilliseconds(5)); // at 15 minutes remaining
-	queue("groundAssault3", camMinutesToMilliseconds(6.5)); // at 13.5 minutes remaining
-	queue("airAssault3", camMinutesToMilliseconds(7)); // at 13 minutes remaining
-	queue("airAssault4", camMinutesToMilliseconds(8)); // at 12 minutes remaining
-	// A bit of a reprieve here...
-	queue("groundAssault4", camMinutesToMilliseconds(11)); // at 9 minutes remaining
-	queue("airAssault5", camMinutesToMilliseconds(12)); // at 8 minutes remaining
-	queue("groundAssault5", camMinutesToMilliseconds(13.5)); // at 6.5 minutes remaining
-	queue("airAssault6", camMinutesToMilliseconds(14)); // at 6 minutes remaining
-	// Attacks get crazy around here...
-	queue("groundAssault6", camMinutesToMilliseconds(16)); // at 4 minutes remaining
-	queue("airAssault7", camMinutesToMilliseconds(17)); // at 3 minutes remaining
-	queue("airAssault8", camMinutesToMilliseconds(17.5)); // at 2.5 minutes remaining
-	queue("groundAssault7", camMinutesToMilliseconds(18)); // at 2 minutes remaining
-	queue("airAssault9", camMinutesToMilliseconds(18.5)); // at 1.5 minutes remaining
-	queue("airAssault10", camMinutesToMilliseconds(19)); // at 1 minutes remaining
-	queue("airAssault11", camMinutesToMilliseconds(19.25)); // at 0.75 minutes remaining
-
-	// Queue "lightning" effects
-	queue("startLightningEffects", camMinutesToMilliseconds(2));
-
-	// Gradually set the skies to be stormy
-	camGradualFog(camMinutesToMilliseconds(2), 107, 107, 107);
-	camGradualSunIntensity(camMinutesToMilliseconds(2), .35,.35,.35);
-	camSetWeather(CAM_WEATHER_RAINSTORM);
-
-	// Transmission about the incoming Collective onslaught
-	camPlayVideos([cam_sounds.incoming.incomingTransmission, {video: "A4L6_COLLECTIVE", type: MISS_MSG}]);
-}
-
-function groundAssault1()
-{
-	// Mark the entry points that are about to be blitzed
-	activateGroundBlip(13);
-	activateGroundBlip(14);
-	activateGroundBlip(15);
-	activateGroundBlip(16);
-
-	// Play a sound
-	playSound(cam_sounds.enemyUnitDetected);
-	
-	// Queue the actual units
-	queue("groundAssaultWave", MIS_GROUND_ASSAULT_DELAY, "1");
-}
-
-function groundAssault2()
-{
-	activateGroundBlip(11);
-	activateGroundBlip(12);
-	activateGroundBlip(15);
-	activateGroundBlip(16);
-	
-	playSound(cam_sounds.enemyUnitDetected);
-
-	queue("groundAssaultWave", MIS_GROUND_ASSAULT_DELAY, "2");
-}
-
-function groundAssault3()
-{
-	activateGroundBlip(8);
-	activateGroundBlip(9);
-	activateGroundBlip(14);
-	activateGroundBlip(16);
-	
-	playSound(cam_sounds.enemyUnitDetected);
-
-	queue("groundAssaultWave", MIS_GROUND_ASSAULT_DELAY, "3");
-}
-
-function groundAssault4()
-{
-	activateGroundBlip(8);
-	activateGroundBlip(12);
-	activateGroundBlip(14);
-	activateGroundBlip(15);
-	activateGroundBlip(16);
-	
-	playSound(cam_sounds.enemyUnitDetected);
-
-	queue("groundAssaultWave", MIS_GROUND_ASSAULT_DELAY, "4");
-}
-
-function groundAssault5()
-{
-	activateGroundBlip(7);
-	activateGroundBlip(8);
-	activateGroundBlip(9);
-	activateGroundBlip(11);
-	activateGroundBlip(12);
-	activateGroundBlip(15);
-	
-	playSound(cam_sounds.enemyUnitDetected);
-
-	queue("groundAssaultWave", MIS_GROUND_ASSAULT_DELAY, "5");
-}
-
-function groundAssault6()
-{
-	activateGroundBlip(1);
-	activateGroundBlip(3);
-	activateGroundBlip(4);
-	activateGroundBlip(6);
-	activateGroundBlip(7);
-	activateGroundBlip(8);
-	activateGroundBlip(9);
-	activateGroundBlip(14);
-	
-	playSound(cam_sounds.enemyUnitDetected);
-
-	queue("groundAssaultWave", MIS_GROUND_ASSAULT_DELAY, "6");
-
-	// Live Delta Reaction:
-	camQueueDialogue([
-		{text: "DELTA: Oh, COME ON!", delay: 2, sound: CAM_RCLICK},
-		{text: "DELTA: How many of them ARE there?!", delay: 2, sound: CAM_RCLICK},
-	]);
-}
-
-function groundAssault7()
-{
-	activateGroundBlip(2);
-	activateGroundBlip(4);
-	activateGroundBlip(5);
-	activateGroundBlip(7);
-	activateGroundBlip(8);
-	
-	playSound(cam_sounds.enemyUnitDetected);
-
-	queue("groundAssaultWave", MIS_GROUND_ASSAULT_DELAY, "7");
-}
-
-function activateGroundBlip(index)
-{
-	const msgName = "COL_ENTRY" + index;
-
-	groundBlips[index] = true;
-	hackAddMessage(msgName, PROX_MSG, CAM_HUMAN_PLAYER);
-}
-
-function groundAssaultWave(index)
-{
-	clearGroundBlips();
-
-	switch (index)
-	{
-		case "1":
-			const wave1Templates = [
-				[ // Southeast base entry templates
-					cTempl.comsensht, // 1 Sensor
-					cTempl.comatht, cTempl.comatht, cTempl.comatht, cTempl.comatht, // 4 Lancers
-					cTempl.cybla, cTempl.cybla, cTempl.cybla, cTempl.cybla, // 4 Lancer Cyborgs
-					cTempl.comatht, cTempl.comatht, cTempl.comatht, cTempl.comatht, cTempl.comatht, cTempl.comatht, // 6 Bombards
-					cTempl.cohhowt, cTempl.cohhowt, cTempl.cohhowt, // 3 Howitzers
-				],
-				[ // Southeast trench entry templates (+commander)
-					cTempl.cybhg, cTempl.cybhg, cTempl.cybhg, cTempl.cybhg, // 4 Heavy Machinegunners
-					cTempl.scymc, cTempl.scymc, cTempl.scymc, cTempl.scymc, cTempl.scymc, cTempl.scymc, // 6 Super Heavy Gunners
-					cTempl.comhpvt, cTempl.comhpvt, cTempl.comhpvt, cTempl.comhpvt, // 4 HVCs
-					cTempl.comhaat, cTempl.comhaat, // 2 Cyclones
-				],
-				[ // East entry templates (+commander)
-					cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, // 4 Heavy Cannons
-					cTempl.commrat, cTempl.commrat, cTempl.commrat, cTempl.commrat, cTempl.commrat, cTempl.commrat, // 6 MRAs
-					cTempl.comhmgt, cTempl.comhmgt, // 2 HMGs
-					cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, // 4 Cyclones
-				],
-				[ // Northeast entry templates (+commander)
-					cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, // 4 HRAs
-					cTempl.cominft, cTempl.cominft, cTempl.cominft, cTempl.cominft, // 4 Infernos
-					cTempl.scymc, cTempl.scymc, cTempl.scymc, cTempl.scymc, cTempl.scymc, // 5 Super Heavy Gunners
-					cTempl.comhaat, cTempl.comhaat, // 2 Cyclones
-					cTempl.cohraat, // 1 Whirlwind
-				],
-			];
-			sendCollectiveGroundWave("groundEntry13", wave1Templates[0]);
-			sendCollectiveGroundWave("groundEntry14", wave1Templates[1], cTempl.comcomt);
-			sendCollectiveGroundWave("groundEntry15", wave1Templates[2], cTempl.cohcomt);
-			sendCollectiveGroundWave("groundEntry16", wave1Templates[3], cTempl.cohcomt);
-			break;
-		case "2":
-			const wave2Templates = [
-				[ // Northeast base entry templates
-					cTempl.comsenst, cTempl.comsenst, // 2 Sensors
-					cTempl.comatt, cTempl.comatt, cTempl.comatt, cTempl.comatt, // 4 Lancers
-					cTempl.cybla, cTempl.cybla, cTempl.cybla, cTempl.cybla, // 4 Super Grenadiers
-					cTempl.comatht, cTempl.comatht, cTempl.comatht, cTempl.comatht, // 4 Bombards
-					cTempl.cohhowt, cTempl.cohhowt, // 2 Howitzers
-				],
-				[ // Southeast base entry templates
-					cTempl.comsenst, // 1 Sensor
-					cTempl.comatt, cTempl.comatt, cTempl.comatt, cTempl.comatt, // 4 Lancers
-					cTempl.comrmortt, cTempl.comrmortt, cTempl.comrmortt, cTempl.comrmortt, cTempl.comrmortt, cTempl.comrmortt, // 6 Pepperpots
-					cTempl.cohhowt, cTempl.cohhowt, // 2 Howitzers
-				],
-				[ // East entry templates (+commander)
-					cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, // 4 Heavy Cannons
-					cTempl.comagt, cTempl.comagt, cTempl.comagt, cTempl.comagt, // 4 Assault Guns
-					cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, // 4 Tank Killers
-					cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, // 4 Cyclones
-				],
-				[ // Northeast entry templates (+commander)
-					cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, // 4 Heavy Cannons
-					cTempl.comagt, cTempl.comagt, cTempl.comagt, cTempl.comagt, // 4 Assault Guns
-					cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, // 6 Assault Cannons
-					cTempl.cohraat, cTempl.cohraat, // 2 Whirlwinds
-				],
-			];
-			sendCollectiveGroundWave("groundEntry11", wave2Templates[0]);
-			sendCollectiveGroundWave("groundEntry12", wave2Templates[1]);
-			sendCollectiveGroundWave("groundEntry15", wave2Templates[2], cTempl.cohcomt);
-			sendCollectiveGroundWave("groundEntry16", wave2Templates[3], cTempl.cohcomt);
-			break;
-		case "3":
-			const wave3Templates = [
-				[ // North road entry templates (+commander)
-					cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, // 6 Heavy Cannons
-					cTempl.cominft, cTempl.cominft,  cTempl.cominft, cTempl.cominft, // 4 Infernos
-					cTempl.comagt, cTempl.comagt, // 2 Assault Guns
-					cTempl.cohbbt, cTempl.cohbbt, // 2 Bunker Busters
-					cTempl.cohraat, cTempl.cohraat, // 2 Whirlwinds
-				],
-				[ // South road entry templates (+commander)
-					cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, // 6 HRAs
-					cTempl.cohbbt, cTempl.cohbbt, cTempl.cohbbt, cTempl.cohbbt, // 4 Bunker Busters
-					cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, // 4 Tank Killers
-					cTempl.cohraat, cTempl.cohraat, // 2 Whirlwinds
-				],
-				[ // Southeast base entry templates
-					cTempl.comsensht, // 1 Sensor
-					cTempl.comhatht, cTempl.comhatht, cTempl.comhatht, cTempl.comhatht, // 4 Tank Killers
-					cTempl.comrmortht, cTempl.comrmortht, cTempl.comrmortht, cTempl.comrmortht, // 4 Pepperpots
-					cTempl.cohript, cTempl.cohript, cTempl.cohript, cTempl.cohript, // 4 Ripple Rockets
-				],
-				[ // Northeast entry templates
-					cTempl.comsenst, // 1 Sensor
-					cTempl.cohhowt, cTempl.cohhowt, // 2 Howitzers
-					cTempl.cohript, cTempl.cohript, cTempl.cohript, cTempl.cohript, cTempl.cohript, cTempl.cohript, // 6 Ripple Rockets
-				],
-			];
-			sendCollectiveGroundWave("groundEntry8", wave3Templates[0], cTempl.cohcomt);
-			sendCollectiveGroundWave("groundEntry9", wave3Templates[1], cTempl.cohcomt);
-			sendCollectiveGroundWave("groundEntry14", wave3Templates[2]);
-			sendCollectiveGroundWave("groundEntry16", wave3Templates[3]);
-			break;
-		case "4":
-			const wave4Templates = [
-				[ // North road entry templates (+commander)
-					cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, // 4 Heavy Cannons
-					cTempl.cohbbt, cTempl.cohbbt, cTempl.cohbbt, cTempl.cohbbt, // 4 Bunker Busters
-					cTempl.cominft, cTempl.cominft, cTempl.cominft, cTempl.cominft, // 4 Infernos
-					cTempl.comrept, cTempl.comrept, // 2 Repair Turrets
-					cTempl.cohraat, cTempl.cohraat, // 2 Whirlwinds
-				],
-				[ // Southeast base entry templates
-					cTempl.comsensht, cTempl.comsensht, // 2 Sensors
-					cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk, // 6 Super Tank Killer Cyborgs
-					cTempl.comrmortht, cTempl.comrmortht, cTempl.comrmortht, cTempl.comrmortht, // 4 Pepperpots
-					cTempl.cohhowt, cTempl.cohhowt, // 2 Howitzers
-				],
-				[ // Southeast trench entry templates (+commander)
-					cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, // 6 Assault Cannons
-					cTempl.comagt, cTempl.comagt, cTempl.comagt, cTempl.comagt, cTempl.comagt, cTempl.comagt, // 6 Assault Guns
-					cTempl.comrept, cTempl.comrept, cTempl.comrept, cTempl.comrept, // 4 Repair Turrets
-				],
-				[ // East entry templates (+commander)
-					cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, // 6 HRAs
-					cTempl.comrept, cTempl.comrept, cTempl.comrept, cTempl.comrept, // 4 Repair Turrets
-					cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, // 4 Cyclones
-					cTempl.comsamt, cTempl.comsamt, // 2 Avenger SAMs
-				],
-				[ // Northeast entry templates
-					cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, // 6 Heavy Cannons
-					cTempl.commcant, cTempl.commcant, cTempl.commcant, cTempl.commcant,
-					cTempl.commcant, cTempl.commcant, cTempl.commcant, cTempl.commcant, // 8 Medium Cannons
-					cTempl.comhmgt, cTempl.comhmgt, cTempl.comhmgt, cTempl.comhmgt, cTempl.comhmgt, cTempl.comhmgt, // 6 HMGs
-					cTempl.comrept, cTempl.comrept, cTempl.comrept, cTempl.comrept, // 4 Repair Turrets
-				],
-			];
-			sendCollectiveGroundWave("groundEntry8", wave4Templates[0], cTempl.cohcomt);
-			sendCollectiveGroundWave("groundEntry12", wave4Templates[1]);
-			sendCollectiveGroundWave("groundEntry14", wave4Templates[2], cTempl.comcomt);
-			sendCollectiveGroundWave("groundEntry15", wave4Templates[3], cTempl.comcomt);
-			sendCollectiveGroundWave("groundEntry16", wave4Templates[4]);
-			break;
-		case "5":
-			const wave5Templates = [
-				[ // Southwest road entry templates (+commander)
-					cTempl.cohbbt, cTempl.cohbbt, cTempl.cohbbt, cTempl.cohbbt, // 4 Bunker Busters
-					cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, // 6 Assault Cannons
-					cTempl.comrept, cTempl.comrept, cTempl.comrept, cTempl.comrept, // 4 Repair Turrets
-					cTempl.cohraat, cTempl.cohraat, // 2 Whirlwinds
-				],
-				[ // North road entry templates (+commander)
-					cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant,
-					cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, // 8 Heavy Cannons
-					cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, // 6 HRAs
-					cTempl.comrept, cTempl.comrept, // 2 Repair Turrets
-				],
-				[ // Southeast road entry templates (+commander)
-					cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, // 6 HRAs
-					cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, // 4 Tank Killers
-					cTempl.comrept, cTempl.comrept, // 2 Repair Turrets
-					cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, // 4 Cyclones
-				],
-				[ // North base entry templates
-					cTempl.comsenst, // 1 Sensor
-					cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, // 4 Tank Killers
-					cTempl.comhmortt, cTempl.comhmortt, cTempl.comhmortt, cTempl.comhmortt, cTempl.comhmortt, cTempl.comhmortt, // 6 Bombards
-					cTempl.cohript, cTempl.cohript, cTempl.cohript, cTempl.cohript, // 4 Ripple Rockets
-				],
-				[ // South base entry templates
-					cTempl.comsenst, // 1 Sensor
-					cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, // 4 Tank Killers
-					cTempl.comhmortt, cTempl.comhmortt, cTempl.comhmortt, cTempl.comhmortt, cTempl.comhmortt, cTempl.comhmortt, // 6 Bombards
-					cTempl.cohript, cTempl.cohript, cTempl.cohript, cTempl.cohript, // 4 Ripple Rockets
-				],
-				[ // East entry templates
-					cTempl.comsensht, cTempl.comsensht, // 2 Sensors
-					cTempl.scyac, cTempl.scyac, cTempl.scyac, cTempl.scyac,
-					cTempl.scyac, cTempl.scyac, cTempl.scyac, cTempl.scyac, // 8 Super Auto Cannon Cyborgs
-					cTempl.comrmortht, cTempl.comrmortht, cTempl.comrmortht, cTempl.comrmortht, cTempl.comrmortht, cTempl.comrmortht, // 6 Pepperpots
-					cTempl.cohript, cTempl.cohript, cTempl.cohript, cTempl.cohript, // 4 Ripple Rockets
-				],
-			];
-			sendCollectiveGroundWave("groundEntry7", wave5Templates[0], cTempl.cohcomt);
-			sendCollectiveGroundWave("groundEntry8", wave5Templates[1], cTempl.cohcomt);
-			sendCollectiveGroundWave("groundEntry9", wave5Templates[2], cTempl.cohcomt);
-			sendCollectiveGroundWave("groundEntry11", wave5Templates[3]);
-			sendCollectiveGroundWave("groundEntry12", wave5Templates[4]);
-			sendCollectiveGroundWave("groundEntry15", wave5Templates[5]);
-			break;
-		case "6":
-			const wave6Templates = [
-				// ALL of these have commanders!!!
-				[ // Northwest road entry
-					cTempl.comagt, cTempl.comagt, cTempl.comagt, cTempl.comagt, cTempl.comagt, cTempl.comagt, // 6 Assault Guns
-					cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, // 6 Tank Killers
-					cTempl.cohraat, cTempl.cohraat, cTempl.cohraat, cTempl.cohraat, // 4 Whirlwinds
-				],
-				[ // North road entry
-					cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, // 6 HRAs
-					cTempl.cohbbt, cTempl.cohbbt, cTempl.cohbbt, cTempl.cohbbt, // 4 Bunker Busters
-					cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, // 4 Assault Cannons
-					cTempl.cohraat, cTempl.cohraat, // 2 Whirlwinds
-				],
-				[ // Southwest marsh entry
-					cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, // 6 Heavy Cannons
-					cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, // 6 Tank Killers
-					cTempl.cohraat, cTempl.cohraat, cTempl.cohraat, cTempl.cohraat, // 4 Whirlwinds
-				],
-				[ // South marsh entry
-					cTempl.cohbbt, cTempl.cohbbt, cTempl.cohbbt, cTempl.cohbbt, cTempl.cohbbt, cTempl.cohbbt, // 6 Bunker Busters
-					cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, // 6 HRAs
-					cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, // 4 Cyclones
-				],
-				[ // Southeast road entry 1
-					cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, 
-					cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, // 8 Tank Killers
-					cTempl.cominft, cTempl.cominft, cTempl.cominft, cTempl.cominft, // 4 Infernos
-					cTempl.comrept, cTempl.comrept, // 2 Repair Turrets
-					cTempl.cohraat, cTempl.cohraat, // 2 Whirlwinds
-				],
-				[ // Northeast road entry
-					cTempl.cohacant, cTempl.cohacant, cTempl.cohacant, cTempl.cohacant, cTempl.cohacant, cTempl.cohacant, // 6 Assault Cannons
-					cTempl.comhpvt, cTempl.comhpvt, cTempl.comhpvt, cTempl.comhpvt, cTempl.comhpvt, cTempl.comhpvt, // 6 HVCs
-					cTempl.comrept, cTempl.comrept, // 2 Repair Turrets
-					cTempl.comsamt, cTempl.comsamt, // 2 Avenger SAMs
-				],
-				[ // Southeast road entry 2
-					cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant,
-					cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, // 8 Heavy Cannons
-					cTempl.comrept, cTempl.comrept, cTempl.comrept, cTempl.comrept, // 4 Repair Turrets
-					cTempl.cohraat, cTempl.cohraat, cTempl.cohraat, cTempl.cohraat, // 4 Whirlwinds
-				],
-				[ // Southeast trench entry
-					cTempl.comhpvt, cTempl.comhpvt, cTempl.comhpvt, cTempl.comhpvt, cTempl.comhpvt, cTempl.comhpvt, // 6 HVCs
-					cTempl.comagt, cTempl.comagt, cTempl.comagt, cTempl.comagt, cTempl.comagt, cTempl.comagt, // 6 Assault Guns
-					cTempl.comsamt, cTempl.comsamt, cTempl.comsamt, cTempl.comsamt, // 4 Avenger SAMs
-				],
-			];
-			sendCollectiveGroundWave("groundEntry1", wave6Templates[0], cTempl.cohcomt);
-			sendCollectiveGroundWave("groundEntry3", wave6Templates[1], cTempl.cohcomt);
-			sendCollectiveGroundWave("groundEntry4", wave6Templates[2], cTempl.cohcomt);
-			sendCollectiveGroundWave("groundEntry6", wave6Templates[3], cTempl.cohcomt);
-			sendCollectiveGroundWave("groundEntry7", wave6Templates[4], cTempl.cohcomt);
-			sendCollectiveGroundWave("groundEntry8", wave6Templates[5], cTempl.cohcomt);
-			sendCollectiveGroundWave("groundEntry9", wave6Templates[6], cTempl.cohcomt);
-			sendCollectiveGroundWave("groundEntry14", wave6Templates[7], cTempl.cohcomt);
-			break;
-		case "7":
-			const wave7Templates = [
-				// A lot of these guys are probably not going to reach the player's base in time anyway...
-				[ // Northwest road entry (+commander)
-					cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, // 6 Heavy Cannons
-					cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, // 4 Tank Killers
-					cTempl.comagt, cTempl.comagt, // 2 Assault Guns
-					cTempl.cohraat, cTempl.cohraat, cTempl.cohraat, cTempl.cohraat, // 4 Whirlwinds
-				],
-				[ // Southwest marsh entry (+commander)
-					cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, // 6 Heavy Cannons
-					cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, // 4 Assault Cannons
-					cTempl.comrept, cTempl.comrept, // 2 Repair Turrets
-					cTempl.cohraat, cTempl.cohraat, cTempl.cohraat, cTempl.cohraat, // 4 Whirlwinds
-				],
-				[ // South marsh entry
-					cTempl.comhatht, cTempl.comhatht, cTempl.comhatht, cTempl.comhatht, cTempl.comhatht, cTempl.comhatht, // 6 Tank Killers
-					cTempl.comaght, cTempl.comaght, cTempl.comaght, cTempl.comaght, cTempl.comaght, cTempl.comaght, // 6 Assault Guns
-					cTempl.scyac, cTempl.scyac, cTempl.scyac, cTempl.scyac, cTempl.scyac, cTempl.scyac, // 6 Super Auto Cannon Cyborgs
-					cTempl.cybth, cTempl.cybth, cTempl.cybth, cTempl.cybth,
-					cTempl.cybth, cTempl.cybth, cTempl.cybth, cTempl.cybth, // 8 Thermite Flamer Cyborgs
-				],
-				[ // Southeast road entry
-					cTempl.comsensht, cTempl.comsensht, // 2 Sensors
-					cTempl.comhpvht, cTempl.comhpvht, cTempl.comhpvht, cTempl.comhpvht, // 4 HVCs
-					cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk, // 6 Super Tank Killer Cyborgs
-					cTempl.comrmortht, cTempl.comrmortht, cTempl.comrmortht, cTempl.comrmortht, cTempl.comrmortht, cTempl.comrmortht, // 6 Pepperpots
-					cTempl.cohhhowtt, cTempl.cohhhowtt, // 2 Ground Shakers
-				],
-				[ // Northeast road entry
-					cTempl.comsensht, cTempl.comsensht, // 2 Sensors
-					cTempl.comhpvht, cTempl.comhpvht, cTempl.comhpvht, cTempl.comhpvht, // 4 HVCs
-					cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk, // 6 Super Tank Killer Cyborgs
-					cTempl.comrmortht, cTempl.comrmortht, cTempl.comrmortht, cTempl.comrmortht, cTempl.comrmortht, cTempl.comrmortht, // 6 Pepperpots
-					cTempl.cohhhowtt, cTempl.cohhhowtt, // 2 Ground Shakers
-				],
-			];
-			sendCollectiveGroundWave("groundEntry2", wave7Templates[0], cTempl.cohcomt);
-			sendCollectiveGroundWave("groundEntry4", wave7Templates[1], cTempl.cohcomt);
-			sendCollectiveGroundWave("groundEntry5", wave7Templates[2]);
-			sendCollectiveGroundWave("groundEntry7", wave7Templates[3]);
-			sendCollectiveGroundWave("groundEntry8", wave7Templates[4]);
-			break;
-	}
-}
-
-function airAssault1()
-{
-	activateAirBlip(2);
-
-	playSound(cam_sounds.incomingAirStrike);
-
-	queue("airAssaultWave", MIS_AIR_ASSAULT_DELAY, "1");
-}
-
-function airAssault2()
-{
-	activateAirBlip(4);
-
-	playSound(cam_sounds.incomingAirStrike);
-
-	queue("airAssaultWave", MIS_AIR_ASSAULT_DELAY, "2");
-}
-
-function airAssault3()
-{
-	activateAirBlip(3);
-
-	playSound(cam_sounds.incomingAirStrike);
-
-	queue("airAssaultWave", MIS_AIR_ASSAULT_DELAY, "3");
-}
-
-function airAssault4()
-{
-	activateAirBlip(2);
-	activateAirBlip(4);
-
-	playSound(cam_sounds.incomingAirStrike);
-
-	queue("airAssaultWave", MIS_AIR_ASSAULT_DELAY, "4");
-}
-
-function airAssault5()
-{
-	activateAirBlip(5);
-
-	playSound(cam_sounds.incomingAirStrike);
-
-	queue("airAssaultWave", MIS_AIR_ASSAULT_DELAY, "5");
-}
-
-function airAssault6()
-{
-	activateAirBlip(3);
-	activateAirBlip(5);
-
-	playSound(cam_sounds.incomingAirStrike);
-
-	queue("airAssaultWave", MIS_AIR_ASSAULT_DELAY, "6");
-}
-
-function airAssault7()
-{
-	activateAirBlip(2);
-	activateAirBlip(4);
-
-	playSound(cam_sounds.incomingAirStrike);
-
-	queue("airAssaultWave", MIS_AIR_ASSAULT_DELAY, "7");
-}
-
-function airAssault8()
-{
-	activateAirBlip(4);
-
-	playSound(cam_sounds.incomingAirStrike);
-
-	queue("airAssaultWave", MIS_AIR_ASSAULT_DELAY, "8");
-}
-
-function airAssault9()
-{
-	activateAirBlip(3);
-	activateAirBlip(4);
-	activateAirBlip(5);
-
-	playSound(cam_sounds.incomingAirStrike);
-
-	queue("airAssaultWave", MIS_AIR_ASSAULT_DELAY, "9");
-}
-
-function airAssault10()
-{
-	activateAirBlip(2);
-	activateAirBlip(5);
-
-	playSound(cam_sounds.incomingAirStrike);
-
-	queue("airAssaultWave", MIS_AIR_ASSAULT_DELAY, "10");
-}
-
-function airAssault11()
-{
-	activateAirBlip(4);
-
-	playSound(cam_sounds.incomingAirStrike);
-
-	queue("airAssaultWave", MIS_AIR_ASSAULT_DELAY, "11");
-}
-
-function activateAirBlip(index)
-{
-	const msgName = "AIR_ENTRY" + index;
-
-	airBlips[index] = true;
-	hackAddMessage(msgName, PROX_MSG, CAM_HUMAN_PLAYER);
-}
-
-function airAssaultWave(index)
-{
-	clearAirBlips();
-
-	switch (index)
-	{
-		case "1":
-			const wave1Vtols = [
-				[cTempl.colatv], // Lancers
-				[cTempl.colphosv], // Phosphor Bombs
-				[cTempl.comthermv], // Thermite Bombs
-			];
-			const wave1Extras = [
-				{limit: 6},
-				{limit: 6},
-				{limit: 4},
-			];
-
-			// Send some one-time VTOL groups
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos2", "vtolRemoveZone2", wave1Vtols[0], undefined, undefined, wave1Extras[0]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos2", "vtolRemoveZone2", wave1Vtols[1], undefined, undefined, wave1Extras[1]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos2", "vtolRemoveZone2", wave1Vtols[2], undefined, undefined, wave1Extras[2]);
-			break;
-		case "2":
-			const wave2Vtols = [
-				[cTempl.colatv], // Lancers
-				[cTempl.colbombv], // Cluster Bombs
-				[cTempl.comhbombv], // HEAP Bombs
-			];
-			const wave2Extras = [
-				{limit: 6},
-				{limit: 6},
-				{limit: 4},
-			];
-
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos4", "vtolRemoveZone2", wave2Vtols[0], undefined, undefined, wave2Extras[0]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos4", "vtolRemoveZone2", wave2Vtols[1], undefined, undefined, wave2Extras[1]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos4", "vtolRemoveZone2", wave2Vtols[2], undefined, undefined, wave2Extras[2]);
-			break;
-		case "3":
-			const wave3Vtols = [
-				[cTempl.colagv], // Assault Guns
-				[cTempl.colbombv], // Cluster Bombs
-				[cTempl.comacanv], // Assault Cannons
-			];
-			const wave3Extras = [
-				{limit: 6},
-				{limit: 4},
-				{limit: 6},
-			];
-
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos3", "vtolRemoveZone2", wave3Vtols[0], undefined, undefined, wave3Extras[0]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos3", "vtolRemoveZone2", wave3Vtols[1], undefined, undefined, wave3Extras[1]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos3", "vtolRemoveZone2", wave3Vtols[2], undefined, undefined, wave3Extras[2]);
-			break;
-		case "4":
-			const wave4Vtols = [
-				// From the southeast entrance...
-				[cTempl.colagv], // Assault Guns
-				[cTempl.colatv], // Lancers
-				[cTempl.comacanv], // Assault Cannons
-				// From the northeast entrance...
-				[cTempl.comhbombv], // HEAP Bombs
-				[cTempl.comthermv], // Thermite Bombs
-			];
-			const wave4Extras = [
-				{limit: 6},
-				{limit: 4},
-				{limit: 4},
-
-				{limit: 4},
-				{limit: 4},
-			];
-
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos2", "vtolRemoveZone2", wave4Vtols[0], undefined, undefined, wave4Extras[0]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos2", "vtolRemoveZone2", wave4Vtols[1], undefined, undefined, wave4Extras[1]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos2", "vtolRemoveZone2", wave4Vtols[2], undefined, undefined, wave4Extras[2]);
-
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos4", "vtolRemoveZone2", wave4Vtols[3], undefined, undefined, wave4Extras[3]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos4", "vtolRemoveZone2", wave4Vtols[4], undefined, undefined, wave4Extras[4]);
-			break;
-		case "5":
-			const wave5Vtols = [
-				[cTempl.colagv], // Assault Guns
-				[cTempl.comacanv], // Assault Cannons
-				[cTempl.comhatv], // Tank Killers
-			];
-			const wave5Extras = [
-				{limit: 8},
-				{limit: 4},
-				{limit: 6},
-			];
-
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos5", "vtolRemoveZone2", wave5Vtols[0], undefined, undefined, wave5Extras[0]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos5", "vtolRemoveZone2", wave5Vtols[1], undefined, undefined, wave5Extras[1]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos5", "vtolRemoveZone2", wave5Vtols[2], undefined, undefined, wave5Extras[2]);
-			break;
-		case "6":
-			const wave6Vtols = [
-				// From the both entrances...
-				[cTempl.colagv], // Assault Guns
-				[cTempl.colbombv], // Cluster Bombs
-				[cTempl.comacanv], // Assault Cannons
-			];
-			const wave6Extras = [
-				{limit: 8},
-				{limit: 6},
-				{limit: 4},
-			];
-
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos3", "vtolRemoveZone2", wave6Vtols[0], undefined, undefined, wave6Extras[0]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos3", "vtolRemoveZone2", wave6Vtols[1], undefined, undefined, wave6Extras[1]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos3", "vtolRemoveZone2", wave6Vtols[2], undefined, undefined, wave6Extras[2]);
-
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos5", "vtolRemoveZone2", wave6Vtols[0], undefined, undefined, wave6Extras[0]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos5", "vtolRemoveZone2", wave6Vtols[1], undefined, undefined, wave6Extras[1]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos5", "vtolRemoveZone2", wave6Vtols[2], undefined, undefined, wave6Extras[2]);
-			break;
-		case "7":
-			const wave7Vtols = [
-				// From the southeast entrance...
-				[cTempl.colagv], // Assault Guns
-				[cTempl.comthermv], // Thermite Bombs
-				// From the northeast entrance...
-				[cTempl.colbombv], // Cluster Bombs
-				[cTempl.comacanv], // Assault Cannons
-			];
-			const wave7Extras = [
-				{limit: 8},
-				{limit: 4},
-
-				{limit: 6},
-				{limit: 4},
-			];
-
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos2", "vtolRemoveZone2", wave7Vtols[0], undefined, undefined, wave7Extras[0]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos2", "vtolRemoveZone2", wave7Vtols[1], undefined, undefined, wave7Extras[1]);
-
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos4", "vtolRemoveZone2", wave7Vtols[2], undefined, undefined, wave7Extras[2]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos4", "vtolRemoveZone2", wave7Vtols[3], undefined, undefined, wave7Extras[3]);
-			break;
-		case "8":
-			const wave8Vtols = [
-				[cTempl.comhbombv], // HEAP Bombs
-				[cTempl.comthermv], // Thermite Bombs
-			];
-			const wave8Extras = [
-				{limit: 6},
-				{limit: 6},
-			];
-
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos4", "vtolRemoveZone2", wave8Vtols[0], undefined, undefined, wave8Extras[0]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos4", "vtolRemoveZone2", wave8Vtols[1], undefined, undefined, wave8Extras[1]);
-			break;
-		case "9":
-			const wave9Vtols = [
-				// From the south entrance...
-				[cTempl.colagv], // Assault Guns
-				[cTempl.comacanv], // Assault Cannons
-				// From the east entrance...
-				[cTempl.colbombv], // Cluster Bombs
-				[cTempl.comhbombv], // HEAP Bombs
-				// From the north entrance...
-				[cTempl.colatv], // Lancers
-				[cTempl.comhatv], // Tank Killers
-			];
-			const wave9Extras = [
-				{limit: 8},
-				{limit: 4},
-
-				{limit: 6},
-				{limit: 4},
-
-				{limit: 6},
-				{limit: 4},
-			];
-
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos3", "vtolRemoveZone2", wave9Vtols[0], undefined, undefined, wave9Extras[0]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos3", "vtolRemoveZone2", wave9Vtols[1], undefined, undefined, wave9Extras[1]);
-
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos4", "vtolRemoveZone2", wave9Vtols[2], undefined, undefined, wave9Extras[2]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos4", "vtolRemoveZone2", wave9Vtols[3], undefined, undefined, wave9Extras[3]);
-
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos5", "vtolRemoveZone2", wave9Vtols[4], undefined, undefined, wave9Extras[4]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos5", "vtolRemoveZone2", wave9Vtols[5], undefined, undefined, wave9Extras[5]);
-			break;
-		case "10":
-			const wave10Vtols = [
-				// From the southeast entrance...
-				[cTempl.colagv], // Assault Guns
-				[cTempl.comhatv], // Tank Killers
-				// From the north entrance...
-				[cTempl.colphosv], // Phosphor Bombs
-				[cTempl.comacanv], // Assault Cannons
-			];
-			const wave10Extras = [
-				{limit: 8},
-				{limit: 6},
-
-				{limit: 6},
-				{limit: 6},
-			];
-
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos2", "vtolRemoveZone2", wave10Vtols[0], undefined, undefined, wave10Extras[0]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos2", "vtolRemoveZone2", wave10Vtols[1], undefined, undefined, wave10Extras[1]);
-
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos5", "vtolRemoveZone2", wave10Vtols[2], undefined, undefined, wave10Extras[2]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos5", "vtolRemoveZone2", wave10Vtols[3], undefined, undefined, wave10Extras[3]);
-			break;
-		case "11":
-			const wave11Vtols = [
-				[cTempl.comhbombv], // HEAP Bombs
-				[cTempl.comhatv], // Tank Killers
-				[cTempl.comacanv], // Assault Cannons
-			];
-			const wave11Extras = [
-				{limit: 8},
-				{limit: 4},
-				{limit: 4},
-			];
-
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos4", "vtolRemoveZone2", wave11Vtols[0], undefined, undefined, wave11Extras[0]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos4", "vtolRemoveZone2", wave11Vtols[1], undefined, undefined, wave11Extras[1]);
-			camSetVtolData(CAM_THE_COLLECTIVE, "vtolAttackPos4", "vtolRemoveZone2", wave11Vtols[2], undefined, undefined, wave11Extras[2]);
-			break;
-	}
-}
-
-function sendCollectiveGroundWave(entry, templates, commTemplate)
-{
-	if (camDef(commTemplate))
-	{
-		// This group has a commander leader; create one
-		const commLabel = "colCommander" + colCommanderIndex++;
-		const commDroid = camAddDroid(CAM_THE_COLLECTIVE, entry, commTemplate);
-		addLabel(commDroid, commLabel);
-		camSetDroidRank(commDroid, colCommanderRank);
-		camManageGroup(camMakeGroup(commDroid), CAM_ORDER_ATTACK, {repair: 40});
-
-		// Send in the rest of the group; which will follow the leader
-		camSendReinforcement(CAM_THE_COLLECTIVE, getObject(entry), templates, CAM_REINFORCE_GROUND, {
-			order: CAM_ORDER_FOLLOW,
-			data: {
-				leader: commLabel,
-				repair: 40,
-				suborder: CAM_ORDER_ATTACK
-			}
-		});
-	}
-	else
-	{
-		// No leader; just send in the group
-		camSendReinforcement(CAM_THE_COLLECTIVE, getObject(entry), templates, CAM_REINFORCE_GROUND);
-	}
-}
-
-function clearGroundBlips()
-{
-	if (groundBlips[1]) hackRemoveMessage("COL_ENTRY1", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (groundBlips[2]) hackRemoveMessage("COL_ENTRY2", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (groundBlips[3]) hackRemoveMessage("COL_ENTRY3", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (groundBlips[4]) hackRemoveMessage("COL_ENTRY4", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (groundBlips[5]) hackRemoveMessage("COL_ENTRY5", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (groundBlips[6]) hackRemoveMessage("COL_ENTRY6", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (groundBlips[7]) hackRemoveMessage("COL_ENTRY7", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (groundBlips[8]) hackRemoveMessage("COL_ENTRY8", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (groundBlips[9]) hackRemoveMessage("COL_ENTRY9", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (groundBlips[10]) hackRemoveMessage("COL_ENTRY10", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (groundBlips[11]) hackRemoveMessage("COL_ENTRY11", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (groundBlips[12]) hackRemoveMessage("COL_ENTRY12", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (groundBlips[13]) hackRemoveMessage("COL_ENTRY13", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (groundBlips[14]) hackRemoveMessage("COL_ENTRY14", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (groundBlips[15]) hackRemoveMessage("COL_ENTRY15", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (groundBlips[16]) hackRemoveMessage("COL_ENTRY16", PROX_MSG, CAM_HUMAN_PLAYER);
-
-	groundBlips[1] = false;
-	groundBlips[2] = false;
-	groundBlips[3] = false;
-	groundBlips[4] = false;
-	groundBlips[5] = false;
-	groundBlips[6] = false;
-	groundBlips[7] = false;
-	groundBlips[8] = false;
-	groundBlips[9] = false;
-	groundBlips[10] = false;
-	groundBlips[11] = false;
-	groundBlips[12] = false;
-	groundBlips[13] = false;
-	groundBlips[14] = false;
-	groundBlips[15] = false;
-	groundBlips[16] = false;
-}
-
-function clearAirBlips()
-{
-	if (airBlips[2]) hackRemoveMessage("AIR_ENTRY2", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (airBlips[3]) hackRemoveMessage("AIR_ENTRY3", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (airBlips[4]) hackRemoveMessage("AIR_ENTRY4", PROX_MSG, CAM_HUMAN_PLAYER);
-	if (airBlips[5]) hackRemoveMessage("AIR_ENTRY5", PROX_MSG, CAM_HUMAN_PLAYER);
-
-	airBlips[2] = false;
-	airBlips[3] = false;
-	airBlips[4] = false;
-	airBlips[5] = false;
-}
-
-function startLightningEffects()
-{
-	// Shift the sun slightly the east
-	camSetSunPos(-225.0, -600.0, 450.0);
-	lightningEffects();
-
-	// Start calling down lightning
-	setTimer("lightningChance", camSecondsToMilliseconds(1));
-}
-
-function lightningChance()
-{
-	if (getMissionTime() < 30)
-	{
-		return; // Don't cause any lightning within the final 30 seconds
-	}
-	// Lightning chance increases as the timer ticks down
-	// Decreases from 1/60 chance towards 1/30 chance
-	else if (camRand((getMissionTime()  * 30 / camMinutesToSeconds(20)) + 30) === 0)
-	{
-		lightningEffects();
-	}
-}
-
-function lightningEffects()
-{
-	// Momentarily brighten the skies
-	camSetFog(198, 219, 225);
-	camSetSunIntensity(.52,.52,.52);
-
-	// ...Then gradually re-darken them
-	camGradualFog(camSecondsToMilliseconds(1.8), 107, 107, 107);
-	camGradualSunIntensity(camSecondsToMilliseconds(1.8), .35,.35,.35);
-}
-
-function eventMissionTimeout()
-{
-	if (stage === 3)
-	{
-		camCallOnce("endSequence");
-	}
-}
-
-function endSequence()
-{
-	camSetExtraObjectiveMessage();
-
-	// Disable Collective reinforcements
-	removeTimer("sendCollectiveTransporter");
-	removeTimer("sendCollectiveReinforcements");
-	camSetVtolSpawnStateAll(false); // Disable all VTOLs
-
-	// Disable Collective factories (if they're still alive)
-	camDisableFactory("colFactory1");
-	camDisableFactory("colFactory2");
-	camDisableFactory("colFactory3");
-	camDisableFactory("colCybFactory1");
-	camDisableFactory("colCybFactory2");
-
-	// Collective retreat
-	// Grab EVERY Collective unit, and move them to the retreat position
-	collectiveRetreat = true;
-	const group = camNewGroup();
-	const pos = camMakePos("collectiveRetreatZone");
-	for (const droid of enumDroid(CAM_THE_COLLECTIVE))
-	{
-		// Place every droid into a new unmanaged group to avoid getting new orders
-		groupAdd(group, droid);
-		orderDroidLoc(droid, DORDER_MOVE, pos.x, pos.y); // Move to the retreat position
-	}
-
-	// Dialogue...
-	camQueueDialogue([
-		{text: "CHARLIE: Lieutenant!!!", delay: 8, sound: CAM_RCLICK},
-		{text: "CHARLIE: Lieutenant! They're turning around!", delay: 4, sound: CAM_RCLICK},
-		{text: "CHARLIE: The Collective is falling back!", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: I don't believe it...", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: We made it.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: We...", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: ...Actually made it!", delay: 2, sound: CAM_RCLICK},
-		{text: "DELTA: The Collective is pulling back to the city!", delay: 3, sound: CAM_RCLICK},
-		{text: "DELTA: They finally gave up!", delay: 3, sound: CAM_RCLICK},
-		{text: "CHARLIE: Hell yeah!", delay: 3, sound: CAM_RCLICK},
-		{text: "", delay: 20, callback: "endGame"},
-	]);
-
-	// TODO: Queue transport scene & more dialogue
-
-	// Stop the lightning
-	removeTimer("lightningChance");
-
-	// Gradually clear the skies
-	camGradualFog(camSecondsToMilliseconds(30), 198, 219, 225);
-	camGradualSunIntensity(camSecondsToMilliseconds(30), .6,.6,.6);
-	camSetWeather(CAM_WEATHER_CLEAR);
-}
-
-camAreaEvent("collectiveRetreatZone", function(droid)
-{
-	if (collectiveRetreat)
-	{
-		camSafeRemoveObject(droid, false);
-	}
-	resetLabel("collectiveRetreatZone", CAM_THE_COLLECTIVE);
-});
-
 // End the campaign in victory
 function endGame()
 {
 	camPlayVideos({video: "A4L6_TRANSPORT", type: CAMP_MSG});
 	queue("camEndMission", camSecondsToMilliseconds(0.1));
 }
-
-// Stage 3 only fails if the player is wiped out
 
 function trackTransporter()
 {
@@ -3100,15 +1110,55 @@ function trackTransporter()
 	cameraTrack(transporter[0]);
 }
 
+// Needed to ensure the NEXUS units fleeing can be triggered after a save/load
+function eventGameLoaded()
+{
+	if (groupSize(nxGroupST) > 0)
+	{
+		addLabel({type: GROUP, id: nxGroupST}, "nxGroupST", false);
+		resetLabel("nxGroupST", CAM_HUMAN_PLAYER); // subscribe for eventGroupSeen
+	}
+}
+
+// If the NEXUS units are spotted, make them flee
+function eventGroupSeen(viewer, group)
+{
+	if (group === nxGroupST)
+	{
+		camCallOnce("nexusFlee");
+	}
+}
+
+function nexusFlee()
+{
+	const escapePos = camMakePos("nxRemoveTrigger");
+	const droids = enumGroup(nxGroupST);
+	for (const droid of droids)
+	{
+		// Move towards the escape trigger
+		orderDroidLoc(droid, DORDER_MOVE, escapePos.x, escapePos.y);
+	}
+}
+
+// Quietly remove the NEXUS droids when reaching the trigger
+camAreaEvent("nxRemoveTrigger", function(droid)
+{
+	const droids = enumDroid(CAM_NEXUS);
+	for (const droid of droids)
+	{
+		camSafeRemoveObject(droid);
+	}
+});
+
 function eventStartLevel()
 {
-	const startPos = camMakePos("landingZone");
+	// const startPos = camMakePos("landingZone");
 	const lz = getObject("landingZone"); //player lz
 	const transportEntryPos = camMakePos("transporterEntry");
 
 	setMissionTime(-1); // No time limit for this stage of the mission
 
-	centreView(startPos.x, startPos.y);
+	centreView(transportEntryPos.x, transportEntryPos.y);
 	setNoGoArea(lz.x, lz.y, lz.x2, lz.y2, CAM_HUMAN_PLAYER);
 	startTransporterEntry(transportEntryPos.x, transportEntryPos.y, CAM_HUMAN_PLAYER);
 	setTransporterExit(transportEntryPos.x, transportEntryPos.y, CAM_HUMAN_PLAYER);
@@ -3124,12 +1174,16 @@ function eventStartLevel()
 	setAlliance(MIS_CIV_ESCORTS, MIS_TEAM_CHARLIE, true);
 	setAlliance(MIS_CIV_ESCORTS, MIS_TEAM_DELTA, true);
 	setAlliance(MIS_CIV_ESCORTS, MIS_CIVS, true);
+	setAlliance(CAM_NEXUS, CAM_THE_COLLECTIVE, true);
+	setAlliance(CAM_NEXUS, MIS_TEAM_CHARLIE, true);
+	setAlliance(CAM_NEXUS, MIS_TEAM_DELTA, true);
 
 	// Set up allied vision
 	camSetObjectVision(MIS_TEAM_CHARLIE);
 	camSetObjectVision(MIS_TEAM_DELTA);
 	camSetObjectVision(MIS_CIV_ESCORTS);
 
+	changePlayerColour(CAM_NEXUS, (playerData[0].colour !== 3) ? 3 : 14); // NEXUS to black or ultraviolet
 	changePlayerColour(MIS_TEAM_CHARLIE, (playerData[0].colour !== 11) ? 11 : 5); // Charlie to bright blue or blue
 	changePlayerColour(MIS_TEAM_DELTA, (playerData[0].colour !== 1) ? 1 : 8); // Delta to orange or yellow
 	changePlayerColour(MIS_CIVS, 10); // Civilians to white
@@ -3144,6 +1198,8 @@ function eventStartLevel()
 	camCompleteRequiredResearch(camA4L5AllyResearch, MIS_CIVS);
 	camCompleteRequiredResearch(camA4L5AllyResearch, MIS_CIV_ESCORTS);
 	camCompleteRequiredResearch(mis_collectiveResearch, CAM_THE_COLLECTIVE);
+	camCompleteRequiredResearch(mis_collectiveResearch, CAM_NEXUS);
+	camCompleteRequiredResearch(mis_nexusBonusResearch, CAM_NEXUS);
 
 	camSetEnemyBases({
 		"colShakerBase": {
@@ -3403,13 +1459,25 @@ function eventStartLevel()
 	truck3Safe = false;
 	truck4Safe = false;
 	trucksLost = 0;
-	civGroup1 = camNewGroup();
-	civGroup2 = camNewGroup();
-	civGroup3 = camNewGroup();
-	civGroup4 = camNewGroup();
+	civGroups = [
+		null,
+		camNewGroup(), // #1
+		camNewGroup(), // #2
+		camNewGroup(), // #3
+		camNewGroup(), // #4
+		camNewGroup()  // #5
+	];
+	civsLoaded = [
+		null,
+		false, // #1
+		false, // #2
+		false, // #3
+		false, // #4
+		false  // #5
+	];
 	transportIndex = 0;
 	deltaUnitIDs = [];
-	deltaRescued = false;
+	numDeltaRescued = 0;
 	firstDeltaTransport = true;
 	reinforcementIndex = 1;
 	transportTime = MIS_TRANSPORT_START_TIME;
@@ -3420,6 +1488,7 @@ function eventStartLevel()
 	colCommanderRank = Math.min(5, difficulty + 4); // Veteran to Hero
 	truckLostThreshold = (difficulty >= MEDIUM) ? 2 : 3;
 	holdoutDonated = false;
+	allowAllyExpansion = false;
 
 	groundBlips = [
 		null,
@@ -3478,6 +1547,7 @@ function eventStartLevel()
 			],
 			globalFill: true,
 			player: MIS_TEAM_CHARLIE,
+			// NOTE: This group can refill even if the commander is dead
 		}, CAM_ORDER_FOLLOW, {
 			leader: "charlieCommander",
 			repair: 75,
@@ -3563,7 +1633,7 @@ function eventStartLevel()
 
 	deltaCommander = camMakeRefillableGroup(
 		undefined, {
-			templates: [cTempl.plhcomt],
+			templates: [cTempl.plhcomht],
 			globalFill: true,
 			player: MIS_TEAM_DELTA,
 			callback: "allowDeltaCommanderRebuild"
@@ -3574,22 +1644,22 @@ function eventStartLevel()
 	});
 	deltaCommandGroup = camMakeRefillableGroup(
 		undefined, {
-			templates: [ // 6 Assault Cannons, 4 Assault Guns, 3 Repair Turrets, 2 Whirlwinds, 6 Super Grenadiers, 1 VTOL Strike Turret
-				cTempl.plhacant, cTempl.plhacant,
-				cTempl.plhasgnt, cTempl.plhasgnt,
+			templates: [ // 8 Assault Cannons, 3 Repair Turrets, 2 Whirlwinds, 8 Super Auto-Cannons, 1 VTOL Strike Turret
+				cTempl.plhacanht, cTempl.plhacanht, cTempl.plhacanht,
 				cTempl.plhrepht,
-				cTempl.plhraat,
-				cTempl.plhstriket,
-				cTempl.plhacant, cTempl.plhacant,
-				cTempl.plhasgnt, cTempl.plhasgnt,
+				cTempl.plhraaht,
+				cTempl.plhstrikeht,
+				cTempl.plhacanht, cTempl.plhacanht, cTempl.plhacanht,
 				cTempl.plhrepht,
-				cTempl.plhraat, 
-				cTempl.plhacant, cTempl.plhacant,
+				cTempl.plhraaht, 
+				cTempl.plhacanht, cTempl.plhacanht,
 				cTempl.plhrepht,
-				cTempl.scygr, cTempl.scygr, cTempl.scygr, cTempl.scygr, cTempl.scygr, cTempl.scygr,
+				cTempl.scyac, cTempl.scyac, cTempl.scyac, cTempl.scyac,
+				cTempl.scyac, cTempl.scyac, cTempl.scyac, cTempl.scyac,
 			],
 			globalFill: true,
 			player: MIS_TEAM_DELTA,
+			// NOTE: This group can refill even if the commander is dead
 		}, CAM_ORDER_FOLLOW, {
 			leader: "deltaCommander",
 			repair: 50,
@@ -3599,6 +1669,19 @@ function eventStartLevel()
 				radius: 32,
 				repair: 50
 			}
+	});
+	deltaGrenadierGroup = camMakeRefillableGroup(
+		undefined, {
+			templates: [ // 8 Super Grenadiers
+				cTempl.scygr, cTempl.scygr, cTempl.scygr, cTempl.scygr,
+				cTempl.scygr, cTempl.scygr, cTempl.scygr, cTempl.scygr,
+			],
+			globalFill: true,
+			player: MIS_TEAM_DELTA,
+		}, CAM_ORDER_DEFEND, {
+			pos: camMakePos("northPatrolPos1"),
+			radius: 32,
+			repair: 50
 	});
 	// Delta VTOL sensor group
 	camMakeRefillableGroup(
@@ -3880,13 +1963,11 @@ function eventStartLevel()
 			cTempl.buscan,
 		]
 	];
-	const civZones = ["civZone1", "civZone2", "civZone3", "civZone4", "civZone5"];
-	const civGroups = [civGroup1, civGroup2, civGroup3, civGroup4, civGroup5];
-	for (let i = 0; i < 5; i++)
+	const civZones = [null, "civZone1", "civZone2", "civZone3", "civZone4", "civZone5"];
+	for (let i = 1; i < 6; i++)
 	{
 		const templates = templateLists[i];
 		const zone = getObject(civZones[i]);
-		const civGroup = civGroups[i];
 
 		for (const template of templates)
 		{
@@ -3930,7 +2011,7 @@ function eventStartLevel()
 			}
 
 			const newDroid = camAddDroid(MIS_CIVS, pos, template, droidName);
-			groupAdd(civGroup, newDroid);
+			groupAdd(civGroups[i], newDroid);
 		}
 	}
 
@@ -3940,9 +2021,6 @@ function eventStartLevel()
 	hackAddMessage("CIVS3", PROX_MSG, CAM_HUMAN_PLAYER);
 	hackAddMessage("CIVS4", PROX_MSG, CAM_HUMAN_PLAYER);
 	hackAddMessage("CIVS5", PROX_MSG, CAM_HUMAN_PLAYER);
-
-	// Rank Charlie's commander
-	// camSetDroidRank(getObject("charlieCommander"), MIS_ALLY_COMMANDER_RANK);
 
 	// Enable these factories immediately
 	camEnableFactory("charlieFactory1");
@@ -3959,6 +2037,11 @@ function eventStartLevel()
 	camEnableFactory("deltaVtolFactory1");
 	camEnableFactory("deltaVtolFactory2");
 
+	// Set up this sight trigger group
+	nxGroupST = camMakeGroup(getObject("nxGroup"))
+	addLabel({type: GROUP, id: nxGroupST}, "nxGroupST", false);
+	resetLabel("nxGroupST", CAM_HUMAN_PLAYER); // subscribe for eventGroupSeen
+
 	// Give player briefing.
 	camPlayVideos({video: "A4L6_BRIEF", type: MISS_MSG});
 
@@ -3966,6 +2049,8 @@ function eventStartLevel()
 	queue("startDeltaTransports", camSecondsToMilliseconds(40));
 	queue("startCollectiveReinforcments", camChangeOnDiff(camMinutesToMilliseconds(5)));
 	setTimer("sendCharlieTransporter", camMinutesToMilliseconds(4));
+	setTimer("charlieGroupUpdate", camMinutesToMilliseconds(1));
+	setTimer("deltaGroupUpdate", camMinutesToMilliseconds(1));
 
 	// Shrink the map
 	setScrollLimits(0, 0, 162, 96);

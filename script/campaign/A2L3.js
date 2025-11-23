@@ -312,26 +312,17 @@ function eventStartLevel()
 	const COMMANDER_RANK = (difficulty <= MEDIUM) ? "Regular" : "Professional";
 	camSetDroidRank(getObject("colCommander"), COMMANDER_RANK);
 
-	// Set up refillable groups and trucks
-	// Collective commander group
-	// (2 Mini-Rocket Pods, 2 Medium Cannons, 3 Super-Heavy Gunners, 3 Heavy Machinegunners, 1 Heavy Machinegun, 1 Cyclone AA)
-	const commandTemplates = [
-		cTempl.colpodt, cTempl.colpodt,
-		cTempl.commcant, cTempl.commcant,
-		cTempl.scymc, cTempl.scymc, cTempl.scymc,
-		cTempl.cybhg, cTempl.cybhg, cTempl.cybhg,
-		cTempl.comhmgt,
-		cTempl.comhaat,
-	];
-	if (difficulty >= HARD)
-	{
-		// Add an extra 2 Lancer Cyborgs on Hard+
-		commandTemplates.push(cTempl.cybla);
-		commandTemplates.push(cTempl.cybla);
-	}
 	camMakeRefillableGroup(
 		camMakeGroup("colCommandGroup"), {
-			templates: commandTemplates,
+			templates: [ // (2 Mini-Rocket Pods, 2 Medium Cannons, 3 Super-Heavy Gunners, 3 Heavy Machinegunners, 1 Heavy Machinegun, 1 Cyclone AA)
+				cTempl.colpodt, cTempl.colpodt,
+				cTempl.commcant, cTempl.commcant,
+				cTempl.scymc, cTempl.scymc, cTempl.scymc,
+				cTempl.cybhg, cTempl.cybhg, cTempl.cybhg,
+				cTempl.comhmgt,
+				cTempl.comhaat,
+				cTempl.cybla, cTempl.cybla, // 2 Lancers (Hard+)
+			],
 			factories: ["colFactory", "colCybFactory"],
 			obj: "colCommander" // Stop refilling this group when the commander dies
 		}, CAM_ORDER_FOLLOW, {

@@ -620,6 +620,16 @@ function camDiscoverCampaign()
 //;;
 function camSetDroidRank(droid, rank)
 {
+	if (camDef(droid) && camDef(droid.length) && !camIsString(droid))
+	{
+		// Array of droids...
+		for (const droidling of droid)
+		{
+			camSetDroidRank(droidling, rank);
+		}
+		return;
+	}
+
 	if (!camDef(droid) || droid.type !== DROID)
 	{
 		camTrace("Tried setting an unknown object's rank.");

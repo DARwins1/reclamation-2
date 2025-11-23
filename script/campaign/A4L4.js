@@ -24,9 +24,10 @@ const MIS_ZULU_COMMANDER_DELAY = camChangeOnDiff(camMinutesToMilliseconds(18));
 
 // Zulu difficulty-based templates
 // These switch to more durable Collective bodies on higher difficulties
-// NOTE: Some of Zulu's templates do not change on difficulty and aren't listed here
+// NOTE: Some of Zulu's templates do not change with difficulty and aren't listed here
 const mis_zuluAGTempl = (difficulty < HARD) ? cTempl.plhasgnht : cTempl.cohasgnht;
 const mis_zuluTKTempl = (difficulty < HARD) ? cTempl.plhhatht : cTempl.cohhatht;
+const mis_zuluHovHCTempl = (difficulty < INSANE) ? cTempl.plhhcanh : cTempl.cohhcanh;
 const mis_zuluBBTempl = (difficulty < HARD) ? cTempl.plhbbh : cTempl.cohbbh;
 const mis_zuluSensTempl = (difficulty < HARD) ? cTempl.plhsensh : cTempl.cohsensh;
 const mis_zuluInfTempl = (difficulty < INSANE) ? cTempl.plhinfh : cTempl.cohinfh;
@@ -45,8 +46,7 @@ const mis_zuluTruckTempl = (difficulty < INSANE) ? cTempl.plhtruckh : cTempl.coh
 var zuluCommander1;
 var zuluCommander2;
 var zuluCommander3;
-var zuluIntroCommander;
-var zuluIntroCommandGroup;
+var zuluCommandGroup3;
 var zuluIntroHoverGroup;
 var charlieCommander;
 var charlieCommandGroup;
@@ -56,6 +56,8 @@ var charlieTruckJob1;
 var charlieTruckJob2;
 var charlieTruckJob3;
 var charlieTruckJob4;
+var charlieTruckJob5;
+var charlieTruckJob6;
 
 var zuluCommander1DeathTime;
 var zuluCommander2DeathTime;
@@ -64,16 +66,15 @@ var lureActive;
 var worldAblaze;
 var heartbeatDarkness;
 var remainingMissionTime;
-var claydeMonologue;
-var claydeListening;
 var allowVtolStrikes;
 var zuluSurrendered;
-var mapExpanded;
 var zuluRank;
+var lureTrapEnabled;
+var banterIdx;
 
 camAreaEvent("vtolRemoveZone", function(droid)
 {
-	if (!mapExpanded)
+	if (isVTOL(droid))
 	{
 		camSafeRemoveObject(droid, false);
 		resetLabel("vtolRemoveZone", MIS_TEAM_CHARLIE);
@@ -130,7 +131,7 @@ function eventDestroyed(obj)
 		{
 			// Lure destroyed; Stop spawning Infested
 			lureActive = false;
-			setTimer("checkActivateLure", camSecondsToMilliseconds(1)); // Check if it's rebuilt
+			hackRemoveMessage("ZULU_LURE", PROX_MSG, CAM_HUMAN_PLAYER);
 		}
 		else if (obj.type === DROID)
 		{
@@ -158,41 +159,11 @@ function eventDestroyed(obj)
 	}
 }
 
-// Allow the player to respond to Clayde's monologue (or skip it)
-function eventChat(from, to, message)
-{
-	const lMessage = message.toLowerCase();
-	if (claydeMonologue && (lMessage.includes("hurry") // e.g. "hurry up"
-		|| lMessage.includes("skip") // e.g. "skip message"
-		|| lMessage.includes("shut"))) // e.g. "shut up"
-	{
-		// Interrupt the monologue and skip straight to the end
-		endMonologue();
-		camSkipDialogue();
-
-		camQueueDialogue([
-			{text: "CLAYDE: As you wish.", delay: 3, sound: CAM_RCLICK},
-			{text: "CLAYDE: Goodbye, Commander-", delay: 2, sound: CAM_RCLICK, callback: "charlieRescue"},
-		]);
-	}
-	else if (claydeListening)
-	{
-		// If we receive any non-"skip" type message, interrupt and re-queue Clayde's dialogue.
-		// NOTE: This can be repeated multiple times if the player keeps sending messages
-		camSkipDialogue();
-
-		camQueueDialogue([
-			{text: "CLAYDE: I suppose that will do.", delay: 5, sound: CAM_RCLICK, callback: "endMonologue"},
-			{text: "CLAYDE: Goodbye, Commander-", delay: 2, sound: CAM_RCLICK, callback: "charlieRescue"},
-		]);
-	}
-}
-
 function sendInfestedReinforcements()
 {
 	if (!lureActive)
 	{
-		return;
+		return; // Only spawn if the Lure is active
 	}
 
 	const coreDroids = [
@@ -278,13 +249,12 @@ function sendCharlieTransporter()
 	// Trucks -> Commander -> Command Group -> VTOLs
 	let droidQueue = [];
 
-	// Python trucks on Hard+
-	const tTemplate = cTempl.plhtruckht;
-
-	if (!camDef(camGetTruck(charlieTruckJob1))) droidQueue.push(tTemplate);
-	if (!camDef(camGetTruck(charlieTruckJob2))) droidQueue.push(tTemplate);
-	if (!camDef(camGetTruck(charlieTruckJob3))) droidQueue.push(tTemplate);
-	if (!camDef(camGetTruck(charlieTruckJob4))) droidQueue.push(tTemplate);
+	if (!camDef(camGetTruck(charlieTruckJob1))) droidQueue.push(cTempl.plhtruckht);
+	if (!camDef(camGetTruck(charlieTruckJob2))) droidQueue.push(cTempl.plhtruckht);
+	if (!camDef(camGetTruck(charlieTruckJob3))) droidQueue.push(cTempl.cyben);
+	if (!camDef(camGetTruck(charlieTruckJob4))) droidQueue.push(cTempl.cyben);
+	if (camBaseIsEliminated("zuluPlateauBase") && !camDef(camGetTruck(charlieTruckJob5))) droidQueue.push(cTempl.plhtruckht);
+	if (camBaseIsEliminated("zuluPlateauBase") && !camDef(camGetTruck(charlieTruckJob6))) droidQueue.push(cTempl.plhtruckht);
 
 	droidQueue = droidQueue.concat(camGetRefillableGroupTemplates([charlieCommander, charlieCommandGroup, charlieVtolGroup]));
 
@@ -320,7 +290,7 @@ function eventTransporterLanded(transport)
 	}
 
 	const transDroids = camGetTransporterDroids(transport.player);
-	const truckJobs = [charlieTruckJob1, charlieTruckJob2, charlieTruckJob3, charlieTruckJob4];
+	const truckJobs = [charlieTruckJob1, charlieTruckJob2, charlieTruckJob3, charlieTruckJob4, charlieTruckJob5, charlieTruckJob6];
 	const otherGroups = [charlieCommander, charlieCommandGroup, charlieVtolGroup];
 
 	const transTrucks = transDroids.filter((droid) => (droid.droidType == DROID_CONSTRUCT));
@@ -364,17 +334,10 @@ function eventTransporterLanded(transport)
 // Move the intro groups to compromise the player's LZ after landing
 function lzAmbush()
 {
-	zuluIntroCommander = camManageGroup(camMakeGroup("zuluIntroCommander"), CAM_ORDER_STRIKE, {
+	zuluCommander2 = camManageGroup(camMakeGroup("zuluCommander2"), CAM_ORDER_STRIKE, {
 		callback: "zuluIntroTargets",
 		altOrder: CAM_ORDER_DEFEND,
 		pos: camMakePos("introCommanderPos"),
-	});
-	zuluIntroCommandGroup = camManageGroup(camMakeGroup("introCommandGroup"), CAM_ORDER_FOLLOW, {
-		leader: "zuluIntroCommander",
-		suborder: CAM_ORDER_DEFEND,
-		data: {
-			pos: camMakePos("introCommanderPos"),
-		}
 	});
 	zuluIntroHoverGroup = camManageGroup(camMakeGroup("introHoverGroup"), CAM_ORDER_STRIKE, {
 		callback: "zuluIntroTargets",
@@ -388,9 +351,6 @@ function lzAmbush()
 // Shrink the map, pause the mission timer, prevent reinforcements, and begin Clayde's monologue
 function trapPlayer()
 {
-	// Allow the player to skip the monologue
-	claydeMonologue = true;
-
 	playSound(cam_sounds.lz.LZCompromised)
 
 	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "A4L5", {
@@ -411,50 +371,27 @@ function trapPlayer()
 	// Shrink the map boundaries
 	setScrollLimits(35, 80, 61, 126);
 
+	// It's monologue o'clock
 	camQueueDialogue([
 		{text: "CLAYDE: Halt!", delay: 1, sound: CAM_RCLICK},
-		{text: "CLAYDE: Well...", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: Look at that.", delay: 2, sound: CAM_RCLICK},
-		{text: "CLAYDE: You finally showed up.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: Hmm.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: I have to hand it to the Lieutenant.", delay: 2, sound: CAM_RCLICK},
-		{text: "CLAYDE: Coming straight for me was quite the bold move.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: Seems like he's growing a backbone after all!", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: Yet, he's quite the fool if he thought he could catch me unprepared.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: As for you...", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: Delta. Foxtrot. Golf.", delay: 2, sound: CAM_RCLICK},
-		{text: "CLAYDE: You've been quite busy, haven't you?", delay: 2, sound: CAM_RCLICK},
-		{text: "CLAYDE: ...Slaughtering your own allies.", delay: 2, sound: CAM_RCLICK},
-		{text: "CLAYDE: Have you no shame?", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: No guilt weighing down upon you?", delay: 2, sound: CAM_RCLICK},
-		{text: "CLAYDE: Hmm.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: Credit where credit's due, Commander.", delay: 2, sound: CAM_RCLICK},
-		{text: "CLAYDE: I've learned quite a lot from watching you.", delay: 2, sound: CAM_RCLICK},
-		{text: "CLAYDE: But you've far outlived your usefulness.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: Both as a subordinate and as a traitor.", delay: 2, sound: CAM_RCLICK},
-		{text: "CLAYDE: If it falls upon me to secure our future...", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: I'll do it myself.", delay: 2, sound: CAM_RCLICK},
-		{text: "CLAYDE: And I'll do it gladly.", delay: 2, sound: CAM_RCLICK},
-		{text: "CLAYDE: So, Commander Bravo.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: If you have any final words, now would be the time...", delay: 2, sound: CAM_RCLICK, callback: "listenForResponse"},
-		// The rest of this dialogue is interrupted if the player sends a chat message
-		{text: "CLAYDE: No?", delay: 10, sound: CAM_RCLICK, callback: "endMonologue"},
-		{text: "CLAYDE: Very well then.", delay: 2, sound: CAM_RCLICK},
+		{text: "CLAYDE: Well... look at that.", delay: 4, sound: CAM_RCLICK},
+		{text: "CLAYDE: You've been busy, haven't you?", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: Delta. Foxtrot. Golf.", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: Quite the stunt you pulled off back there.", delay: 2, sound: CAM_RCLICK},
+		{text: "CLAYDE: Credit where credit's due, Commander.", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: I've learned quite a lot from watching you.", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: But now, you stand in the way of NARS' future.", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: So if it falls upon me to pave the way towards victory...", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: I'll do it on my own.", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: And I'll do it GLADLY.", delay: 2, sound: CAM_RCLICK},
+		{text: "CLAYDE: No matter how many of our enemies need to die to get there.", delay: 2, sound: CAM_RCLICK},
+		{text: "CLAYDE: Both within and without.", delay: 3, sound: CAM_RCLICK},
+		// Slight delay
+		{text: "CLAYDE: Now, Commander Bravo.", delay: 6, sound: CAM_RCLICK},
+		{text: "CLAYDE: You've served me well.", delay: 2, sound: CAM_RCLICK},
+		{text: "CLAYDE: And now, your death will serve NARS one last time.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: Goodbye, Commander-", delay: 3, sound: CAM_RCLICK, callback: "charlieRescue"},
 	]);
-}
-
-// Start listening for a player response to Clayde's monologue
-function listenForResponse()
-{
-	claydeListening = true;
-}
-
-// Stop listening for a player response to Clayde's monologue
-function endMonologue()
-{
-	claydeMonologue = false;
-	claydeListening = false;
 }
 
 // Send in some Charlie VTOLs to rescue the player from Clayde's ambush
@@ -466,7 +403,7 @@ function charlieRescue()
 
 	camQueueDialogue([
 		{text: "LIEUTENANT: ...NOW!", delay: 1, sound: CAM_RCLICK},
-		{text: "CLAYDE: Huh?", delay: 1, sound: CAM_RCLICK},
+		{text: "CLAYDE: Huh-", delay: 1, sound: CAM_RCLICK},
 		{text: "CHARLIE: Surprise!", delay: 2, sound: CAM_RCLICK},
 		{text: "CHARLIE: We've got you covered, Bravo!", delay: 2, sound: CAM_RCLICK, callback: "zuluRetreat"},
 	]);
@@ -475,10 +412,7 @@ function charlieRescue()
 // Pull back Zulu's ambush groups
 function zuluRetreat()
 {
-	camManageGroup(zuluIntroCommander, CAM_ORDER_DEFEND, {
-		pos: camMakePos("introCommanderFallbackPos")
-	});
-	camManageGroup(zuluIntroCommandGroup, CAM_ORDER_DEFEND, {
+	camManageGroup(zuluCommander2, CAM_ORDER_DEFEND, {
 		pos: camMakePos("introCommanderFallbackPos")
 	});
 	camManageGroup(zuluIntroHoverGroup, CAM_ORDER_DEFEND, {
@@ -490,7 +424,7 @@ function zuluRetreat()
 	camQueueDialogue([
 		{text: "CLAYDE: All forces, execute contingency plans!", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: Fall back to defensive positions!", delay: 2, sound: CAM_RCLICK},
-		{text: "CLAYDE: Prepare to engages rogue Commanders Bravo and Charlie.", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: Prepare to engages rogue Commanders Bravo and Charlie on my word.", delay: 3, sound: CAM_RCLICK},
 	]);
 
 	queue("expandMap", camSecondsToMilliseconds(8));
@@ -499,9 +433,6 @@ function zuluRetreat()
 // Un-shrink the map, resume the mission timer, enable reinforcements, and start up group logic for Charlie and Zulu
 function expandMap()
 {
-	// Allow the player to skip the monologue
-	claydeMonologue = true;
-
 	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "A4L5", {
 		reinforcements: camMinutesToSeconds(1),
 		area: "compromiseZone",
@@ -519,12 +450,26 @@ function expandMap()
 	// Expand the map boundaries
 	setScrollLimits(0, 0, 88, 128);
 
-	// Quietly remove the remaining intro droids
-	const deleteDroids = enumGroup(zuluIntroCommander).concat(enumGroup(zuluIntroCommandGroup)).concat(enumGroup(zuluIntroHoverGroup));
-	for (const droid of deleteDroids)
-	{
-		camSafeRemoveObject(droid);
-	}
+	// HACK: Move the sun position slightly to avoid weird shadows when expanding the map
+	camSetSunPos(225.0, -601.0, 450.0);
+
+	// Assign any remaining intro units to their permanent roles 
+	// Tell the commander to start patrolling
+	camManageGroup(zuluCommander2, CAM_ORDER_PATROL, { // Commander orders are updated later
+			pos: [
+				camMakePos("patrolPos4"),
+				camMakePos("patrolPos5"),
+				camMakePos("patrolPos6"),
+				camMakePos("patrolPos7"),
+			],
+			interval: camSecondsToMilliseconds(36),
+			radius: 20,
+			repair: 75,
+			removable: false
+	});
+
+	// Assign the intro hovers to the hover commander
+	camAssignToRefillableGroups(enumGroup(zuluIntroHoverGroup), zuluCommandGroup3);
 
 	// Manage refillable groups
 	// Zulu groups...
@@ -558,6 +503,8 @@ function expandMap()
 				cTempl.plhhcant, cTempl.plhhcant,
 				cTempl.plhrept,
 				cTempl.plhhcant, cTempl.plhhcant,
+				cTempl.plhhcant, cTempl.plhhcant, // 2 Heavy Cannons (Hard+)
+				cTempl.plhrept, cTempl.plhrept, // 2 Repair Turrets (Insane)
 			],
 			factories: ["zuluFactory1", "zuluFactory2", "zuluFactory3", "zuluFactory4"],
 		}, CAM_ORDER_FOLLOW, {
@@ -594,7 +541,7 @@ function expandMap()
 			repair: 75
 	});
 	camMakeRefillableGroup(
-		camMakeGroup("zuluCommandGroup2"), {
+		camMakeGroup("introCommandGroup"), {
 			templates: [ // 4 Assault Guns, 4 Tank Killers, 2 Whirlwinds, 4 Assault Gunners, and 4 Super HVC Cyborgs
 				mis_zuluAGTempl, mis_zuluAGTempl,
 				mis_zuluTKTempl, mis_zuluTKTempl,
@@ -606,6 +553,8 @@ function expandMap()
 				cTempl.scyhc, cTempl.scyhc,
 				cTempl.cybag, cTempl.cybag,
 				cTempl.scyhc, cTempl.scyhc,
+				cTempl.scyhc, cTempl.scyhc, // 2 Super HVC Cyborgs (Hard+)
+				mis_zuluTKTempl, mis_zuluTKTempl, // 2 Tank Killers (Insane)
 			],
 			factories: ["zuluFactory1", "zuluFactory2", "zuluCybFactory1", "zuluCybFactory2", "zuluCybFactory3", "zuluCybFactory4"],
 		}, CAM_ORDER_FOLLOW, {
@@ -626,7 +575,7 @@ function expandMap()
 	});
 	// Hover command group
 	zuluCommander3 = camMakeRefillableGroup(
-		camMakeGroup("zuluCommander3"), {
+		undefined, {
 			templates: [mis_zuluComHovTempl],
 			factories: ["zuluFactory5"],
 			callback: "allowCommander3Rebuild"
@@ -642,18 +591,20 @@ function expandMap()
 			radius: 20,
 			repair: 75
 	});
-	camMakeRefillableGroup(
-		camMakeGroup("zuluCommandGroup3"), {
+	zuluCommandGroup3 = camMakeRefillableGroup(
+		undefined, {
 			templates: [ // 8 Heavy Cannons, 6 Infernos, and 4 Bunker Busters
-				cTempl.plhhcanh, cTempl.plhhcanh,
+				mis_zuluHovHCTempl, mis_zuluHovHCTempl,
 				mis_zuluInfTempl, mis_zuluInfTempl,
 				mis_zuluBBTempl, mis_zuluBBTempl,
-				cTempl.plhhcanh, cTempl.plhhcanh,
+				mis_zuluHovHCTempl, mis_zuluHovHCTempl,
 				mis_zuluInfTempl, mis_zuluInfTempl,
 				mis_zuluBBTempl, mis_zuluBBTempl,
-				cTempl.plhhcanh, cTempl.plhhcanh,
+				mis_zuluHovHCTempl, mis_zuluHovHCTempl,
 				mis_zuluInfTempl, mis_zuluInfTempl,
-				cTempl.plhhcanh, cTempl.plhhcanh,
+				mis_zuluHovHCTempl, mis_zuluHovHCTempl,
+				mis_zuluInfTempl, mis_zuluInfTempl, // 2 Infernos (Hard+)
+				mis_zuluBBTempl, mis_zuluBBTempl, // 2 Bunker Busters (Insane)
 			],
 			factories: ["zuluFactory4", "zuluFactory5"],
 		}, CAM_ORDER_FOLLOW, {
@@ -1077,6 +1028,18 @@ function expandMap()
 		structset: camA4L4CharlieLZStructs,
 		template: cTempl.cyben
 	});
+	charlieTruckJob5 = camManageTrucks(MIS_TEAM_CHARLIE, {
+		label: "charlieForwardBase",
+		rebuildBase: true,
+		structset: camA4L4CharlieForwardStructs,
+		template: cTempl.plhtruckht
+	});
+	charlieTruckJob4 = camManageTrucks(MIS_TEAM_CHARLIE, {
+		label: "charlieForwardBase",
+		rebuildBase: true,
+		structset: camA4L4CharlieForwardStructs,
+		template: cTempl.plhtruckht
+	});
 
 	// TODO: Add Timerless Mode trucks???
 
@@ -1099,16 +1062,128 @@ function expandMap()
 	sendCharlieTransporter();
 	setTimer("sendCharlieTransporter", camChangeOnDiff(camMinutesToMilliseconds(2), true));
 
+	setTimer("checkActivateLure", camSecondsToMilliseconds(5));
+	setTimer("claydeBanter", camMinutesToMilliseconds(5));
+
 	// Queue up other events...
 	queue("aggroCommander1", camChangeOnDiff(camMinutesToMilliseconds(2.5)));
 	queue("aggroCommander2", camChangeOnDiff(camMinutesToMilliseconds(4)));
 	queue("enableVtolStrikes", camChangeOnDiff(camMinutesToMilliseconds(6)));
 	queue("aggroCommander3", camChangeOnDiff(camMinutesToMilliseconds(8)));
 
-	// FIXME FIXME FIXME: WHY DO WE NEED THIS???
-	// If this here, Zulu's attack droids will get stuck behind their own gates.
+	// FIXME: WHY DO WE NEED THIS???
+	// If this isn't here, Zulu's attack droids will get stuck behind their own gates.
 	// Probably needs a bug report once I can figure out why it happens.
 	camUpgradeOnMapStructures("A0HardcreteMk1Gate", "A0HardcreteMk1Gate", MIS_TEAM_ZULU);
+}
+
+// Misc. dialogue events between Clayde, the Liuetenant, and Commander Charlie
+function claydeBanter()
+{
+	if (!worldAblaze)
+	{
+		switch (banterIdx)
+		{
+		case 1:
+			// Clayde commends/taunts the Lieutenant on his boldness
+			camQueueDialogue([
+				{text: "CLAYDE: I have to hand it to you, Lieutenant.", delay: 4, sound: CAM_RCLICK},
+				{text: "CLAYDE: Coming straight for me was quite the bold move.", delay: 3, sound: CAM_RCLICK},
+				{text: "CLAYDE: But if you were expecting to catch me unprepared...", delay: 3, sound: CAM_RCLICK},
+				{text: "CLAYDE: Then you were sorely mistaken!", delay: 3, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: Give it up, Clayde.", delay: 4, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: This time, we've got YOU outnumbered.", delay: 2, sound: CAM_RCLICK},
+				{text: "CLAYDE: Not in this lifetime, Lieutenant.", delay: 4, sound: CAM_RCLICK},
+				{text: "CLAYDE: Not while NARS still needs me.", delay: 3, sound: CAM_RCLICK},
+				{text: "CLAYDE: There's still so much to be done here.", delay: 3, sound: CAM_RCLICK},
+				{text: "CLAYDE: And that begins by eradicating Teams Bravo and Charlie.", delay: 3, sound: CAM_RCLICK},
+			]);
+			break;
+		case 2:
+			// Charlie tells Clayde to give up
+			camQueueDialogue([
+				{text: "CHARLIE: Haven't you hurt enough people already?", delay: 4, sound: CAM_RCLICK},
+				{text: "CHARLIE: Come on Clayde, stand down.", delay: 3, sound: CAM_RCLICK},
+				{text: "CLAYDE: You think I'm scared of you, Commander Charlie?", delay: 4, sound: CAM_RCLICK},
+				{text: "CLAYDE: Under my leadership, NARS has prevailed before.", delay: 3, sound: CAM_RCLICK},
+				{text: "CLAYDE: And we'll prevail here again, today.", delay: 3, sound: CAM_RCLICK},
+			]);
+			break;
+		case 3:
+			// Clayde tries to taunt Bravo about killing their "allies", the Lieutenant reminds him that they followed his orders to the death
+			camQueueDialogue([
+				{text: "CLAYDE: So, Commander Bravo.", delay: 4, sound: CAM_RCLICK},
+				{text: "CLAYDE: How many of your former allies did you kill on the way here?", delay: 2, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: Don't even try it!", delay: 4, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: Foxtrot and Golf followed your orders to the grave.", delay: 3, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: If it wasn't for you, they'd all still be alive!", delay: 3, sound: CAM_RCLICK},
+				// Delay...
+				{text: "CLAYDE: Foxtrot would have rotted as a prisoner if it wasn't for me.", delay: 8, sound: CAM_RCLICK},
+				{text: "CLAYDE: And Golf was the most loyal Commander among them.", delay: 3, sound: CAM_RCLICK},
+				{text: "CLAYDE: They died while serving the Syndicate.", delay: 3, sound: CAM_RCLICK},
+				{text: "CLAYDE: Which will be far more than can be said of your Commanders, Lieutenant.", delay: 3, sound: CAM_RCLICK},
+			]);
+			break;
+		case 4:
+			// Charlie tells Clayde he's his grip on reality
+			camQueueDialogue([
+				{text: "CHARLIE: Clayde, you've lost touch with reality.", delay: 4, sound: CAM_RCLICK},
+				{text: "CHARLIE: Look at what you've done to this place!", delay: 3, sound: CAM_RCLICK},
+				{text: "CHARLIE: Look at what you've done to NARS!", delay: 3, sound: CAM_RCLICK},
+				{text: "CHARLIE: So many dead, and for what?!", delay: 3, sound: CAM_RCLICK},
+				{text: "CLAYDE: I've done what needed to be done.", delay: 4, sound: CAM_RCLICK},
+				{text: "CLAYDE: Always.", delay: 3, sound: CAM_RCLICK},
+				{text: "CLAYDE: I've seen this crumbling city, and the enemies around every corner.", delay: 2, sound: CAM_RCLICK},
+				{text: "CLAYDE: But right now, all I see is a Lieutenant who's lost his way...", delay: 3, sound: CAM_RCLICK},
+				{text: "CLAYDE: And two Commanders that need to be put down.", delay: 3, sound: CAM_RCLICK},
+			]);
+			break;
+		default: // No more dialogue...
+			break;
+		}
+	}
+	else // After world turns orange and Clayde prepares to escape
+	{
+		switch (banterIdx)
+		{
+		case 1:
+			// The Lieutenant and Charie wonder where Clayde 
+			camQueueDialogue([
+				{text: "CHARLIE: Lieutenant, where is Clayde planning to go?", delay: 4, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: I don't know, the whole city is a mess.", delay: 4, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: Which is why we can't let him get away.", delay: 3, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: If he escapes, we might not be able to find him again.", delay: 3, sound: CAM_RCLICK},
+			]);
+			break;
+		case 2:
+			// The Lieutenant & Charlie ask why Clayde has been silent
+			camQueueDialogue([
+				{text: "CHARLIE: What's your plan, Clayde?", delay: 8, sound: CAM_RCLICK},
+				{text: "CHARLIE: Why run away?", delay: 3, sound: CAM_RCLICK},
+				// Delay
+				{text: "CHARLIE: You sounded so confident earlier, Clayde.", delay: 8, sound: CAM_RCLICK},
+				{text: "CHARLIE: Weren't you going to stop us in our tracks?", delay: 3, sound: CAM_RCLICK},
+				// Delay
+				{text: "LIEUTENANT: Oh, so NOW you decide to stay quiet?!", delay: 10, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: Do you feeling the walls closing in on you, Clayde?!", delay: 3, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: All the lies, all your efforts.", delay: 3, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: It's crashing and burning all around you!", delay: 3, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: You'll answer for what you've done, Clayde!", delay: 3, sound: CAM_RCLICK},
+				// Delay
+				{text: "LIEUTENANT: Answer me, Clayde!", delay: 8, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: Why?", delay: 3, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: The blood on your hands, the deaths you've ordered.", delay: 3, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: Was it all worth it in the end?", delay: 3, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: Or did they mean nothing to you in the first place?", delay: 3, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: ...Are you even listening?", delay: 6, sound: CAM_RCLICK},
+			]);
+			break;
+		default: // No more dialogue...
+			break;
+		}
+	}
+
+	banterIdx++;
 }
 
 // Break any player structures during Clayde's spiel
@@ -1218,23 +1293,23 @@ function enableVtolStrikes()
 
 function allowVtolStrikeGroups()
 {
-	return allowVtolStrikes;
+	return (difficulty > SUPER_EASY) && allowVtolStrikes;
 }
 
 // Allow rebuilding commanders after a sufficient delay, and if Zulu still has a Command Relay Post
 function allowCommander1Rebuild()
 {
-	return (gameTime >= zuluCommander1DeathTime + MIS_ZULU_COMMANDER_DELAY) && (enumStruct(MIS_TEAM_ZULU, COMMAND_CONTROL).length > 0);
+	return (difficulty > EASY) && (gameTime >= zuluCommander1DeathTime + MIS_ZULU_COMMANDER_DELAY) && (enumStruct(MIS_TEAM_ZULU, COMMAND_CONTROL).length > 0);
 }
 
 function allowCommander2Rebuild()
 {
-	return (gameTime >= zuluCommander2DeathTime + MIS_ZULU_COMMANDER_DELAY) && (enumStruct(MIS_TEAM_ZULU, COMMAND_CONTROL).length > 0);
+	return (difficulty > EASY) && (gameTime >= zuluCommander2DeathTime + MIS_ZULU_COMMANDER_DELAY) && (enumStruct(MIS_TEAM_ZULU, COMMAND_CONTROL).length > 0);
 }
 
 function allowCommander3Rebuild()
 {
-	return (gameTime >= zuluCommander3DeathTime + MIS_ZULU_COMMANDER_DELAY) && (enumStruct(MIS_TEAM_ZULU, COMMAND_CONTROL).length > 0);
+	return (difficulty > EASY) && (gameTime >= zuluCommander3DeathTime + MIS_ZULU_COMMANDER_DELAY) && (enumStruct(MIS_TEAM_ZULU, COMMAND_CONTROL).length > 0);
 }
 
 function camEnemyBaseEliminated()
@@ -1273,15 +1348,17 @@ function checkEnableLure()
 	if (camBaseIsEliminated("zuluEastOutpost")) basesDestroyed++;
 
 	// Enable the trap if at least 3 of these bases are destroyed
-	if (basesDestroyed >= 3)
-	{
-		setTimer("checkActivateLure", camSecondsToMilliseconds(1));
-	}
+	lureTrapEnabled = true;
 }
 
 // Activate the Lure and draw in the Infested
 function checkActivateLure()
 {
+	if (lureActive)
+	{
+		return; // Already active
+	}
+
 	if (worldAblaze)
 	{
 		// Stop spawning Infested
@@ -1289,12 +1366,12 @@ function checkActivateLure()
 		return;
 	}
 
-	if (!lureActive && getObject("zuluLure") !== null)
+	if (lureTrapEnabled && !lureActive && getObject("zuluLure") !== null)
 	{
 		lureActive = true;
-		removeTimer("checkActivateLure"); // Stop checking
 		camQueueDialogue({text: "--- ANOMALOUS SIGNAL DETECTED ---", delay: 0, sound: cam_sounds.beacon});
 		camCallOnce("activateInfested");
+		hackAddMessage("ZULU_LURE", PROX_MSG, CAM_HUMAN_PLAYER);
 	}
 }
 
@@ -1306,9 +1383,9 @@ function activateInfested()
 	camQueueDialogue([
 		{text: "CHARLIE: What the-", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Commanders, the General's just activated a Lure!", delay: 1, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: ...And it's inside his own base!", delay: 3, sound: CAM_RCLICK},
-		{text: "CHARLIE: Is he crazy?!", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: He's trying to slow us down.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: And... it's inside his own base!", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: What?! Is he crazy?", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: ...He's trying to slow us down.", delay: 4, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Watch your flanks!", delay: 3, sound: CAM_RCLICK},
 	]);
 }
@@ -1318,7 +1395,7 @@ function setWorldAblaze()
 	// Prevent any more Infested from spawning
 	lureActive = false;
 	worldAblaze = true;
-	// camSetVtolSpawnState(false, "zuluLure"); // Disable Infested choppers
+	camSetVtolSpawnState(false, "zuluLure"); // Disable Infested choppers (even if the Lure is still there)
 
 	// Make the world look like it's on fire
 	// Add a dark orange-red fog
@@ -1330,18 +1407,23 @@ function setWorldAblaze()
 	// It's supposed to be ash...
 	camSetWeather(CAM_WEATHER_SNOW);
 
+	// Stop bantering
+	removeTimer("claydeBanter")
+
+	// Queue the evac event
 	queue("startZuluEvac", camMinutesToMilliseconds(3));
 
+	camSkipDialogue(); // Stop any current dialogue
 	camQueueDialogue([
 		{text: "CHARLIE: What the-?!", delay: 4, sound: CAM_RCLICK},
 		{text: "CHARLIE: Lieutenant, what's going on...?", delay: 2, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: It's the Collective...", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: They're bombing out whole areas of the sector!", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Entire city blocks are going up in flames.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: ...The Infested are being annihilated everywhere!", delay: 3, sound: CAM_RCLICK},
-		{text: "CHARLIE: Which means that means Clayde's just lost another trick up his sleeve!", delay: 4, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: ...The Infested are being annihilated!", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: That means that Clayde's just lost the last trick up his sleeve!", delay: 4, sound: CAM_RCLICK},
 		{text: "CHARLIE: C'mon, Bravo.", delay: 3, sound: CAM_RCLICK},
-		{text: "CHARLIE: We've got the General cornered now!", delay: 2, sound: CAM_RCLICK},
+		{text: "CHARLIE: We've got him cornered now!", delay: 2, sound: CAM_RCLICK},
 	]);
 }
 
@@ -1371,12 +1453,15 @@ function startZuluEvac()
 
 	camQueueDialogue([
 		{text: "CHARLIE: Lieutenant!", delay: 3, sound: CAM_RCLICK},
-		{text: "CHARLIE: We've detected a transport in Clayde's main base!", delay: 2, sound: CAM_RCLICK},
-		{text: "CHARLIE: Looks like the General's preparing an escape.", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: We've detected a transport in Clayde's main base.", delay: 2, sound: CAM_RCLICK},
+		{text: "CHARLIE: Looks like the General's preparing an escape!", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: No!", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: This has to end now!", delay: 2, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: We can't let him get away, this has to end now!", delay: 2, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Commanders Bravo and Charlie, do not let that transport get away!", delay: 4, sound: CAM_RCLICK},
 	]);
+
+	// Resume banter cycle
+	setTimer("claydeBanter", camMinutesToMilliseconds(5));
 
 	// TODO: Decrease the mission timer?
 
@@ -1408,32 +1493,30 @@ function zuluSurrender()
 	// Put every Zulu droid in one group (so they stop doing things)
 	camMakeGroup(enumDroid(MIS_TEAM_ZULU));
 
-	setMissionTime(-1);
-	// TODO: Grant power bonus here?
+	// This'll disable the mission timer (if it exists)
+	camGrantBonusPower();
 
+	camSkipDialogue();
 	camQueueDialogue([
 		{text: "CHARLIE: We...", delay: 2, sound: CAM_RCLICK},
 		{text: "CHARLIE: We did it!", delay: 2, sound: CAM_RCLICK},
 		{text: "CHARLIE: We actually did it!", delay: 2, sound: CAM_RCLICK},
-		{text: "CHARLIE: Hell yeah!", delay: 2, sound: CAM_RCLICK},
-		{text: "CHARLIE: The General, did he...", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: The General, did he...", delay: 4, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: It looks like the General was in that transport when it took off.", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: I'm not seeing any survivors in the wreckage.", delay: 3, sound: CAM_RCLICK},
 		{text: "CHARLIE: So Clayde's...", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: He's gone.", delay: 2, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: It's just us now.", delay: 2, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: ...", delay: 2},
-		{text: "LIEUTENANT: Attention all remaining NARS personnel.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Attention all remaining NARS personnel.", delay: 4, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: ...This is the Lieutenant speaking.", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: I don't know what Clayde has said about me, or about Commanders Bravo and Charlie.", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: But look around yourselves.", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: The world is burning around us.", delay: 2, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: General Clayde is dead.", delay: 2, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: And all of his plans have died with him.", delay: 2, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: And his plans for NARS have died with him.", delay: 2, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: All that's left for the rest of us...", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: ...Is to pick up the pieces.", delay: 2, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: ...", delay: 2},
-		{text: "LIEUTENANT: So...", delay: 2, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: So...", delay: 4, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: I ask now that you put down your arms, and join us.", delay: 2, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Help us evacuate, so that we don't lose even more lives here.", delay: 2, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: So that we can build our own future.", delay: 3, sound: CAM_RCLICK},
@@ -1548,6 +1631,7 @@ function eventStartLevel()
 			detectMsg: "ZULU_BASE4",
 			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
 			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
+			player: MIS_TEAM_ZULU
 		},
 		"zuluEastBase": {
 			cleanup: "zuluBase5",
@@ -1579,10 +1663,15 @@ function eventStartLevel()
 			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
 			eliminateSnd: cam_sounds.baseElimination.enemyBaseEradicated,
 		},
-		// This starts unbuilt:
+		// These start unbuilt:
 		"charlieLZ": {
 			cleanup: "charlieStructArea",
 			friendly: true
+		},
+		"charlieForwardBase": {
+			cleanup: "zuluBase4",
+			friendly: true,
+			player: MIS_TEAM_CHARLIE
 		},
 	});
 
@@ -1649,7 +1738,7 @@ function eventStartLevel()
 		},
 	});
 
-	// TODO: Swap on-map templates
+	// Swap on-map templates
 	if (difficulty >= HARD)
 	{
 		camUpgradeOnMapTemplates(cTempl.plhasgnht, mis_zuluAGTempl, MIS_TEAM_ZULU);
@@ -1663,24 +1752,22 @@ function eventStartLevel()
 		}
 	}
 
+	zuluCommander1DeathTime = 0;
+	zuluCommander2DeathTime = 0;
+	zuluCommander3DeathTime = 0;
+	lureTrapEnabled = false;
+	lureActive = false;
+	worldAblaze = false;
+	allowVtolStrikes = false;
+	zuluSurrendered = false;
+	heartbeatDarkness = false;
+	banterIdx = 1;
+	zuluRank = (difficulty <= EASY) ? 6 : difficulty + 4; // Elite to Hero
+
 	// Rank commanders...
 	camSetDroidRank(getObject("zuluCommander1"), zuluRank);
 	camSetDroidRank(getObject("zuluCommander2"), zuluRank);
 	camSetDroidRank(getObject("zuluCommander3"), zuluRank);
-	camSetDroidRank(getObject("zuluIntroCommander"), zuluRank);
-
-	zuluCommander1DeathTime = 0;
-	zuluCommander2DeathTime = 0;
-	zuluCommander3DeathTime = 0;
-	lureActive = false;
-	worldAblaze = false;
-	claydeMonologue = false;
-	claydeListening = false;
-	allowVtolStrikes = false;
-	zuluSurrendered = false;
-	mapExpanded = false;
-	heartbeatDarkness = false;
-	zuluRank = (difficulty <= MEDIUM) ? 6 : difficulty + 4; // Elite to Hero
 
 	// Most Infested units start out pre-damaged
 	camSetPreDamageModifier(CAM_INFESTED, [50, 80], [60, 90], CAM_INFESTED_PREDAMAGE_EXCLUSIONS);

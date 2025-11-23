@@ -655,6 +655,14 @@
 
 
 	"object_27": {
+		"label": "foxtrotResearch2",
+		"id": 909,
+		"player": 5,
+		"type": 1
+	},
+
+
+	"object_28": {
 		"label": "foxtrotCybFactory3",
 		"id": 708,
 		"player": 5,
@@ -662,7 +670,7 @@
 	},
 
 
-	"object_28": {
+	"object_29": {
 		"label": "foxtrotCybFactory4",
 		"id": 711,
 		"player": 5,
@@ -670,7 +678,7 @@
 	},
 
 
-	"object_29": {
+	"object_30": {
 		"label": "foxtrotFactory3",
 		"id": 713,
 		"player": 5,
@@ -678,7 +686,7 @@
 	},
 
 
-	"object_30": {
+	"object_31": {
 		"label": "golfTruck5",
 		"id": 970,
 		"player": 6,
@@ -686,7 +694,7 @@
 	},
 
 
-	"object_31": {
+	"object_32": {
 		"label": "foxtrotCommander",
 		"id": 963,
 		"player": 5,
@@ -694,7 +702,7 @@
 	},
 
 
-	"object_32": {
+	"object_33": {
 		"label": "foxtrotTruck3",
 		"id": 961,
 		"player": 5,
@@ -702,7 +710,7 @@
 	},
 
 
-	"object_33": {
+	"object_34": {
 		"label": "foxtrotTruck4",
 		"id": 972,
 		"player": 5,
@@ -710,7 +718,7 @@
 	},
 
 
-	"object_34": {
+	"object_35": {
 		"label": "golfTruck3",
 		"id": 971,
 		"player": 6,
@@ -718,7 +726,7 @@
 	},
 
 
-	"object_35": {
+	"object_36": {
 		"label": "foxtrotFactory1",
 		"id": 916,
 		"player": 5,
@@ -726,7 +734,7 @@
 	},
 
 
-	"object_36": {
+	"object_37": {
 		"label": "golfTruck1",
 		"id": 966,
 		"player": 6,
@@ -734,7 +742,7 @@
 	},
 
 
-	"object_37": {
+	"object_38": {
 		"label": "golfCBTower1",
 		"id": 965,
 		"player": 6,
@@ -742,7 +750,7 @@
 	},
 
 
-	"object_38": {
+	"object_39": {
 		"label": "foxtrotFactory2",
 		"id": 735,
 		"player": 5,
@@ -750,7 +758,7 @@
 	},
 
 
-	"object_39": {
+	"object_40": {
 		"label": "foxtrotCybFactory1",
 		"id": 927,
 		"player": 5,
@@ -758,7 +766,7 @@
 	},
 
 
-	"object_40": {
+	"object_41": {
 		"label": "infFactory5",
 		"id": 851,
 		"player": 4,
@@ -766,7 +774,7 @@
 	},
 
 
-	"object_41": {
+	"object_42": {
 		"label": "golfTruck2",
 		"id": 968,
 		"player": 6,
@@ -774,18 +782,10 @@
 	},
 
 
-	"object_42": {
+	"object_43": {
 		"label": "golfFactory3",
 		"id": 905,
 		"player": 6,
-		"type": 1
-	},
-
-
-	"object_43": {
-		"label": "foxtrotResearch2",
-		"id": 909,
-		"player": 5,
 		"type": 1
 	},
 

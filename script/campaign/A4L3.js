@@ -11,6 +11,7 @@ const MIS_GOLF_FACTORY_TIME = camChangeOnDiff(camSecondsToMilliseconds(120));
 const MIS_CYBORG_FACTORY_TIME = camChangeOnDiff(camSecondsToMilliseconds(60));
 const MIS_VTOL_FACTORY_TIME = camChangeOnDiff(camSecondsToMilliseconds(130));
 const MIS_FOXTROT_COMMANDER_DELAY = camChangeOnDiff(camMinutesToMilliseconds(8));
+const MIS_DONATED_UNIT_RANK = "Regular";
 
 var foxtrotCommanderDeathTime;
 var foxtrotRank;
@@ -20,6 +21,10 @@ var golfSensorsGroup;
 var golfVtolAttackGroup;
 var golfVtolStrikeGroup;
 var golfDefeated;
+
+var banterIdx;
+
+var infFactoryOnlyWave; // If true, ONLY spawn Infested units from entrances "bound" to a factory
 
 const mis_infestedResearch = [
 	"R-Wpn-MG-Damage05", "R-Wpn-Rocket-Damage05", "R-Wpn-Mortar-Damage05", 
@@ -55,11 +60,7 @@ function heliAttack()
 // Activate Infested stuff
 function activateInfested()
 {
-	// Call this twice to spawn twice the reinforcements on the first wave
-	sendInfestedReinforcements();
-	sendInfestedReinforcements();
-	heliAttack();
-	setTimer("sendInfestedReinforcements", camChangeOnDiff(camSecondsToMilliseconds(60)));
+	setTimer("sendInfestedReinforcements", camChangeOnDiff(camSecondsToMilliseconds(80)));
 	camEnableFactory("infFactory1");
 	camEnableFactory("infFactory2");
 	camEnableFactory("infFactory3");
@@ -69,8 +70,31 @@ function activateInfested()
 	camEnableFactory("infCybFactory1");
 	camEnableFactory("infCybFactory2");
 
-	// TODO: More dialogue?
-	camQueueDialogue({text: "--- ANOMALOUS SIGNAL DETECTED ---", delay: 0, sound: cam_sounds.beacon});
+	// Reduce the Infested presence on SUPER_EASY
+	if (difficulty > SUPER_EASY)
+	{
+		camQueueDialogue({text: "--- ANOMALOUS SIGNAL DETECTED ---", delay: 0, sound: cam_sounds.beacon});
+
+		// Call this twice to spawn twice the reinforcements on the first wave
+		sendInfestedReinforcements();
+		sendInfestedReinforcements();
+		heliAttack();
+	}
+
+	// Have the Lieutenant try reasoning again
+	camQueueDialogue([
+		// Delay...
+		{text: "LIEUTENANT: Foxtrot, Golf! Please!", delay: 12, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Clayde is lying to you!", delay: 2, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: He killed Team Alpha to protect himself!", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: He's manipulating all of NARS for his own ends!", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: We can prove it!", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: So stop-", delay: 2, sound: CAM_RCLICK},
+		{text: "FOXTROT: Silence, Lieutenant.", delay: 1, sound: CAM_RCLICK},
+		{text: "FOXTROT: You're the one who betrayed us all.", delay: 2, sound: CAM_RCLICK},
+		{text: "FOXTROT: You've lead Commanders Bravo and Charlie astray with your lies.", delay: 3, sound: CAM_RCLICK},
+		{text: "FOXTROT: And now they'll both pay the price with their lives.", delay: 3, sound: CAM_RCLICK},
+	]);
 }
 
 function activateFactories()
@@ -87,6 +111,214 @@ function activateFactories()
 	camEnableFactory("golfVtolFactory1");
 	camEnableFactory("golfVtolFactory2");
 	camEnableFactory("golfVtolFactory3");
+}
+
+// Misc. dialogue between Foxtrot, Golf, and the Lieutenant
+function teamBanter()
+{
+	if (foxtrotDefeated && golfDefeated)
+	{
+		// Stop all banter if both teams are defeated
+		removeTimer("teamBanter");
+		return;
+	}
+
+	let desperate = (foxtrotDefeated || golfDefeated) ? true : false;
+
+	if (!desperate)
+	{
+		switch (banterIdx)
+		{
+		case 1:
+			// Foxtrot tries to get Bravo to surrender
+			camQueueDialogue([
+				{text: "FOXTROT: Commander Bravo.", delay: 4, sound: CAM_RCLICK},
+				{text: "FOXTROT: You're out-manned and outgunned.", delay: 2, sound: CAM_RCLICK},
+				{text: "FOXTROT: You have nowhere left to run, and no one is coming to help you.", delay: 3, sound: CAM_RCLICK},
+				{text: "FOXTROT: Save us all the time and stand down.", delay: 3, sound: CAM_RCLICK},
+				{text: "FOXTROT: Show that at least a part of you still has loyalty to NARS.", delay: 3, sound: CAM_RCLICK},
+			]);
+			break;
+		case 2:
+			// Golf the Lieutenant that they're coming for him, and that Bravo is their only major obstacle
+			camQueueDialogue([
+				{text: "GOLF: We're coming for you next, Lieutenant!", delay: 4, sound: CAM_RCLICK},
+				{text: "GOLF: First Bravo, then Charlie, then you.", delay: 3, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: I'm not scared of you, Commander Golf.", delay: 4, sound: CAM_RCLICK},
+				{text: "GOLF: You don't have to be.", delay: 4, sound: CAM_RCLICK},
+				{text: "GOLF: Everyone here knows that Commander Bravo is the only competent one among you.", delay: 2, sound: CAM_RCLICK},
+				{text: "FOXTROT: That's why we're here.", delay: 4, sound: CAM_RCLICK},
+				{text: "FOXTROT: Once Team Bravo is defeated, it's over for you.", delay: 2, sound: CAM_RCLICK},
+			]);
+			break;
+		case 3:
+			// The Lieutenant tries to reason with Foxtrot
+			camQueueDialogue([
+				{text: "LIEUTENANT: Listen, Foxtrot.", delay: 4, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: I don't know what Clayde has told you about me, or about us.", delay: 2, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: But I can prove that Clayde has been lying to you.", delay: 3, sound: CAM_RCLICK},
+				{text: "FOXTROT: Lieutenant, you're wasting your effort.", delay: 4, sound: CAM_RCLICK},
+				{text: "FOXTROT: Even if any of your words held value, my loyalty is to the Supreme General.", delay: 3, sound: CAM_RCLICK},
+				{text: "FOXTROT: He SAVED me from the Collective's prison, Lieutenant.", delay: 3, sound: CAM_RCLICK},
+				{text: "FOXTROT: I owe him everything.", delay: 3, sound: CAM_RCLICK},
+				{text: "FOXTROT: And I'd go to hell and back for him.", delay: 2, sound: CAM_RCLICK},
+				{text: "FOXTROT: But right now, it looks like I just have to go through one Commander...", delay: 3, sound: CAM_RCLICK},
+			]);
+			break;
+		case 4:
+			// Foxtrot "comforts" the Lieutenant by telling him Clayde wants his life spared
+			camQueueDialogue([
+				{text: "FOXTROT: You should be grateful, Lieutenant.", delay: 4, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: What?", delay: 4, sound: CAM_RCLICK},
+				{text: "FOXTROT: The Supreme General told us to deal with Commanders Bravo and Charlie as we saw fit.", delay: 4, sound: CAM_RCLICK},
+				{text: "FOXTROT: But he ordered us to take YOU alive.", delay: 3, sound: CAM_RCLICK},
+				{text: "FOXTROT: After all you've done, he still sees value in you, Lieutenant.", delay: 3, sound: CAM_RCLICK},
+				{text: "FOXTROT: Which is more than can be said for the Commanders you've misled.", delay: 3, sound: CAM_RCLICK},
+			]);
+			break;
+		case 5:
+			// The Lieutenant tries to reason with Golf
+			camQueueDialogue([
+				{text: "LIEUTENANT: Golf, I-", delay: 4, sound: CAM_RCLICK},
+				{text: "GOLF: I don't even want to hear it, Lieutenant.", delay: 1, sound: CAM_RCLICK},
+				{text: "GOLF: The Supreme General's twice the man you'll ever be.", delay: 3, sound: CAM_RCLICK},
+				{text: "GOLF: He knows how to make tough choices.", delay: 3, sound: CAM_RCLICK},
+				{text: "GOLF: How to get RESULTS.", delay: 2, sound: CAM_RCLICK},
+				{text: "GOLF: Meanwhile, you've been scurrying around trying to undermine us!", delay: 3, sound: CAM_RCLICK},
+				{text: "GOLF: Where would we be now if we all listened to you?", delay: 3, sound: CAM_RCLICK},
+			]);
+			break;
+		case 6:
+			// Golf gets frustrated and tells Bravo to give up (again)
+			camQueueDialogue([
+				{text: "GOLF: I'm running out of patience here, Bravo.", delay: 4, sound: CAM_RCLICK},
+				{text: "GOLF: Eventually, your defenses will crack, and we'll finish you off for good.", delay: 3, sound: CAM_RCLICK},
+				{text: "GOLF: So save us all the time, and SURRENDER.", delay: 3, sound: CAM_RCLICK},
+				{text: "GOLF: You can't hold out forever, anyway.", delay: 4, sound: CAM_RCLICK},
+			]);
+			break;
+		default: // No more dialogue...
+			break;
+		}
+	}
+	else // One of the teams has been defeated
+	{
+		if (golfDefeated) // Foxtrot remaining
+		{
+			switch (banterIdx)
+			{
+			case 1:
+				// Foxtrot tries to call for backup
+				camQueueDialogue([
+					{text: "FOXTROT: Supreme General Clayde!", delay: 4, sound: CAM_RCLICK},
+					{text: "FOXTROT: We've engaged Team Bravo, and have encountered some...", delay: 2, sound: CAM_RCLICK},
+					{text: "FOXTROT: Major difficulties.", delay: 3, sound: CAM_RCLICK},
+					{text: "FOXTROT: Team Golf has been overrun.", delay: 3, sound: CAM_RCLICK},
+					{text: "FOXTROT: Requesting immediate reinforcements, sir!", delay: 3, sound: CAM_RCLICK},
+					{text: "FOXTROT: ...", delay: 2},
+					{text: "FOXTROT: Yes sir, I understand, but-", delay: 4, sound: CAM_RCLICK},
+					{text: "FOXTROT: ...", delay: 2},
+					{text: "FOXTROT: But sir, they've withstood both of our combined efforts.", delay: 4, sound: CAM_RCLICK},
+					{text: "FOXTROT: Without reinforcements, we can't-", delay: 3, sound: CAM_RCLICK},
+					{text: "FOXTROT: ...", delay: 2},
+					{text: "FOXTROT: I don't-", delay: 4, sound: CAM_RCLICK},
+					{text: "FOXTROT: ...Yes, sir.", delay: 4, sound: CAM_RCLICK},
+					{text: "FOXTROT: We'll fight as best we can.", delay: 2, sound: CAM_RCLICK},
+				]);
+				break;
+			case 2:
+				// The Lieutenant attempts to reason with Foxtrot one last time
+				camQueueDialogue([
+					{text: "LIEUTENANT: Foxtrot, I-", delay: 4, sound: CAM_RCLICK},
+					{text: "FOXTROT: Silence.", delay: 1, sound: CAM_RCLICK},
+					{text: "FOXTROT: Save it for the Supreme General.", delay: 3, sound: CAM_RCLICK},
+					{text: "LIEUTENANT: But what about Team Alpha?", delay: 4, sound: CAM_RCLICK},
+					{text: "LIEUTENANT: Clayde lied about them! I can prove it!", delay: 2, sound: CAM_RCLICK},
+					{text: "LIEUTENANT: He lied to-", delay: 2, sound: CAM_RCLICK},
+					{text: "FOXTROT: Team Alpha?", delay: 1, sound: CAM_RCLICK},
+					{text: "FOXTROT: What about Team Golf?", delay: 2, sound: CAM_RCLICK},
+					{text: "FOXTROT: What about the rest of NARS?!", delay: 2, sound: CAM_RCLICK},
+					{text: "FOXTROT: You've betrayed us all, Lieutenant.", delay: 3, sound: CAM_RCLICK},
+					{text: "FOXTROT: And for what?", delay: 3, sound: CAM_RCLICK},
+					{text: "FOXTROT: For some conspiracy against Clayde?", delay: 2, sound: CAM_RCLICK},
+					{text: "FOXTROT: Was your plan to take control of NARS for yourself?!", delay: 3, sound: CAM_RCLICK},
+					{text: "FOXTROT: You'll pay for your crimes eventually, Lieutenant.", delay: 4, sound: CAM_RCLICK},
+					{text: "FOXTROT: But Commander Bravo?", delay: 3, sound: CAM_RCLICK},
+					{text: "FOXTROT: They'll pay for theirs right now.", delay: 3, sound: CAM_RCLICK},
+				]);
+				break;
+			case 3:
+				// Foxtrot threatens Bravo
+				camQueueDialogue([
+					{text: "FOXTROT: It's you and me, Commander Bravo.", delay: 4, sound: CAM_RCLICK},
+					{text: "FOXTROT: Your campaign ends here, even if I have to put you down myself.", delay: 3, sound: CAM_RCLICK},
+					{text: "FOXTROT: And once I'm through with you, I'll take down Charlie and the Lieutenant, too.", delay: 3, sound: CAM_RCLICK},
+					{text: "FOXTROT: When this is all over...", delay: 3, sound: CAM_RCLICK},
+					{text: "FOXTROT: There will be nothing left of you but a bad memory.", delay: 3, sound: CAM_RCLICK},
+				]);
+				break;
+			default: // No more dialogue...
+				break;
+			}
+		}
+		else // Golf remaining
+		{
+			switch (banterIdx)
+			{
+			case 1:
+				// Golf tries to call for backup
+				camQueueDialogue([
+					{text: "GOLF: Supreme General!", delay: 4, sound: CAM_RCLICK},
+					{text: "GOLF: Sir, Team Foxtrot is GONE!", delay: 2, sound: CAM_RCLICK},
+					{text: "GOLF: We need reinforcements, ASAP.", delay: 3, sound: CAM_RCLICK},
+					{text: "GOLF: ...", delay: 2},
+					{text: "GOLF: What?!", delay: 4},
+					{text: "GOLF: Sir, we're not gonna last much longer out here!", delay: 4},
+					{text: "GOLF: Team Bravo, they're-", delay: 4},
+					{text: "GOLF: ...", delay: 2},
+					{text: "GOLF: But sir, that isn't fair!", delay: 4},
+					{text: "GOLF: How are we supposed to-", delay: 3},
+					{text: "GOLF: ...", delay: 2},
+					{text: "GOLF: No sir, I've always been loyal, sir.", delay: 3},
+					{text: "GOLF: But-", delay: 3},
+					{text: "GOLF: ...", delay: 2},
+					{text: "GOLF: ...Yes, sir.", delay: 4, sound: CAM_RCLICK},
+					{text: "GOLF: I'll finish the job, sir.", delay: 2, sound: CAM_RCLICK},
+					{text: "GOLF: You can count on me.", delay: 3, sound: CAM_RCLICK},
+				]);
+				break;
+			case 2:
+				// The Lieutenant attempts to reason with Golf one last time
+				camQueueDialogue([
+					{text: "LIEUTENANT: Golf, we can still stop this.", delay: 4, sound: CAM_RCLICK},
+					{text: "LIEUTENANT: We can still work together, and fight for what's right!", delay: 3, sound: CAM_RCLICK},
+					{text: "LIEUTENANT: I can prove that he's been lying to you!", delay: 3, sound: CAM_RCLICK},
+					{text: "LIEUTENANT: I can prove that Team Alpha-", delay: 3, sound: CAM_RCLICK},
+					{text: "GOLF: Team Alpha this, Commander Alpha that...", delay: 2, sound: CAM_RCLICK},
+					{text: "GOLF: Shut it!", delay: 3, sound: CAM_RCLICK},
+					{text: "GOLF: Team Alpha is DEAD!", delay: 2, sound: CAM_RCLICK},
+					{text: "GOLF: And if I get my way, YOU'RE going to join them!", delay: 2, sound: CAM_RCLICK},
+				]);
+				break;
+			case 3:
+				// Golf threatens Bravo (top 10 hate mail moments (number 3 will surprise you!1!!))
+				camQueueDialogue([
+					{text: "GOLF: I'll end you, Bravo.", delay: 4, sound: CAM_RCLICK},
+					{text: "GOLF: Even if I have to do it alone.", delay: 3, sound: CAM_RCLICK},
+					{text: "GOLF: I'll show Clayde that at least one of his Commanders is worthy.", delay: 3, sound: CAM_RCLICK},
+					{text: "GOLF: You've caused NARS enough pain, Bravo.", delay: 4, sound: CAM_RCLICK},
+					{text: "GOLF: So do us-", delay: 3, sound: CAM_RCLICK},
+					{text: "GOLF: No. Do ME a favor...", delay: 1, sound: CAM_RCLICK},
+					{text: "GOLF: And DIE.", delay: 3, sound: CAM_RCLICK},
+				]);
+				break;
+			default: // No more dialogue...
+				break;
+			}
+		}
+	}
+
+	banterIdx++;
 }
 
 // Boost the strength of teams Foxtrot and Golf
@@ -190,7 +422,11 @@ function boostTeams()
 			cTempl.plmhbombv, cTempl.plmhbombv, cTempl.plmhbombv,
 			cTempl.plmhbombv, cTempl.plmhbombv, cTempl.plmhbombv,
 	]});
-	// TODO: Make more groups bigger/change group behavior?
+
+	// Restart banter queue
+	banterIdx = 1;
+	removeTimer("teamBanter");
+	setTimer("teamBanter", camMinutesToMilliseconds(5));
 }
 
 function eventDestroyed(obj)
@@ -319,8 +555,18 @@ function foxtrotDefeat()
 
 	setAlliance(CAM_HUMAN_PLAYER, MIS_TEAM_FOXTROT, true);
 
-	// TODO: Dialogue here
+	// Lieutenant tells Team Foxtrot members to surrender
+	camSkipDialogue(); // Interrupt any ongoing dialogue
+	camQueueDialogue([
+		{text: "LIEUTENANT: Attention all members of Team Foxtrot.", delay: 2, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Your Commander has been defeated.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: You are to surrender and relinquish control to Commander Bravo immediately.", delay: 3, sound: CAM_RCLICK},
+		{delay: 5, callback: "donateFoxtrot"},
+	]);
+}
 
+function donateFoxtrot()
+{
 	// Grab all of Foxtrot's droids and structures
 	const objs = enumDroid(MIS_TEAM_FOXTROT).concat(enumStruct(MIS_TEAM_FOXTROT));
 
@@ -330,7 +576,7 @@ function foxtrotDefeat()
 		// Give the droids some EXP
 		if (obj.type === DROID && obj.droidType !== DROID_COMMAND)
 		{
-			camSetDroidRank(obj, "Regular");
+			camSetDroidRank(obj, MIS_DONATED_UNIT_RANK);
 		}
 
 		donateObject(obj, CAM_HUMAN_PLAYER);
@@ -342,6 +588,15 @@ function foxtrotDefeat()
 	}
 	else
 	{
+		// Live Golf Reaction:
+		camQueueDialogue([
+			{text: "GOLF: Foxtrot!?", delay: 8, sound: CAM_RCLICK},
+			{text: "GOLF: No...", delay: 2, sound: CAM_RCLICK},
+			{text: "GOLF: How could they-", delay: 2, sound: CAM_RCLICK},
+			{text: "GOLF: YOU.", delay: 4, sound: CAM_RCLICK},
+			{text: "GOLF: You're going to PAY for that, Bravo!", delay: 2, sound: CAM_RCLICK},
+		]);
+
 		camSetExtraObjectiveMessage(_("Defeat Team Golf"));
 	}
 
@@ -358,8 +613,18 @@ function golfDefeat()
 
 	setAlliance(CAM_HUMAN_PLAYER, MIS_TEAM_GOLF, true);
 
-	// TODO: Dialogue here
+	// Lieutenant tells Team Golf members to surrender
+	camSkipDialogue(); // Interrupt any ongoing dialogue
+	camQueueDialogue([
+		{text: "LIEUTENANT: Attention all members of Team Golf.", delay: 2, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Your Commander has been defeated.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: You are to surrender and relinquish control to Commander Bravo immediately.", delay: 3, sound: CAM_RCLICK},
+		{delay: 5, callback: "donateGolf"},
+	]);
+}
 
+function donateGolf()
+{
 	// Grab all of Golf's droids and structures
 	const objs = enumDroid(MIS_TEAM_GOLF).concat(enumStruct(MIS_TEAM_GOLF));
 
@@ -369,7 +634,7 @@ function golfDefeat()
 		// Give the droids some EXP
 		if (obj.type === DROID)
 		{
-			camSetDroidRank(obj, "Regular");
+			camSetDroidRank(obj, MIS_DONATED_UNIT_RANK);
 		}
 
 		donateObject(obj, CAM_HUMAN_PLAYER);
@@ -377,13 +642,22 @@ function golfDefeat()
 
 	if (foxtrotDefeated)
 	{
+		// Live Foxtrot Reaction:
+		camQueueDialogue([
+			{text: "FOXTROT: Commander Golf?", delay: 8, sound: CAM_RCLICK},
+			{text: "FOXTROT: Commander Golf, do you read?", delay: 3, sound: CAM_RCLICK},
+			{text: "FOXTROT: Commander Golf, respond!", delay: 3, sound: CAM_RCLICK},
+			{text: "FOXTROT: Bravo, did you...", delay: 3, sound: CAM_RCLICK},
+			{text: "FOXTROT: Oh... You're going to regret this, Commander Bravo.", delay: 4, sound: CAM_RCLICK},
+		]);
+
 		camSetExtraObjectiveMessage();
 	}
 	else
 	{
 		camSetExtraObjectiveMessage(_("Defeat Team Foxtrot"));
 	}
-
+	
 	golfDefeated = true;
 	camCallOnce("boostTeams");
 }
@@ -465,16 +739,29 @@ function sendInfestedReinforcements()
 	const FODDER_SIZE = 12;
 	const B_CHANCE = (difficulty * 5) + 5;
 
-	const entrances = [
-		"infEntry1", "infEntry2", "infEntry3",
-		"infEntry4", "infEntry5", "infEntry6",
-		"infEntry7", "infEntry8", "infEntry9",
-		"infEntry10", "infEntry12", "infEntry13",
-		"infEntry15",
-	];
+	const entrances = [];
 
+	// Disable these entrances if their factory is destroyed
 	if (getObject("infFactory2") !== null) entrances.push("infEntry11");
 	if (getObject("infCybFactory2") !== null) entrances.push("infEntry14");
+
+	if (!infFactoryOnlyWave)
+	{
+		entrances.push(
+			"infEntry1", "infEntry2", "infEntry3",
+			"infEntry4", "infEntry5", "infEntry6",
+			"infEntry7", "infEntry8", "infEntry9",
+			"infEntry10", "infEntry12", "infEntry13",
+			"infEntry15"
+		);
+	}
+	else // Only spawn if there is a nearby factory
+	{
+		if (getObject("infHvyFactory") !== null) entrances.push("infEntry9");
+		if (getObject("infFactory1") !== null) entrances.push("infEntry10");
+		if (getObject("infFactory3") !== null) entrances.push("infEntry12");
+		if (getObject("infFactory5") !== null) entrances.push("infEntry15");
+	}
 
 	const NUM_GROUPS = difficulty + 2;
 	for (let i = 0; i < NUM_GROUPS; i++)
@@ -484,16 +771,21 @@ function sendInfestedReinforcements()
 		camSendReinforcement(CAM_INFESTED, getObject(entrances[INDEX]), camRandInfTemplates(camRandFrom(coreDroids), CORE_SIZE, FODDER_SIZE, B_CHANCE), CAM_REINFORCE_GROUND);
 		entrances.splice(INDEX, 1);
 	}
+
+	if (difficulty > SUPER_EASY)
+	{
+		// Always stay in factory-only mode on SUPER_EASY
+		infFactoryOnlyWave = !infFactoryOnlyWave;
+	}
 }
 
 // Delay when Foxtrot can rebuild their commander
 function allowFoxtrotCommanderRebuild()
 {
-	return (gameTime >= foxtrotCommanderDeathTime + MIS_FOXTROT_COMMANDER_DELAY) && (enumStruct(MIS_TEAM_FOXTROT, COMMAND_CONTROL).length > 0);
+	return (difficulty > EASY) && (gameTime >= foxtrotCommanderDeathTime + MIS_FOXTROT_COMMANDER_DELAY) && (enumStruct(MIS_TEAM_FOXTROT, COMMAND_CONTROL).length > 0);
 }
 
 // Returns a list of targets that should be focused by team Golf's bomber squadron
-// TODO: Should we target AA structures?
 function golfStrikeTargets()
 {
 	// First, target any player Factories, Command Ceners, Repair Facilities and Power Generators
@@ -520,6 +812,16 @@ function golfStrikeTargets()
 	return targets;
 }
 
+// Returns true if both Foxtrot and Golf have been defeated and all of their stuff has been absorbed by the player
+function teamsDefeated()
+{
+	if (foxtrotDefeated && golfDefeated)
+	{
+		return true;
+	}
+	return undefined;
+}
+
 function eventStartLevel()
 {
 	const startPos = camMakePos("landingZone");
@@ -530,6 +832,7 @@ function eventStartLevel()
 	
 	camSetStandardWinLossConditions(CAM_VICTORY_STANDARD, "A4L4S", {
 		ignoreInfestedUnits: true
+		callback: "teamsDefeated"
 	});
 	camSetExtraObjectiveMessage([_("Defeat Team Foxtrot"), _("Defeat Team Golf")]);
 
@@ -974,6 +1277,8 @@ function eventStartLevel()
 				cTempl.plhbbw, cTempl.plhbbw,
 				cTempl.plhhatw, cTempl.plhhatw,
 				cTempl.plhinfw, cTempl.plhinfw,
+				cTempl.plhinfw, cTempl.plhinfw, // 2 Infernos (Hard+)
+				cTempl.plhbbw, cTempl.plhbbw, // 2 Bunker Busters (Insane)
 			],
 			factories: ["foxtrotFactory1", "foxtrotFactory2"]
 		}, CAM_ORDER_FOLLOW, {
@@ -1283,6 +1588,8 @@ function eventStartLevel()
 	foxtrotRank = (difficulty <= MEDIUM) ? 6 : difficulty + 4; // Elite to Hero
 	foxtrotDefeated = false;
 	golfDefeated = false;
+	infFactoryOnlyWave = true;
+	banterIdx = 1;
 
 	camAutoReplaceObjectLabel(["golfVtolTower1", "golfVtolTower2", "golfVtolCBTower1", "golfVtolCBTower2", "golfCBTower1", "golfCBTower2"]);
 
@@ -1293,8 +1600,21 @@ function eventStartLevel()
 	queue("activateInfested", camChangeOnDiff(camMinutesToMilliseconds(2)));
 	queue("activateFactories", camChangeOnDiff(camMinutesToMilliseconds(3)));
 
+	setTimer("teamBanter", camMinutesToMilliseconds(5));
+
 	// Give player briefing.
 	camPlayVideos({video: "A4L3_BRIEF", type: MISS_MSG});
+
+	// Additional dialogue...
+	camQueueDialogue([
+		// Long delay
+		{text: "GOLF: Surprise, Bravo!", delay: 40, sound: CAM_RCLICK},
+		{text: "FOXTROT: Give it up, Bravo.", delay: 4, sound: CAM_RCLICK},
+		{text: "FOXTROT: We've got you cornered; there's nowhere for you to go.", delay: 2, sound: CAM_RCLICK},
+		{text: "GOLF: That's right!", delay: 4, sound: CAM_RCLICK},
+		{text: "GOLF: No more running away.", delay: 2, sound: CAM_RCLICK},
+		{text: "GOLF: It's over for you!", delay: 2, sound: CAM_RCLICK},
+	]);
 
 	// Most Infested units start out pre-damaged
 	camSetPreDamageModifier(CAM_INFESTED, [50, 80], [60, 90], CAM_INFESTED_PREDAMAGE_EXCLUSIONS);

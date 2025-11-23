@@ -104,13 +104,7 @@ function eventTransporterLanded(transport)
 
 		if (startedFromMenu)
 		{
-			droids = enumCargo(transport);
-			const droidRank = (firstTransport) ? ["Elite"] : ["Veteran", "Professional", "Regular", "Trained"];
-
-			for (let i = 0; i < droids.length; ++i)
-			{
-				camSetDroidRank(droids[i], droidRank[i % droidRank.length]);
-			}
+			camSetDroidRank(enumCargo(transport), (firstTransport) ? "Elite" : "Professional");
 		}
 
 		firstTransport = false;

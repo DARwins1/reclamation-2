@@ -18,6 +18,7 @@ var mapExpanded;
 var lzAmbushGroup;
 var echoStrikeGroup;
 var echoDiscovered;
+var spySensorST;
 
 var echoCommanderDeathTime;
 var echoRank;
@@ -26,10 +27,9 @@ var echoCommanderDelay;
 // Needed to ensure the spy sensor fleeing scene can be triggered after a save/load
 function eventGameLoaded()
 {
-	const spyDroid = getObject("echoSpySensor");
-	if (camDef(spyDroid) && spyDroid !== null)
+	if (groupSize(spySensorST) > 0)
 	{
-		addLabel({ type: GROUP, id: camMakeGroup(spyDroid) }, "echoSpySensorST", false);
+		addLabel({type: GROUP, id: spySensorST}, "echoSpySensorST", false);
 		resetLabel("echoSpySensorST", CAM_HUMAN_PLAYER); // subscribe for eventGroupSeen
 	}
 }
@@ -225,23 +225,15 @@ function expandMap()
 			],
 			interval: camSecondsToMilliseconds(28),
 			repair: 75
-	});
-	// Echo commander group (escorts)
-	// (3 Lancer Cyborgs, 3 HMG Cyborgs, 2 Hurricanes)
-	const commandTemplates = [
-		cTempl.cybla, cTempl.cybla, cTempl.cybla,
-		cTempl.cybhg, cTempl.cybhg, cTempl.cybhg,
-		cTempl.pllaaw, cTempl.pllaaw,
-	];
-	if (difficulty >= HARD)
-	{
-		// Add an extra 2 cyborgs on Hard+
-		commandTemplates.push(cTempl.cybla);
-		commandTemplates.push(cTempl.cybhg);
-	}
+	});	
 	camMakeRefillableGroup(
 		camMakeGroup("echoCommandGroup"), {
-			templates: commandTemplates,
+			templates: [ // (3 Lancer Cyborgs, 3 HMG Cyborgs, 2 Hurricanes)
+				cTempl.cybla, cTempl.cybla, cTempl.cybla,
+				cTempl.cybhg, cTempl.cybhg, cTempl.cybhg,
+				cTempl.pllaaw, cTempl.pllaaw,
+				cTempl.cybla, cTempl.cybhg, // Lancer + HMG (Hard+)
+			],
 			factories: ["colFactory2", "colCybFactory2"],
 			obj: "echoCommander" // Stop refilling this group when the commander dies
 		}, CAM_ORDER_FOLLOW, {
@@ -551,9 +543,7 @@ function eventAttacked(victim, attacker)
 // If the spy sensor is spotted, make it flee
 function eventGroupSeen(viewer, group)
 {
-	const spyDroid = getObject("echoSpySensor");
-	if (camDef(spyDroid) && spyDroid !== null 
-		&& group === spyDroid.group)
+	if (group === spySensorST)
 	{
 		// Run away!
 		camCallOnce("spyFlee");
@@ -575,7 +565,6 @@ function spyFlee()
 	const spyDroid = getObject("echoSpySensor");
 	if (spyDroid !== null)
 	{
-		camMakeGroup("echoSpySensor");
 		const escapePos = camMakePos("spyEscapeTrigger");
 		orderDroidLoc(spyDroid, DORDER_MOVE, escapePos.x, escapePos.y);
 	}
@@ -852,7 +841,8 @@ function eventStartLevel()
 
 	hackAddMessage("DELTA_LZ", PROX_MSG, CAM_HUMAN_PLAYER);
 
-	addLabel({ type: GROUP, id: camMakeGroup(getObject("echoSpySensor")) }, "echoSpySensorST", false);
+	spySensorST = camMakeGroup(getObject("echoSpySensor"))
+	addLabel({type: GROUP, id: spySensorST}, "echoSpySensorST", false);
 	resetLabel("echoSpySensorST", CAM_HUMAN_PLAYER); // subscribe for eventGroupSeen
 
 	// Darken the fog to 1/2 default brightness

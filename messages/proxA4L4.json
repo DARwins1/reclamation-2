@@ -9,6 +9,7 @@
         "ZULU_BASE6": { "message": "ZULUBASE_MSG", "x": 1088, "y": 8896, "z": 0, "audio": "pcv393.ogg", "type": 0 },
         "ZULU_BASE7": { "message": "ZULUBASE_MSG", "x": 3904, "y": 10816, "z": 0, "audio": "pcv393.ogg", "type": 0 },
         "ZULU_BASE8": { "message": "ZULUBASE_MSG", "x": 6976, "y": 9536, "z": 0, "audio": "pcv393.ogg", "type": 0 },
-        "ZULU_BASE9": { "message": "ZULUBASE_MSG", "x": 9792, "y": 10816, "z": 0, "audio": "pcv393.ogg", "type": 0 }
+        "ZULU_BASE9": { "message": "ZULUBASE_MSG", "x": 9792, "y": 10816, "z": 0, "audio": "pcv393.ogg", "type": 0 },
+        "ZULU_LURE": { "message": "INFESLURE_MSG", "x": 3648, "y": 5312, "z": 0, "audio": "pcv448.ogg", "type": 0 }
     }
 }

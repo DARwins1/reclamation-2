@@ -391,6 +391,8 @@ function eventStartLevel()
 				cTempl.comhmgt, cTempl.comhmgt, cTempl.comhmgt, cTempl.comhmgt, // 4 HMGs
 				cTempl.cominft, cTempl.cominft, // 2 Infernos
 				cTempl.comhaat, cTempl.comhaat, // 2 Cyclones
+				cTempl.cominft, cTempl.cominft, // 2 Infernos (Hard+)
+				cTempl.comhpvt, cTempl.comhpvt, // 2 HVCs (Insane)
 			],
 			factories: ["colFactory"],
 			obj: "colCommander" // Stop refilling this group when the commander dies
@@ -404,10 +406,12 @@ function eventStartLevel()
 			}
 	});
 
-	camManageGroup("colRippleGroup", CAM_ORDER_FOLLOW, {
+	camManageGroup(camMakeGroup("colRippleGroup"), CAM_ORDER_FOLLOW, {
 		leader: "colSensorTower",
 		suborder: CAM_ORDER_DEFEND, // If the sensor is destroyed, sit around in their own little spot
-		data: {pos: camMakePos("colRippleGroup")}
+		data: {
+			pos: camMakePos("colRippleGroup")
+		}
 	});
 
 	allowExtraWaves = false;
@@ -440,11 +444,7 @@ function eventStartLevel()
 	// Also rank and pre-damage team Golf's convoy
 	camSetPreDamageModifier(MIS_TEAM_GOLF, [60, 80]);
 	const golfDroids = enumDroid(MIS_TEAM_GOLF);
-	const GOLF_RANK = "Regular";
-	for (const droid of golfDroids)
-	{
-		camSetDroidRank(droid, GOLF_RANK);
-	}
+	camSetDroidRank(golfDroids, "Regular");
 
 	// Give the fog a pink hue
 	camSetFog(24, 16, 64);

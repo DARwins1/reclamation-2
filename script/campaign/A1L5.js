@@ -17,9 +17,6 @@ var ambushSprung;
 var collectiveActive;
 var commanderAggro;
 var colAmbushGroup;
-// Refillable Groups...
-var colCommandGroup;
-var colBasePatrolGroup;
 
 camAreaEvent("heliRemoveZone", function(droid)
 {
@@ -179,20 +176,15 @@ function eventTransporterLanded(transport)
 			}
 		}
 
-		// Set up the command groups
-
-		// NOTE: The two Medium Cannons aren't in this list, so they won't be rebuilt if destroyed.
-		// They can't be replaced by the module-less Collective factory anyway
-		const commandTemplates = [
-			cTempl.colcanht, cTempl.colcanht, cTempl.colcanht, cTempl.colcanht, // Light Cannons
-			cTempl.colmrat, cTempl.colmrat, // MRA
-		];
-		if (difficulty >= MEDIUM) commandTemplates.push(cTempl.colpodt, cTempl.colpodt) // MRP
-		if (difficulty >= HARD) commandTemplates.push(cTempl.colaaht, cTempl.colaaht) // Hurricanes
-
 		camMakeRefillableGroup(
 			COMMAND_GROUP, {
-				templates: commandTemplates,
+				templates: [ // NOTE: The two Medium Cannons aren't in this list, so they won't be rebuilt if destroyed.
+					cTempl.colcanht, cTempl.colcanht, cTempl.colcanht, cTempl.colcanht, // Light Cannons
+					cTempl.colmrat, cTempl.colmrat, // MRA
+					// The templates below are only built if the commander is ranked higher (or if the Medium Cannons die)
+					cTempl.colpodt, cTempl.colpodt, // MRP (Medium+)
+					cTempl.colaaht, cTempl.colaaht, // Hurricanes (Hard+)
+				],
 				factories: ["colFactory"], // Only refill from this factory
 				obj: "colCommander", // Stop filling this group when the commander dies
 			}, CAM_ORDER_FOLLOW, {

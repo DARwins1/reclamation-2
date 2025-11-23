@@ -44,6 +44,7 @@ ZULUBASE_MSG		_("Zulu Team Base")
 ZULULZ_MSG			_("Zulu Team LZ")
 INFESBASE_MSG		_("Infested Base")
 INFESPOST_MSG		_("Infested Outpost")
+INFESLURE_MSG		_("Infested Lure")
 MISSIONTARGET_MSG	_("Mission Target")
 
 /* incoming transmission */

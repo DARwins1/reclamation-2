@@ -8,6 +8,7 @@ var firstTransport; // Whether the player's first transport has landed
 var startedFromMenu;
 var playerColour;
 var onslaughtIdx;
+var infFactoryOnlyWave; // If true, ONLY spawn Infested units from entrances "bound" to a factory
 
 const mis_infestedResearch = [
 	"R-Wpn-MG-Damage05", "R-Wpn-Rocket-Damage05", "R-Wpn-Mortar-Damage05", 
@@ -71,13 +72,7 @@ function eventTransporterLanded(transport)
 
 		if (startedFromMenu)
 		{
-			droids = enumCargo(transport);
-			const droidRank = (firstTransport) ? ["Special"] : ["Elite", "Veteran", "Professional", "Regular"];
-
-			for (let i = 0; i < droids.length; ++i)
-			{
-				camSetDroidRank(droids[i], droidRank[i % droidRank.length]);
-			}
+			camSetDroidRank(enumCargo(transport), (firstTransport) ? "Special" : "Veteran");
 		}
 
 		firstTransport = false;
@@ -275,13 +270,49 @@ function infestedGroupDroids(onslaught)
 
 function sendInfestedReinforcements()
 {	
-	const entrances = [
-		"infEntry1", "infEntry2", "infEntry3",
-		"infEntry5", "infEntry6", "infEntry8",
-		"infEntry10", "infEntry13", "infEntry15",
-		"infEntry17", "infEntry18", "infEntry21",
-		"infEntry26", "infEntry22",
-	];
+	const entrances = [];
+
+	if (infFactoryOnlyWave)
+	{
+		// Behold the ominous if-statement obelisk!
+		if (getObject("infHvyFactory1") !== null) entrances.push("infEntry1");
+		if (getObject("infHvyFactory2") !== null) entrances.push("infEntry25");
+		if (getObject("infFactory1") !== null) entrances.push("infEntry2");
+		if (getObject("infFactory2") !== null) entrances.push("infEntry3");
+		if (getObject("infHvyFactory3") !== null) entrances.push("infEntry4");
+		if (getObject("infFactory4") !== null) entrances.push("infEntry5");
+		if (getObject("infFactory6") !== null) entrances.push("infEntry6");
+		if (getObject("infFactory8") !== null) entrances.push("infEntry7");
+		if (getObject("infFactory7") !== null) entrances.push("infEntry8");
+		if (getObject("infFactory9") !== null) entrances.push("infEntry9");
+		if (getObject("infFactory10") !== null) entrances.push("infEntry10");
+		if (getObject("infFactory10") !== null) entrances.push("infEntry11");
+		if (getObject("infHvyFactory4") !== null) entrances.push("infEntry12");
+		if (getObject("infHvyFactory4") !== null) entrances.push("infEntry13");
+		if (getObject("infFactory14") !== null) entrances.push("infEntry14");
+		if (getObject("infFactory14") !== null) entrances.push("infEntry15");
+		if (getObject("infFactory15") !== null) entrances.push("infEntry16");
+		if (getObject("infFactory16") !== null) entrances.push("infEntry17");
+		if (getObject("infFactory18") !== null) entrances.push("infEntry18");
+		if (getObject("infHvyFactory5") !== null) entrances.push("infEntry19");
+		if (getObject("infCybFactory5") !== null) entrances.push("infEntry20");
+		if (getObject("infCybFactory5") !== null) entrances.push("infEntry20");
+		if (getObject("infFactory19") !== null) entrances.push("infEntry21");
+		if (getObject("infFactory19") !== null) entrances.push("infEntry26");
+		if (getObject("infFactory22") !== null) entrances.push("infEntry22");
+		if (getObject("infFactory23") !== null) entrances.push("infEntry23");
+		if (getObject("infFactory24") !== null) entrances.push("infEntry24");
+	}
+	else // Spawn from anywhere
+	{
+		entrances.push(
+			"infEntry1", "infEntry2", "infEntry3",
+			"infEntry5", "infEntry6", "infEntry8",
+			"infEntry10", "infEntry13", "infEntry15",
+			"infEntry17", "infEntry18", "infEntry21",
+			"infEntry26", "infEntry22"
+		);
+	}
 
 	const NUM_GROUPS = difficulty + 2;
 	for (let i = 0; i < NUM_GROUPS; i++)
@@ -291,6 +322,8 @@ function sendInfestedReinforcements()
 		camSendReinforcement(CAM_INFESTED, getObject(entrances[INDEX]), infestedGroupDroids(), CAM_REINFORCE_GROUND);
 		entrances.splice(INDEX, 1);
 	}
+	
+	infFactoryOnlyWave = !infFactoryOnlyWave;
 }
 
 function startInfestedOnslaught()
@@ -955,6 +988,7 @@ function eventStartLevel()
 	setReinforcementTime(camMinutesToSeconds(1)); // 1 minute
 
 	firstTransport = true;
+	infFactoryOnlyWave = true;
 
 	queue("activateFirstFactories", camChangeOnDiff(camMinutesToMilliseconds(1)));
 	queue("activateAllFactories", camChangeOnDiff(camMinutesToMilliseconds(16)));

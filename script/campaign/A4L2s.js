@@ -141,7 +141,7 @@ function eventStartLevel()
 	]);
 
 	camCompleteRequiredResearch(mis_infestedResearch, CAM_INFESTED);
-	setTimer("sendInfestedReinforcements", camChangeOnDiff(camSecondsToMilliseconds(115)));
+	setTimer("sendInfestedReinforcements", camChangeOnDiff(camSecondsToMilliseconds(160)));
 	heliAttack();
 
 	// Most Infested units start out pre-damaged

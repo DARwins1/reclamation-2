@@ -1009,6 +1009,8 @@ function eventStartLevel()
 				cTempl.scytk, cTempl.scytk, // 2 Super Tank Killers
 				cTempl.cohraat, // 1 Whirlwind
 				cTempl.comrept, // 1 Repair Turret
+				cTempl.cohhcant, cTempl.cohhcant, // 2 Heavy Cannons (Hard+)
+				cTempl.cohbbt, cTempl.cohbbt, // 2 Bunker Busters (Insane)
 			],
 			globalFill: true,
 			player: CAM_THE_COLLECTIVE,

@@ -1906,7 +1906,7 @@
     "Bomb1-VTOL-LtHE": {
         "buildPoints": 600,
         "buildPower": 150,
-        "damage": 240,
+        "damage": 210,
         "designable": 1,
         "effectSize": 175,
         "explosionWav": "lrgexpl.ogg",
@@ -1931,7 +1931,7 @@
         "numExplosions": 1,
         "numRounds": 3,
         "radius": 192,
-        "radiusDamage": 144,
+        "radiusDamage": 210,
         "radiusLife": 10,
         "recoilValue": 10,
         "reloadTime": 100,
@@ -1943,12 +1943,12 @@
         "weaponEffect": "ARTILLERY ROUND",
         "weaponSubClass": "BOMB",
         "weaponWav": "hwtzflgt.ogg",
-        "weight": 2400
+        "weight": 2500
     },
     "Bomb2-VTOL-HvHE": {
         "buildPoints": 800,
         "buildPower": 200,
-        "damage": 400,
+        "damage": 350,
         "designable": 1,
         "effectSize": 350,
         "explosionWav": "lrgexpl.ogg",
@@ -1973,7 +1973,7 @@
         "numExplosions": 1,
         "numRounds": 3,
         "radius": 256,
-        "radiusDamage": 240,
+        "radiusDamage": 350,
         "radiusLife": 10,
         "recoilValue": 10,
         "reloadTime": 100,
@@ -1985,7 +1985,7 @@
         "weaponEffect": "ARTILLERY ROUND",
         "weaponSubClass": "BOMB",
         "weaponWav": "hwtzflgt.ogg",
-        "weight": 3800
+        "weight": 5000
     },
     "Bomb3-VTOL-LtINC": {
         "buildPoints": 700,
@@ -2030,7 +2030,7 @@
         "weaponEffect": "FLAMER",
         "weaponSubClass": "BOMB",
         "weaponWav": "hwtzflgt.ogg",
-        "weight": 2400
+        "weight": 2000
     },
     "Bomb4-VTOL-HvyINC": {
         "buildPoints": 900,
@@ -2076,7 +2076,7 @@
         "weaponEffect": "FLAMER",
         "weaponSubClass": "BOMB",
         "weaponWav": "hwtzflgt.ogg",
-        "weight": 3800
+        "weight": 4000
     },
     "Cannon1-VTOL": {
         "buildPoints": 250,
@@ -2527,7 +2527,7 @@
         "weaponEffect": "ALL ROUNDER",
         "weaponSubClass": "CANNON",
         "weaponWav": "rapdcan.ogg",
-        "weight": 2000
+        "weight": 2500
     },
     "Cannon5VulcanMk1": {
         "buildPoints": 700,
@@ -2567,7 +2567,7 @@
         "weaponEffect": "ALL ROUNDER",
         "weaponSubClass": "CANNON",
         "weaponWav": "rapdcan.ogg",
-        "weight": 3000
+        "weight": 4000
     },
     "InfCannon5VulcanMk1": {
         "buildPoints": 700,
@@ -2607,7 +2607,7 @@
         "weaponEffect": "ALL ROUNDER",
         "weaponSubClass": "CANNON",
         "weaponWav": "rapdcan.ogg",
-        "weight": 3000
+        "weight": 4000
     },
     "CommandTurret1": {
         "buildPoints": 500,

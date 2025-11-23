@@ -116,16 +116,7 @@ function setUnitRank(transport)
 
 	if (transport)
 	{
-		droids = enumCargo(transport);
-	}
-
-	for (let i = 0, len = droids.length; i < len; ++i)
-	{
-		const droid = droids[i];
-		if (droid.droidType !== DROID_CONSTRUCT && droid.droidType !== DROID_REPAIR)
-		{
-			camSetDroidRank(droid, rank);
-		}
+		camSetDroidRank(enumCargo(transport), rank);
 	}
 }
 

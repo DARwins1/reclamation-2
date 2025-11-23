@@ -25,7 +25,8 @@ const mis_collectiveResearch = [
 ];
 
 const MIS_TEAM_DELTA = 5;
-const MIS_ALLY_COMMANDER_RANK = "Hero";
+const MIS_DELTA_COMMANDER_RANK = "Hero";
+const MIS_DELTA_UNIT_RANK = "Regular";
 const MIS_GROUND_ASSAULT_DELAY = camSecondsToMilliseconds(20);
 const MIS_AIR_ASSAULT_DELAY = camSecondsToMilliseconds(15);
 
@@ -52,6 +53,7 @@ var colLZTruckJob10;
 // Refillable groups
 var deltaCommander;
 var deltaCommandGroup;
+var deltaGrenadierGroup;
 
 // Track which assault blips are active
 var groundBlips;
@@ -342,6 +344,16 @@ function startKillTeams()
 {
 	killTeamsEnabled = true;
 	trucksEnabled = true;
+
+	// Dialogue about Collective activity
+	camQueueDialogue([
+		{text: "LIEUTENANT: Bravo, I'm detecting a lot of Collective nearby.", delay: 0, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: They're likely after the Infested, but they'll surely attack you too.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: We're also picking up increasing Collective air traffic.", delay: 4, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Their bomber squadrons are sweeping through the entire city.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Make sure you have enough defenses.", delay: 4, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Charlie still needs to finish their evacuation.", delay: 3, sound: CAM_RCLICK},
+	]);
 }
 
 function disableInfested()
@@ -360,6 +372,13 @@ function groundAssault1()
 	
 	// Queue the actual units
 	queue("groundAssaultWave", MIS_GROUND_ASSAULT_DELAY, "1");
+
+	// Dialogue about Collective ground assault
+	camQueueDialogue([
+		{text: "LIEUTENANT: Bravo, a large group of Collective vehicles is approaching from the north.", delay: 4, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Hold the line!", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: I'll see if there's any way I can speed up the evacuation.", delay: 4, sound: CAM_RCLICK},
+	]);
 }
 
 function groundAssault2()
@@ -371,6 +390,12 @@ function groundAssault2()
 	playSound(cam_sounds.enemyUnitDetected);
 
 	queue("groundAssaultWave", MIS_GROUND_ASSAULT_DELAY, "2");
+
+	// Dialogue about another Collective ground assault
+	camQueueDialogue([
+		{text: "LIEUTENANT: Bravo, we've detected another ground assault from the south.", delay: 4, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Mobilize your forces, and take them down!", delay: 3, sound: CAM_RCLICK},
+	]);
 }
 
 function groundAssault3()
@@ -382,6 +407,14 @@ function groundAssault3()
 	playSound(cam_sounds.enemyUnitDetected);
 
 	queue("groundAssaultWave", MIS_GROUND_ASSAULT_DELAY, "3");
+
+	// Dialogue about yet another Collective ground assault
+	camQueueDialogue([
+		{text: "LIEUTENANT: Another ground assault incoming!", delay: 4, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Charlie, Bravo's position is getting hot.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: When are those transports going to be ready?", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: We're working on it, Lieutenant!", delay: 4, sound: CAM_RCLICK},
+	]);
 }
 
 function groundAssault4()
@@ -401,6 +434,15 @@ function groundAssault4()
 	playSound(cam_sounds.enemyUnitDetected);
 
 	queue("groundAssaultWave", MIS_GROUND_ASSAULT_DELAY, "4");
+
+	// Dialogue about a Collective ground assault once again
+	camQueueDialogue([
+		{text: "LIEUTENANT: Charlie, Team Bravo's not gonna last much longer out there!", delay: 4, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Where are those transports?!", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: We're moving as fast as we can!", delay: 4, sound: CAM_RCLICK},
+		{text: "CHARLIE: But we have to make up for the time we lost when we stopped to assault Clayde.", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: Just hold on for a bit longer, Bravo!", delay: 4, sound: CAM_RCLICK},
+	]);
 }
 
 function groundAssault5()
@@ -414,13 +456,22 @@ function groundAssault5()
 	playSound(cam_sounds.enemyUnitDetected);
 
 	queue("groundAssaultWave", MIS_GROUND_ASSAULT_DELAY, "5");
+
+	// Dialogue about one more Collective ground assault
+	camQueueDialogue([
+		{text: "LIEUTENANT: Charlie, drop everything!", delay: 4, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: We need those transports NOW!", delay: 2, sound: CAM_RCLICK},
+		{text: "CHARLIE: I'm trying, Lieutenant!", delay: 4, sound: CAM_RCLICK},
+		{text: "CHARLIE: The Collective all over the place!", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Do SOMTHING!", delay: 4, sound: CAM_RCLICK},
+	]);
 }
 
 function groundAssault6()
 {
 	activateGroundBlip(1);
 	activateGroundBlip(3);
-	activateGroundBlip(5);
+	activateGroundBlip(4);
 	activateGroundBlip(7);
 	activateGroundBlip(9);
 	activateGroundBlip(11);
@@ -517,7 +568,7 @@ function groundAssaultWave(index)
 					cTempl.cohbbt, cTempl.cohbbt, // 2 Bunker Busters
 					cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, cTempl.comhatt, // 4 Tank Killers
 					cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, // 4 Cyclones
-					cTempl.cominft, cTempl.cominft, // 2 Repair Turrets
+					cTempl.comrept, cTempl.comrept, // 2 Repair Turrets
 				],
 				[ // Southwest entry
 					cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, cTempl.cohhrat, // 4 HRAs
@@ -526,6 +577,21 @@ function groundAssaultWave(index)
 					cTempl.cohraat, cTempl.cohraat, // 2 Whirlwinds
 				],
 			];
+
+			// Add more units to commander squads on higher difficulties
+			if (difficulty >= MEDIUM)
+			{
+				wave3Templates[1].push(cTempl.comagt, cTempl.comagt); // 2 Assault Guns
+			}
+			if (difficulty >= HARD)
+			{
+				wave3Templates[1].push(cTempl.comagt, cTempl.comagt); // 2 Assault Guns
+			}
+			if (difficulty == INSANE)
+			{
+				wave3Templates[1].push(cTempl.comhatt, cTempl.comhatt); // 2 Tank Killers
+			}
+
 			sendCollectiveGroundWave("colEntry1", wave3Templates[0]);
 			sendCollectiveGroundWave("colEntry9", wave3Templates[1], cTempl.cohcomt);
 			sendCollectiveGroundWave("colEntry10", wave3Templates[2]);
@@ -536,7 +602,10 @@ function groundAssaultWave(index)
 					cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, cTempl.cohhcant, // 6 Heavy Cannons
 					cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, // 4 Assault Cannons
 					cTempl.comrept, cTempl.comrept, cTempl.comrept, cTempl.comrept, // 4 Repair Turrets
-					cTempl.cominft, cTempl.cominft, // 2 Repair Turrets
+					cTempl.cominft, cTempl.cominft, // 2 Infernos
+					cTempl.comacant, cTempl.comacant, // 2 Assault Cannons (Medium+)
+					cTempl.cominft, cTempl.cominft, // 2 Infernos (Hard+)
+					cTempl.cohhcant, cTempl.cohhcant, // 2 Heavy Cannons (Insane)
 				],
 				[ // Northeast entry
 					cTempl.comsensht, // 1 Sensor
@@ -564,6 +633,27 @@ function groundAssaultWave(index)
 					cTempl.comhaat, cTempl.comhaat,// 2 Cyclones
 				],
 			];
+
+			// Add more units to commander squads on higher difficulties
+			if (difficulty >= MEDIUM)
+			{
+				wave4Templates[0].push(cTempl.comacant, cTempl.comacant); // 2 Assault Cannons
+				wave4Templates[2].push(cTempl.cohhrat, cTempl.cohhrat); // 2 HRAs
+				wave4Templates[4].push(cTempl.comagt, cTempl.comagt); // 2 Assault Guns
+			}
+			if (difficulty >= HARD)
+			{
+				wave4Templates[0].push(cTempl.cominft, cTempl.cominft); // 2 Infernos
+				wave4Templates[2].push(cTempl.comrept, cTempl.comrept); // 2 Repair Turrets
+				wave4Templates[4].push(cTempl.cohhrat, cTempl.cohhrat); // 2 HRAs
+			}
+			if (difficulty == INSANE)
+			{
+				wave4Templates[0].push(cTempl.cohhcant, cTempl.cohhcant); // 2 Heavy Cannons
+				wave4Templates[2].push(cTempl.cohbbt, cTempl.cohbbt); // 2 Bunker Busters
+				wave4Templates[4].push(cTempl.comhatt, cTempl.comhatt); // 2 Tank Killers
+			}
+
 			sendCollectiveGroundWave("colEntry2", wave4Templates[0], cTempl.cohcomt);
 			sendCollectiveGroundWave("colEntry3", wave4Templates[1]);
 			sendCollectiveGroundWave("colEntry5", wave4Templates[2], cTempl.cohcomt);
@@ -605,6 +695,24 @@ function groundAssaultWave(index)
 					cTempl.cohhowt, cTempl.cohhowt, cTempl.cohhowt, cTempl.cohhowt, // 4 Howitzers
 				],
 			];
+
+			// Add more units to commander squads on higher difficulties
+			if (difficulty >= MEDIUM)
+			{
+				wave5Templates[1].push(cTempl.comagt, cTempl.comagt); // 2 Assault Guns
+				wave5Templates[3].push(cTempl.comhatt, cTempl.comhatt); // 2 Tank Killers
+			}
+			if (difficulty >= HARD)
+			{
+				wave5Templates[1].push(cTempl.comrept, cTempl.comrept); // 2 Repair Turrets
+				wave5Templates[3].push(cTempl.comagt, cTempl.comagt); // 2 Assault Guns
+			}
+			if (difficulty == INSANE)
+			{
+				wave5Templates[1].push(cTempl.cohhcant, cTempl.cohhcant); // 2 Heavy Cannons
+				wave5Templates[3].push(cTempl.cohbbt, cTempl.cohbbt); // 2 Bunker Busters
+			}
+
 			sendCollectiveGroundWave("colEntry4", wave5Templates[0]);
 			// sendCollectiveGroundWave("colEntry5", wave5Templates[1], cTempl.cohcomt);
 			deltaArrival(); // NOTE: Team Delta spawns from entry 5 instead of a Collective wave
@@ -667,7 +775,7 @@ function groundAssaultWave(index)
 			];
 			sendCollectiveGroundWave("colEntry1", wave6Templates[0]);
 			sendCollectiveGroundWave("colEntry3", wave6Templates[1]);
-			sendCollectiveGroundWave("colEntry5", wave6Templates[2]);
+			sendCollectiveGroundWave("colEntry4", wave6Templates[2]);
 			sendCollectiveGroundWave("colEntry7", wave6Templates[3]);
 			sendCollectiveGroundWave("colEntry9", wave6Templates[4]);
 			sendCollectiveGroundWave("colEntry11", wave6Templates[5]);
@@ -744,6 +852,13 @@ function airAssault1()
 	playSound(cam_sounds.incomingAirStrike);
 
 	queue("airAssaultWave", MIS_AIR_ASSAULT_DELAY, "1");
+
+	// Dialogue about incoming air assault
+	camQueueDialogue([
+		{text: "CHARLIE: Bravo!", delay: 4, sound: CAM_RCLICK},
+		{text: "CHARLIE: You've got firebombers inbound, lots of them!", delay: 2, sound: CAM_RCLICK},
+		{text: "CHARLIE: They're approaching from the northeast!", delay: 2, sound: CAM_RCLICK},
+	]);
 }
 
 function airAssault2()
@@ -755,6 +870,11 @@ function airAssault2()
 	playSound(cam_sounds.incomingAirStrike);
 
 	queue("airAssaultWave", MIS_AIR_ASSAULT_DELAY, "2");
+
+	// Dialogue about another incoming air assault
+	camQueueDialogue([
+		{text: "CHARLIE: Another group of firebombers from the north!", delay: 4, sound: CAM_RCLICK},
+	]);
 }
 
 function airAssault3()
@@ -769,6 +889,13 @@ function airAssault3()
 	playSound(cam_sounds.incomingAirStrike);
 
 	queue("airAssaultWave", MIS_AIR_ASSAULT_DELAY, "3");
+
+	// Dialogue about yet another air assault
+	camQueueDialogue([
+		{text: "CHARLIE: Bravo!", delay: 4, sound: CAM_RCLICK},
+		{text: "CHARLIE: You've got TWO squadrons inbound!", delay: 2, sound: CAM_RCLICK},
+		{text: "CHARLIE: Hang on!", delay: 3, sound: CAM_RCLICK},
+	]);
 }
 
 function airAssault4()
@@ -1044,27 +1171,43 @@ function deltaArrival()
 	sendDeltaReinforcements();
 	deltaVtolAttack();
 	setTimer("sendDeltaReinforcements", camSecondsToMilliseconds(30));
+
+	// Dialogue about Delta's arrival
+	camQueueDialogue([
+		{text: "DELTA: Need a hand, Bravo?!", delay: 8, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Commander Delta?!", delay: 4, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: What are you doing-", delay: 3, sound: CAM_RCLICK},
+		{text: "DELTA: We heard your speech, Lieutenant.", delay: 1, sound: CAM_RCLICK},
+		{text: "DELTA: Let's put the past behind us, and escape this city together.", delay: 3, sound: CAM_RCLICK},
+		{text: "DELTA: ...Commander Bravo, hang on!", delay: 4, sound: CAM_RCLICK},
+		{text: "DELTA: We'll help you fight off the Collective!", delay: 4, sound: CAM_RCLICK},
+		// Delay
+		{text: "LIEUTENANT: ...Thank you, Delta.", delay: 8, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Charlie, get a transport to Bravo's base ASAP.", delay: 8, sound: CAM_RCLICK},
+		{text: "CHARLIE: On it!", delay: 4, sound: CAM_RCLICK},
+	]);
 }
 
 function sendDeltaReinforcements()
 {
 	const commTemplates = camGetRefillableGroupTemplates(deltaCommander);
-	const groupTemplates = camGetRefillableGroupTemplates(deltaCommandGroup);
+	const groupTemplates = camGetRefillableGroupTemplates([deltaCommandGroup, deltaGrenadierGroup]);
 
 	if (commTemplates.length > 0)
 	{
 		// Spawn Delta's commander
 		const commDroid = camAddDroid(MIS_TEAM_DELTA, "colEntry5", commTemplates[0]);
 		addLabel(commDroid, "deltaCommander");
-		camSetDroidRank(commDroid, MIS_ALLY_COMMANDER_RANK);
+		camSetDroidRank(commDroid, MIS_DELTA_COMMANDER_RANK);
 		camAssignToRefillableGroups([commDroid], deltaCommander);
 	}
 
 	if (groupTemplates.length > 0)
 	{
-		// Spawn Delta's command units
+		// Spawn Delta's other ground units
 		const newDroids = camSendReinforcement(MIS_TEAM_DELTA, getObject("colEntry5"), groupTemplates, CAM_REINFORCE_GROUND);
-		camAssignToRefillableGroups(enumGroup(newDroids), deltaCommandGroup);
+		camSetDroidRank(newDroids, MIS_DELTA_UNIT_RANK);
+		camAssignToRefillableGroups(enumGroup(newDroids), [deltaCommandGroup, deltaGrenadierGroup]);
 	}
 }
 
@@ -1081,7 +1224,15 @@ function deltaVtolAttack()
 
 function eventMissionTimeout()
 {
-	if (!transportPlaced)
+	camCallOnce("transitionSetup");
+}
+
+// Special case handling for the "let me win" achievement
+// The player NEEDS to have a loaded transporter to start the next mission correctly, but they don't have one until the timer runs out
+// So if the player uses the "let me win" cheat, skip straight to the escape segment
+function eventChat(from, to, message)
+{
+	if (camIsCheating() && message === "let me win")
 	{
 		camCallOnce("transitionSetup");
 	}
@@ -1149,19 +1300,6 @@ function eventStartLevel()
 	setAlliance(MIS_TEAM_DELTA, CAM_HUMAN_PLAYER, true);
 	camSetObjectVision(MIS_TEAM_DELTA);
 	changePlayerColour(MIS_TEAM_DELTA, (playerData[0].colour !== 1) ? 1 : 8); // Delta to orange or yellow
-
-	// Placeholder for the actual briefing sequence
-	// camQueueDialogue([
-	// 	{text: "---- BRIEFING PLACEHOLDER ----", delay: 0},
-	// 	{text: "LIEUTENANT: General, sir, Commander Bravo has secured the area around team Charlie's base.", delay: 2, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: Right on time, I have a new objective for them.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: We've received a distress signal from team Delta.", delay: 2, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: It seems that that their base may have been overrun by the Collective.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: Commander Bravo, send a scout team to the outskirts of their base.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: Find and relieve team Delta, and await further instructions.", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "LIEUTENANT: General, sir, has their been any transmission from team Echo?", delay: 3, sound: CAM_RCLICK},
-	// 	{text: "CLAYDE: No... and that's what concerns me the most.", delay: 3, sound: CAM_RCLICK},
-	// ]);
 
 	camCompleteRequiredResearch(mis_infestedResearch, CAM_INFESTED);
 	camCompleteRequiredResearch(mis_collectiveResearch, CAM_THE_COLLECTIVE);
@@ -1310,28 +1448,37 @@ function eventStartLevel()
 	// (allied) Refillable groups
 	deltaCommander = camMakeRefillableGroup(
 		undefined, {
-			templates: [cTempl.plhcomt],
-		}, CAM_ORDER_ATTACK, {
-	});
+			templates: [cTempl.plhcomht],
+		}, CAM_ORDER_ATTACK);
 	deltaCommandGroup = camMakeRefillableGroup(
 		undefined, {
-			templates: [ // 6 Assault Cannons, 4 Assault Guns, 4 Repair Turrets, 2 Whirlwinds, 6 Super Grenadiers
-				cTempl.plhacant, cTempl.plhacant,
-				cTempl.plhasgnt, cTempl.plhasgnt,
+			templates: [ // 8 Assault Cannons, 4 Repair Turrets, 2 Whirlwinds, 8 Super Auto-Cannons
+				cTempl.plhacanht, cTempl.plhacanht,
+				cTempl.plhacanht, cTempl.plhacanht,
 				cTempl.plhrepht, cTempl.plhrepht,
-				cTempl.plhraat,
-				cTempl.scygr, cTempl.scygr, cTempl.scygr,
-				cTempl.plhacant, cTempl.plhacant,
-				cTempl.plhasgnt, cTempl.plhasgnt,
+				cTempl.plhraaht,
+				cTempl.scyac, cTempl.scyac,
+				cTempl.scyac, cTempl.scyac,
+				cTempl.plhacanht, cTempl.plhacanht,
 				cTempl.plhrepht, cTempl.plhrepht,
-				cTempl.plhraat,
-				cTempl.plhacant, cTempl.plhacant,
-				cTempl.scygr, cTempl.scygr, cTempl.scygr,
+				cTempl.plhraaht,
+				cTempl.plhacanht, cTempl.plhacanht,
+				cTempl.scyac, cTempl.scyac,
+				cTempl.scyac, cTempl.scyac,
 			],
 		}, CAM_ORDER_FOLLOW, {
 			leader: "deltaCommander",
 			suborder: CAM_ORDER_ATTACK
 	});
+	deltaGrenadierGroup = camMakeRefillableGroup(
+		undefined, {
+			templates: [ // 8 Super Grenadiers
+				cTempl.scygr, cTempl.scygr,
+				cTempl.scygr, cTempl.scygr,
+				cTempl.scygr, cTempl.scygr,
+				cTempl.scygr, cTempl.scygr,
+			],
+		}, CAM_ORDER_ATTACK);
 
 	// Truck jobs for Collective LZs
 	colLZTruckJob1 = camManageTrucks(
@@ -1394,6 +1541,12 @@ function eventStartLevel()
 			rebuildBase: true,
 			structset: camA4L5ColLZ10Structs
 	});
+
+	// Upgrade Collective structures on higher difficulties
+	if (difficulty >= HARD)
+	{
+		camTruckObsoleteStructure(CAM_THE_COLLECTIVE, "AASite-QuadBof", "AASite-QuadRotMg"); // AA Sites
+	}
 
 	// Give player briefing.
 	camPlayVideos({video: "A4L5_BRIEF", type: MISS_MSG});

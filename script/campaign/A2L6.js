@@ -302,21 +302,15 @@ function activateCollective()
 		repair: 75
 	});
 	// Collective refillable groups
-	const commandTemplates1 = [ // 4 Grenadiers, 2 Lancers, 2 Medium Cannons, 2 Hurricanes
-		cTempl.cybgr, cTempl.cybgr, cTempl.cybgr, cTempl.cybgr,
-		cTempl.comatt, cTempl.comatt,
-		cTempl.commcant, cTempl.commcant,
-		cTempl.colaaht, cTempl.colaaht,
-	];
-	if (difficulty >= HARD)
-	{
-		// Add 2 Super Heavy-Gunners
-		commandTemplates1.push(cTempl.scymc);
-		commandTemplates1.push(cTempl.scymc);
-	}
 	camMakeRefillableGroup(
 		camMakeGroup("colCommandGroup1"), {
-			templates: commandTemplates1,
+			templates:  // 4 Grenadiers, 2 Lancers, 2 Medium Cannons, 2 Hurricanes
+				cTempl.cybgr, cTempl.cybgr, cTempl.cybgr, cTempl.cybgr,
+				cTempl.comatt, cTempl.comatt,
+				cTempl.commcant, cTempl.commcant,
+				cTempl.colaaht, cTempl.colaaht,
+				cTempl.scymc, cTempl.scymc, // 2 Super Heavy Gunners (Hard+)
+			],
 			factories: ["colFactory4", "colCybFactory5"],
 			obj: "colCommander1" // Stop refilling this group when the commander dies
 		}, CAM_ORDER_FOLLOW, {
@@ -324,24 +318,18 @@ function activateCollective()
 			repair: 60,
 			suborder: CAM_ORDER_ATTACK
 	});
-	const commandTemplates2 = [ // 2 HVCs, 2 HMGs, 2 Lancer Cyborgs, 2 Super Heavy-Gunners, 2 Heavy Cannons, 1 Cyclone, 1 Repair Turret
-		cTempl.comhpvt, cTempl.comhpvt,
-		cTempl.comhmgt, cTempl.comhmgt,
-		cTempl.cybla, cTempl.cybla,
-		cTempl.scymc, cTempl.scymc,
-		cTempl.cohhcant, cTempl.cohhcant,
-		cTempl.comhaat,
-		cTempl.comrept,
-	];
-	if (difficulty >= HARD)
-	{
-		// Add 2 Lancer Cyborgs
-		commandTemplates1.push(cTempl.cybla);
-		commandTemplates1.push(cTempl.cybla);
-	}
 	camMakeRefillableGroup(
 		camMakeGroup("colCommandGroup2"), {
-			templates: commandTemplates2,
+			templates: [ // 2 HVCs, 2 HMGs, 2 Lancer Cyborgs, 2 Super Heavy-Gunners, 2 Heavy Cannons, 1 Cyclone, 1 Repair Turret
+				cTempl.comhpvt, cTempl.comhpvt,
+				cTempl.comhmgt, cTempl.comhmgt,
+				cTempl.cybla, cTempl.cybla,
+				cTempl.scymc, cTempl.scymc,
+				cTempl.cohhcant, cTempl.cohhcant,
+				cTempl.comhaat,
+				cTempl.comrept,
+				cTempl.cybla, cTempl.cybla,  // 2 Lancer Cyborgs (Hard+)
+			],
 			factories: ["colFactory4", "colCybFactory5"],
 			obj: "colCommander2"
 		}, CAM_ORDER_FOLLOW, {

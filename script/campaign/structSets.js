@@ -429,7 +429,6 @@ const camA4L4CharlieLZStructs = [
 	{stat: "A0VtolPad", x: 6, y: 109}, {stat: "A0VtolPad", x: 6, y: 110}, {stat: "AASite-QuadRotMg", x: 6, y: 111, rot: 1},
 	{stat: "WallTower-HvATrocket", x: 15, y: 103}, {stat: "PillBoxHPC", x: 9, y: 105}, {stat: "GuardTower-TK", x: 11, y: 106},
 	{stat: "Tower-Projector", x: 8, y: 108}, {stat: "GuardTower-RotMg", x: 13, y: 104}, {stat: "AASite-QuadRotMg", x: 13, y: 107},
-	{stat: "Wall-RotMg", x: 12, y: 109}, {stat: "A0HardcreteMk1Wall", x: 12, y: 110, rot: 1}, {stat: "WallTower04", x: 12, y: 111},
 	{stat: "AASite-QuadRotMg", x: 4, y: 112, rot: 1}, {stat: "A0VtolPad", x: 4, y: 113}, {stat: "A0VtolPad", x: 4, y: 114},
 	{stat: "A0VtolPad", x: 4, y: 115}, {stat: "A0VtolPad", x: 6, y: 112}, {stat: "A0VtolPad", x: 6, y: 113},
 	{stat: "A0VtolPad", x: 6, y: 114}, {stat: "Pillbox-RotMG", x: 4, y: 117}, {stat: "Tower-Projector", x: 8, y: 114},
@@ -445,7 +444,18 @@ const camA4L4CharlieLZStructs = [
 	{stat: "WallTower04", x: 27, y: 112}, {stat: "A0RepairCentre3", x: 16, y: 115}, {stat: "A0RepairCentre3", x: 18, y: 115},
 	{stat: "A0RepairCentre3", x: 20, y: 115},
 ];
-
+// Charlie forward defenses
+const camA4L4CharlieForwardStructs = [
+	{stat: "WallTower-HvATrocket", x: 22, y: 37}, {stat: "A0HardcreteMk1Wall", x: 23, y: 37}, {stat: "WallTower-HvATrocket", x: 24, y: 37},
+	{stat: "WallTower04", x: 26, y: 38}, {stat: "A0HardcreteMk1Wall", x: 26, y: 39}, {stat: "WallTower04", x: 26, y: 40},
+	{stat: "Emplacement-RotMor", x: 23, y: 41}, {stat: "Emplacement-Ballista", x: 22, y: 40}, {stat: "Emplacement-RotMor", x: 21, y: 41},
+	{stat: "PillBoxHPC", x: 26, y: 42}, {stat: "Sys-SensoTower02", x: 25, y: 40}, {stat: "PillBoxHPC", x: 20, y: 38},
+	{stat: "AASite-QuadRotMg", x: 19, y: 39, rot: 2}, {stat: "AASite-QuadRotMg", x: 16, y: 41, rot: 2}, {stat: "AASite-QuadRotMg", x: 20, y: 44, rot: 1},
+	{stat: "A0RepairCentre3", x: 17, y: 44}, {stat: "A0RepairCentre3", x: 16, y: 46}, {stat: "A0RepairCentre3", x: 17, y: 48},
+	{stat: "Pillbox-RotMG", x: 15, y: 50}, {stat: "AASite-QuadRotMg", x: 17, y: 51}, {stat: "Pillbox-RotMG", x: 19, y: 52},
+	{stat: "AASite-QuadRotMg", x: 20, y: 48}, {stat: "GuardTower-TK", x: 23, y: 50}, {stat: "WallTower04", x: 13, y: 44},
+	{stat: "A0HardcreteMk1Wall", x: 13, y: 45}, {stat: "A0HardcreteMk1Wall", x: 13, y: 46}, {stat: "WallTower04", x: 13, y: 47},
+];
 
 // A4L5
 // Collective LZ defenses

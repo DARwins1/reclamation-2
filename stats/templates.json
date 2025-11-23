@@ -2677,6 +2677,14 @@
     "P0PyVStrikeHT": {
         "body": "Body11ABT",
         "id": "P0PyVStrikeHT",
+        "name": "VTOL Strike Turret Python Half-tracks",
+        "propulsion": "HalfTrack",
+        "sensor": "Sys-VstrikeTurret01",
+        "type": "DROID"
+    },
+    "P0PyVStrikeT": {
+        "body": "Body11ABT",
+        "id": "P0PyVStrikeT",
         "name": "VTOL Strike Turret Python Tracks",
         "propulsion": "tracked01",
         "sensor": "Sys-VstrikeTurret01",

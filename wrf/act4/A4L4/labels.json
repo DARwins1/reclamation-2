@@ -25,13 +25,13 @@
 
 	"position_4": {
 		"label": "introCommanderPos",
-		"pos": [5683, 14606]
+		"pos": [6819, 15220]
 	},
 
 
 	"position_5": {
 		"label": "introHoverPos",
-		"pos": [6819, 15220]
+		"pos": [5683, 14606]
 	},
 
 
@@ -336,20 +336,6 @@
 	},
 
 
-	"area_25": {
-		"label": "zuluCommandGroup2",
-		"pos1": [6912, 3328],
-		"pos2": [7424, 3968]
-	},
-
-
-	"area_26": {
-		"label": "zuluCommandGroup3",
-		"pos1": [7552, 3328],
-		"pos2": [8064, 3968]
-	},
-
-
 	"object_0": {
 		"label": "zuluCommander3",
 		"id": 1197,
@@ -463,16 +449,16 @@
 
 
 	"object_14": {
-		"label": "zuluCommander2",
-		"id": 1200,
+		"label": "zuluVtolFactory3",
+		"id": 1457,
 		"player": 5,
-		"type": 0
+		"type": 1
 	},
 
 
 	"object_15": {
-		"label": "zuluVtolSensor",
-		"id": 1160,
+		"label": "zuluCommander2",
+		"id": 1200,
 		"player": 5,
 		"type": 0
 	},
@@ -535,16 +521,8 @@
 
 
 	"object_23": {
-		"label": "zuluVtolFactory3",
-		"id": 1457,
-		"player": 5,
-		"type": 1
-	},
-
-
-	"object_24": {
-		"label": "zuluIntroCommander",
-		"id": 1121,
+		"label": "zuluVtolSensor",
+		"id": 1539,
 		"player": 5,
 		"type": 0
 	},
