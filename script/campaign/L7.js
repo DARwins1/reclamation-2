@@ -343,8 +343,8 @@ function infestedAttackWaves()
 	}
 
 	// Check if the player has abandoned the southern half of the map
-	const NUM_SOUTH_OBJECTS enumArea("southZone", CAM_HUMAN_PLAYER, false).length; // Count the number of objects in the south half of the map
-	const NUM_EXCLUDED_OBJECTS enumArea("southExclusionZone", CAM_HUMAN_PLAYER, false).length; // Exclude the objects in the SE "industrial" area
+	const NUM_SOUTH_OBJECTS = enumArea("southZone", CAM_HUMAN_PLAYER, false).length; // Count the number of objects in the south half of the map
+	const NUM_EXCLUDED_OBJECTS = enumArea("southExclusionZone", CAM_HUMAN_PLAYER, false).length; // Exclude the objects in the SE "industrial" area
 	const SOUTH_ABANDONED = (NUM_SOUTH_OBJECTS - NUM_EXCLUDED_OBJECTS === 0);
 
 	const entrances = [];

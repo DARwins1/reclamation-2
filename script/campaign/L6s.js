@@ -32,8 +32,6 @@ function eventStartLevel()
 		setMissionTime(-1);
 	}
 
-	setTimer("check", camSecondsToMilliseconds(1));
-
 	// Change the fog colour to a light pink/purple
 	camSetFog(185, 182, 236);
 	// Shift the sun towards the west

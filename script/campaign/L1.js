@@ -224,7 +224,7 @@ function yScavPlayerDetected()
 		// camSetFactories({"cScavFactory": {}}); // Clears factory data (disabling the factory)
 
 		camQueueDialogue([
-			{text: "CLAYDE: Commander, we've been monitoring scavenger radio chatter from your area.", delay: 0, sound: CAM_RCLICK},
+			{text: "CLAYDE: Commander, we've been monitoring scavenger radio transmissions from your area.", delay: 0, sound: CAM_RCLICK},
 			{text: "CLAYDE: It would appear that some of the scavengers near you are now aware of your presence.", delay: 3, sound: CAM_RCLICK},
 			{text: "CLAYDE: If their chatter is anything to go by, it looks like they're preparing to retaliate.", delay: 3, sound: CAM_RCLICK},
 			{text: "CLAYDE: Be ready to defend our base.", delay: 4, sound: CAM_RCLICK},

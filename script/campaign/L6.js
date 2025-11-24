@@ -268,7 +268,7 @@ function checkForLZReturn()
 	{
 		removeTimer("checkForLZReturn");
 
-		playSound(cam_sounds.objective.primObjectiveCompleted);
+		// playSound(cam_sounds.objective.primObjectiveCompleted);
 		camGrantBonusPower(); // Grant bonus power here since the timer is about to be overridden
 
 		// Set the mission to timer to 10 minutes and get ready to start sending waves of infested
