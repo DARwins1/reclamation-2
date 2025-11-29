@@ -425,7 +425,8 @@ function eventAttacked(victim, attacker)
 function nasdaStructDialogue()
 {
 	camQueueDialogue([
-		{text: "LIEUTENANT: It seems that these scavengers are repurposing NASDA's Pre-Collapse defense systems.", delay: 2, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: It seems that these scavengers are", delay: 2, sound: CAM_RCLICK},
+		{text: "repurposing NASDA's Pre-Collapse defense systems.", delay: 0},
 		{text: "LIEUTENANT: ...But they look like they're in rather poor condition.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: A few crumbling hardpoints aren't going to stop us today.", delay: 6, sound: CAM_RCLICK},
 		{text: "CLAYDE: Continue your assault, Commanders.", delay: 3, sound: CAM_RCLICK},

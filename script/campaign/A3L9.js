@@ -342,7 +342,7 @@ function golfAttackDialogue()
 	camQueueDialogue([
 		{text: "LIEUTENANT: Golf, please, I can explain-", delay: 2, sound: CAM_RCLICK},
 		{text: "GOLF: Don't waste your time, Lieutenant.", delay: 2, sound: CAM_RCLICK},
-		{text: "GOLF: ...How about you \"explain\" to Commander Bravo that they should surrender right now?", delay: 3, sound: CAM_RCLICK},
+		{text: "GOLF: ...How about you \"explain\" to Commander Bravo that they should surrender right now.", delay: 3, sound: CAM_RCLICK},
 		{text: "GOLF: They're outgunned and outmatched, Lieutenant.", delay: 4, sound: CAM_RCLICK},
 		{text: "GOLF: It's only a matter of time before they're brought down.", delay: 3, sound: CAM_RCLICK},
 	]);

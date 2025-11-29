@@ -393,13 +393,15 @@ function onslaughtEndDialogue()
 	case 2:
 		camQueueDialogue([
 			{text: "CLAYDE: Commander Bravo, the Infested onslaught is dissipating.", delay: 0, sound: CAM_RCLICK},
-			{text: "CLAYDE: Now's your chance to attack the Collective, while they're busy dealing with the stragglers.", delay: 3, sound: CAM_RCLICK},
+			{text: "CLAYDE: Now's your chance to attack the Collective,", delay: 3, sound: CAM_RCLICK},
+			{text: "while they're busy dealing with the stragglers.", delay: 0},
 		]);
 		break;
 	case 3:
 		camQueueDialogue([
 			{text: "CLAYDE: The large attack waves are passing, Commander Bravo.", delay: 0, sound: CAM_RCLICK},
-			{text: "CLAYDE: Move out and assault the Collective before they can repair any damage they've sustained.", delay: 3, sound: CAM_RCLICK},
+			{text: "CLAYDE: Move out and assault the Collective before", delay: 3, sound: CAM_RCLICK},
+			{text: "they can repair any damage they've sustained.", delay: 0},
 		]);
 		break;
 	default: // Repeat after the 3rd onslaught

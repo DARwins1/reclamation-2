@@ -663,6 +663,11 @@ function dataDownloaded()
 			{
 				setMissionTime(missionTimeRemaining); // Resume the mission timer
 			}
+			else
+			{
+				// Play a little sound queue when the uplink is lost
+				playSound("beep6.ogg");
+			}
 		}
 
 		lastUplinkCheckTime = gameTime;

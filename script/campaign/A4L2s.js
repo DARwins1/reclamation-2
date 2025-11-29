@@ -136,8 +136,10 @@ function eventStartLevel()
 		{text: "LIEUTENANT: Another thing, Bravo.", delay: 6, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: I'm still picking up a lot of movement around your area.", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Most of it is probably just wandering groups of Infested.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: But still, try to make sure that your defenses are in good condition before taking off.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Especially in the east and in the south, as I'm detecting extra activity in those directions.", delay: 4, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: But still, try to make sure that your", delay: 3, sound: CAM_RCLICK},
+		{text: "defenses are in good condition before taking off.", delay: 0},
+		{text: "LIEUTENANT: Especially in the east and in the south,", delay: 4, sound: CAM_RCLICK},
+		{text: "I'm detecting extra activity in those directions.", delay: 0},
 	]);
 
 	camCompleteRequiredResearch(mis_infestedResearch, CAM_INFESTED);

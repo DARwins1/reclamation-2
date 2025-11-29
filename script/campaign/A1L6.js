@@ -452,7 +452,8 @@ function eventStartLevel()
 	camQueueDialogue([
 		{text: "LIEUTENANT: You'll have to evacuate using your transport.", delay: 5, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Hold out for as long as possible and evacuate as many units as you can.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: The transport will take some time to return, so make sure you're ready when by the time it comes back!", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: The transport will take some time to return,", delay: 3, sound: CAM_RCLICK},
+		{text: "so make sure you're ready when by the time it comes back!", delay: 0},
 		{text: "LIEUTENANT: And remember that anything not evacuated will be LOST!", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Good luck, Commander Bravo.", delay: 4, sound: CAM_RCLICK},
 	]);

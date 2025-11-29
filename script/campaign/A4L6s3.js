@@ -1134,9 +1134,8 @@ function endSequence()
 		{text: "LIEUTENANT: We...", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: ...Actually made it!", delay: 2, sound: CAM_RCLICK},
 		{text: "DELTA: The Collective is pulling back to the city!", delay: 3, sound: CAM_RCLICK},
-		{text: "DELTA: They finally gave up!", delay: 3, sound: CAM_RCLICK},
-		{text: "CHARLIE: Hell yeah!", delay: 3, sound: CAM_RCLICK},
-		{text: "", delay: 20, callback: "endGame"},
+		{text: "CHARLIE: Hell yeah!", delay: 4, sound: CAM_RCLICK},
+		{text: "", delay: 25, callback: "endGame"},
 	]);
 
 	// TODO: Queue transport scene & more dialogue

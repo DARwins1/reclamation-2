@@ -72,8 +72,9 @@ camAreaEvent("cScavAttack", function(droid)
 
 		// Message about scavengers being cool
 		camQueueDialogue([
-			{text: "CLAYDE: Once you've finished your work out there, I'll have some extra questions for our contacts.", delay: 0, sound: CAM_RCLICK},
-			{text: "CLAYDE: These scavengers seem to have an interest in them.", delay: 3, sound: CAM_RCLICK},
+			{text: "CLAYDE: Once you've finished your work out there, I'll", delay: 0, sound: CAM_RCLICK},
+			{text: "have some extra questions for our contacts.", delay: 0},
+			{text: "CLAYDE: These scavengers seem to have an interest in them.", delay: 4, sound: CAM_RCLICK},
 			{text: "CLAYDE: Which means that they may be after the same goal...", delay: 3, sound: CAM_RCLICK},
 		]);
 	}

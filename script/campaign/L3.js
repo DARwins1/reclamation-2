@@ -234,7 +234,8 @@ function camEnemyBaseDetected_mountainBase()
 		{text: "CLAYDE: Commander, those scavenger helicopters are flying in from an off-site location.", delay: 0, sound: CAM_RCLICK},
 		{text: "CLAYDE: These scavengers must be coordinating their attacks from a relay located nearby.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: Look for some sort of radar structure or device.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: If you can disrupt their communications, they should be unable to coordinate any more air attacks. ", delay: 2, sound: CAM_RCLICK},
+		{text: "CLAYDE: If you can disrupt their communications,", delay: 2, sound: CAM_RCLICK},
+		{text: "they should be unable to coordinate any more air attacks. ", delay: 0},
 	]);
 }
 

@@ -970,7 +970,8 @@ function eventStartLevel()
 	camQueueDialogue([
 		{text: "CLAYDE: Commander Bravo, and not a moment too soon!", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: My engineers have set up an LZ for you outside of NASDA Central.", delay: 2, sound: CAM_RCLICK},
-		{text: "CLAYDE: Teams Foxtrot and Delta have already taken up positions to the southwest and southeast.", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: Teams Foxtrot and Delta have already", delay: 3, sound: CAM_RCLICK},
+		{text: "taken up positions to the southwest and southeast.", delay: 0},
 		{text: "CLAYDE: Use your forces and defend the northern approach.", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: We must hold NASDA Central at all costs!", delay: 3, sound: CAM_RCLICK},
 	]);

@@ -120,10 +120,12 @@ function setStageTwo()
 	// Dialogue...
 	camCallOnce("collectiveDialogue");
 	camQueueDialogue([ // Additional dialogue after a long delay...
-		{text: "CHARLIE: Lieutenant, we've detected more of those SAM launchers in the areas surrounding our base.", delay: 60, sound: CAM_RCLICK},
+		{text: "CHARLIE: Lieutenant, we've detected more of those SAM launchers", delay: 60, sound: CAM_RCLICK},
+		{text: "in the surrounding areas.", delay: 0},
 		{text: "CHARLIE: The Collective is trying to box us in!", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: ...This just keeps getting worse, huh?", delay: 4, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: We're not going to be able to flee using transports until we come up with a backup plan.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: We're not going to be able to flee using transports", delay: 3, sound: CAM_RCLICK},
+		{text: "until we come up with a backup plan.", delay: 0},
 		{text: "LIEUTENANT: Commanders, make sure to fortify our position.", delay: 4, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Set up as many defenses as you can!", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: The Collective won't let us leave without a fight!", delay: 3, sound: CAM_RCLICK},

@@ -424,7 +424,8 @@ function eventAttacked(victim, attacker)
 		camQueueDialogue([
 			{text: "LIEUTENANT: General, are you seeing this sir...?", delay: 6, sound: CAM_RCLICK},
 			{text: "CLAYDE: Oh, I'm seeing it alright.", delay: 3, sound: CAM_RCLICK},
-			{text: "CLAYDE: All Commanders be advised; we have confirmed accounts of an advanced, hostile force operating in this sector.", delay: 3, sound: CAM_RCLICK},
+			{text: "CLAYDE: All Commanders be advised; we have confirmed accounts", delay: 3, sound: CAM_RCLICK},
+			{text: "of an advanced, hostile force operating in this sector.", delay: 0},
 			{text: "CLAYDE: Proceed with extreme caution.", delay: 3, sound: CAM_RCLICK},
 			{text: "CLAYDE: Commander Bravo.", delay: 4, sound: CAM_RCLICK},
 			{text: "CLAYDE: Your objective remains the same, capture that uplink and clear the area.", delay: 2, sound: CAM_RCLICK},
@@ -850,7 +851,8 @@ function eventStartLevel()
 
 	// Remind the player to try out their cool new toys
 	camQueueDialogue([
-		{text: "LIEUTENANT: Don't forget to examine the technology recovered from NASDA Central, Commander!", delay: 8, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Don't forget to examine the technology", delay: 8, sound: CAM_RCLICK},
+		{text: "recovered from NASDA Central, Commander Bravo!", delay: 0},
 		{text: "LIEUTENANT: I have a feeling that they'll prove to be very useful.", delay: 3, sound: CAM_RCLICK},
 	]);
 

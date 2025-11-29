@@ -57,7 +57,8 @@ camAreaEvent("captureZone", function(droid)
 		{text: "CLAYDE: I'm sure the Council will be pleased to know of our success.", delay: 2, sound: CAM_RCLICK},
 		{text: "CLAYDE: I've dispatched a transport with trucks to your position.", delay: 4, sound: CAM_RCLICK},
 		{text: "CLAYDE: Use them to get this base up and running as soon as possible.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: Make sure to construct a generator and investigate that research facility for anything useful.", delay: 4, sound: CAM_RCLICK},
+		{text: "CLAYDE: Make sure to construct a generator and", delay: 4, sound: CAM_RCLICK},
+		{text: "investigate that research facility for anything useful.", delay: 0},
 	]);
 
 	// Activate scavenger factories after a 35 second delay

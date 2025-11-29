@@ -68,7 +68,8 @@ function collectiveDialogue()
 		{text: "LIEUTENANT: ...Why can't anything ever be simple?", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Commander Bravo, focus on escorting those refugees.", delay: 4, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Charlie, Delta, cover Bravo's flanks and help them keep the Collective at bay.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: We need to save as many people as we can before we can escape this damned place for good.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: We need to save as many people as we can", delay: 3, sound: CAM_RCLICK},
+		{text: "before we can escape this damned place for good.", delay: 0},
 	]);
 }
 

@@ -288,7 +288,8 @@ function donateSensor()
 
 	// Dialogue about the using the sensor to spot the Infested
 	camQueueDialogue([
-		{text: "CHARLIE: Commander Bravo, we can use sensor like this one to monitor enemies from a safe distance.", delay: 2, sound: CAM_RCLICK},
+		{text: "CHARLIE: Commander Bravo, we can use sensor like this one", delay: 2, sound: CAM_RCLICK},
+		{text: "to monitor enemies from a safe distance.", delay: 0},
 		{text: "CHARLIE: That should make it easier to avoid the Infested.", delay: 3, sound: CAM_RCLICK},
 	]);
 }
@@ -936,10 +937,11 @@ function nukeMap()
 		{text: "CLAYDE: This operation was not in vain.", delay: 2, sound: CAM_RCLICK},
 		{text: "CLAYDE: Before those traitors in Team Alpha were atomized...", delay: 3, sound: CAM_RCLICK},
 		{text: "CLAYDE: We were able to pull all the data from the NASDA site that they had set up around.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: And I believe we may have found something even more important than any warhead or secret weapon.", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: And I believe we may have found something even more", delay: 3, sound: CAM_RCLICK},
+		{text: "important than any warhead or secret weapon.", delay: 0},
 		{text: "CLAYDE: ...Commanders Bravo and Charlie, make preparations for transport by the end of the day.", delay: 4, sound: CAM_RCLICK},
-		{text: "CLAYDE: Our next operation is about to begin...", delay: 3, sound: CAM_RCLICK},
-		{delay: 4, callback: "camEndMission"}, // End the mission after the dialogue is finished
+		{text: "CLAYDE: Our next operation is about to begin...", delay: 4, sound: CAM_RCLICK},
+		{delay: 3, callback: "camEndMission"}, // End the mission after the dialogue is finished
 	]);
 
 	// Used to allow the player to bring prologue units into A1L1

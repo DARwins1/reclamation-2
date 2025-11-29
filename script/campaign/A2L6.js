@@ -794,7 +794,8 @@ function enableMoreFactories()
 		{text: "CHARLIE: Lieutenant! The General's plan is working!", delay: 0, sound: CAM_RCLICK},
 		{text: "CHARLIE: The Collective aren't bringing in any reinforcements!", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Yes, I haven't detected any Collective transports in the area.", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: But be careful, the Collective are likely to regroup their local forces and counter attack soon.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: But be careful, the Collective are likely to", delay: 3, sound: CAM_RCLICK},
+		{text: "regroup their local forces and counter attack soon.", delay: 0},
 	]);
 }
 

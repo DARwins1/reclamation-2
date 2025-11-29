@@ -161,7 +161,8 @@ function enableAllFactories()
 	}
 
 	camQueueDialogue([
-		{text: "CLAYDE: Hmm. It seems that there's still a significant amount of scavengers opposing the Collective.", delay: 0, sound: CAM_RCLICK},
+		{text: "CLAYDE: Hmm. It seems that there's still a significant", delay: 0, sound: CAM_RCLICK},
+		{text: "amount of scavengers opposing the Collective.", delay: 0},
 		{text: "CLAYDE: I wonder if we can work this to our advantage...", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Do you think we could form some sort of alliance with them, General?", delay: 6, sound: CAM_RCLICK},
 		{text: "CLAYDE: Hmm...", delay: 5, sound: CAM_RCLICK},

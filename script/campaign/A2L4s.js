@@ -23,7 +23,8 @@ function eventStartLevel()
 		{text: "CHARLIE: Hey Bravo!", delay: 12, sound: CAM_RCLICK},
 		{text: "CHARLIE: Clayde's sending you to a flooded portion of the city.", delay: 2, sound: CAM_RCLICK},
 		{text: "CHARLIE: It'll be hard to move around there with normal ground units.", delay: 3, sound: CAM_RCLICK},
-		{text: "CHARLIE: ...But that new propulsion you found the in the last Collective base might be useful there.", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: ...But that new propulsion you found the in", delay: 3, sound: CAM_RCLICK},
+		{text: "the last Collective base might be useful there.", delay: 0},
 	]);
 
 	camSetSunIntensity(.35, .35, .45);

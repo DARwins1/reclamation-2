@@ -287,7 +287,8 @@ function vtolDialogue1()
 	vtolDialogueTime = gameTime;
 	// Dialogue on Collective VTOLs and their HQ...
 	camQueueDialogue([
-		{text: "LIEUTENANT: Commander Bravo, the Collective are likely coordinating those VTOLs through a local relay.", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Commander Bravo, the Collective are likely", delay: 3, sound: CAM_RCLICK},
+		{text: "coordinating those VTOLs through a local relay.", delay: 0},
 		{text: "LIEUTENANT: Look for some sort of headquarters or command center structure.", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: If you destroy it, you'll likely cut off the Collective's air support.", delay: 3, sound: CAM_RCLICK}
 	]);
@@ -298,7 +299,8 @@ function vtolDialogue2()
 	// Dialogue on shooting down Collective VTOLs...
 	camQueueDialogue([
 		{text: "CLAYDE: Commander, make sure you take down as many of those VTOLs as you can.", delay: 3, sound: CAM_RCLICK},
-		{text: "CLAYDE: The more of them that you destroy, the longer it'll take the Collective to muster more air strikes.", delay: 3, sound: CAM_RCLICK}
+		{text: "CLAYDE: The more of them that you destroy,", delay: 3, sound: CAM_RCLICK}
+		{text: "the longer it'll take the Collective to muster more air strikes.", delay: 0}
 	]);
 }
 

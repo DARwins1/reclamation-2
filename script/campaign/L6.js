@@ -61,10 +61,12 @@ function activateNorthInfested()
 
 	// Message the player about infested outside of the area
 	camQueueDialogue([
-		{text: "ASSOCIATE: Commander Alpha be advised: we have detected a massive infested presence just outside your area of operation.", delay: 0, sound: CAM_RCLICK},
-		{text: "ASSOCIATE: It's likely that they will soon descend upon your position.", delay: 3, sound: CAM_RCLICK},
+		{text: "ASSOCIATE: Commander Alpha be advised; we have detected a", delay: 0, sound: CAM_RCLICK},
+		{text: "massive infested presence just outside your area of operation.", delay: 0},
+		{text: "ASSOCIATE: It's likely that they will soon descend upon your position.", delay: 4, sound: CAM_RCLICK},
 		{text: "ASSOCIATE: Please work quickly.", delay: 3, sound: CAM_RCLICK},
-		{text: "ASSOCIATE: Once the infested start moving en masse, this area will likely be overwhelmed rapidly.", delay: 2, sound: CAM_RCLICK},
+		{text: "ASSOCIATE: Once the infested start moving en masse", delay: 2, sound: CAM_RCLICK},
+		{text: "this area will likely be overwhelmed rapidly.", delay: 0},
 	]);
 }
 
@@ -121,7 +123,8 @@ camAreaEvent("scavAttackTrigger", function(droid)
 		// Remind the player that the AA sites are the primary target
 		camQueueDialogue([
 			{text: "ASSOCIATE: Commander Alpha, a reminder to not allow yourself to be distracted from your goal.", delay: 0, sound: CAM_RCLICK},
-			{text: "ASSOCIATE: Your primary objective is to neutralize the designated anti-aircraft batteries, and then return to base.", delay: 5, sound: CAM_RCLICK},
+			{text: "ASSOCIATE: Your primary objective is to neutralize the designated", delay: 5, sound: CAM_RCLICK},
+			{text: "anti-aircraft batteries, and then return to base.", delay: 0},
 			{text: "ASSOCIATE: This air route must be clear ASAP, Commander.", delay: 5, sound: CAM_RCLICK},
 			{text: "ASSOCIATE: We cannot afford to have you waste time out there.", delay: 3, sound: CAM_RCLICK},
 		]);
@@ -345,8 +348,9 @@ function infestedEndWaves()
 			{text: "ASSOCIATE: What are you still doing out there?!", delay: 0, sound: CAM_RCLICK},
 			{text: "ASSOCIATE: Are you searching for more glory?", delay: 3, sound: CAM_RCLICK},
 			{text: "ASSOCIATE: More trial by combat??", delay: 2, sound: CAM_RCLICK},
-			{text: "ASSOCIATE: Commander Alpha, by delaying your orders to retreat, not only are you putting your own troops at risk...", delay: 3, sound: CAM_RCLICK},
-			{text: "ASSOCIATE: But you are also endangering our entire operation!", delay: 4, sound: CAM_RCLICK},
+			{text: "ASSOCIATE: Commander Alpha, by delaying your orders to retreat,", delay: 3, sound: CAM_RCLICK},
+			{text: "not only are you putting your own troops at risk...", delay: 0},
+			{text: "ASSOCIATE: But you are also endangering our entire evacuation!", delay: 4, sound: CAM_RCLICK},
 			{text: "ASSOCIATE: Regroup at the LZ for evac, at once!", delay: 3, sound: CAM_RCLICK},
 			{text: "ASSOCIATE: ...Unless you'd rather we call off the transports and leave you behind.", delay: 3, sound: CAM_RCLICK},
 		]);

@@ -92,7 +92,7 @@ function infestedAmbush()
 {
 	// Dialogue about infestation
 	camQueueDialogue([
-		{text: "CHARLIE: Lieutenant! Sir, we're picking up movement all around us!", delay: 3, sound: CAM_RCLICK},
+		{text: "CHARLIE: Lieutenant! We're picking up movement all around us!", delay: 3, sound: CAM_RCLICK},
 		{text: "CHARLIE: Bravo's transport must have riled them up!", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Commander Bravo, make sure this site stays secure!", delay: 4, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: This whole place is infested, but it's the safest place away from Clayde for now.", delay: 3, sound: CAM_RCLICK},
@@ -101,7 +101,7 @@ function infestedAmbush()
 		{text: "CHARLIE: We've got a problem.", delay: 2, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: What is it, Charlie?", delay: 2, sound: CAM_RCLICK, callback: "baseReveal"}, // Reveal the infested bases
 		// Delay...
-		{text: "LIEUTENANT: Oh.", delay: 10, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Oh.", delay: 12, sound: CAM_RCLICK},
 		{text: "CHARLIE: Bravo, you've gotta clear out the area!", delay: 4, sound: CAM_RCLICK},
 		{text: "CHARLIE: They're just gonna keep coming until we can get some breathing room!", delay: 3, sound: CAM_RCLICK},
 	]);
