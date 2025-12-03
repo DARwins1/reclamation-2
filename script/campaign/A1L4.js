@@ -324,8 +324,7 @@ function collectiveAttackWaves()
 		cTempl.colcanht, cTempl.colcanht, cTempl.colcanht, // Light Cannon
 		cTempl.colflamt, cTempl.colflamt, // Flamer
 	];
-	if (waveIndex >= 10) colOverrideDroids.push(cTempl.colmcant); // Add chance for Medium Cannon (Leopard)
-	if (difficulty >= HARD) colOverrideDroids.push(cTempl.colmcant); // Add another chance for Medium Cannon (Leopard)
+	if (!phaseTwo && waveIndex >= 10) colOverrideDroids.push(cTempl.colmcant); // Add chance for Medium Cannon (Leopard)
 	if (phaseTwo && difficulty >= HARD) colOverrideDroids.push(cTempl.commcant); // Add chance for Medium Cannon (Panther)
 	if (phaseTwo && difficulty === INSANE) colOverrideDroids.push(cTempl.comatt); // Add chance for Lancer
 
@@ -424,7 +423,7 @@ function collectiveAttackWaves()
 	}
 
 	// Spawn units at the chosen entrance(s) with the corresponding templates
-	const NUM_DROIDS = difficulty + 3;
+	const NUM_DROIDS = 4;
 	for (let i = 0; i < chosenEntrances.length; i++)
 	{
 		const droids = [];
@@ -482,7 +481,8 @@ function collectiveDialogue()
 		{text: "FOXTROT: We're spotting groups of enemy tanks rolling over the hills.", delay: 2, sound: CAM_RCLICK},
 		{text: "FOXTROT: They look...", delay: 3, sound: CAM_RCLICK},
 		{text: "FOXTROT: ...A lot tougher than scavengers, sir.", delay: 2, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: General!", delay: 12, sound: CAM_RCLICK},
+		// Long delay...
+		{text: "LIEUTENANT: General!", delay: 24, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Sir, those are Collective vehicles!", delay: 2, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: It looks like they're leading these scavenger attacks!", delay: 3, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: ...But how?", delay: 3, sound: CAM_RCLICK},
@@ -587,6 +587,15 @@ function eventDestroyed(obj)
 	{
 		powerDestroyed = true;
 		hackRemoveMessage("NASDA_POWER", PROX_MSG, CAM_HUMAN_PLAYER);
+
+		camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "A1L5S", {
+			message: "RET_LZ",
+			area: "compromiseZoneExtended", // Use a bigger area
+			retlz: true,
+			reinforcements: camMinutesToSeconds(1),
+			victoryVideo: {video: "A1L4_ESCAPE", type: CAMP_MSG},
+			callback: "canEscape"
+		});
 	}
 }
 
@@ -610,9 +619,9 @@ function eventStartLevel()
 
 	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "A1L5S", {
 		message: "RET_LZ",
-		area: "compromiseZone",
+		area: "compromiseZone", // Extended later
 		retlz: true,
-		reinforcements: camMinutesToSeconds(1.25),
+		reinforcements: camMinutesToSeconds(1),
 		victoryVideo: {video: "A1L4_ESCAPE", type: CAMP_MSG},
 		callback: "canEscape"
 	});

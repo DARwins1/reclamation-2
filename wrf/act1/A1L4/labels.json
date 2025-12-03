@@ -326,6 +326,13 @@
 	},
 
 
+	"area_33": {
+		"label": "compromiseZoneExtended",
+		"pos1": [1408, 2816],
+		"pos2": [5248, 5376]
+	},
+
+
 	"object_0": {
 		"label": "uplink",
 		"id": 264,
