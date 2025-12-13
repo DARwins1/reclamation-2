@@ -424,25 +424,28 @@ const camA4L3FoxtrotForwardStructs5 = [
 // A4L4
 // Charlie LZ defenses
 const camA4L4CharlieLZStructs = [
-	{stat: "PillBoxHPC", x: 3, y: 102}, {stat: "Tower-Projector", x: 5, y: 105}, {stat: "A0VtolPad", x: 4, y: 109},
-	{stat: "A0VtolPad", x: 4, y: 110}, {stat: "A0VtolPad", x: 4, y: 111}, {stat: "A0VtolPad", x: 6, y: 108},
-	{stat: "A0VtolPad", x: 6, y: 109}, {stat: "A0VtolPad", x: 6, y: 110}, {stat: "AASite-QuadRotMg", x: 6, y: 111, rot: 1},
-	{stat: "WallTower-HvATrocket", x: 15, y: 103}, {stat: "PillBoxHPC", x: 9, y: 105}, {stat: "GuardTower-TK", x: 11, y: 106},
-	{stat: "GuardTower-RotMg", x: 13, y: 104}, {stat: "AASite-QuadRotMg", x: 13, y: 107},
-	{stat: "AASite-QuadRotMg", x: 4, y: 112, rot: 1}, {stat: "A0VtolPad", x: 4, y: 113}, {stat: "A0VtolPad", x: 4, y: 114},
-	{stat: "A0VtolPad", x: 4, y: 115}, {stat: "A0VtolPad", x: 6, y: 112}, {stat: "A0VtolPad", x: 6, y: 113},
-	{stat: "A0VtolPad", x: 6, y: 114}, {stat: "Pillbox-RotMG", x: 4, y: 117}, {stat: "Tower-Projector", x: 8, y: 114},
-	{stat: "WallTower04", x: 15, y: 117}, {stat: "A0HardcreteMk1Wall", x: 16, y: 103}, {stat: "A0HardcreteMk1Wall", x: 17, y: 103},
-	{stat: "WallTower-HvATrocket", x: 18, y: 103}, {stat: "A0HardcreteMk1Wall", x: 19, y: 103}, {stat: "A0HardcreteMk1Wall", x: 20, y: 103},
-	{stat: "WallTower-HvATrocket", x: 21, y: 103}, {stat: "Emplacement-RotMor", x: 16, y: 105}, {stat: "Emplacement-Ballista", x: 17, y: 106},
-	{stat: "Emplacement-RotMor", x: 18, y: 105}, {stat: "Emplacement-Ballista", x: 19, y: 106}, {stat: "Emplacement-RotMor", x: 20, y: 105},
-	{stat: "GuardTower-RotMg", x: 22, y: 104}, {stat: "Emplacement-Rocket06-IDF", x: 22, y: 108}, {stat: "Emplacement-Rocket06-IDF", x: 22, y: 110},
-	{stat: "Sys-SensoTower02", x: 24, y: 105}, {stat: "AASite-QuadRotMg", x: 25, y: 106, rot: 2}, {stat: "Emplacement-Rocket06-IDF", x: 24, y: 109},
-	{stat: "Emplacement-Rocket06-IDF", x: 24, y: 111}, {stat: "AASite-QuadRotMg", x: 26, y: 108, rot: 1}, {stat: "WallTower04", x: 27, y: 110},
-	{stat: "A0HardcreteMk1Wall", x: 27, y: 111, rot: 1}, {stat: "A0HardcreteMk1Wall", x: 16, y: 117}, {stat: "A0HardcreteMk1Wall", x: 17, y: 117},
-	{stat: "Wall-RotMg", x: 18, y: 117}, {stat: "AASite-QuadRotMg", x: 22, y: 112}, {stat: "Sys-CB-Tower01", x: 21, y: 117},
-	{stat: "WallTower04", x: 27, y: 112}, {stat: "A0RepairCentre3", x: 16, y: 115}, {stat: "A0RepairCentre3", x: 18, y: 115},
-	{stat: "A0RepairCentre3", x: 20, y: 115},
+	{stat: "PillBoxHPC", x: 3, y: 102}, {stat: "A0RepairCentre3", x: 3, y: 109}, {stat: "A0RepairCentre3", x: 3, y: 111},
+	{stat: "Tower-Projector", x: 5, y: 105}, {stat: "WallTower-HvATrocket", x: 15, y: 103}, {stat: "PillBoxHPC", x: 9, y: 105},
+	{stat: "GuardTower-TK", x: 11, y: 106}, {stat: "GuardTower-RotMg", x: 13, y: 104}, {stat: "AASite-QuadRotMg", x: 13, y: 107},
+	{stat: "A0RepairCentre3", x: 3, y: 113}, {stat: "WallTower04", x: 3, y: 116}, {stat: "A0HardcreteMk1Wall", x: 4, y: 116},
+	{stat: "Pillbox-RotMG", x: 4, y: 117}, {stat: "A0HardcreteMk1Wall", x: 5, y: 116}, {stat: "Wall-RotMg", x: 6, y: 116},
+	{stat: "Tower-Projector", x: 8, y: 114}, {stat: "A0VtolPad", x: 13, y: 116}, {stat: "A0VtolPad", x: 12, y: 118},
+	{stat: "A0VtolPad", x: 13, y: 118}, {stat: "A0VtolPad", x: 14, y: 116}, {stat: "A0VtolPad", x: 15, y: 116},
+	{stat: "A0VtolPad", x: 14, y: 118}, {stat: "AASite-QuadRotMg", x: 15, y: 118}, {stat: "A0HardcreteMk1Wall", x: 16, y: 103},
+	{stat: "A0HardcreteMk1Wall", x: 17, y: 103}, {stat: "WallTower-HvATrocket", x: 18, y: 103}, {stat: "A0HardcreteMk1Wall", x: 19, y: 103},
+	{stat: "A0HardcreteMk1Wall", x: 20, y: 103}, {stat: "WallTower-HvATrocket", x: 21, y: 103}, {stat: "Emplacement-RotMor", x: 16, y: 105},
+	{stat: "Emplacement-Ballista", x: 17, y: 106}, {stat: "Emplacement-RotMor", x: 18, y: 105}, {stat: "Emplacement-Ballista", x: 19, y: 106},
+	{stat: "Emplacement-RotMor", x: 20, y: 105}, {stat: "GuardTower-RotMg", x: 22, y: 104}, {stat: "Emplacement-Rocket06-IDF", x: 22, y: 108},
+	{stat: "Emplacement-Rocket06-IDF", x: 22, y: 110}, {stat: "Sys-SensoTower02", x: 24, y: 105}, {stat: "AASite-QuadRotMg", x: 25, y: 106, rot: 2},
+	{stat: "Emplacement-Rocket06-IDF", x: 24, y: 109}, {stat: "Emplacement-Rocket06-IDF", x: 24, y: 111}, {stat: "AASite-QuadRotMg", x: 26, y: 108, rot: 1},
+	{stat: "WallTower04", x: 27, y: 110}, {stat: "A0HardcreteMk1Wall", x: 27, y: 111, rot: 1}, {stat: "AASite-QuadRotMg", x: 16, y: 116},
+	{stat: "A0VtolPad", x: 17, y: 116}, {stat: "A0VtolPad", x: 16, y: 118}, {stat: "A0VtolPad", x: 17, y: 118},
+	{stat: "A0VtolPad", x: 18, y: 116}, {stat: "A0VtolPad", x: 19, y: 116}, {stat: "A0VtolPad", x: 18, y: 118},
+	{stat: "AASite-QuadRotMg", x: 22, y: 112}, {stat: "Sys-CB-Tower01", x: 21, y: 117}, {stat: "WallTower04", x: 27, y: 112},
+];
+// LZ repair facilities (isolated)
+const camA4L4CharlieLZRepairStructs = [
+	{stat: "A0RepairCentre3", x: 3, y: 109}, {stat: "A0RepairCentre3", x: 3, y: 111}, {stat: "A0RepairCentre3", x: 3, y: 113},
 ];
 // Charlie forward defenses
 const camA4L4CharlieForwardStructs = [

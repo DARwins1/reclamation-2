@@ -988,7 +988,7 @@ function expandMap()
 	charlieTruckJob4 = camManageTrucks(MIS_TEAM_CHARLIE, {
 		label: "charlieLZ",
 		rebuildBase: true,
-		structset: camA4L4CharlieLZStructs,
+		structset: camA4L4CharlieLZRepairStructs,
 		template: cTempl.cyben
 	});
 	charlieTruckJob5 = camManageTrucks(MIS_TEAM_CHARLIE, {
