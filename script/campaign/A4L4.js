@@ -792,6 +792,7 @@ function expandMap()
 		}, CAM_ORDER_FOLLOW, {
 			leader: "charlieCommander",
 			repair: 75,
+			repairPos: camMakePos("landingZoneCharlie"),
 			suborder: CAM_ORDER_DEFEND, // Retreat back to LZ if the commander dies
 			data: {
 				pos: camMakePos("landingZoneCharlie"),

@@ -463,7 +463,7 @@ function groundAssault5()
 		{text: "LIEUTENANT: We need those transports NOW!", delay: 2, sound: CAM_RCLICK},
 		{text: "CHARLIE: I'm trying, Lieutenant!", delay: 4, sound: CAM_RCLICK},
 		{text: "CHARLIE: The Collective all over the place!", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Do SOMTHING!", delay: 4, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Do SOMETHING!", delay: 4, sound: CAM_RCLICK},
 	]);
 }
 
