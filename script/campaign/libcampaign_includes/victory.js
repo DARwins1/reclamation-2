@@ -225,6 +225,11 @@ function camGrantBonusPower()
 {
 	if (__camNeedBonusTime && !__camBonusPowerGranted)
 	{
+		if (camDiscoverCampaign() === __CAM_PROLOGUE_CAMPAIGN_NUMBER)
+		{
+			return; // Don't grant bonus power in the prologue
+		}
+
 		if (!tweakOptions.rec_timerlessMode)
 		{
 			// Calculate bonus power based on remaining mission time

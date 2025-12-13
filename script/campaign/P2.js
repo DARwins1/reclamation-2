@@ -175,9 +175,6 @@ function expandMap()
 	hackAddMessage("CIVS3", PROX_MSG, CAM_HUMAN_PLAYER);
 	hackAddMessage("CIVS4", PROX_MSG, CAM_HUMAN_PLAYER);
 
-	camSetStandardWinLossConditions(CAM_VICTORY_SCRIPTED, "A1L1", {showArtifacts: false});
-	camSetExtraObjectiveMessage(["Use Trucks to escort civilians back to the haven", "Don't lose " + truckLostThreshold + " Transport Trucks (0 LOST)"]);
-
 	// Queue the start of the infested waves and scavenger bases
 	queue("startInfestedWaves", camSecondsToMilliseconds(60));
 	queue("revealEastBase", camChangeOnDiff(camMinutesToMilliseconds(3)));
@@ -221,6 +218,16 @@ function expandMap()
 		scavWestStructSet = camAreaToStructSet("scavBase3");
 		scavOilStructSet = camAreaToStructSet("scavBase2");
 	}
+
+	queue("setVictory", camSecondsToMilliseconds(1));
+}
+
+// Set victory data
+// Called on a delay to avoid failing the player if Charlie's units aren't transferred fast enough
+function setVictory()
+{
+	camSetStandardWinLossConditions(CAM_VICTORY_SCRIPTED, "A1L1", {showArtifacts: false});
+	camSetExtraObjectiveMessage(["Use Trucks to escort civilians back to the haven", "Don't lose " + truckLostThreshold + " Transport Trucks (0 LOST)"]);
 }
 
 function startInfestedWaves()
