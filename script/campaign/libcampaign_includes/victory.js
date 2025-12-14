@@ -406,7 +406,7 @@ function __camVictoryStandard()
 	if (camAllArtifactsPickedUp() && camAllEnemyBasesEliminated() && __EXTRA_OBJ)
 	{
 		let enemiesRemaining = enumArea(0, 0, mapWidth, mapHeight, ENEMIES, false).filter((obj) => (
-			!(obj.type === STRUCTURE && obj.stattype === WALL)
+			!(obj.type === STRUCTURE && (obj.status !== BUILT || obj.stattype === WALL)) // Don't count walls or unbuilt structures
 		)).length;
 		if (__camVictoryData.ignoreInfestedUnits)
 		{
@@ -498,7 +498,9 @@ function __camVictoryOffworld()
 		{
 			if (!__FORCE_LZ)
 			{
-				let enemyLen = enumArea(0, 0, mapWidth, mapHeight, ENEMIES, false).length;
+				let enemyLen = enumArea(0, 0, mapWidth, mapHeight, ENEMIES, false).filter((obj) => {
+					!(obj.type === STRUCTURE && (obj.status !== BUILT || obj.stattype === WALL)) // Don't count walls or unbuilt structures
+				}).length;
 
 				if (__camVictoryData.ignoreInfestedUnits)
 				{
@@ -649,7 +651,7 @@ function __camShowVictoryConditions()
 		}
 		else
 		{
-			// If no bases remain, list the remaining enemy units
+			// If no bases remain, list the remaining enemy units & structures
 			let unitsOnMap = 0;
 			let structuresOnMap = 0;
 
