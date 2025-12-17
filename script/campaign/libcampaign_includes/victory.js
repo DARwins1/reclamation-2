@@ -498,9 +498,9 @@ function __camVictoryOffworld()
 		{
 			if (!__FORCE_LZ)
 			{
-				let enemyLen = enumArea(0, 0, mapWidth, mapHeight, ENEMIES, false).filter((obj) => {
+				let enemyLen = enumArea(0, 0, mapWidth, mapHeight, ENEMIES, false).filter((obj) => (
 					!(obj.type === STRUCTURE && (obj.status !== BUILT || obj.stattype === WALL)) // Don't count walls or unbuilt structures
-				}).length;
+				)).length;
 
 				if (__camVictoryData.ignoreInfestedUnits)
 				{
