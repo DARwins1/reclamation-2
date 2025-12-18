@@ -641,7 +641,7 @@ function dataDownloaded()
 		lastUplinkCheckTime = gameTime;
 		uplinkSecure = true;
 
-		if (lastUplinkCheckTime < camMinutesToMilliseconds(7))
+		if (uplinkTimeRemaining < camMinutesToMilliseconds(7))
 		{
 			// Make Delta more aggresive if the player is winning
 			aggroTeamDelta();

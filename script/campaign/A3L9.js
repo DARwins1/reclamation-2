@@ -150,7 +150,7 @@ function golfStrikeTargets()
 }
 
 function sendInfestedReinforcements()
-{	
+{
 	const coreDroids = [
 		[ // Scavs & crawlers
 			cTempl.vilestinger, // Vile Stingers
@@ -298,6 +298,9 @@ function enableFlanking()
 {
 	allowFlanking = true;
 	vtolAttack3();
+
+	// Stop all Infested attacks
+	removeTimer("sendInfestedReinforcements");
 
 	// Dialogue flanking
 	camQueueDialogue([
