@@ -1173,7 +1173,7 @@ function deltaArrival()
 	camQueueDialogue([
 		{text: "DELTA: Need a hand, Bravo?!", delay: 12, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Commander Delta?!", delay: 4, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: What are you doing-", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: What are you-", delay: 3, sound: CAM_RCLICK},
 		{text: "DELTA: We heard your speech, Lieutenant.", delay: 1, sound: CAM_RCLICK},
 		{text: "DELTA: Let's put the past behind us, and get the hell out of here!", delay: 3, sound: CAM_RCLICK},
 		{text: "DELTA: ...Commander Bravo, hang on!", delay: 4, sound: CAM_RCLICK},

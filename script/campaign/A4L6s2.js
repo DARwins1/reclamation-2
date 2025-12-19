@@ -28,7 +28,7 @@ function setStageTwo()
 {
 	stage = 2;
 
-	camSetExtraObjectiveMessage([_("Escort team Delta's lost group back to base"), _("At least one Delta unit must survive")]);
+	camSetExtraObjectiveMessage(_("Rescue Team Delta's stranded group"));
 
 	// Expand the map
 	setScrollLimits(0, 0, 216, 96);
@@ -128,7 +128,7 @@ function setStageTwo()
 		{text: "until we come up with a backup plan.", delay: 0},
 		{text: "LIEUTENANT: Commanders, make sure to fortify our position.", delay: 4, sound: CAM_RCLICK},
 		{text: "LIEUTENANT: Set up as many defenses as you can!", delay: 3, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: The Collective won't let us leave without a fight!", delay: 3, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: The Collective isn't gonna let us leave without a fight!", delay: 3, sound: CAM_RCLICK},
 	]);
 }
 
@@ -345,6 +345,8 @@ function donateHoldout()
 		{text: "DELTA: Alright, you've got them!", delay: 3, sound: CAM_RCLICK},
 		{text: "DELTA: Now bring them back to our base, Bravo.", delay: 3, sound: CAM_RCLICK},
 	]);
+
+	queue("deltaGroupAlive", camSecondsToMilliseconds(0.4));
 }
 
 // Scan the area near Delta's LZ
@@ -439,19 +441,31 @@ function sendTransportHarassGroup()
 // Fail the mission if all units die before reaching Delta's base
 // Advance to stage 3 if at least one unit makes it back and the rest of the group is missing
 // Called when the player loses a unit, recycles a unit, or returns a unit during stage 2
+// Also update the objective message to show how many of Delta's units are left alive and unrescued
 function deltaGroupAlive()
 {
 	if (deltaUnitIDs.length > 0)
 	{
 		unitFound = false;
+		unitsRemaining = 0;
 		for (const ID of deltaUnitIDs)
 		{
 			if (getObject(DROID, CAM_HUMAN_PLAYER, ID) !== null)
 			{
 				// The player still has one of Delta's units
 				unitFound = true;
+				unitsRemaining++;
 			}
 		}
+
+		const objMessages = [];
+		objMessages.push(_("Escort team Delta's lost group back to base (" + unitsRemaining + " remaining)"));
+		if (numDeltaRescued <= 0)
+		{
+			// We don't need to display this if at least one unit has already been rescued
+			objMessages.push(_("At least one Delta unit must survive"));
+		}
+		camSetExtraObjectiveMessage(objMessages);
 
 		if (!unitFound)
 		{
