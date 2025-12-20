@@ -909,7 +909,7 @@ A4L2_BMSG22		_("If we gained access to one of those uplinks, we could find a saf
 A4L2_BMSG23		_("We wouldn't even need to connect to the satellites, the records should be stored within the uplinks themselves.")
 A4L2_BMSG24		_("<CHARLIE>: ...Bravo, you found an uplink station early on, before we had even encountered the Collective.")
 A4L2_BMSG25		_("Team Delta hadn't gotten around to capturing that uplink by the time we ditched Clayde.")
-A4L2_BMSG26		_("...Which means that the Collective probably still have control of it.")
+A4L2_BMSG26		_("...Which means that the Collective probably still has control of it.")
 A4L2_BMSG27		_("<LIEUTENANT>: Commander Bravo, send your forces to that uplink station.")
 A4L2_BMSG28		_("If you can clear the area around the uplink and hold it, we should be able to get the data we need.")
 A4L2_BMSG29		_("The process should be fast, you'll only need to control the uplink for a few minutes.")
