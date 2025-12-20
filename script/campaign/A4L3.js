@@ -586,7 +586,7 @@ function donateFoxtrot()
 		camQueueDialogue([
 			{text: "GOLF: Foxtrot!?", delay: 8, sound: CAM_RCLICK},
 			{text: "GOLF: No...", delay: 2, sound: CAM_RCLICK},
-			{text: "GOLF: How could they-", delay: 2, sound: CAM_RCLICK},
+			{text: "GOLF: How could-", delay: 2, sound: CAM_RCLICK},
 			{text: "GOLF: YOU.", delay: 6, sound: CAM_RCLICK},
 			{text: "GOLF: You're going to PAY for that, Bravo!", delay: 2, sound: CAM_RCLICK},
 		]);
