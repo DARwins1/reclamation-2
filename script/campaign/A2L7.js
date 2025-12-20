@@ -676,6 +676,9 @@ function eventStartLevel()
 	// Give player briefing.
 	camPlayVideos({video: "A2L7_BRIEF", type: MISS_MSG});
 
+	// Used to confirm the player didn't start Act 3 from the menu
+	camCompleteRequiredResearch(["R-Script-A2Played"], CAM_HUMAN_PLAYER);
+
 	// Add a slight dark blue hue
 	camSetSunIntensity(.45, .45, .5);
 	camSetWeather(CAM_WEATHER_RAINSTORM);

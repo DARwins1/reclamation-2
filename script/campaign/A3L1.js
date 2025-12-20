@@ -591,24 +591,9 @@ function eventStartLevel()
 	startedFromMenu = false;
 
 	// Only if starting Act 3 directly from the menu
-	if (enumDroid(CAM_HUMAN_PLAYER, DROID_SUPERTRANSPORTER).length === 0)
+	if (!getResearch("R-Script-A2Played", CAM_HUMAN_PLAYER).done)
 	{
 		startedFromMenu = true;
-
-		// Send a transport with a commander and some high-rank droids
-		const firstTransportDroids = [ // 1 Command Turret, 2 HMGs, 4 Flamer Cyborgs, 3 HVCs
-			cTempl.plmcomht,
-			cTempl.plmhmght, cTempl.plmhmght,
-			cTempl.cybfl, cTempl.cybfl, cTempl.cybfl, cTempl.cybfl,
-			cTempl.plmhpvht, cTempl.plmhpvht, cTempl.plmhpvht,
-		];
-
-		camSendReinforcement(CAM_HUMAN_PLAYER, camMakePos("landingZone"), firstTransportDroids,
-			CAM_REINFORCE_TRANSPORT, {
-				entry: transportEntryPos,
-				exit: transportEntryPos
-			}
-		);
 		
 		// Subsequent transport droids are randomly chosen from this pool
 		const attackPool = [ // Misc. cyborgs and tanks
@@ -666,7 +651,25 @@ function eventStartLevel()
 			// NOTE: We can't give the offworld droid XP here, since the scripting API can't find it.
 			// Instead, we'll grant XP when the transport drops it off.
 		}
-	
+	}
+
+	// If the player has no transport (either destroyed in A2L7 or started from the menu)
+	if (enumDroid(CAM_HUMAN_PLAYER, DROID_SUPERTRANSPORTER).length === 0)
+	{
+		// Send a transport with a commander and some high-rank droids
+		const firstTransportDroids = [ // 1 Command Turret, 2 HMGs, 4 Flamer Cyborgs, 3 HVCs
+			cTempl.plmcomht,
+			cTempl.plmhmght, cTempl.plmhmght,
+			cTempl.cybfl, cTempl.cybfl, cTempl.cybfl, cTempl.cybfl,
+			cTempl.plmhpvht, cTempl.plmhpvht, cTempl.plmhpvht,
+		];
+
+		camSendReinforcement(CAM_HUMAN_PLAYER, camMakePos("landingZone"), firstTransportDroids,
+			CAM_REINFORCE_TRANSPORT, {
+				entry: transportEntryPos,
+				exit: transportEntryPos
+			}
+		);
 	}
 
 	setPower(NUM_TRANSPORTS * 2000, CAM_HUMAN_PLAYER);

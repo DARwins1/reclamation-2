@@ -458,6 +458,9 @@ function eventStartLevel()
 		{text: "LIEUTENANT: Good luck, Commander Bravo.", delay: 4, sound: CAM_RCLICK},
 	]);
 
+	// Used to confirm the player didn't start Act 2 from the menu
+	camCompleteRequiredResearch(["R-Script-A1Played"], CAM_HUMAN_PLAYER);
+
 	// Add a slight blue hue to the lighting
 	camSetSunIntensity(.45, .45, .55);
 	camSetWeather(CAM_WEATHER_RAINSTORM);

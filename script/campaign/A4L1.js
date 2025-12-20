@@ -910,24 +910,9 @@ function eventStartLevel()
 	startedFromMenu = false;
 
 	// Only if starting Act 4 directly from the menu
-	if (enumDroid(CAM_HUMAN_PLAYER, DROID_SUPERTRANSPORTER).length === 0)
+	if (!getResearch("R-Script-A3Played", CAM_HUMAN_PLAYER).done)
 	{
 		startedFromMenu = true;
-
-		// Send a transport with a commander and some high-rank droids
-		const firstTransportDroids = [ // 1 Command Turret, 2 AG Cyborgs, 4 Super TK Cyborgs, 3 Assault Cannons
-			cTempl.cohcomht,
-			cTempl.cybag, cTempl.cybag,
-			cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk,
-			cTempl.plhacanht, cTempl.plhacanht, cTempl.plhacanht,
-		];
-
-		camSendReinforcement(CAM_HUMAN_PLAYER, camMakePos("landingZone"), firstTransportDroids,
-			CAM_REINFORCE_TRANSPORT, {
-				entry: transportEntryPos,
-				exit: transportEntryPos
-			}
-		);
 		
 		// Subsequent transport droids are randomly chosen from this pool
 		const attackPool = [ // Misc. cyborgs and tanks
@@ -985,6 +970,25 @@ function eventStartLevel()
 			// NOTE: We can't give the offworld droid XP here, since the scripting API can't find it.
 			// Instead, we'll grant XP when the transport drops it off.
 		}
+	}
+
+	// If the player has no transport (either destroyed in A3L9 or started from the menu)
+	if (enumDroid(CAM_HUMAN_PLAYER, DROID_SUPERTRANSPORTER).length === 0)
+	{
+		// Send a transport with a commander and some high-rank droids
+		const firstTransportDroids = [ // 1 Command Turret, 2 AG Cyborgs, 4 Super TK Cyborgs, 3 Assault Cannons
+			cTempl.cohcomht,
+			cTempl.cybag, cTempl.cybag,
+			cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk,
+			cTempl.plhacanht, cTempl.plhacanht, cTempl.plhacanht,
+		];
+
+		camSendReinforcement(CAM_HUMAN_PLAYER, camMakePos("landingZone"), firstTransportDroids,
+			CAM_REINFORCE_TRANSPORT, {
+				entry: transportEntryPos,
+				exit: transportEntryPos
+			}
+		);
 	}
 
 	setPower(NUM_TRANSPORTS * 3000, CAM_HUMAN_PLAYER);

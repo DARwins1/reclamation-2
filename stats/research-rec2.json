@@ -9,6 +9,36 @@
         "researchPoints": 10,
         "researchPower": 10
     },
+    "R-Script-A1Played": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_SYSTEMTECH",
+        "id": "R-Script-A1Played",
+        "imdName": "blhqalt.PIE",
+        "keyTopic": 1,
+        "name": "Act 1 Played",
+        "researchPoints": 10,
+        "researchPower": 10
+    },
+    "R-Script-A2Played": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_SYSTEMTECH",
+        "id": "R-Script-A2Played",
+        "imdName": "blhqalt.PIE",
+        "keyTopic": 1,
+        "name": "Act 2 Played",
+        "researchPoints": 10,
+        "researchPower": 10
+    },
+    "R-Script-A3Played": {
+        "excludeFromCheats": 1,
+        "iconID": "IMAGE_RES_SYSTEMTECH",
+        "id": "R-Script-A3Played",
+        "imdName": "blhqalt.PIE",
+        "keyTopic": 1,
+        "name": "Act 3 Played",
+        "researchPoints": 10,
+        "researchPower": 10
+    },
     "R-Script-InfSensor-Debuff": {
         "excludeFromCheats": 1,
         "iconID": "IMAGE_RES_SYSTEMTECH",

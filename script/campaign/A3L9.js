@@ -1033,6 +1033,9 @@ function eventStartLevel()
 	// Give player briefing.
 	camPlayVideos({video: "A3L9_BRIEF", type: MISS_MSG});
 
+	// Used to confirm the player didn't start Act 4 from the menu
+	camCompleteRequiredResearch(["R-Script-A3Played"], CAM_HUMAN_PLAYER);
+
 	// Lighten the fog to *more or less* 2x default brightness with a slight pink color
 	camSetFog(48, 32, 96);
 	// Add a purple-blue tint
