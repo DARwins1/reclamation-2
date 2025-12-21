@@ -1128,7 +1128,7 @@ function claydeBanter()
 				{text: "CHARLIE: Weren't you going to stop us in our tracks?", delay: 3, sound: CAM_RCLICK},
 				// Delay
 				{text: "LIEUTENANT: Oh, so NOW you decide to stay quiet?!", delay: 10, sound: CAM_RCLICK},
-				{text: "LIEUTENANT: Do you feeling the walls closing in on you, Clayde?!", delay: 3, sound: CAM_RCLICK},
+				{text: "LIEUTENANT: Are you feeling the walls closing in on you, Clayde?!", delay: 3, sound: CAM_RCLICK},
 				{text: "LIEUTENANT: All the lies, all your efforts.", delay: 3, sound: CAM_RCLICK},
 				{text: "LIEUTENANT: It's crashing and burning all around you!", delay: 3, sound: CAM_RCLICK},
 				{text: "LIEUTENANT: You'll answer for what you've done, Clayde!", delay: 3, sound: CAM_RCLICK},
