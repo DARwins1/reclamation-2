@@ -1000,7 +1000,7 @@ A4L6_BMSG5		_(" Commander Bravo, Team Charlie is already set up at this location
 A4L6_BMSG6		_(" Transport your forces and establish yourself here.")
 A4L6_BMSG7		_(" We've also detected groups of refugees in the nearby area.")
 A4L6_BMSG8		_(" It looks like they tried to escape the city on foot.")
-A4L6_BMSG9		_(" Once you've established your base, take you forces and escort them back here.")
+A4L6_BMSG9		_(" Once you've established your base, take your forces and escort them back here.")
 A4L6_BMSG10		_("<CHARLIE>: Bravo, you can use your Trucks to carry the civilians, just like last time!")
 A4L6_BMSG11		_("Just drive a Truck over to the each of the civilian groups.")
 A4L6_BMSG12		_("Once they've been loaded on the Truck, drive it back to our base.")

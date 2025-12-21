@@ -9,7 +9,7 @@
 -120 50		32.0	35.0	_("<LIEUTENANT>: We've also detected groups of refugees in the nearby area.")
 -120 50		35.0	38.0	_("<LIEUTENANT>: It looks like they tried to escape the city on foot.")
 -120 50		38.0	42.0	_("<LIEUTENANT>: Once you've established your base,")
--120 60		38.0	42.0	_("take you forces and escort them back here.")
+-120 60		38.0	42.0	_("take your forces and escort them back here.")
 -120 50		43.0	47.0	_("<CHARLIE>: Bravo, you can use your Trucks to carry")
 -120 60		43.0	47.0	_("the civilians, just like last time!")
 -120 50		47.0	50.0	_("<CHARLIE>: Just drive a Truck over to the each of the civilian groups.")
