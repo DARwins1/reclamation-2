@@ -295,7 +295,7 @@ function donateSensor()
 
 	// Dialogue about the using the sensor to spot the Infested
 	camQueueDialogue([
-		{text: "CHARLIE: Commander Bravo, we can use sensor like this one", delay: 2, sound: CAM_RCLICK},
+		{text: "CHARLIE: Commander Bravo, we can use sensors like this one", delay: 2, sound: CAM_RCLICK},
 		{text: "to monitor enemies from a safe distance.", delay: 0},
 		{text: "CHARLIE: That should make it easier to avoid the Infested.", delay: 3, sound: CAM_RCLICK},
 	]);
