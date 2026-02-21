@@ -748,7 +748,7 @@ function eventStartLevel()
 		"colLZBase": {
 			cleanup: "echoLZStructs",
 			detectMsg: "COL_LZ",
-			detectSnd: cam_sounds.baseDetection.enemyBaseDetected,
+			detectSnd: cam_sounds.baseDetection.enemyLZDetected,
 			eliminateSnd: cam_sounds.baseElimination.enemyLZEradicated,
 		},
 	});

@@ -1001,7 +1001,6 @@
     "R-Wpn-Flame2": {
         "iconID": "IMAGE_RES_WEAPONTECH",
         "id": "R-Wpn-Flame2",
-        "keyTopic": 1,
         "msgName": "RES_FLAME2",
         "name": "Heavy Flamer - Inferno",
         "requiredResearch": [
