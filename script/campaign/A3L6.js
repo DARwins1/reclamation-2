@@ -180,6 +180,7 @@ function sendInfestedReinforcements()
 			cTempl.stinger, cTempl.stinger, cTempl.stinger, // Stingers
 			cTempl.infcybca, cTempl.infcybca, cTempl.infcybca, // Heavy Gunners
 			cTempl.infcybhg, cTempl.infcybhg, // Heavy Machinegunners
+			cTempl.infcybmr, cTempl.infcybmr, // Mini-Rocket Cyborgs
 			cTempl.infcolpodt, cTempl.infcolpodt, // MRPs
 			cTempl.infcolhmght, cTempl.infcolhmght, // HMGs
 			cTempl.infcolcanht, cTempl.infcolcanht, // Light Cannons
@@ -370,8 +371,8 @@ function eventStartLevel()
 			},
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(65)),
-			// Super Cyborgs + Thermite Flamers
-			templates: [ cTempl.cybag, cTempl.cybth, cTempl.cybla, cTempl.cybth ]
+			// Super Rocket/AC Cyborgs
+			templates: [ cTempl.scyhr, cTempl.scyac, cTempl.scyhr, cTempl.scyac ]
 		},
 		"colCybFactory2": {
 			assembly: "colCybAssembly2",
@@ -382,8 +383,8 @@ function eventStartLevel()
 			},
 			groupSize: 5,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(45)),
-			// Grenadiers...
-			templates: [ cTempl.cybgr, cTempl.cybgr, cTempl.scygr ]
+			// Grenadiers & Lancers ...
+			templates: [ cTempl.cybla, cTempl.cybla, cTempl.scygr ]
 		},
 		"colCybFactory3": {
 			assembly: "colCybAssembly3",
@@ -394,8 +395,8 @@ function eventStartLevel()
 			},
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(45)),
-			// Rocket/MG Cyborgs
-			templates: [ cTempl.cybla, cTempl.cybth, cTempl.cybla, cTempl.scyac ]
+			// MGs + Thermite Flamers
+			templates: [ cTempl.cybag, cTempl.cybth ]
 		},
 		"infFactory1": {
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(16)),

@@ -3557,6 +3557,29 @@
         ],
         "width": 1
     },
+    "PillBoxRail1": {
+        "armour": 20,
+        "breadth": 1,
+        "buildPoints": 400,
+        "buildPower": 175,
+        "ecmID": "ZNULLECM",
+        "height": 1,
+        "hitpoints": 700,
+        "id": "PillBoxRail1",
+        "name": "Needle Gun Bunker",
+        "resistance": 300,
+        "sensorID": "DefaultSensor1Mk1",
+        "strength": "BUNKER",
+        "structureModel": [
+            "Blcanpil_col.pie"
+        ],
+        "thermal": 20,
+        "type": "DEFENSE",
+        "weapons": [
+            "RailGun1Mk1"
+        ],
+        "width": 1
+    },
     "Pillbox-RotMG": {
         "armour": 20,
         "breadth": 1,

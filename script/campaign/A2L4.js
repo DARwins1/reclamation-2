@@ -226,7 +226,7 @@ function eventStartLevel()
 		message: "RET_LZ",
 		reinforcements: camMinutesToSeconds(2),
 		callback: "antiAirSitesClear",
-		// will add compromise zone later
+		area: "landingZone" // will add bigger compromise zone later
 	});
 	camSetExtraObjectiveMessage("Destroy the AA sites");
 

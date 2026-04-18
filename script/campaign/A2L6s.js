@@ -24,7 +24,7 @@ function eventStartLevel()
 		{text: "LIEUTENANT: Bravo, remember that you'll need to clear the", delay: 12, sound: CAM_RCLICK},
 		{text: "LZ before you can call in any reinforcements.", delay: 0},
 		{text: "LIEUTENANT: We can't risk the Collective detecting us before Clayde has launched his diversion.", delay: 4, sound: CAM_RCLICK},
-		{text: "LIEUTENANT: Make sure you bring enough combat units in your first transport.", delay: 4, sound: CAM_RCLICK},
+		{text: "LIEUTENANT: Make sure that you bring enough combat units in your first transport.", delay: 4, sound: CAM_RCLICK},
 	]);
 
 	camSetSkyType(CAM_SKY_NIGHT);

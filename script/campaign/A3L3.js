@@ -333,7 +333,7 @@ function eventStartLevel()
 		},
 		"infCybFactory": {
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(25)),
-			templates: [ cTempl.infcybca, cTempl.infcybgr, cTempl.infcybhg, cTempl.infcybca ]
+			templates: [ cTempl.infcybca, cTempl.infcybgr, cTempl.infcybhg, cTempl.infcybmr ]
 		},
 	});
 

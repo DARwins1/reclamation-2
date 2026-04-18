@@ -63,7 +63,8 @@ const camRec2StartResearch = [
 //	"R-Wpn-Mortar-ROF01", // Artifact
 // 	// L6
 // 	"R-Wpn-Rocket02-MRL", // Artifact
-// 	"R-Defense-MRL", "R-Wpn-Rocket-ROF02", "R-Wpn-Cannon-ROF02",
+// 	"R-Defense-MRL", "R-Wpn-Rocket-ROF02", "R-Cyb-Wpn-MRL",
+//	"R-Wpn-Cannon-ROF02",
 // 	"R-Wpn-Rocket-Damage04", // Artifact
 // 	"R-Wpn-Mortar-Damage02",
 // ].concat(camRec2StartResearch);
@@ -85,7 +86,7 @@ const camA1L2AllyResearch = camAct1StartResearch.concat([
 	"R-Wpn-Mortar-Damage02",
 	"R-Wpn-Flamer-Damage02", // Artifact
 	"R-Wpn-Rocket02-MRL", // Artifact
-	"R-Defense-MRL",
+	"R-Defense-MRL", "R-Cyb-Wpn-MRL",
 ]);
 
 // Used to grant research to allies on A1L4
@@ -198,7 +199,7 @@ const camA3L4AllyResearch = camAct3StartResearch.concat([
 	"R-Wpn-Mortar3", // Artifact
 	"R-Defense-RotMor", "R-Wpn-Mortar-ROF03", 
 	"R-Wpn-Rocket02-MRLHvy", // Artifact
-	"R-Defense-MRLHvy",
+	"R-Defense-MRLHvy", "R-Cyb-Hvywpn-HRA",
 	"R-Wpn-Bomb-Damage01", // Artifact
 	"R-Struc-Power-Upgrade01", // Artifact
 	// A3L3
@@ -291,17 +292,17 @@ const camA4L5AllyResearch = camA4L4AllyResearch.concat([
 
 // Contains all research after A4L4
 // For documentation purposes only
-const camAct4RemainingResearch = [
-	// A4L5
-	// Nothing here...
-	// A4L6
-	"R-Wpn-HvyHowitzer", // Ground Shaker
-	"R-Defense-HvyHowitzer", // Ground Shaker Emplacement
+// const camAct4RemainingResearch = [
+// 	// A4L5
+// 	// Nothing here...
+// 	// A4L6
+// 	"R-Wpn-HvyHowitzer", // Ground Shaker
+// 	"R-Defense-HvyHowitzer", // Ground Shaker Emplacement
 
-	// ???
-	"R-Wpn-Howitzer-Damage04", // HEAP Howitzer Shells
-	"R-Wpn-Howitzer-ROF04", // Howitzer Fast Loader	
-	"R-Wpn-Howitzer-Accuracy02", // Target Prediction Artillery Shells
-];
+// 	// ???
+// 	"R-Wpn-Howitzer-Damage04", // HEAP Howitzer Shells
+// 	"R-Wpn-Howitzer-ROF04", // Howitzer Fast Loader	
+// 	"R-Wpn-Howitzer-Accuracy02", // Target Prediction Artillery Shells
+// ];
 
 //...

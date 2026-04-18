@@ -148,8 +148,10 @@ function sendInfestedReinforcements()
 			cTempl.stinger, cTempl.stinger, cTempl.stinger, // Stingers
 			cTempl.infcybca, cTempl.infcybca, cTempl.infcybca, cTempl.infcybca, // Heavy Gunners
 			cTempl.infcybhg, cTempl.infcybhg, cTempl.infcybhg, // Heavy Machinegunners
+			cTempl.infcybmr, cTempl.infcybmr, // Mini-Rocket Cyborgs
 			cTempl.infcybla, cTempl.infcybla, // Lancers
 			cTempl.infscymc, // Super Heavy Gunners
+			cTempl.infscyhr, // Super Heavy Rockets
 			cTempl.infcybfl, // Flamers
 			cTempl.infcolpodt, cTempl.infcolpodt, cTempl.infcolpodt, // MRPs
 			cTempl.infcolaaht, // Hurricanes
@@ -166,7 +168,8 @@ function sendInfestedReinforcements()
 		].concat((difficulty >= EASY) ? cTempl.infcohhrat : []), // Add a HRA tank
 		[ // Bashers, Stingers, and Infantry
 			cTempl.vilestinger, // Vile Stingers
-			cTempl.infcomtruckt, // Infested Truck
+			cTempl.infcomtruckt, // Infested Trucks
+			cTempl.infcomtruckht,
 			cTempl.stinger, cTempl.stinger, cTempl.stinger, cTempl.stinger, // Stingers
 			cTempl.basher, cTempl.basher, cTempl.basher, cTempl.basher, cTempl.basher, cTempl.basher, // Bashers
 			cTempl.boomtick, cTempl.boomtick, // Boom Ticks
@@ -935,7 +938,7 @@ function eventStartLevel()
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(65)),
 			// Oops! All Supers!!
-			templates: [ cTempl.scytk, cTempl.scyac ]
+			templates: [ cTempl.scytk, cTempl.scyac, cTempl.scyhr ]
 		},
 		"colCybFactory2": {
 			assembly: "colCybAssembly2",
@@ -1003,7 +1006,7 @@ function eventStartLevel()
 		},
 		"infCybFactory": {
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(28)),
-			templates: [ cTempl.infcybfl, cTempl.infcybca, cTempl.infcybgr, cTempl.infcybhg ]
+			templates: [ cTempl.infcybfl, cTempl.infcybca, cTempl.infcybmr, cTempl.infcybhg ]
 		},
 	});
 	
@@ -1026,8 +1029,8 @@ function eventStartLevel()
 				cTempl.plhrepht, cTempl.plhrepht, cTempl.plhrepht, // 3 Repair Turrets
 				cTempl.plhhaaht, cTempl.plhhaaht, // 2 Cyclones
 				cTempl.plhstrikeht, // 1 VTOL Strike Turret
-				cTempl.scyac, cTempl.scyac, // 2 Super Auto-Cannon Cyborgs (Insane)
-				cTempl.plhacanht, cTempl.plhacanht, // 2 Assault Cannons (Hard+)
+				cTempl.scyac, cTempl.scyac, // 2 Super Auto-Cannon Cyborgs (Hard+)
+				cTempl.plhacanht, cTempl.plhacanht, // 2 Assault Cannons (Insane)
 			],
 		}, CAM_ORDER_FOLLOW, {
 			leader: "deltaCommander",
@@ -1150,7 +1153,9 @@ function eventStartLevel()
 				cTempl.comagt, cTempl.comagt, cTempl.comagt, cTempl.comagt, // 4 Assault Guns
 				cTempl.cominft, cTempl.cominft, // 2 Infernos
 				cTempl.comrept, cTempl.comrept, // 2 Repair Turrets
-				cTempl.scyac, cTempl.scyac, cTempl.scyac, cTempl.scyac, // 4 Super Auto-Cannons
+				cTempl.scyac, cTempl.scyac, // 2 Super Auto-Cannons
+				cTempl.scyac, cTempl.scyac, // 2 More Super Auto-Cannons (Hard+)
+				cTempl.cohhcant, cTempl.cohhcant, // 2 More Heavy Cannons (Insane)
 			],
 			factories: ["colFactory1", "colFactory3", "colCybFactory2", "colCybFactory3", "colCybFactory4"],
 			obj: "colCommander" // Stop refilling this group when the commander dies

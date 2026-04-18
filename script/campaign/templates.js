@@ -199,6 +199,8 @@ cybhg: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "CyborgHeavyChaingun
 cybag: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "CyborgRotMG" }, // Assault Gunner Cyborg
 cybfl: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "CyborgFlamer01" }, // Flamer Cyborg
 cybth: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "Cyb-Wpn-Thermite" }, // Thermite Flamer Cyborg
+cybmr: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "Cyb-Wpn-MRL" }, // Mini-Rocket Cyborg
+scyhr: { body: "CyborgHeavyBody", prop: "CyborgLegs", weap: "Cyb-Hvywpn-HRA" }, // Super Heavy Rocket Cyborg
 cybgr: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "Cyb-Wpn-Grenade" }, // Grenadier Cyborg
 scygr: { body: "CyborgHeavyBody", prop: "CyborgLegs", weap: "Cyb-Hvywpn-Grenade" }, // Super Heavy Grenadier Cyborg
 cybsa: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "CyborgLtRocket" }, // Sarissa Cyborg
@@ -211,7 +213,7 @@ scyac: { body: "CyborgHeavyBody", prop: "CyborgLegs", weap: "Cyb-Hvywpn-Acannon"
 cybls: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "Cyb-Wpn-Laser" }, // Flashlight Gunner Cyborg
 nxcyrail: { body: "CybNXRail1Jmp", prop: "CyborgLegs02", weap: "NX-Cyb-Rail1" }, // NEXUS Needle Cyborg
 nxcyscou: { body: "CybNXMissJmp", prop: "CyborgLegs02", weap: "NX-CyborgMiss" }, // NEXUS Scourge Cyborg
-nxcylas: { body: "CybNXPulseLasJmp", prop: "CyborgLegs02", weap: "NX-CyborgPulseLas" }, // NEXUS Flashlight Cyborg
+nxcylas: { body: "CybNXPulseLasJmp", prop: "CyborgLegs02", weap: "NX-CyborgLas" }, // NEXUS Flashlight Cyborg
 
 // Scavenger Units:
 flatmrl: { body: "ScavTruckBody", prop: "BaBaProp", weap: ["RustRocket-Pod", "RustRocket-MRL"] }, // MRA Flatbed Truck
@@ -235,6 +237,8 @@ infcybhg: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "InfCyborgHeavyCh
 infcybag: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "InfCyborgRotMG" }, // Infested Assault Gunner Cyborg
 infcybfl: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "InfCyborgFlamer01" }, // Infested Flamer Cyborg
 infcybth: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "InfCyb-Wpn-Thermite" }, // Infested Thermite Flamer Cyborg
+infcybmr: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "InfCyb-Wpn-MRL" }, // Infested Mini-Rocket Cyborg
+infscyhr: { body: "CyborgHeavyBody", prop: "CyborgLegs", weap: "InfCyb-Hvywpn-HRA" }, // Infested Super Heavy Rocket Cyborg
 infcybgr: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "InfCyb-Wpn-Grenade" }, // Infested Grenadier Cyborg
 infscygr: { body: "CyborgHeavyBody", prop: "CyborgLegs", weap: "InfCyb-Hvywpn-Grenade" }, // Infested Super Heavy Grenadier Cyborg
 infcybla: { body: "CyborgLightBody", prop: "CyborgLegs", weap: "InfCyborgRocket" }, // Infested Lancer Cyborg

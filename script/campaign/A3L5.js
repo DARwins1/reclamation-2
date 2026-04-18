@@ -22,7 +22,6 @@ const mis_infestedResearch = [
 
 const MIS_RESEARCH_FACILITY = 1;
 
-// var collectiveActive; // True when the Collective start calling transports and moving towards the artifact
 var playerHasArtifact; // True when the player has collected the artifact (and can escape)
 var enemyStoleArtifact; // True when the Collective have successfully escaped with the artifact
 var artiGroupActive; // True when the Collective artifact group can start moving
@@ -79,6 +78,7 @@ function sendInfestedReinforcements()
 			cTempl.stinger, cTempl.stinger, cTempl.stinger, // Stingers
 			cTempl.infcybca, cTempl.infcybca, // Heavy Gunners
 			cTempl.infcybhg, // Heavy Machinegunners
+			cTempl.infcybmr, // Mini-Rocket Cyborgs
 			cTempl.infcolpodt, // MRPs
 			cTempl.infcolhmght, // HMGs
 			cTempl.infcolcanht, // Light Cannons
@@ -295,7 +295,7 @@ function manageArtifactGroup()
 	}
 }
 
-// Put a red dot on the minimap over the artifact holder's current position is
+// Put a red dot on the minimap over the artifact holder's current position
 function trackArtiHolder()
 {
 	const artiHolder = getObject("colArtiHolder");
@@ -542,11 +542,13 @@ function eventStartLevel()
 		camMakeGroup("colArtiGroup"), {
 			templates: [
 				cTempl.cohhcant, cTempl.cohhcant, // 2 Heavy Cannons
-				cTempl.comagt, cTempl.comagt, cTempl.comagt, cTempl.comagt, // 4 Assault Guns
 				cTempl.comacant, cTempl.comacant, cTempl.comacant, cTempl.comacant, // 4 Assault Cannons
 				cTempl.cominft, cTempl.cominft, cTempl.cominft, // 3 Infernos
 				cTempl.comhatt, cTempl.comhatt, // 2 Tank Killers
+				cTempl.comagt, cTempl.comagt, cTempl.comagt, // 3 Assault Guns
 				cTempl.comrept, // 1 Repair Turret
+				cTempl.cybth, cTempl.cybth, cTempl.cybth, // 3 Thermite Flamers
+				cTempl.scyhr, cTempl.scyhr, cTempl.scyhr, // 3 Super HRAs
 			]
 		}, CAM_ORDER_DEFEND, { // Wait for further orders...
 			pos: camMakePos("colArtiGroup")
@@ -555,9 +557,9 @@ function eventStartLevel()
 		camMakeGroup("colPatrolGroup"), {
 			templates: [
 				cTempl.cohraat, // 1 Whirlwind
-				cTempl.cybla, cTempl.cybla, cTempl.cybla, cTempl.cybla, // 4 Lancer Cyborgs
+				cTempl.cybth, cTempl.cybth, cTempl.cybth, cTempl.cybth, // 4 Thermite Flamer Cyborgs
 				cTempl.scytk, cTempl.scytk, // 2 Super Tank Killer Cyborgs
-				cTempl.cybth, cTempl.cybth, // 2 Thermite Flamer Cyborgs
+				cTempl.scyhr, cTempl.scyhr, // 2 Super Heavy Rocket Cyborgs
 			]
 		}, CAM_ORDER_PATROL, {
 			pos: [

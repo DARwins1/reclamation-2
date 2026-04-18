@@ -34,6 +34,7 @@ var infestedThreatFactorMin;
 var truckLostThreshold;
 var scavWestStructSet;
 var scavOilStructSet;
+var infestedAggroCombo;
 
 // Civilian holdout groups
 var civGroups;
@@ -72,8 +73,22 @@ function heliAttack()
 		altOrder: CAM_ORDER_ATTACK,
 	};
 
-	// A helicopter will attack the player every 3 minutes.
+	// A helicopter will attack the player every 2 minutes.
 	// The helicopter attacks stop when the VTOL radar tower is destroyed.
+	camSetVtolData(MIS_CYAN_SCAVS, "heliAttackPos", "heliRemoveZone", list, camChangeOnDiff(camMinutesToMilliseconds(2)), "heliTower", ext);
+}
+
+// Setup hunter helicopter attacks.
+function hunterAttack()
+{
+	const list = [cTempl.helcan];
+	const ext = {
+		limit: [1],
+		alternate: true,
+		callback: "truckTargets", // Focus only on the player's trucks
+		altOrder: CAM_ORDER_ATTACK,
+	};
+
 	camSetVtolData(MIS_CYAN_SCAVS, "heliAttackPos", "heliRemoveZone", list, camChangeOnDiff(camMinutesToMilliseconds(2)), "heliTower", ext);
 }
 
@@ -163,7 +178,6 @@ function sendCharlieTransport()
 	);
 }
 
-
 function expandMap()
 {
 	// Expand the map to full size
@@ -233,7 +247,6 @@ function setVictory()
 function startInfestedWaves()
 {
 	infestedActive = true;
-	// sendInfestedReinforcements();
 	setTimer("sendInfestedReinforcements", camSecondsToMilliseconds((difficulty >= MEDIUM) ? 40 : 60));
 
 	// Dialogue about the infested groups along the highway
@@ -675,11 +688,6 @@ function sendInfestedReinforcements()
 		);
 	}
 
-	if (infestedThreatFactor >= 20)
-	{
-		camCallOnce("infestedThreatDialogue");
-	}
-
 	// Decrease the threat factor over time if it's above the minimum
 	if (infestedThreatFactor > infestedThreatFactorMin)
 	{
@@ -697,6 +705,7 @@ camAreaEvent("infExit", function(droid)
 		{
 			camSafeRemoveObject(droid);
 		}
+		infestedAggroCombo = 0;
 	}
 	resetLabel("infExit", CAM_INFESTED);
 });
@@ -718,19 +727,105 @@ function eventAttacked(victim, attacker)
 			infestedThreatFactor += difficulty;
 			if (infestedThreatFactor > MIS_MAX_THREAT)
 			{
-				// Cap the threat factor so the player doesn't fall into a feedback loop
+				// Cap the threat factor
 				infestedThreatFactor = MIS_MAX_THREAT;
+			}
+
+			if (infestedThreatFactor >= 20)
+			{
+				camCallOnce("infestedThreatDialogue1");
+			}
+			if (infestedThreatFactor >= MIS_MAX_THREAT)
+			{
+				camCallOnce("infestedThreatDialogue2");
+			}
+
+			infestedAggroCombo++;
+
+			if (infestedAggroCombo >= 6 && infestedThreatFactor >= MIS_MAX_THREAT)
+			{
+				// If the player has engaged 6 Infested groups in a row and the threat is at the maximum, stop sending the infested altogether
+				camCallOnce("stopInfested");
 			}
 		}
 	}
 }
 
 // Dialogue if the Infested threat level gets too high
-function infestedThreatDialogue()
+function infestedThreatDialogue1()
 {
 	camQueueDialogue([
 		{text: "CLAYDE: Commander Bravo, we don't have time to waste fighting the Infested.", delay: 2, sound: CAM_RCLICK},
 		{text: "CLAYDE: Try to AVOID confronting the groups traveling along the road.", delay: 3, sound: CAM_RCLICK},
+	]);
+}
+
+// More dialogue if the Infested threat level reaches the maximum
+function infestedThreatDialogue2()
+{
+	camQueueDialogue([
+		{text: "CLAYDE: Commander Bravo, stay AWAY from the Infested!", delay: 2, sound: CAM_RCLICK},
+		{text: "CLAYDE: They're being drawn away by one of the Lures we recovered.", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: We can't afford to waste time holding them back, so let them pass us by.", delay: 3, sound: CAM_RCLICK},
+	]);
+}
+
+// Stop the Infested attacks, but make the remaining scavengers more aggressive
+function stopInfested()
+{
+	if (!infestedActive)
+	{
+		return;
+	}
+
+	removeTimer("sendInfestedReinforcements");
+	infestedActive = false;
+
+	// Same templates as before, but with a much faster throttle
+	camSetFactories({
+		"scavFactory1": {
+			assembly: "scavAssembly1",
+			order: CAM_ORDER_ATTACK,
+			groupSize: 7,
+			maxSize: 8,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(12)),
+			data: {
+				targetPlayer: CAM_HUMAN_PLAYER
+			},
+			// Infantry, light vehicles, with the occasional bus tank
+			templates: [
+				cTempl.monhmg, cTempl.kevbloke, cTempl.bjeep, cTempl.kevlance, cTempl.kevbloke, cTempl.kevbloke, cTempl.bjeep,
+				cTempl.rbjeep, cTempl.kevlance, cTempl.kevbloke, cTempl.minitruck
+			]
+		},
+		"scavFactory2": {
+			assembly: "scavAssembly2",
+			order: CAM_ORDER_ATTACK,
+			groupSize: 5,
+			maxSize: 8,
+			throttle: camChangeOnDiff(camSecondsToMilliseconds(14)),
+			data: {
+				targetPlayer: CAM_HUMAN_PLAYER
+			},
+			// Mostly vehicles
+			templates: [
+				cTempl.firetruck, cTempl.bjeep, cTempl.kevlance, cTempl.buscan, cTempl.minitruck,
+				cTempl.sartruck, cTempl.rbjeep, cTempl.bjeep, cTempl.bjeep, cTempl.firetruck
+			]
+		},
+	});
+	camEnableFactory("scavFactory1");
+	camEnableFactory("scavFactory2");
+
+	// Special chopper that hunts down the player's trucks
+	hunterAttack();
+
+	camSkipDialogue();
+	camQueueDialogue([
+		{text: "CLAYDE: Commander Bravo...", delay: 2, sound: CAM_RCLICK},
+		{text: "CLAYDE: ...I'm re-routing the Infested using the Lures.", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: Hurry up and secure any remaining civilians.", delay: 3, sound: CAM_RCLICK},
+		{text: "CLAYDE: We can't waste any more time out there.", delay: 3, sound: CAM_RCLICK},
 	]);
 }
 
@@ -862,7 +957,11 @@ function checkHaven()
 	{
 		// All of the player's units are in the haven!
 		removeTimer("checkHaven");
-		removeTimer("sendInfestedReinforcements");
+		if (infestedActive)
+		{
+			removeTimer("sendInfestedReinforcements");
+			infestedActive = false;
+		}
 
 		// Shrink the map boundaries again
 		setScrollLimits(39, 42, 78, 63);
@@ -978,6 +1077,11 @@ function playerReallyAlive()
 function strikeTargets()
 {
 	return enumStruct(CAM_HUMAN_PLAYER).concat(enumDroid(CAM_HUMAN_PLAYER));
+}
+
+function truckTargets()
+{
+	return enumDroid(CAM_HUMAN_PLAYER, DROID_CONSTRUCT).filter((droid) => (droid.propulsion !== "CyborgLegs"));
 }
 
 function eventStartLevel()
@@ -1116,6 +1220,7 @@ function eventStartLevel()
 	infestedThreatFactor = 5;
 	infestedThreatFactorMin = 5;
 	truckLostThreshold = (difficulty >= MEDIUM) ? 2 : 3;
+	infestedAggroCombo = 0;
 
 	// Populate the civilian holdouts
 	const civ1Templates = [

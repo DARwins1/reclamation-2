@@ -139,6 +139,8 @@
             "Cyb-Hvywpn-HPV:InfCyb-Hvywpn-HPV",
             "Cyb-Hvywpn-Mcannon:InfCyb-Hvywpn-Mcannon",
             "Cyb-Hvywpn-TK:InfCyb-Hvywpn-TK",
+            "Cyb-Wpn-MRL:InfCyb-Wpn-MRL",
+            "Cyb-Hvywpn-HRA:InfCyb-Hvywpn-HRA",
             "Cyb-Wpn-Grenade:InfCyb-Wpn-Grenade",
             "Cyb-Hvywpn-Grenade:InfCyb-Hvywpn-Grenade",
             "Cyb-Wpn-Rail1:InfCyb-Wpn-Rail1",
@@ -689,6 +691,21 @@
         ],
         "statID": "Cyb-Wpn-Grenade"
     },
+    "R-Cyb-Wpn-MRL": {
+        "iconID": "IMAGE_RES_CYBORGTECH",
+        "id": "R-Cyborg-Wpn-MRL",
+        "msgName": "RES_CYW_MRA",
+        "name": "Mini-Rocket Cyborg",
+        "requiredResearch": [
+            "R-Wpn-Rocket02-MRL"
+        ],
+        "researchPoints": 1600,
+        "researchPower": 82,
+        "resultComponents": [
+            "Cyb-Wpn-MRL"
+        ],
+        "statID": "Cyb-Wpn-MRL"
+    },
     "R-Cyborg-Wpn-Flamer": {
         "iconID": "IMAGE_RES_CYBORGTECH",
         "id": "R-Cyborg-Wpn-Flamer",
@@ -918,6 +935,25 @@
             "Cyb-Hvywpn-Grenade"
         ],
         "statID": "Cyb-Hvywpn-Grenade"
+    },
+    "R-Cyb-Hvywpn-HRA": {
+        "iconID": "IMAGE_RES_CYBORGTECH",
+        "id": "R-Cyborg-Hvywpn-HRA",
+        "msgName": "RES_CYW_HRA",
+        "name": "Super Heavy Rocket Cyborg",
+        "redComponents": [
+            "Cyb-Wpn-MRL"
+        ],
+        "requiredResearch": [
+            "R-Wpn-Rocket02-MRLHvy",
+            "R-Cyb-Hvywpn-Grenade"
+        ],
+        "researchPoints": 1800,
+        "researchPower": 160,
+        "resultComponents": [
+            "Cyb-Hvywpn-HRA"
+        ],
+        "statID": "Cyb-Hvywpn-HRA"
     },
     "R-Cyborg-Hvywpn-TK": {
         "iconID": "IMAGE_RES_CYBORGTECH",
@@ -1899,6 +1935,21 @@
             "PillBox6"
         ],
         "statID": "PillBox6"
+    },
+    "R-Defense-Rail1": {
+        "iconID": "IMAGE_RES_DEFENCE",
+        "id": "R-Defense-Rail1",
+        "msgName": "RES_EMP_Rail1",
+        "name": "Needle Gun Bunker",
+        "requiredResearch": [
+            "R-Wpn-RailGun01"
+        ],
+        "researchPoints": 1200,
+        "researchPower": 310,
+        "resultStructures": [
+            "PillBoxRail1"
+        ],
+        "statID": "PillBoxRail1"
     },
     "R-Defense-LancerTower": {
         "iconID": "IMAGE_RES_DEFENCE",

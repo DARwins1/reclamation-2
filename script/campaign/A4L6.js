@@ -211,6 +211,7 @@ function sendCollectiveTransporter()
 		cTempl.cybag, // Assault Gunner Cyborg
 		cTempl.scytk, // Super TK Cyborg
 		cTempl.scygr, // Super Grenadier Cyborg
+		cTempl.scyhr, // Super HRA Cyborg
 		cTempl.scyac, // Super Auto Gunner Cyborg
 		cTempl.comhaaht, // Cyclone
 		cTempl.comhatht, // Tank Killer
@@ -411,7 +412,7 @@ function sendCollectiveReinforcements()
 			],
 			[
 				cTempl.cybfl, cTempl.cybfl, cTempl.cybfl, // 3 Flamer Cyborgs
-				cTempl.cybla, cTempl.cybla, // 2 Lancer Cyborgs
+				cTempl.cybmr, cTempl.cybmr, // 2 MRA Cyborgs
 				cTempl.comatt, cTempl.comatt, // 2 Lancer
 				cTempl.commrat, cTempl.commrat, cTempl.commrat, // 3 MRAs
 			],
@@ -449,7 +450,7 @@ function sendCollectiveReinforcements()
 			],
 			[
 				cTempl.cybth, cTempl.cybth, cTempl.cybth, cTempl.cybth, // 4 Thermite Flamer Cyborgs
-				cTempl.cybla, cTempl.cybla, cTempl.cybla, // 3 Lancer Cyborgs
+				cTempl.scyhr, cTempl.scyhr, // 2 Super HRA Cyborgs
 				cTempl.scytk, // 1 Super TK Cyborg
 				cTempl.comhatt, cTempl.comhatt, // 2 Tank Killers
 				cTempl.cohhrat, cTempl.cohhrat, // 2 HRAs
@@ -1385,8 +1386,8 @@ function eventStartLevel()
 			},
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(45)),
-			// Thermite Flamers + Super Grenadiers
-			templates: [ cTempl.cybth, cTempl.scygr ]
+			// Thermite Flamers + Super HRA Cyborgs
+			templates: [ cTempl.cybth, cTempl.scyhr ]
 		},
 		"colCybFactory2": {
 			assembly: "colCybAssembly2",

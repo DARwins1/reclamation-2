@@ -59,14 +59,6 @@ function camSetFactories(factories)
 //;;
 function camSetFactoryData(factoryLabel, factoryData)
 {
-	const structure = getObject(factoryLabel);
-	if (!camDef(structure) || !structure)
-	{
-		// Not an error! It's ok if the factory is already destroyed
-		// when its data was updated.
-		camTrace("Factory", factoryLabel, "not found");
-		return;
-	}
 	// remember the old factory group, if any
 	let droids = [];
 	if (camDef(__camFactoryInfo[factoryLabel]))
@@ -86,11 +78,6 @@ function camSetFactoryData(factoryLabel, factoryData)
 	}
 	fi.enabled = false;
 	fi.state = 0;
-	// // Record the coordinates, player, and type of this factory, in case it is destroyed and rebuilt
-	// fi.x = structure.x;
-	// fi.y = structure.y;
-	// fi.player = structure.player;
-	// fi.stattype = structure.stattype;
 	// Automatically re-manage this factory if it's destroyed and rebuilt
 	camAutoReplaceObjectLabel(factoryLabel);
 	if (!camDef(fi.group))
@@ -563,9 +550,21 @@ function __checkEnemyFactoryProductionTick()
 {
 	for (const flabel in __camFactoryInfo)
 	{
-		if (getObject(flabel) !== null && __camFactoryInfo[flabel].enabled === true)
+		if (!__camFactoryInfo[flabel].enabled)
+		{
+			continue;
+		}
+		if (getObject(flabel) !== null)
 		{
 			__camContinueProduction(flabel);
+		}
+		else // If the factory is destroyed, order any idling factory droids to attack
+		{
+			const droids = enumGroup(__camFactoryInfo[flabel].group);
+			if (droids.length > 0)
+			{
+				camManageGroup(camMakeGroup(droids), CAM_ORDER_ATTACK);
+			}
 		}
 	}
 }

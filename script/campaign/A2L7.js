@@ -112,8 +112,9 @@ function collectiveAttackWaves()
 			cTempl.commcant, cTempl.commcant, // Medium Cannon
 			cTempl.comatt, // Lancer
 			cTempl.cybhg, cTempl.cybhg, // Heavy Machinegunner Cyborg
-			cTempl.cybgr, cTempl.cybgr, // Grenadier Cyborg
 			cTempl.cybca, cTempl.cybca, // Heavy Gunner Cyborg
+			cTempl.cybgr, // Grenadier Cyborg
+			cTempl.cybmr, // Mini-Rocket Cyborg
 			cTempl.cybla, // Lancer Cyborg
 			cTempl.cybfl, // Flamer Cyborg
 		];
@@ -136,6 +137,8 @@ function collectiveAttackWaves()
 			colDroidPool = camArrayReplaceWith(colDroidPool, cTempl.cybfl, cTempl.cybth);
 			// Swap Grenadiers for Super Grenadiers
 			colDroidPool = camArrayReplaceWith(colDroidPool, cTempl.cybgr, cTempl.scygr);
+			// Swap Mini-Rockets for Heavy Rockets
+			colDroidPool = camArrayReplaceWith(colDroidPool, cTempl.cybmr, cTempl.scyhr);
 		}
 		if ((difficulty === INSANE && waveIndex >= 10) || (difficulty === HARD && waveIndex >= 35) || waveIndex >= 60)
 		{

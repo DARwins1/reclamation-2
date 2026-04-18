@@ -58,6 +58,7 @@ function sendInfestedReinforcements()
 			cTempl.stinger, cTempl.stinger, cTempl.stinger, // Stingers
 			cTempl.infcybca, cTempl.infcybca, // Heavy Gunners
 			cTempl.infcybhg, // Heavy Machinegunners
+			cTempl.infcybmr, // Mini-Rocket Cyborgs
 			cTempl.infcolpodt, // MRPs
 			cTempl.infcolhmght, // HMGs
 			cTempl.infcolcanht, // Light Cannons

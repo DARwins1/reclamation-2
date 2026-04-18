@@ -111,7 +111,7 @@ function sendCollectiveTransporter()
 	// Next, add grab some droids for the transport
 	const TRANSPORT_SIZE = ((difficulty <= EASY) ? 6 : ((difficulty < INSANE) ? 8 : 10));
 	const droidPool = [
-		cTempl.cybca, cTempl.cybgr, cTempl.colaaht, cTempl.colflamt,
+		cTempl.cybmr, cTempl.cybgr, cTempl.colaaht, cTempl.colflamt,
 		cTempl.colmrat, cTempl.colcanht, cTempl.cybla
 	];
 	if (difficulty >= MEDIUM) droidPool.push(cTempl.commcant);
@@ -306,7 +306,7 @@ function eventStartLevel()
 			},
 			groupSize: 5,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(45)),
-			templates: [ cTempl.cybhg, cTempl.cybgr, cTempl.cybhg, cTempl.scymc ]
+			templates: [ cTempl.cybhg, cTempl.cybmr, cTempl.cybhg, cTempl.scymc ]
 		},
 	});
 

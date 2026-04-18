@@ -202,7 +202,7 @@ function groundAssaultWave(index)
 					cTempl.cohhowt, cTempl.cohhowt, cTempl.cohhowt, // 3 Howitzers
 				],
 				[ // Southeast trench entry templates (+commander)
-					cTempl.cybhg, cTempl.cybhg, cTempl.cybhg, cTempl.cybhg, // 4 Heavy Machinegunners
+					cTempl.scyhr, cTempl.scyhr, cTempl.scyhr, cTempl.scyhr, // 4 HRA Cyborgs
 					cTempl.scymc, cTempl.scymc, cTempl.scymc, cTempl.scymc, cTempl.scymc, cTempl.scymc, // 6 Super Heavy Gunners
 					cTempl.comhpvt, cTempl.comhpvt, cTempl.comhpvt, cTempl.comhpvt, // 4 HVCs
 					cTempl.comhaat, cTempl.comhaat, // 2 Cyclones
@@ -225,7 +225,7 @@ function groundAssaultWave(index)
 			// Add more units to commander squads on higher difficulties
 			if (difficulty >= MEDIUM)
 			{
-				wave1Templates[1].push(cTempl.cybhg, cTempl.cybhg); // 2 Heavy Machinegunners
+				wave1Templates[1].push(cTempl.scyhr, cTempl.scyhr); // 2 HRA Cyborgs
 				wave1Templates[3].push(cTempl.cominft, cTempl.cominft); // 2 Infernos
 			}
 			if (difficulty >= HARD)
@@ -249,7 +249,7 @@ function groundAssaultWave(index)
 				[ // Northeast base entry templates
 					cTempl.comsenst, cTempl.comsenst, // 2 Sensors
 					cTempl.comatt, cTempl.comatt, cTempl.comatt, cTempl.comatt, // 4 Lancers
-					cTempl.cybla, cTempl.cybla, cTempl.cybla, cTempl.cybla, // 4 Super Grenadiers
+					cTempl.scyhr, cTempl.scyhr, cTempl.scyhr, cTempl.scyhr, // 4 Super HRA Cyborgs
 					cTempl.comatht, cTempl.comatht, cTempl.comatht, cTempl.comatht, // 4 Bombards
 					cTempl.cohhowt, cTempl.cohhowt, // 2 Howitzers
 				],
@@ -600,7 +600,7 @@ function groundAssaultWave(index)
 				[ // Northeast road entry
 					cTempl.comsensht, cTempl.comsensht, // 2 Sensors
 					cTempl.comhpvht, cTempl.comhpvht, cTempl.comhpvht, cTempl.comhpvht, // 4 HVCs
-					cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk, // 6 Super Tank Killer Cyborgs
+					cTempl.scyhr, cTempl.scyhr, cTempl.scyhr, cTempl.scyhr, cTempl.scyhr, cTempl.scyhr, // 6 Super HRA Cyborgs
 					cTempl.comrmortht, cTempl.comrmortht, cTempl.comrmortht, cTempl.comrmortht, cTempl.comrmortht, cTempl.comrmortht, // 6 Pepperpots
 					cTempl.cohhhowtt, cTempl.cohhhowtt, // 2 Ground Shakers
 				],

@@ -284,7 +284,7 @@ function eventStartLevel()
 			groupSize: 6,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(45)),
 			// Heavy cyborg support
-			templates: [ cTempl.scymc, cTempl.cybla, cTempl.scygr, cTempl.scymc ]
+			templates: [ cTempl.scymc, cTempl.scyhr, cTempl.scyhr, cTempl.scymc ]
 		},
 		"colCybFactory2": {
 			assembly: "colCybAssembly2",

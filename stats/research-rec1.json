@@ -31,6 +31,8 @@
             "Cyb-Hvywpn-HPV:InfCyb-Hvywpn-HPV",
             "Cyb-Hvywpn-Mcannon:InfCyb-Hvywpn-Mcannon",
             "Cyb-Hvywpn-TK:InfCyb-Hvywpn-TK",
+            "Cyb-Wpn-MRL:InfCyb-Wpn-MRL",
+            "Cyb-Hvywpn-HRA:InfCyb-Hvywpn-HRA",
             "Cyb-Wpn-Grenade:InfCyb-Wpn-Grenade",
             "Cyb-Hvywpn-Grenade:InfCyb-Hvywpn-Grenade",
             "Cyb-Wpn-Rail1:InfCyb-Wpn-Rail1",
@@ -258,6 +260,21 @@
         ],
         "statID": "Cyb-Wpn-Grenade"
     },
+    "R-Cyb-Wpn-MRL": {
+        "iconID": "IMAGE_RES_CYBORGTECH",
+        "id": "R-Cyborg-Wpn-MRL",
+        "msgName": "RES_CYW_MRA",
+        "name": "Mini-Rocket Cyborg",
+        "requiredResearch": [
+            "R-Wpn-Rocket02-MRL"
+        ],
+        "researchPoints": 800,
+        "researchPower": 82,
+        "resultComponents": [
+            "Cyb-Wpn-MRL"
+        ],
+        "statID": "Cyb-Wpn-MRL"
+    },
     "R-Cyborg-Wpn-Flamer": {
         "iconID": "IMAGE_RES_CYBORGTECH",
         "id": "R-Cyborg-Wpn-Flamer",
@@ -279,6 +296,9 @@
         "id": "R-Cyborg-Wpn-Flamer",
         "msgName": "RES_CYW_THERM",
         "name": "Thermite Flamer Cyborg",
+        "replacedComponents": [
+            "CyborgFlamer01:Cyb-Wpn-Thermite"
+        ],
         "redComponents": [
             "CyborgFlamer01"
         ],
@@ -866,6 +886,9 @@
         "id": "R-Wpn-Mortar-Incendiary",
         "msgName": "RES_IMORT",
         "name": "Incendiary Mortar",
+        "redComponents": [
+            "Mortar1Mk1"
+        ],
         "requiredResearch": [
             "R-Wpn-Flame2",
             "R-Wpn-Flamer-Damage03"

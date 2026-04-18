@@ -50,6 +50,7 @@
         "text": [
             "New Weapon Turret Available",
             ".50-calibre heavy machinegun",
+            "Damage Type: Anti-Personnel",
             "Effective against: Infantry and wheeled vehicles",
             "Ineffective against: Structures and tracked vehicles",
             "Can attack aerial targets"
@@ -139,6 +140,7 @@
         "text": [
             "New Weapon Turret Available",
             "Heavy artillery weapon firing high-explosive mortar shells",
+            "Damage Type: Artillery",
             "Effective against: Infantry, Hover vehicles and structures",
             "Ineffective against: Tracked vehicles and bunkers",
             "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
@@ -188,6 +190,7 @@
         "text": [
             "New Weapon Turret Available",
             "Heavy rocket launcher firing powerful anti-tank rockets",
+            "Damage Type: Anti-Tank",
             "Effective against: Vehicles",
             "Ineffective against: Infantry and structures",
             "Greater accuracy at longer ranges",
@@ -201,6 +204,7 @@
         "text": [
             "New Weapon Turret Available",
             "Rocket artillery weapon firing salvos of explosive rockets",
+            "Damage Type: Artillery",
             "Effective against: Infantry, Hover vehicles and structures",
             "Ineffective against: Tracked vehicles and bunkers",
             "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",
@@ -218,6 +222,7 @@
         "text": [
             "New Weapon Turret Available",
             "Short-ranged artillery firing salvos of explosive mini-rockets",
+            "Damage Type: Artillery",
             "Effective against: Infantry, wheeled vehicles and structures",
             "Ineffective against: Tracked vehicles and bunkers",
             "Indirect weapon; does not require line of sight to a target and can be assigned to a sensor",

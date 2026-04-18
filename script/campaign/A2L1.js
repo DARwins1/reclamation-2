@@ -689,7 +689,7 @@ function eventStartLevel()
 		];
 
 		const artPool = [ // Mortars, MRAs, and Grenadiers
-			cTempl.pllmortw, cTempl.colmraw, cTempl.cybgr,
+			cTempl.pllmortw, cTempl.colmraw, cTempl.cybgr, cTempl.cybmr,
 		];
 
 		const vtolPool = [ // Misc. VTOLs

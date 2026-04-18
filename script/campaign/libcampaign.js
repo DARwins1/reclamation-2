@@ -97,7 +97,6 @@ const CAM_NEW_PARADIGM = 1;
 const CAM_THE_COLLECTIVE = 2;
 const CAM_NEXUS = 3;
 const CAM_INFESTED = 4;
-// const CAM_TEAM_CHARLIE = 5;
 const CAM_SCAV_6 = 6;
 const CAM_SCAV_7 = 7;
 
@@ -367,9 +366,6 @@ const __camInfTruckSummonTemplates = [
 	{ body: "InfestedLanceBody", prop: "BaBaLegs", weap: "BabaLance" }, // Infested Rocket Scavs
 	{ body: "InfestedLanceBody-Kev", prop: "BaBaLegs", weap: "BabaLance" },
 ];
-// const __camInfTruckDeathTemplates = [
-// 	{ body: "BasherBody", prop: "BoomTickLegs", weap: "BasherMelee" }, // Basher
-// ];
 const __CAM_INFTRUCK_FODDER_COUNT = 6;
 
 //group
@@ -399,6 +395,14 @@ const __camTimerlessPowerLimits = [ // Timerless mode power limits
 var __camCalledOnce = {};
 var __camExpLevel;
 var __camLabelInfo;
+var __camPlayerVisibilities;
+const __CAM_OBJ_VISION_RANGE = 8 * 128; // 8 tiles
+var __camCapturedFactoryIdx;
+const CAM_MAX_PLAYER_UNITS = 101; //note: the transporter is a unit you own
+const CAM_MAX_PLAYER_COMMANDERS = 10;
+const CAM_MAX_PLAYER_CONSTRUCTORS = 15;
+
+//sky
 const __camArizonaFogRGB = {r:176, g:143, b:95}; // Default RGB for arizona fog. IDEALLY, these would be read from palette.txt
 const __camUrbanFogRGB = {r:16, g:16, b:64}; // Default RGB for urban fog.
 const __camRockyFogRGB = {r:182, g:225, b:236}; // Default RGB for rocky fog.
@@ -419,8 +423,6 @@ const __camDefaultSunStats = {
 };
 var __camSunStats;
 const __CAM_GRADUAL_TICK_RATE = 100;
-var __camPlayerVisibilities;
-const __CAM_OBJ_VISION_RANGE = 8 * 128; // 8 tiles
 const CAM_WEATHER_DEFAULT = 0; // Set weather based on tileset
 const CAM_WEATHER_CLEAR = 1; // No weather
 const CAM_WEATHER_RAIN = 2; // Intermittent rain
@@ -436,10 +438,6 @@ const __camArizonaSkyTexture = "texpages/page-25-sky-arizona.png";
 const __camUrbanSkyTexture = "texpages/page-25-sky-urban.png";
 const __camNightSkyTexture = "texpages/night-sky.png";
 var __camSkyboxType;
-var __camCapturedFactoryIdx;
-const CAM_MAX_PLAYER_UNITS = 101; //note: the transporter is a unit you own
-const CAM_MAX_PLAYER_COMMANDERS = 10;
-const CAM_MAX_PLAYER_CONSTRUCTORS = 15;
 
 //nexus
 var __camLastNexusAttack;

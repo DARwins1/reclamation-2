@@ -200,8 +200,10 @@ function sendInfestedReinforcements()
 			cTempl.stinger, cTempl.stinger, cTempl.stinger, // Stingers
 			cTempl.infcybca, cTempl.infcybca, cTempl.infcybca, cTempl.infcybca, // Heavy Gunners
 			cTempl.infcybhg, cTempl.infcybhg, cTempl.infcybhg, // Heavy Machinegunners
+			cTempl.infcybmr, cTempl.infcybmr, // Mini-Rocket Cyborgs
 			cTempl.infcybla, cTempl.infcybla, // Lancers
 			cTempl.infscymc, // Super Heavy Gunners
+			cTempl.infscyhr, // Super Heavy Rockets
 			cTempl.infcybfl, // Flamers
 			cTempl.infcolpodt, cTempl.infcolpodt, cTempl.infcolpodt, // MRPs
 			cTempl.infcolaaht, // Hurricanes
@@ -219,7 +221,8 @@ function sendInfestedReinforcements()
 		].concat((difficulty >= HARD) ? cTempl.infcomhatt : []), // Add a Tank Killer,
 		[ // Bashers, Stingers, and Infantry
 			cTempl.vilestinger, // Vile Stingers
-			cTempl.infcomtruckt, // Infested Truck
+			cTempl.infcomtruckt, // Infested Trucks
+			cTempl.infcomtruckht,
 			cTempl.stinger, cTempl.stinger, cTempl.stinger, cTempl.stinger, // Stingers
 			cTempl.basher, cTempl.basher, cTempl.basher, cTempl.basher, cTempl.basher, cTempl.basher, // Bashers
 			cTempl.boomtick, cTempl.boomtick, // Boom Ticks

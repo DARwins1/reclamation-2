@@ -327,9 +327,7 @@ function sendCollectiveSupportWave()
 		];
 		if (supportWaveIdx >= 5 || difficulty >= HARD) sensorGroupDroids = sensorGroupDroids.concat([cTempl.cohript, cTempl.cohript]); // Add Ripple Rockets
 		if (supportWaveIdx >= 5) sensorGroupDroids = camArrayReplaceWith(sensorGroupDroids, cTempl.comatht, cTempl.comhatht); // Replace with Tank Killers
-		camSendReinforcement(CAM_THE_COLLECTIVE, chosenEntrance, sensorGroupDroids, CAM_REINFORCE_GROUND, {
-			order: CAM_ORDER_ATTACK, data: {targetPlayer: CAM_HUMAN_PLAYER}
-		});
+		camSendReinforcement(CAM_THE_COLLECTIVE, chosenEntrance, sensorGroupDroids, CAM_REINFORCE_GROUND, orderData);
 		break;
 	case 2: // Annoying Hover Bastards
 		let hoverDroids = [
@@ -382,6 +380,7 @@ function sendCollectiveTransporter()
 		cTempl.cybth, // Thermite Flamer
 		cTempl.cybag, // Assault Gunner
 		cTempl.scygr, // Super Grenadier
+		cTempl.scyhr, // Super Heavy Rockets
 		cTempl.scymc, // Super Heavy Gunner
 	];
 	if (supportWaveIdx >= 5) cyborgPool = camArrayReplaceWith(cyborgPool, cTempl.cybla, cTempl.scytk); // Replace with Super Tank Killers
@@ -441,6 +440,7 @@ function sendInfestedReinforcements()
 			cTempl.stinger, cTempl.stinger, cTempl.stinger, // Stingers
 			cTempl.infcybca, cTempl.infcybca, // Heavy Gunners
 			cTempl.infcybhg, // Heavy Machinegunners
+			cTempl.infcybmr, // Mini-Rocket Cyborgs
 			cTempl.infcolpodt, // MRPs
 			cTempl.infcolhmght, // HMGs
 			cTempl.infcolcanht, // Light Cannons

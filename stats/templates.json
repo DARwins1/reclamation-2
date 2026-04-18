@@ -1575,6 +1575,17 @@
             "Cyb-Wpn-Grenade"
         ]
     },
+    "Cyb-MRL": {
+        "available": true,
+        "body": "CyborgLightBody",
+        "id": "Cyb-MRL",
+        "name": "Mini-Rocket Cyborg",
+        "propulsion": "CyborgLegs",
+        "type": "CYBORG",
+        "weapons": [
+            "Cyb-Wpn-MRL"
+        ]
+    },
     "Cyb-Hvy-A-T": {
         "available": true,
         "body": "CyborgHeavyBody",
@@ -1628,6 +1639,17 @@
         "type": "CYBORG_SUPER",
         "weapons": [
             "Cyb-Hvywpn-Grenade"
+        ]
+    },
+    "Cyb-Hvy-HRA": {
+        "available": true,
+        "body": "CyborgHeavyBody",
+        "id": "Cyb-Hvy-HRA",
+        "name": "Super Heavy Rocket Cyborg",
+        "propulsion": "CyborgLegs",
+        "type": "CYBORG_SUPER",
+        "weapons": [
+            "Cyb-Hvywpn-HRA"
         ]
     },
     "Cyb-Hvy-PulseLsr": {
@@ -1801,6 +1823,16 @@
             "InfCyb-Wpn-Grenade"
         ]
     },
+    "InfCyb-MRL": {
+        "body": "CyborgLightBody",
+        "id": "InfCyb-MRL",
+        "name": "Infested Mini-Rocket Cyborg",
+        "propulsion": "CyborgLegs",
+        "type": "CYBORG",
+        "weapons": [
+            "InfCyb-Wpn-MRL"
+        ]
+    },
     "InfCyb-Hvy-Acannon": {
         "body": "CyborgHeavyBody",
         "id": "InfCyb-Hvy-Acannon",
@@ -1839,6 +1871,16 @@
         "type": "CYBORG_SUPER",
         "weapons": [
             "InfCyb-Hvywpn-Grenade"
+        ]
+    },
+    "InfCyb-Hvy-HRA": {
+        "body": "CyborgHeavyBody",
+        "id": "InfCyb-Hvy-HRA",
+        "name": "Infested Super Heavy Rocket Cyborg",
+        "propulsion": "CyborgLegs",
+        "type": "CYBORG_SUPER",
+        "weapons": [
+            "InfCyb-Hvywpn-HRA"
         ]
     },
     "InfCyb-Hvy-TK": {
@@ -2150,7 +2192,7 @@
         "sensor": "NavGunSensor",
         "type": "CYBORG",
         "weapons": [
-            "NX-CyborgPulseLas"
+            "NX-CyborgLas"
         ]
     },
     "NX-Cyb-Rail1-JUMP": {

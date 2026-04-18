@@ -294,7 +294,7 @@ function eventStartLevel()
 			},
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(55)),
-			templates: [ cTempl.cybca, cTempl.cybhg, cTempl.cybgr ]
+			templates: [ cTempl.cybca, cTempl.cybhg, cTempl.cybla ]
 		},
 		"colCybFactory2": {
 			assembly: "colCybAssembly2",
@@ -314,7 +314,7 @@ function eventStartLevel()
 			},
 			groupSize: 6,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(60)),
-			templates: [ cTempl.cybla, cTempl.cybfl ]
+			templates: [ cTempl.cybmr, cTempl.cybfl ]
 		},
 		"colVtolFactory": {
 			assembly: "colVtolAssembly",

@@ -161,7 +161,7 @@ function expandMap()
 	camPlayVideos({video: "L1_SCAVMSG", type: MISS_MSG});
 
 	// Hack to prevent the south half of the map from being dark after the expansion
-	setSunPosition(225.0, -601.0, 450.0); // Move the sun just a wee bit (default is 225.0, -600.0, 450.0)
+	camSetSunPos(-225.0, -601.0, 450.0); // Move the sun just a wee bit
 }
 
 // This is used to start make scavengers "detect" the player once they're attacked
@@ -631,11 +631,11 @@ function eventStartLevel()
 	camSetSunIntensity(.4,.4,.4);
 	// Darken the fog to 1/4 default brightness
 	camSetFog(45, 56, 59);
+	// Move the sun to the east
+	camSetSunPos(-225.0, -600.0, 450.0);
 	// Make it snow constantly
 	camSetWeather(CAM_WEATHER_SNOWSTORM);
 
-	// Hack to prevent the south half of the map from being dark before the expansion
-	setSunPosition(225.0, -599.0, 450.0); // Move the sun just a wee bit (default is 225.0, -600.0, 450.0)
 
 	// All NASDA structures start out partially damaged
 	preDamageNasdaStructs();

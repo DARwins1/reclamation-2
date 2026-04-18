@@ -470,6 +470,9 @@ function __camVictoryOffworld()
 	const __FORCE_LZ = camDef(__camVictoryData.retlz) ? __camVictoryData.retlz : false;
 	const __DESTROY_ALL = camDef(__camVictoryData.annihilate) ? __camVictoryData.annihilate : false;
 	const __ELIM_BASES = camDef(__camVictoryData.eliminateBases) ? __camVictoryData.eliminateBases : false;
+	let enemyLen = enumArea(0, 0, mapWidth, mapHeight, ENEMIES, false).filter((obj) => (
+		!(obj.type === STRUCTURE && (obj.status !== BUILT || obj.stattype === WALL)) // Don't count walls or unbuilt structures
+	)).length;
 
 	if (camCheckExtraObjective() && camAllArtifactsPickedUp())
 	{
@@ -494,14 +497,10 @@ function __camVictoryOffworld()
 				__camTriggerLastAttack();
 			}
 		}
-		else
+		else if (!__ELIM_BASES)
 		{
 			if (!__FORCE_LZ)
 			{
-				let enemyLen = enumArea(0, 0, mapWidth, mapHeight, ENEMIES, false).filter((obj) => (
-					!(obj.type === STRUCTURE && (obj.status !== BUILT || obj.stattype === WALL)) // Don't count walls or unbuilt structures
-				)).length;
-
 				if (__camVictoryData.ignoreInfestedUnits)
 				{
 					// If we're to ignore Infested units, subtract them from the number of enemies remaining
@@ -528,7 +527,7 @@ function __camVictoryOffworld()
 			const __TOTAL_AT_LZ = enumArea(lz, CAM_HUMAN_PLAYER, false).filter((obj) => (
 				obj.type === DROID && !camIsTransporter(obj)
 			)).length;
-			if (((!__FORCE_LZ && !__DESTROY_ALL) || (__FORCE_LZ && __DESTROY_ALL && !__ENEMY_LEN) || (__FORCE_LZ && !__DESTROY_ALL)) && (__TOTAL_AT_LZ === __TOTAL))
+			if (((!__FORCE_LZ && !__DESTROY_ALL) || (__FORCE_LZ && __DESTROY_ALL && !enemyLen) || (__FORCE_LZ && !__DESTROY_ALL)) && (__TOTAL_AT_LZ === __TOTAL))
 			{
 				__camGameWon();
 				return;
@@ -538,7 +537,7 @@ function __camVictoryOffworld()
 				__camTriggerLastAttack();
 			}
 
-			if (!__DESTROY_ALL || (__FORCE_LZ && !__ENEMY_LEN))
+			if (!__DESTROY_ALL || (__FORCE_LZ && !enemyLen))
 			{
 				if (__camVictoryData.earlyPowerBonus)
 				{

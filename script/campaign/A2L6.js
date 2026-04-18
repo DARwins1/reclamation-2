@@ -304,8 +304,8 @@ function activateCollective()
 	// Collective refillable groups
 	camMakeRefillableGroup(
 		camMakeGroup("colCommandGroup1"), {
-			templates: [ // 4 Grenadiers, 2 Lancers, 2 Medium Cannons, 2 Hurricanes
-				cTempl.cybgr, cTempl.cybgr, cTempl.cybgr, cTempl.cybgr,
+			templates: [ // 4 MR Cyborgs, 2 Lancers, 2 Medium Cannons, 2 Hurricanes
+				cTempl.cybmr, cTempl.cybmr, cTempl.cybmr, cTempl.cybmr,
 				cTempl.comatt, cTempl.comatt,
 				cTempl.commcant, cTempl.commcant,
 				cTempl.colaaht, cTempl.colaaht,
@@ -847,7 +847,7 @@ function enableFinalFactories()
 			},
 			groupSize: 3,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(48)),
-			templates: [ cTempl.scymc, cTempl.cybhg, cTempl.cybhg ] // Supers and Heavy Machinegunners
+			templates: [ cTempl.scymc, cTempl.scyhr ] // Supers
 		},
 	});
 
@@ -1268,7 +1268,7 @@ function eventStartLevel()
 			},
 			groupSize: 8,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(36)),
-			templates: [ cTempl.cybca, cTempl.cybhg ] // Heavy Gunners and Heavy Machinegunners
+			templates: [ cTempl.cybmr, cTempl.cybhg ] // MRAs and Heavy Machinegunners
 		},
 		"colCybFactory4": {
 			assembly: "colCybAssembly4",
@@ -1278,7 +1278,7 @@ function eventStartLevel()
 			},
 			groupSize: 5,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(34)),
-			templates: [ cTempl.cybgr, cTempl.cybgr, cTempl.cybgr, cTempl.scygr ] // Grenadiers and Super Heavy Grenadiers
+			templates: [ cTempl.cybgr, cTempl.cybgr, cTempl.scygr ] // Grenadiers and Super Heavy Grenadiers
 		},
 		"colCybFactory5": {
 			assembly: "colCybAssembly5",

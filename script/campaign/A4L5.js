@@ -134,6 +134,7 @@ function sendCollectiveTransporter()
 		cTempl.cybag, // Assault Gunner Cyborg
 		cTempl.scytk, // Super TK Cyborg
 		cTempl.scygr, // Super Grenadier Cyborg
+		cTempl.scyhr, // Super Heavy Rocket Cyborg
 		cTempl.scyac, // Super Auto Gunner Cyborg
 		cTempl.comhaaht, // Cyclone
 		cTempl.comhatht, // Tank Killer
@@ -205,8 +206,10 @@ function sendReinforcements()
 				cTempl.stinger, cTempl.stinger, cTempl.stinger, // Stingers
 				cTempl.infcybca, cTempl.infcybca, cTempl.infcybca, cTempl.infcybca, // Heavy Gunners
 				cTempl.infcybhg, cTempl.infcybhg, cTempl.infcybhg, // Heavy Machinegunners
+				cTempl.infcybmr, cTempl.infcybmr, // Mini-Rocket Cyborgs
 				cTempl.infcybla, cTempl.infcybla, // Lancers
 				cTempl.infscymc, // Super Heavy Gunners
+				cTempl.infscyhr, // Super Heavy Rockets
 				cTempl.infcybfl, // Flamers
 				cTempl.infcolpodt, cTempl.infcolpodt, cTempl.infcolpodt, // MRPs
 				cTempl.infcolaaht, // Hurricanes
@@ -224,7 +227,8 @@ function sendReinforcements()
 			].concat((difficulty >= MEDIUM) ? cTempl.infcomhatt : []), // Add a Tank Killer,
 			[ // Bashers, Stingers, and Infantry
 				cTempl.vilestinger, // Vile Stingers
-				cTempl.infcomtruckt, // Infested Truck
+				cTempl.infcomtruckt, // Infested Trucks
+				cTempl.infcomtruckht,
 				cTempl.stinger, cTempl.stinger, cTempl.stinger, cTempl.stinger, // Stingers
 				cTempl.basher, cTempl.basher, cTempl.basher, cTempl.basher, cTempl.basher, cTempl.basher, // Bashers
 				cTempl.boomtick, cTempl.boomtick, // Boom Ticks
@@ -524,7 +528,7 @@ function groundAssaultWave(index)
 				],
 				[ // Northeast corner entry templates
 					cTempl.comatht, cTempl.comatht, cTempl.comatht, cTempl.comatht, // 4 Lancers
-					cTempl.cybla, cTempl.cybla, cTempl.cybla, cTempl.cybla, // 4 Lancer Cyborgs
+					cTempl.scyhr, cTempl.scyhr, cTempl.scyhr, cTempl.scyhr, // 4 Super Heavy Rocket Cyborgs
 					cTempl.scygr, cTempl.scygr, cTempl.scygr, cTempl.scygr, // 4 Super Grenadiers
 				],
 			];
@@ -536,7 +540,7 @@ function groundAssaultWave(index)
 				[ // Southeast entry templates
 					cTempl.comsenst, // 1 Sensor
 					cTempl.comhmortt, cTempl.comhmortt, cTempl.comhmortt, cTempl.comhmortt, cTempl.comhmortt, cTempl.comhmortt, // 6 Bombards
-					cTempl.cybla, cTempl.cybla, cTempl.cybla, cTempl.cybla, // 4 HVCs
+					cTempl.cybla, cTempl.cybla, cTempl.cybla, cTempl.cybla, // 4 Lancer Cyborgs
 					cTempl.comhaat, cTempl.comhaat, // 2 Cyclones
 				],
 				[ // South entry templates
@@ -674,7 +678,7 @@ function groundAssaultWave(index)
 				[ // Southwest corner entry
 					cTempl.comsenst, // 1 Sensor
 					cTempl.comhatht, cTempl.comhatht, cTempl.comhatht, cTempl.comhatht, // 4 Tank Killers
-					cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk, // 4 Super Tank Killer Cyborgs
+					cTempl.scyhr, cTempl.scyhr, cTempl.scyhr, cTempl.scyhr, // 4 Super HRA Cyborgs
 					cTempl.cohhowt, cTempl.cohhowt, cTempl.cohhowt, cTempl.cohhowt, // 4 Howitzers
 				],
 				[ // Southwest entry (+commander)
@@ -733,7 +737,7 @@ function groundAssaultWave(index)
 					cTempl.comsensht, // 2 Sensors
 					cTempl.scygr, cTempl.scygr, cTempl.scygr, cTempl.scygr, 
 					cTempl.scygr, cTempl.scygr, cTempl.scygr, cTempl.scygr, // 8 Super Grenadiers
-					cTempl.cybla, cTempl.cybla, cTempl.cybla, cTempl.cybla, // 4 Lancer Cyborgs
+					cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk, // 4 Super TK Cyborgs
 					cTempl.cohript, cTempl.cohript, cTempl.cohript, cTempl.cohript, // 4 Ripple Rockets
 					cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, // 4 Cyclones
 				],
@@ -765,7 +769,7 @@ function groundAssaultWave(index)
 					cTempl.comsenst,
 					cTempl.comsensht, // 2 Sensors
 					cTempl.comhmortht, cTempl.comhmortht, cTempl.comhmortht, cTempl.comhmortht, cTempl.comhmortht, cTempl.comhmortht, // 6 Bombards
-					cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk, cTempl.scytk, // 6 Super Tank Killer Cyborgs
+					cTempl.scyhr, cTempl.scyhr, cTempl.scyhr, cTempl.scyhr, cTempl.scyhr, cTempl.scyhr, // 6 Super HRA Cyborgs
 					cTempl.cohript, cTempl.cohript, cTempl.cohript, cTempl.cohript, // 4 Ripple Rockets
 					cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, cTempl.comhaat, // 4 Cyclones
 				],

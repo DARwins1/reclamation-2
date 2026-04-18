@@ -371,7 +371,7 @@ function camIsSystemDroid(gameObject)
 //;; Make a new group out of array of droids, single game object, or label string,
 //;; with fuzzy auto-detection of argument type.
 //;; Only droids would be added to the group. `playerFilter` can be one of a
-//;; player index, `ALL_PLAYERS`, `ALLIES` or `ENEMIES`; defaults to `ENEMIES`.
+//;; player index, `ALL_PLAYERS`, `ALLIES` or `ENEMIES`; defaults to `ALL_PLAYERS`.
 //;;
 //;; @param {string|Object|Object[]} what
 //;; @param {number} [playerFilter]
@@ -934,8 +934,8 @@ function camNameTemplate(weapon, body, propulsion)
 		const __BODY_NAME = camGetCompNameFromId(body, "Body");
 		const __PROP_NAME = camGetCompNameFromId(propulsion, "Propulsion");
 		name = (__MULTI_TURRET) 
-			? [ weapName, _("Hydra"), __BODY_NAME, __PROP_NAME ].join(" ") // Add "Hydra" if multiple turrets
-			: [ weapName, __BODY_NAME, __PROP_NAME ].join(" ");
+			? [ _(weapName), _("Hydra"), _(__BODY_NAME), _(__PROP_NAME) ].join(" ") // Add "Hydra" if multiple turrets
+			: [ _(weapName), _(__BODY_NAME), _(__PROP_NAME) ].join(" ");
 	}
 	return name;
 }

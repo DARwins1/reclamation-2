@@ -104,6 +104,7 @@ function sendInfestedReinforcements()
 			cTempl.stinger, cTempl.stinger, cTempl.stinger, // Stingers
 			cTempl.infcybca, cTempl.infcybca, cTempl.infcybca, // Heavy Gunners
 			cTempl.infcybhg, cTempl.infcybhg, // Heavy Machinegunners
+			cTempl.infcybmr, cTempl.infcybmr, // Mini-Rocket Cyborgs
 			cTempl.infcolpodt, cTempl.infcolpodt, // MRPs
 			cTempl.infcolhmght, cTempl.infcolhmght, // HMGs
 			cTempl.infcolcanht, cTempl.infcolcanht, // Light Cannons
@@ -519,6 +520,7 @@ function spawnOnslaughtWaves()
 			cTempl.infcomtruckt, // Trucks
 			cTempl.infcybhg, cTempl.infcybhg, cTempl.infcybhg, // Heavy Machinegunners
 			cTempl.infcybca, cTempl.infcybca, cTempl.infcybca, // Heavy Gunners
+			cTempl.infcybmr, cTempl.infcybmr, // Mini-Rocket Cyborgs
 			cTempl.infcybla, cTempl.infcybla, // Lancers
 			cTempl.infscymc, // Super Heavy Gunners
 			cTempl.infbloke, cTempl.infbloke, cTempl.infbloke, cTempl.infbloke, // Blokes
@@ -908,7 +910,7 @@ function eventStartLevel()
 			groupSize: 4,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(85)),
 			// Assault Gunners + Rocket Cyborgs
-			templates: [ cTempl.cybag, cTempl.cybla, cTempl.cybag, cTempl.scytk ]
+			templates: [ cTempl.cybag, cTempl.scyhr, cTempl.cybag, cTempl.scytk ]
 		},
 		"colVtolFactory": {
 			assembly: "colVtolAssembly",

@@ -196,12 +196,12 @@ function expandMap()
 	});
 
 	// Set up refillable groups and trucks
-	// Echo patrol group (2 Lancer Cyborgs, 2 HMG Cyborgs, 1 Hurricane)
+	// Echo patrol group (2 Lancer Cyborgs, 2 MRA Cyborgs, 1 Hurricane)
 	camMakeRefillableGroup(
 		camMakeGroup("echoPatrolGroup"), {
 			templates: [
 				cTempl.cybla, cTempl.cybla,
-				cTempl.cybhg, cTempl.cybhg,
+				cTempl.cybmr, cTempl.cybmr,
 				cTempl.pllaaw,
 			],
 			factories: ["colFactory1", "colCybFactory1"],
@@ -232,7 +232,7 @@ function expandMap()
 				cTempl.cybla, cTempl.cybla, cTempl.cybla,
 				cTempl.cybhg, cTempl.cybhg, cTempl.cybhg,
 				cTempl.pllaaw, cTempl.pllaaw,
-				cTempl.cybla, cTempl.cybhg, // Lancer + HMG (Hard+)
+				cTempl.cybmr, cTempl.cybmr, // MRAs (Hard+)
 			],
 			factories: ["colFactory2", "colCybFactory2"],
 			obj: "echoCommander" // Stop refilling this group when the commander dies
@@ -407,7 +407,7 @@ function expandMap()
 	camSafeRemoveObject("echoSpySensor");
 
 	// Hack to prevent the south half of the map from being dark after the expansion
-	setSunPosition(225.0, -601.0, 450.0); // Move the sun just a wee bit (default is 225.0, -600.0, 450.0)
+	camSetSunPos(-225.0, -601.0, 450.0); // Move the sun just a wee bit
 }
 
 function enableFirstFactories()
@@ -579,6 +579,8 @@ function discoverEcho()
 {
 	echoDiscovered = true;
 
+	camSkipDialogue(); // Stop any ongoing dialogue
+
 	// Tell the player to KILL Echo's base
 	camPlayVideos([cam_sounds.incoming.incomingTransmission, {video: "A2L2_ECHO", type: MISS_MSG}]);
 
@@ -682,7 +684,8 @@ function eventStartLevel()
 	camSetStandardWinLossConditions(CAM_VICTORY_OFFWORLD, "A2L3", {
 		message: "DELTA_LZ",
 		reinforcements: -1, // will override later
-		callback: "echoEradicated"
+		callback: "echoEradicated",
+		area: "landingZone1"
 	});
 	camSetExtraObjectiveMessage("Investigate the distress signal");
 
@@ -782,7 +785,7 @@ function eventStartLevel()
 			},
 			groupSize: 3,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(55)),
-			templates: [ cTempl.cybhg, cTempl.cybla, cTempl.cybhg ]
+			templates: [ cTempl.cybhg, cTempl.cybla, cTempl.cybhg ] // MGs and Lancers
 		},
 		"colCybFactory2": {
 			assembly: "colCybAssembly2",
@@ -792,7 +795,7 @@ function eventStartLevel()
 			},
 			groupSize: 5,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(65)),
-			templates: [ cTempl.cybhg ] // MG hell
+			templates: [ cTempl.cybmr, cTempl.cybhg, cTempl.cybmr ] // MGs and MRAs
 		},
 		"colVtolFactory": {
 			assembly: "colVtolAssembly",
@@ -855,6 +858,6 @@ function eventStartLevel()
 	camSetFog(8, 8, 32);
 	// Darken the lighting and add a blue hue
 	camSetSunIntensity(.35, .35, .45);
-	setSunPosition(225.0, -600.0, 450.0);
+	camSetSunPos(-225.0, -600.0, 450.0);
 	camSetSkyType(CAM_SKY_NIGHT);
 }

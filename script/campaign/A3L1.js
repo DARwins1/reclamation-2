@@ -168,14 +168,7 @@ function sendCollectiveTransporter()
 	{
 		droidPool.push(cTempl.comagt); // Assault Gun
 		droidPool.push(cTempl.cybag); // Assault Gunner
-		if (difficulty < HARD)
-		{
-			droidPool.push(cTempl.cybgr); // Grenadier
-		}
-		else
-		{
-			droidPool.push(cTempl.scygr); // Super Grenadier
-		}
+		droidPool.push(cTempl.scygr); // Super Grenadier
 	}
 
 	const droids = [];
@@ -464,7 +457,7 @@ function eventStartLevel()
 			},
 			groupSize: 5,
 			throttle: camChangeOnDiff(camSecondsToMilliseconds(45)),
-			templates: [ cTempl.cybhg, cTempl.cybca, cTempl.cybca ]
+			templates: [ cTempl.cybhg, cTempl.cybca, cTempl.cybmr ]
 		},
 		"cScavFactory1": {
 			assembly: "cScavAssembly1",
@@ -602,7 +595,7 @@ function eventStartLevel()
 		];
 
 		const artPool = [ // Bombards, MRAs and Super Grenadiers
-			cTempl.plmhmortw, cTempl.commraht, cTempl.scygr,
+			cTempl.plmhmortw, cTempl.commraht, cTempl.cybmr, cTempl.scygr,
 		];
 
 		const vtolPool = [ // Misc. VTOLs

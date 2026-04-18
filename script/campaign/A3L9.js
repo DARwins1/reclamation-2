@@ -15,12 +15,13 @@ const mis_infestedResearch = [
 var allowWin;
 var lastTransportAlert;
 var foxtrotCommanderDeathTime;
-var teamUnitRank;
+var teamUnitMaxRank;
 var foxtrotActive;
 var golfActive;
 var allowFlanking;
 var transportDialogueIndex;
-
+var foxtrotIdx;
+var golfIdx;
 
 var foxtrotLzTruckJobs;
 var foxtrotDefenseTruckJobs;
@@ -178,8 +179,10 @@ function sendInfestedReinforcements()
 			cTempl.stinger, cTempl.stinger, cTempl.stinger, // Stingers
 			cTempl.infcybca, cTempl.infcybca, cTempl.infcybca, cTempl.infcybca, // Heavy Gunners
 			cTempl.infcybhg, cTempl.infcybhg, cTempl.infcybhg, // Heavy Machinegunners
+			cTempl.infcybmr, cTempl.infcybmr, // Mini-Rocket Cyborgs
 			cTempl.infcybla, // Lancers
 			cTempl.infscymc, // Super Heavy Gunners
+			cTempl.infscyhr, // Super Heavy Rockets
 			cTempl.infcolpodt, cTempl.infcolpodt, cTempl.infcolpodt, // MRPs
 			cTempl.infcolhmght, cTempl.infcolhmght, cTempl.infcolhmght, // HMGs
 			cTempl.infcolcanht, cTempl.infcolcanht, cTempl.infcolcanht, // Light Cannons
@@ -391,13 +394,13 @@ function transportDialogue(index)
 	default:
 		break;
 	}
-	
 }
 
 // Bring in Foxtrot halftracks and cyborgs
 // Also bring in trucks if necessary
 function sendFoxtrotGroundReinforcements()
 {
+	foxtrotIdx++;
 	const truckEntrances = [ // Entrances that trucks arrive from
 		"teamEntry11", "teamEntry12",
 	];
@@ -449,7 +452,8 @@ function sendFoxtrotGroundReinforcements()
 		});
 
 		// Assign the standard rank
-		camSetDroidRank(enumGroup(reinforcements), teamUnitRank);
+		const RANK = Math.min(Math.floor(foxtrotIdx / 2), teamUnitMaxRank); 
+		camSetDroidRank(enumGroup(reinforcements), RANK);
 	}
 }
 
@@ -505,6 +509,7 @@ function sendFoxtrotTransporter()
 // Also bring in trucks if necessary
 function sendGolfGroundReinforcements()
 {
+	golfIdx++;
 	const truckEntrances = [ // Entrances that trucks arrive from
 		"teamEntry8", "teamEntry9",
 	];
@@ -553,12 +558,9 @@ function sendGolfGroundReinforcements()
 			}
 		});
 
-		const droids = enumGroup(reinforcements);
-		for (const droid of droids)
-		{
-			// Assign the standard rank
-			camSetDroidRank(droid, teamUnitRank);
-		}
+		// Assign the standard rank
+		const RANK = Math.min(Math.floor(golfIdx / 2), teamUnitMaxRank); 
+		camSetDroidRank(enumGroup(reinforcements), RANK);
 	}
 }
 
@@ -624,9 +626,10 @@ function eventTransporterLanded(transport)
 				camSetDroidRank(droid, (difficulty <= EASY) ? 6 : (difficulty + 4));
 			}
 			else
-			{		
+			{
 				// Assign the standard rank
-				camSetDroidRank(droid, teamUnitRank);
+				const RANK = Math.min(Math.floor(foxtrotIdx / 2), teamUnitMaxRank); 
+				camSetDroidRank(droid, RANK);
 			}
 		}
 
@@ -638,7 +641,8 @@ function eventTransporterLanded(transport)
 		const transDroids = camGetTransporterDroids(transport.player);
 
 		// Assign the standard rank
-		camSetDroidRank(transDroids, teamUnitRank);
+		const RANK = Math.min(Math.floor(golfIdx / 2), teamUnitMaxRank); 
+		camSetDroidRank(transDroids, RANK);
 
 		camAssignToRefillableGroups(transDroids, golfPatrolGroup); // Any leftovers will attack the player
 	}
@@ -1020,7 +1024,9 @@ function eventStartLevel()
 	allowWin = false;
 	foxtrotCommanderDeathTime = 0;
 	lastTransportAlert = 0;
-	teamUnitRank = difficulty + 1; // Green to Veteran
+	foxtrotIdx = 0;
+	golfIdx = 0;
+	teamUnitMaxRank = difficulty + 1; // Green to Veteran
 
 	// Most Infested units start out pre-damaged
 	camSetPreDamageModifier(CAM_INFESTED, [50, 80], [60, 90], CAM_INFESTED_PREDAMAGE_EXCLUSIONS);

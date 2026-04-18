@@ -225,7 +225,7 @@ function eventGroupLoss(obj, group, newsize)
 // Aggro the Collective early if the player attacks the Collective base
 function eventDestroyed(obj)
 {
-	if (!commanderAggro && obj.player === CAM_THE_COLLECTIVE && camWithinArea(obj, "colBase"))
+	if (!commanderAggro && obj.player === CAM_THE_COLLECTIVE && camWithinArea(obj, "colBase") && obj.type === STRUCTURE)
 	{
 		camCallOnce("aggroCommander");
 		camEnableFactory("colFactory");
