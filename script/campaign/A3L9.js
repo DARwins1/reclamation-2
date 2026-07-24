@@ -634,7 +634,7 @@ function eventTransporterLanded(transport)
 		}
 
 		// Assign units to their refillable groups
-		camAssignToRefillableGroups(transDroids, [foxtrotPatrolGroup, foxtrotCommandGroup, foxtrotHoverGroup]);
+		camAssignToRefillableGroups(transDroids, [foxtrotPatrolGroup, foxtrotCommander, foxtrotCommandGroup, foxtrotHoverGroup]);
 	}
 	else if (transport.player === MIS_TEAM_GOLF)
 	{
@@ -974,16 +974,16 @@ function eventStartLevel()
 		});
 	foxtrotCommandGroup = camMakeRefillableGroup(
 		undefined, {
-			templates: [ // 6 Tank Killers, 6 BBs, 6 Infernos
+			templates: [ // 6 Tank Killers, 6 BBs, 6 Thermite Cyborgs
 				cTempl.plhhatw, cTempl.plhhatw,
 				cTempl.plhbbw, cTempl.plhbbw,
-				cTempl.plhinfw, cTempl.plhinfw,
+				cTempl.cybth, cTempl.cybth,
 				cTempl.plhhatw, cTempl.plhhatw,
 				cTempl.plhbbw, cTempl.plhbbw,
-				cTempl.plhinfw, cTempl.plhinfw,
+				cTempl.cybth, cTempl.cybth,
 				cTempl.plhhatw, cTempl.plhhatw,
 				cTempl.plhbbw, cTempl.plhbbw,
-				cTempl.plhinfw, cTempl.plhinfw,
+				cTempl.cybth, cTempl.cybth,
 				cTempl.plhhatw, cTempl.plhhatw, // 2 Tank Killers (Hard+)
 				cTempl.plhbbw, cTempl.plhbbw, // 2 Bunker Busters (Insane)
 			],

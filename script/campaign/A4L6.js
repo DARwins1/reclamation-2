@@ -13,7 +13,7 @@ const MIS_TEAM_DELTA = 5;
 const MIS_CIVS = 6; // Civilians waiting to be rescued
 const MIS_CIV_ESCORTS = 7; // Civilians after being collected
 
-const MIS_TRANSPORT_MAX_TIME = camMinutesToSeconds(5); // 5 minutes max
+const MIS_TRANSPORT_MAX_TIME = camMinutesToSeconds(3); // 3 minutes max
 const MIS_TRANSPORT_START_TIME = camMinutesToSeconds(1.5); // 1.5 minutes for the first transport
 const MIS_TRANSPORT_TIME_INCREMENT = 15; // Increase transport time by 15 seconds per transport
 const DORDER_GUARD = 25; // Order number for guarding an droid/structure

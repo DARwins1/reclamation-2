@@ -97,11 +97,13 @@ function activateInfested()
 	]);
 }
 
-function activateFactories()
+function activateTeamFactories()
 {
+	camEnableFactory("foxtrotFactory1");
 	camEnableFactory("foxtrotFactory2");
 	camEnableFactory("foxtrotFactory3");
 	camEnableFactory("foxtrotFactory4");
+	camEnableFactory("foxtrotCybFactory1");
 	camEnableFactory("foxtrotCybFactory2");
 	camEnableFactory("foxtrotCybFactory3");
 	camEnableFactory("foxtrotCybFactory4");
@@ -396,17 +398,7 @@ function boostTeams()
 	});
 
 	// Re-enable the factories (if they're still alive)
-	camEnableFactory("foxtrotFactory1");
-	camEnableFactory("foxtrotFactory2");
-	camEnableFactory("foxtrotFactory3");
-	camEnableFactory("foxtrotFactory4");
-	camEnableFactory("foxtrotCybFactory1");
-	camEnableFactory("foxtrotCybFactory2");
-	camEnableFactory("foxtrotCybFactory3");
-	camEnableFactory("foxtrotCybFactory4");
-	camEnableFactory("golfFactory1");
-	camEnableFactory("golfFactory2");
-	camEnableFactory("golfFactory3");
+	activateTeamFactories();
 
 	// Increase the size of Golf's VTOL attack/strike groups
 	camSetRefillableGroupData(golfVtolAttackGroup, {
@@ -417,14 +409,16 @@ function boostTeams()
 			cTempl.plmtbombv, cTempl.plmtbombv,
 			cTempl.plmhbombv, cTempl.plmhbombv,
 			cTempl.plmtbombv, cTempl.plmtbombv,
-	]});
+		]
+	});
 	camSetRefillableGroupData(golfVtolStrikeGroup, {
 		templates: [ // 12 HEAP Bombs
 			cTempl.plmhbombv, cTempl.plmhbombv, cTempl.plmhbombv,
 			cTempl.plmhbombv, cTempl.plmhbombv, cTempl.plmhbombv,
 			cTempl.plmhbombv, cTempl.plmhbombv, cTempl.plmhbombv,
 			cTempl.plmhbombv, cTempl.plmhbombv, cTempl.plmhbombv,
-	]});
+		]
+	});
 
 	// Restart banter queue
 	banterIdx = 1;
@@ -586,7 +580,7 @@ function donateFoxtrot()
 		camQueueDialogue([
 			{text: "GOLF: Foxtrot!?", delay: 8, sound: CAM_RCLICK},
 			{text: "GOLF: No...", delay: 2, sound: CAM_RCLICK},
-			{text: "GOLF: How could-", delay: 2, sound: CAM_RCLICK},
+			{text: "GOLF: How did-", delay: 2, sound: CAM_RCLICK},
 			{text: "GOLF: YOU.", delay: 6, sound: CAM_RCLICK},
 			{text: "GOLF: You're going to PAY for that, Bravo!", delay: 2, sound: CAM_RCLICK},
 		]);
@@ -1256,19 +1250,19 @@ function eventStartLevel()
 	});
 	camMakeRefillableGroup(
 		camMakeGroup("foxtrotCommandGroup"), {
-			templates: [ // 8 Tank Killers, 6 Infernos, 4 Bunker Busters
+			templates: [ // 8 Tank Killers, 6 Thermite Flamers, 4 Bunker Busters
 				cTempl.plhhatw, cTempl.plhhatw,
-				cTempl.plhinfw, cTempl.plhinfw,
+				cTempl.cybth, cTempl.cybth,
 				cTempl.plhbbw, cTempl.plhbbw,
 				cTempl.plhhatw, cTempl.plhhatw,
-				cTempl.plhinfw, cTempl.plhinfw,
+				cTempl.cybth, cTempl.cybth,
 				cTempl.plhbbw, cTempl.plhbbw,
 				cTempl.plhhatw, cTempl.plhhatw,
-				cTempl.plhinfw, cTempl.plhinfw,
-				cTempl.plhinfw, cTempl.plhinfw, // 2 Infernos (Hard+)
+				cTempl.cybth, cTempl.cybth,
+				cTempl.cybth, cTempl.cybth, // 2 Thermite Flamers (Hard+)
 				cTempl.plhbbw, cTempl.plhbbw, // 2 Bunker Busters (Insane)
 			],
-			factories: ["foxtrotFactory1", "foxtrotFactory2"]
+			factories: ["foxtrotFactory1", "foxtrotFactory2", "foxtrotCybFactory1", "foxtrotCybFactory2"]
 		}, CAM_ORDER_FOLLOW, {
 			leader: "foxtrotCommander",
 			repair: 75,
@@ -1302,7 +1296,7 @@ function eventStartLevel()
 			interval: camSecondsToMilliseconds(24),
 			radius: 20,
 			count: 16,
-			morale: 60,
+			// morale: 60,
 			repair: 75,
 			fallback: camMakePos("hoverFallbackPos")
 	});
@@ -1586,7 +1580,7 @@ function eventStartLevel()
 	camEnableFactory("foxtrotCybFactory1");
 
 	queue("activateInfested", camChangeOnDiff(camMinutesToMilliseconds(2)));
-	queue("activateFactories", camChangeOnDiff(camMinutesToMilliseconds(3)));
+	queue("activateTeamFactories", camChangeOnDiff(camMinutesToMilliseconds(3)));
 
 	setTimer("teamBanter", camMinutesToMilliseconds(5));
 
