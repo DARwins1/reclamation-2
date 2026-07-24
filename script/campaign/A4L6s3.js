@@ -1073,8 +1073,8 @@ function lightningChance()
 		return; // Don't cause any lightning within the final 30 seconds
 	}
 	// Lightning chance increases as the timer ticks down
-	// Decreases from 1/60 chance towards 1/30 chance
-	else if (camRand((getMissionTime()  * 30 / camMinutesToSeconds(20)) + 30) === 0)
+	// Decreases from 1/120 chance towards 1/60 chance
+	else if (camRand((getMissionTime() * 60 / camMinutesToSeconds(20)) + 60) === 0)
 	{
 		lightningEffects();
 	}
